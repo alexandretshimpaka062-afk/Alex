@@ -118,7 +118,7 @@ svg{display:block}
 
 .main{min-width:0;padding:22px 28px 60px;display:flex;flex-direction:column;gap:22px}
 .topbar{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding:12px 0 10px;margin-top:-12px}
-.topbar::before{content:"";position:absolute;inset:0 -28px;background:linear-gradient(var(--bg) 40%,transparent);opacity:.92;z-index:-1;pointer-events:none}
+.topbar::before{content:"";position:absolute;inset:-14px -28px -8px;background:linear-gradient(var(--bg) 82%,transparent);opacity:.97;z-index:-1;pointer-events:none}
 .titles{flex:1;min-width:0}
 .eyebrow{margin:0 0 2px;color:var(--ink-3);font-size:13px;font-weight:550}
 .titles h1{font-size:clamp(28px,3.4vw,40px);font-weight:750;line-height:1.05}
@@ -289,7 +289,7 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 /* feuille (panneau) */
 .sheet-wrap{position:fixed;inset:0;z-index:60}
 .backdrop{position:absolute;inset:0;background:rgba(3,10,16,.36);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fade .25s ease both;opacity:0}
-.panel{position:absolute;top:12px;right:12px;bottom:12px;width:min(480px,calc(100% - 24px));display:flex;flex-direction:column;background:var(--glass-strong);border:1px solid var(--line-2);border-radius:26px;box-shadow:var(--shadow-lg);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);animation:slideIn .55s var(--spring) both;overflow:hidden}
+.panel{position:absolute;top:12px;right:12px;bottom:12px;width:min(540px,calc(100% - 24px));display:flex;flex-direction:column;background:var(--glass-strong);border:1px solid var(--line-2);border-radius:26px;box-shadow:var(--shadow-lg);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);animation:slideIn .55s var(--spring) both;overflow:hidden}
 @keyframes slideIn{from{transform:translateX(105%)}}
 .sheet-wrap.closing .panel{animation:slideOut .3s var(--ease) both}
 .sheet-wrap.closing .backdrop{animation:fadeOut .3s ease both}
@@ -322,6 +322,50 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 .chosen{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--line)}
 .recap{padding:14px;border-radius:16px;background:var(--glass);border:1px dashed var(--line-2);font-size:13.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
 .recap b{color:var(--ink)}
+
+/* formulaires */
+.req{color:var(--danger);font-weight:700}
+.form-note{margin:0;font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.f.err input,.f.err select,.f.err .num-in{border-color:var(--danger)!important;box-shadow:0 0 0 4px var(--danger-soft)!important}
+.f .msg{font-size:12.5px;font-weight:600;color:var(--danger)}
+.num-in{display:flex;align-items:center;height:44px;border-radius:12px;border:1px solid var(--line-2);background:var(--solid);overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.num-in:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.num-in input{border:0!important;box-shadow:none!important;text-align:center;font:700 16px var(--display);height:42px!important;background:transparent!important;-moz-appearance:textfield}
+.num-in input::-webkit-inner-spin-button{-webkit-appearance:none}
+.num-in button{width:42px;height:42px;display:grid;place-items:center;color:var(--ink-2);flex:none}
+.num-in button:hover{background:var(--accent-soft);color:var(--accent)}
+.num-in button svg{width:16px;height:16px}
+.f .seg{align-self:flex-start;flex-wrap:wrap}
+.seg.big{align-self:stretch;display:grid;grid-template-columns:1fr 1fr}
+.seg.big button{height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.warn-box{display:flex;gap:10px;padding:12px 14px;border-radius:14px;background:var(--warn-soft);color:var(--ink);font-size:13.5px;animation:rise .4s var(--ease) both}
+.warn-box>svg{width:18px;height:18px;color:var(--warn);flex:none;margin-top:2px}
+.link{color:var(--accent);font-weight:650;display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.link svg{width:15px;height:15px}
+.added{font:700 12px var(--body);padding:4px 10px;border-radius:99px;background:var(--green-soft);color:var(--green);white-space:nowrap}
+.steps{display:flex;gap:6px;flex-wrap:wrap}
+.steps span{font-size:12px;font-weight:650;padding:5px 10px;border-radius:99px;background:var(--line);color:var(--ink-3);transition:background .3s,color .3s}
+.steps span.on{background:var(--accent-soft);color:var(--accent)}
+.steps span.done{background:var(--green-soft);color:var(--green)}
+.chosen-list{display:flex;flex-direction:column;gap:8px}
+.panel-f{flex-wrap:wrap}
+.panel-f .btn{padding:0 14px}
+@media (max-width:700px){.panel-f .btn{flex:1 1 auto}}
+.add-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.add-item{flex-direction:row;align-items:center;padding:16px;animation:rise .5s var(--ease) both}
+.add-item b{display:block;font-size:15px}
+.add-item small{display:block;color:var(--ink-3);font-weight:500;font-size:12.5px}
+@media (max-width:480px){.add-grid{grid-template-columns:minmax(0,1fr)}}
+.fab{position:fixed;right:28px;bottom:28px;z-index:45;height:56px;padding:0 22px 0 18px;border-radius:20px;display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--c9));box-shadow:0 18px 40px -14px var(--accent),0 0 0 1px rgba(255,255,255,.2) inset;transition:transform .35s var(--spring),box-shadow .3s}
+.fab:hover{transform:translateY(-3px) scale(1.03)}
+.fab svg{width:22px;height:22px;transition:transform .4s var(--spring)}
+.fab:hover svg{transform:rotate(90deg)}
+@media (max-width:900px){.fab{right:16px;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:56px;padding:0;justify-content:center}.fab span{display:none}}
+.still .bar{animation:none}
+.still circle.seg{transition:none}
+.flash{animation:flash 2.2s var(--ease) both!important}
+@keyframes flash{0%,30%{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+.book.flash{border-radius:14px}
 
 /* palette ⌘K */
 .palette{position:fixed;inset:0;z-index:70;display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px}
@@ -455,6 +499,7 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
   <nav class="tabbar" id="tabbar" aria-label="Navigation"></nav>
 </div>
 
+<button class="fab" id="fab" type="button" aria-label="Ajouter"></button>
 <div class="toasts" id="toasts" role="status"></div>
 <div id="printArea"></div>
 
@@ -713,7 +758,7 @@ const VIEWS = [
   { id: "rapport", label: "Rapport mensuel", icon: "report" },
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
-const ui = { view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
+const ui = { flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
 try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h)) ui.view = h; } catch {}
 
 function buildNav() {
@@ -728,7 +773,7 @@ function go(id) {
   ui.view = id; ui.animate = true;
   try { history.replaceState(null, "", "#" + id); } catch {}
   const doIt = () => { render(); window.scrollTo({ top: 0 }); };
-  if (document.startViewTransition && !reduced) document.startViewTransition(doIt); else doIt();
+  doIt();
 }
 function syncNav() {
   $$("[data-go]").forEach(b => { if (b.dataset.go === ui.view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
@@ -749,7 +794,7 @@ const HEAD = {
   livres: () => [nf(S.livres.length) + " titres · " + nf(S.livres.reduce((a, b) => a + (+b.ex || 0), 0)) + " exemplaires", "Livres", ["Ajouter un livre", "plus", () => bookSheet()]],
   emprunts: () => ["Sorties, retours et amendes", "Emprunts", ["Nouvel emprunt", "plus", () => loanSheet()]],
   membres: () => [nf(S.membres.length) + " membres inscrits", "Membres", ["Ajouter un membre", "plus", () => memberSheet()]],
-  fournitures: () => ["Stock de l'école", "Fournitures", ["Mouvement de stock", "swap", () => moveSheet()]],
+  fournitures: () => ["Stock de l'école", "Fournitures", ["Ajouter un article", "plus", () => supplySheet()]],
   rapport: () => ["À imprimer en fin de mois", "Rapport mensuel", store.mode === "local" ? ["Imprimer", "print", () => printReport()] : ["Télécharger", "down", () => downloadReport()]],
   reglages: () => ["École, règles de prêt et données", "Réglages", null],
 };
@@ -768,13 +813,16 @@ function render() {
   if (action) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
   const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView }[ui.view]();
   const y = window.scrollY;
-  view.className = ui.animate ? "enter" : "";
+  view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
   $$(":scope > *", view).forEach((el, i) => el.style.setProperty("--i", i));
   bindView();
   if (ui.animate) { animateNumbers(view); ui.animate = false; } else { $$("[data-count]", view).forEach(el => el.textContent = fmtCount(el)); window.scrollTo({ top: y }); }
   requestAnimationFrame(() => { $$(".meter b[data-w]", view).forEach(b => b.style.width = b.dataset.w); $$("circle.seg[data-dash]", view).forEach(c => { c.setAttribute("stroke-dasharray", c.dataset.dash); c.setAttribute("stroke-dashoffset", c.dataset.off); }); });
   sideSummary(); syncNav();
+  if (ui.flash) { const id = ui.flash; ui.flash = null;
+    setTimeout(() => { const el = $(`#view [data-book="${CSS.escape(id)}"],#view [data-member="${CSS.escape(id)}"],#view [data-loan="${CSS.escape(id)}"],#view [data-srow="${CSS.escape(id)}"]`);
+      if (el) { el.classList.add("flash"); el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" }); } }, 350); }
 }
 function syncChrome() {
   const chip = $("#modeChip");
@@ -976,7 +1024,7 @@ function loansList() {
     .filter(e => !q || norm([e.id, e.b && e.b.titre, e.m && e.m.nom, e.m && e.m.classe].join(" ")).includes(q));
   if (!arr.length) return `<div class="card empty">${f === "retard" ? "Aucun livre en retard." : "Aucun emprunt dans cette liste."}</div>`;
   return `<div class="card"><div class="table-wrap"><table><thead><tr><th>Livre</th><th>Membre</th><th>Sorti le</th><th>À rendre le</th><th>Statut</th><th class="r">Amende</th><th></th></tr></thead><tbody>
-  ${arr.slice(0, 300).map(e => { const [l, t] = STAT[e.statut]; return `<tr><td><div style="display:flex;gap:12px;align-items:center">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s code">${esc(e.id)}</div></div></div></td>
+  ${arr.slice(0, 300).map(e => { const [l, t] = STAT[e.statut]; return `<tr data-loan="${esc(e.id)}"><td><div style="display:flex;gap:12px;align-items:center">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s code">${esc(e.id)}</div></div></div></td>
     <td><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${esc(e.m ? e.m.classe : "")}</div></td>
     <td>${fmtD(e.date)}</td><td>${fmtD(e.prevu)}${e.retour ? `<div class="s">rendu le ${fmtD(e.retour)}</div>` : ""}</td>
     <td>${pill(l + (e.jours && !e.retour ? " · " + e.jours + " j" : ""), t)}</td>
@@ -1016,7 +1064,7 @@ function suppliesView() {
       <div class="card kpi" style="--tone:var(--warn);--tone-soft:var(--warn-soft)"><div class="k-top"><span class="k-ic">${ic("alert")}</span>À réapprovisionner</div><div class="k-val" data-count="${st[1][1] + st[2][1]}">0</div><div class="k-sub">${st[2][1]} en rupture</div></div>
     </div>
     <div class="grid cols-21">
-      <div class="card"><div class="card-h"><h3>Inventaire</h3><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
+      <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Inventaire</h3><button class="btn sm ghost" type="button" data-quick="move">${ic("swap")}Entrée / sortie</button><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
       <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
         <div class="card"><div class="card-h"><h3>État des stocks</h3></div>${donut(st.map(([label, value, color]) => ({ label, value, color })).filter(x => x.value), F.length, "articles")}</div>
         <div class="card"><div class="card-h"><h3>Derniers mouvements</h3></div><div class="rows">${recent.map(m => { const f = D.fmap.get(m.article); return `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto"><span class="k-ic" style="width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--${m.type === "entree" ? "green" : "warn"}-soft);color:var(--${m.type === "entree" ? "green" : "warn"})">${ic(m.type === "entree" ? "down" : "up")}</span><div style="min-width:0"><div class="t">${esc(f ? f.article : m.article)}</div><div class="s">${fmtShort(m.date)} · ${esc(m.tiers || "")}</div></div><b class="num">${m.type === "entree" ? "+" : "−"}${m.qte}</b></div>`; }).join("") || '<div class="empty">Aucun mouvement.</div>'}</div></div>
@@ -1027,7 +1075,7 @@ function suppliesList() {
   const q = norm(ui.q.fourn || ""); const arr = D.fournitures.filter(f => !q || norm(f.article + " " + f.categorie + " " + f.id).includes(q));
   if (!arr.length) return '<div class="empty">Aucun article.</div>';
   return `<div class="rows">${arr.map(f => { const pct = Math.min(100, f.stock / Math.max(1, f.seuil * 3) * 100);
-    return `<div class="row" style="grid-template-columns:minmax(0,1fr) minmax(70px,140px) auto auto">
+    return `<div class="row" data-srow="${esc(f.id)}" style="grid-template-columns:minmax(0,1fr) minmax(70px,140px) auto auto">
       <div style="min-width:0;cursor:pointer" data-supply="${esc(f.id)}"><div class="t">${esc(f.article)}</div><div class="s">${esc(f.categorie)} · ${fc(f.prix)} / ${esc(f.unite.toLowerCase())}</div></div>
       <div class="meter" title="Seuil : ${f.seuil}" style="--tone:var(--${f.etat === "rupture" ? "danger" : f.etat === "faible" ? "warn" : "green"})"><b data-w="${pct}%"></b><span class="mark" style="left:33.3%"></span></div>
       <div class="stepper"><button type="button" data-step="${esc(f.id)}:sortie" aria-label="Sortie d'une unité">${ic("minus")}</button><b>${f.stock}</b><button type="button" data-step="${esc(f.id)}:entree" aria-label="Entrée d'une unité">${ic("plus")}</button></div>
@@ -1198,7 +1246,7 @@ function openSheet(title, body, foot, onMount) {
   const first = $("input,select,textarea", sheetEl); if (first && matchMedia("(min-width:700px)").matches) setTimeout(() => first.focus(), 250);
 }
 function closeSheet(instant) {
-  if (!sheetEl) return; const el = sheetEl; sheetEl = null;
+  if (!sheetEl) return; const el = sheetEl; sheetEl = null; if (!instant) ui.returning = false;
   if (instant || reduced) return el.remove();
   el.classList.add("closing"); setTimeout(() => el.remove(), 300);
 }
@@ -1208,29 +1256,81 @@ function confirmSheet(title, text, label, fn) {
 }
 const opt = (arr, v) => arr.map(x => `<option ${x === v ? "selected" : ""}>${esc(x)}</option>`).join("");
 const val = id => ($("#" + id) || {}).value?.trim?.() ?? "";
+const uniq = arr => [...new Set(arr.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), "fr"));
+const dlist = (id, arr) => `<datalist id="${id}">${uniq(arr).map(x => `<option value="${esc(x)}">`).join("")}</datalist>`;
+const numField = (id, label, v, min = 0, step = 1) => `<div class="f"><label for="${id}">${label}</label><div class="num-in"><button type="button" data-dec="${id}" aria-label="Moins">${ic("minus")}</button><input id="${id}" type="number" inputmode="numeric" min="${min}" step="${step}" value="${esc(v)}"><button type="button" data-inc="${id}" aria-label="Plus">${ic("plus")}</button></div></div>`;
+const req = l => `${l} <span class="req">*</span>`;
+/* pied de formulaire commun : Supprimer · Annuler · Enregistrer et ajouter un autre · Enregistrer */
+function formFoot(isNew, label = "Enregistrer", again = true) {
+  return `${isNew ? "" : `<button class="btn danger" type="button" id="delBtn" style="margin-right:auto">${ic("trash")}Supprimer</button>`}
+    <button class="btn ghost" type="button" data-close2>Annuler</button>
+    ${isNew && again ? `<button class="btn ghost" type="button" id="againBtn">${ic("plus")}Enregistrer et continuer</button>` : ""}
+    <button class="btn primary" type="button" id="saveBtn">${ic("check")}${label}</button>`;
+}
+function fieldErr(el, id, msg) {
+  const f = $("#" + id, el)?.closest(".f"); if (!f) return toast(msg, true);
+  f.classList.add("err"); let m = $(".msg", f); if (!m) { m = document.createElement("div"); m.className = "msg"; f.appendChild(m); } m.textContent = msg;
+  $("#" + id, el).focus(); f.animate?.([{ transform: "translateX(0)" }, { transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "translateX(0)" }], { duration: 260 });
+  return false;
+}
+function clearErr(el) { $$(".f.err", el).forEach(f => { f.classList.remove("err"); $(".msg", f)?.remove(); }); }
+/* gestion commune : boutons, entrée = enregistrer, compteur d'ajouts en série */
+function wireForm(el, { save, view, reset, onDelete }) {
+  let added = 0;
+  $("[data-close2]", el).onclick = () => closeSheet();
+  const run = again => { clearErr(el); const id = save(); if (!id) return;
+    if (again) { added++; reset(); const h = $(".panel-h h2", el); let c = $(".added", el); if (!c) { c = document.createElement("span"); c.className = "added"; h.after(c); } c.textContent = added + " ajouté" + (added > 1 ? "s" : ""); c.animate?.([{ transform: "scale(.6)" }, { transform: "scale(1)" }], { duration: 350, easing: "cubic-bezier(.34,1.56,.64,1)" }); $("input:not([type=hidden]),select", el)?.focus(); }
+    else { closeSheet(); showAdded(view, id); } };
+  $("#saveBtn", el).onclick = () => run(false);
+  const a = $("#againBtn", el); if (a) a.onclick = () => run(true);
+  const d = $("#delBtn", el); if (d && onDelete) d.onclick = onDelete;
+  el.addEventListener("input", e => { const f = e.target.closest(".f.err"); if (f) { f.classList.remove("err"); $(".msg", f)?.remove(); } });
+  el.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "search") { e.preventDefault(); run(e.shiftKey); } });
+  el.addEventListener("click", e => { const b = e.target.closest("[data-inc],[data-dec]"); if (!b) return; const inp = $("#" + (b.dataset.inc || b.dataset.dec), el);
+    const st = +inp.step || 1; inp.value = Math.max(+inp.min || 0, (+inp.value || 0) + (b.dataset.inc ? st : -st)); inp.dispatchEvent(new Event("input", { bubbles: true })); });
+}
+/* après un ajout : on ouvre la bonne liste et la nouvelle ligne s'illumine */
+function showAdded(view, id) {
+  ui.flash = id;
+  if (view === "livres") { ui.q.livres = ""; ui.q.cat = ""; ui.filter.livres = "tous"; }
+  if (view === "membres") { ui.q.membres = ""; ui.q.cls = ""; }
+  if (view === "emprunts") { ui.q.emprunts = ""; ui.filter.emprunts = "actifs"; }
+  if (view === "fournitures") ui.q.fourn = "";
+  if (ui.view !== view) go(view); else render();
+}
 
 function bookSheet(b) {
   const p = params(), isNew = !b; b = b || { ex: 1, categorie: p.categories[0] };
+  const rayonFor = c => "Rayon " + "ABCDEFGHIJKLMNOP"[Math.max(0, p.categories.indexOf(c))] + "1";
   openSheet(isNew ? "Nouveau livre" : "Modifier le livre", `
-    <div class="f"><label for="b-titre">Titre</label><input id="b-titre" value="${esc(b.titre)}" required></div>
-    <div class="f"><label for="b-auteur">Auteur</label><input id="b-auteur" value="${esc(b.auteur)}"></div>
-    <div class="f2"><div class="f"><label for="b-cat">Catégorie</label><select id="b-cat">${opt(p.categories, b.categorie)}</select></div>
-      <div class="f"><label for="b-ex">Exemplaires</label><input id="b-ex" type="number" min="0" value="${esc(b.ex)}"></div></div>
-    <div class="f2"><div class="f"><label for="b-isbn">ISBN</label><input id="b-isbn" value="${esc(b.isbn)}" inputmode="numeric"></div>
-      <div class="f"><label for="b-rayon">Rayon (cote)</label><input id="b-rayon" value="${esc(b.rayon)}" placeholder="Rayon A1"></div></div>
-    <div class="f2"><div class="f"><label for="b-editeur">Éditeur</label><input id="b-editeur" value="${esc(b.editeur)}"></div>
-      <div class="f"><label for="b-annee">Année</label><input id="b-annee" type="number" value="${esc(b.annee)}"></div></div>
-    ${isNew ? "" : `<div class="f"><span class="hint">Code : <span class="code">${esc(b.id)}</span></span></div>`}`,
-    `${isNew ? "" : `<button class="btn danger" type="button" id="delBtn" style="margin-right:auto">${ic("trash")}Supprimer</button>`}<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="saveBtn">${ic("check")}Enregistrer</button>`,
+    <div class="f"><label for="b-titre">${req("Titre")}</label><input id="b-titre" value="${esc(b.titre)}" autocomplete="off" placeholder="Ex. : Le Petit Prince"></div>
+    <div id="dupBox"></div>
+    <div class="f"><label for="b-auteur">Auteur</label><input id="b-auteur" value="${esc(b.auteur)}" list="dlAut" autocomplete="off" placeholder="Ex. : Antoine de Saint-Exupéry">${dlist("dlAut", S.livres.map(x => x.auteur))}</div>
+    <div class="f2"><div class="f"><label for="b-cat">${req("Catégorie")}</label><select id="b-cat">${opt(p.categories, b.categorie)}</select></div>
+      ${numField("b-ex", req("Exemplaires"), b.ex, 0)}</div>
+    <div class="f2"><div class="f"><label for="b-rayon">Rayon (cote)</label><input id="b-rayon" value="${esc(b.rayon || (isNew ? rayonFor(b.categorie) : ""))}" list="dlRay" autocomplete="off">${dlist("dlRay", S.livres.map(x => x.rayon))}</div>
+      <div class="f"><label for="b-isbn">ISBN</label><input id="b-isbn" value="${esc(b.isbn)}" inputmode="numeric" placeholder="978-…"></div></div>
+    <div class="f2"><div class="f"><label for="b-editeur">Éditeur</label><input id="b-editeur" value="${esc(b.editeur)}" list="dlEd" autocomplete="off">${dlist("dlEd", S.livres.map(x => x.editeur))}</div>
+      <div class="f"><label for="b-annee">Année</label><input id="b-annee" type="number" inputmode="numeric" value="${esc(b.annee)}"></div></div>
+    <p class="form-note">${isNew ? "Le code du livre est attribué automatiquement" : "Code : <span class=\"code\">" + esc(b.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
+    formFoot(isNew),
     el => {
-      $("[data-close2]", el).onclick = () => closeSheet();
-      $("#saveBtn", el).onclick = () => {
-        const titre = val("b-titre"); if (!titre) { $("#b-titre").focus(); return toast("Indiquez le titre du livre", true); }
-        const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex: Math.max(0, +val("b-ex") || 0), isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "" };
-        put("livres", obj); closeSheet(); toast(isNew ? "Livre ajouté au catalogue" : "Livre modifié");
-      };
-      const db_ = $("#delBtn", el); if (db_) db_.onclick = () => { if (S.emprunts.some(x => x.livre === b.id && !x.retour)) return toast("Ce livre a des exemplaires sortis : enregistrez d'abord les retours.", true);
-        confirmSheet("Supprimer « " + b.titre + " » ?", "Le livre sera retiré du catalogue. L'historique des emprunts est conservé.", "Supprimer", () => { del("livres", b.id); toast("Livre supprimé"); }); };
+      let rayonTouched = !isNew;
+      $("#b-rayon", el).addEventListener("input", () => rayonTouched = true);
+      $("#b-cat", el).addEventListener("change", () => { if (!rayonTouched) $("#b-rayon", el).value = rayonFor($("#b-cat", el).value); });
+      const dupCheck = () => { if (!isNew) return; const t = norm($("#b-titre", el).value); const d = t.length > 2 && S.livres.find(x => norm(x.titre) === t);
+        $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div><b>« ${esc(d.titre)} »</b> est déjà au catalogue (${d.ex} exemplaire${d.ex > 1 ? "s" : ""}).<br><button type="button" class="link" id="addCopies">Ajouter plutôt des exemplaires à ce livre</button></div></div>` : "";
+        const ac = $("#addCopies", el); if (ac) ac.onclick = () => { const n = Math.max(1, +val("b-ex") || 1); put("livres", { ...d, ex: (+d.ex || 0) + n }); closeSheet(); toast(`${n} exemplaire${n > 1 ? "s" : ""} ajouté${n > 1 ? "s" : ""} à « ${d.titre} »`); showAdded("livres", d.id); }; };
+      $("#b-titre", el).addEventListener("input", dupCheck);
+      wireForm(el, { view: "livres",
+        save: () => { const titre = val("b-titre"); if (!titre) return fieldErr(el, "b-titre", "Indiquez le titre du livre.");
+          const ex = +val("b-ex"); if (!(ex >= 0)) return fieldErr(el, "b-ex", "Nombre d'exemplaires invalide.");
+          if (!isNew) { const sortis = S.emprunts.filter(x => x.livre === b.id && !x.retour).length; if (ex < sortis) return fieldErr(el, "b-ex", `${sortis} exemplaire${sortis > 1 ? "s sont" : " est"} actuellement sorti${sortis > 1 ? "s" : ""}.`); }
+          const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex, isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "" };
+          put("livres", obj); toast(isNew ? "« " + titre + " » ajouté au catalogue" : "Livre modifié"); return obj.id; },
+        reset: () => { ["b-titre", "b-auteur", "b-isbn", "b-annee"].forEach(i => $("#" + i, el).value = ""); $("#b-ex", el).value = 1; $("#dupBox", el).innerHTML = ""; $("#b-titre", el).focus(); },
+        onDelete: () => { if (S.emprunts.some(x => x.livre === b.id && !x.retour)) return toast("Ce livre a des exemplaires sortis : enregistrez d'abord les retours.", true);
+          confirmSheet("Supprimer « " + b.titre + " » ?", "Le livre sera retiré du catalogue. L'historique des emprunts est conservé.", "Supprimer", () => { del("livres", b.id); toast("Livre supprimé"); }); } });
     });
 }
 function bookDetail(id) {
@@ -1245,21 +1345,30 @@ function bookDetail(id) {
     el => { $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
-  const p = params(), isNew = !m; m = m || { type: "Élève", classe: p.classes[0], sexe: "F", inscription: todayISO() };
+  const p = params(), isNew = !m; m = m || { type: "Élève", classe: ui.lastClass || p.classes[0], sexe: "F", inscription: todayISO() };
   openSheet(isNew ? "Nouveau membre" : "Modifier le membre", `
-    <div class="f"><label for="m-nom">Nom complet</label><input id="m-nom" value="${esc(m.nom)}" autocomplete="off"></div>
-    <div class="f2"><div class="f"><label for="m-type">Type</label><select id="m-type">${opt(["Élève", "Enseignant", "Personnel"], m.type)}</select></div>
-      <div class="f"><label for="m-classe">Classe</label><select id="m-classe">${opt(p.classes, m.classe)}</select></div></div>
-    <div class="f2"><div class="f"><label for="m-sexe">Sexe</label><select id="m-sexe">${opt(["F", "M"], m.sexe)}</select></div>
-      <div class="f"><label for="m-insc">Date d'inscription</label><input id="m-insc" type="date" value="${esc(m.inscription)}"></div></div>`,
-    `${isNew ? "" : `<button class="btn danger" type="button" id="delBtn" style="margin-right:auto">${ic("trash")}Supprimer</button>`}<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="saveBtn">${ic("check")}Enregistrer</button>`,
+    <div class="f"><label for="m-nom">${req("Nom complet")}</label><input id="m-nom" value="${esc(m.nom)}" autocomplete="off" placeholder="Prénom et nom"></div>
+    <div id="dupBox"></div>
+    <div class="f"><label>Type</label><div class="seg" role="group" id="mType">${["Élève", "Enseignant", "Personnel"].map(t => `<button type="button" data-ty="${t}" aria-pressed="${t === m.type}">${t}</button>`).join("")}</div></div>
+    <div class="f2"><div class="f"><label for="m-classe">${req("Classe")}</label><select id="m-classe">${opt(p.classes, m.classe)}</select></div>
+      <div class="f"><label>Sexe</label><div class="seg" role="group" id="mSexe">${[["F", "Féminin"], ["M", "Masculin"]].map(([k, l]) => `<button type="button" data-sx="${k}" aria-pressed="${k === m.sexe}">${l}</button>`).join("")}</div></div></div>
+    <div class="f"><label for="m-insc">Date d'inscription</label><input id="m-insc" type="date" value="${esc(m.inscription)}"></div>
+    <p class="form-note">${isNew ? "L'identifiant du membre est attribué automatiquement" : "ID : <span class=\"code\">" + esc(m.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
+    formFoot(isNew),
     el => {
-      $("[data-close2]", el).onclick = () => closeSheet();
-      $("#saveBtn", el).onclick = () => { const nom = val("m-nom"); if (!nom) return toast("Indiquez le nom du membre", true);
-        put("membres", { ...m, id: m.id || nextId(S.membres, "MEM-", 3), nom, type: val("m-type"), classe: val("m-classe"), sexe: val("m-sexe"), inscription: val("m-insc") || todayISO() });
-        closeSheet(); toast(isNew ? "Membre ajouté" : "Membre modifié"); };
-      const d_ = $("#delBtn", el); if (d_) d_.onclick = () => { if (S.emprunts.some(x => x.membre === m.id && !x.retour)) return toast("Ce membre a des livres à rendre.", true);
-        confirmSheet("Supprimer " + m.nom + " ?", "Le membre sera retiré. L'historique des emprunts est conservé.", "Supprimer", () => { del("membres", m.id); toast("Membre supprimé"); }); };
+      let type = m.type, sexe = m.sexe;
+      $$("[data-ty]", el).forEach(b => b.onclick = () => { type = b.dataset.ty; $$("[data-ty]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); if (type !== "Élève") $("#m-classe", el).value = "Personnel"; else if ($("#m-classe", el).value === "Personnel") $("#m-classe", el).value = ui.lastClass || p.classes[0]; });
+      $$("[data-sx]", el).forEach(b => b.onclick = () => { sexe = b.dataset.sx; $$("[data-sx]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); });
+      $("#m-nom", el).addEventListener("input", () => { if (!isNew) return; const n = norm($("#m-nom", el).value); const d = n.length > 3 && S.membres.find(x => norm(x.nom) === n);
+        $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div>Un membre porte déjà ce nom : <b>${esc(d.nom)}</b> (${esc(d.classe)}). Vérifiez qu'il ne s'agit pas d'un doublon.</div></div>` : ""; });
+      wireForm(el, { view: "membres",
+        save: () => { const nom = val("m-nom"); if (!nom) return fieldErr(el, "m-nom", "Indiquez le nom du membre.");
+          const obj = { ...m, id: m.id || nextId(S.membres, "MEM-", 3), nom, type, classe: val("m-classe"), sexe, inscription: val("m-insc") || todayISO() };
+          if (type === "Élève") ui.lastClass = obj.classe;
+          put("membres", obj); toast(isNew ? nom + " est inscrit" + (sexe === "F" ? "e" : "") : "Membre modifié"); return obj.id; },
+        reset: () => { $("#m-nom", el).value = ""; $("#dupBox", el).innerHTML = ""; $("#m-nom", el).focus(); },
+        onDelete: () => { if (S.emprunts.some(x => x.membre === m.id && !x.retour)) return toast("Ce membre a des livres à rendre.", true);
+          confirmSheet("Supprimer " + m.nom + " ?", "Le membre sera retiré. L'historique des emprunts est conservé.", "Supprimer", () => { del("membres", m.id); toast("Membre supprimé"); }); } });
     });
 }
 function memberDetail(id) {
@@ -1273,59 +1382,67 @@ function memberDetail(id) {
     el => { $("#editM", el).onclick = () => memberSheet(S.membres.find(x => x.id === id)); $("#lendM", el).onclick = () => loanSheet({ membre: id }); });
 }
 
+/* emprunt : un membre, un ou plusieurs livres */
 function loanSheet(pre = {}) {
   if (!D) derive();
-  const st = { membre: pre.membre || null, livre: pre.livre || null, date: todayISO() };
+  const st = { membre: pre.membre || null, livres: pre.livre ? [pre.livre] : [] };
   const p = params();
   openSheet("Nouvel emprunt", `
-    <div class="f"><label for="l-m">Membre</label><div id="mChosen"></div><input id="l-m" type="search" placeholder="Rechercher un élève ou un enseignant…" autocomplete="off"><div class="picker" id="mPick"></div></div>
-    <div class="f"><label for="l-b">Livre</label><div id="bChosen"></div><input id="l-b" type="search" placeholder="Rechercher un titre, un auteur, un code…" autocomplete="off"><div class="picker" id="bPick"></div></div>
-    <div class="f2"><div class="f"><label for="l-d">Date de sortie</label><input id="l-d" type="date" value="${st.date}"></div>
+    <div class="steps"><span id="st1">1 · Membre</span><span id="st2">2 · Livre(s)</span><span id="st3">3 · Confirmer</span></div>
+    <div class="f"><label for="l-m">${req("Qui emprunte ?")}</label><div id="mChosen"></div><input id="l-m" type="search" placeholder="Rechercher un élève ou un enseignant…" autocomplete="off"><div class="picker" id="mPick"></div></div>
+    <div class="f"><label for="l-b">${req("Quel(s) livre(s) ?")}</label><div id="bChosen" class="chosen-list"></div><input id="l-b" type="search" placeholder="Rechercher un titre, un auteur, un code…" autocomplete="off"><div class="picker" id="bPick"></div></div>
+    <div class="f2"><div class="f"><label for="l-d">Date de sortie</label><input id="l-d" type="date" value="${todayISO()}"></div>
       <div class="f"><label>À rendre le</label><input id="l-due" disabled></div></div>
     <div class="recap" id="lRecap"></div>`,
-    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="saveBtn">${ic("check")}Enregistrer l'emprunt</button>`,
+    formFoot(true, "Enregistrer l'emprunt"),
     el => {
       const draw = () => {
-        const m = st.membre && D.membres.get(st.membre), b = st.livre && D.livres.get(st.livre);
-        $("#mChosen", el).innerHTML = m ? `<div class="chosen">${avatar(m)}<div style="flex:1;min-width:0"><div class="t" style="font-weight:650">${esc(m.nom)}</div><div class="s" style="font-size:12.5px;color:var(--ink-3)">${esc(m.classe)} · ${m.cours} emprunt${m.cours > 1 ? "s" : ""} en cours</div></div><button class="act" type="button" id="mClear" aria-label="Changer">${ic("x")}</button></div>` : "";
-        $("#bChosen", el).innerHTML = b ? `<div class="chosen">${miniCover(b)}<div style="flex:1;min-width:0"><div class="t" style="font-weight:650">${esc(b.titre)}</div><div class="s" style="font-size:12.5px;color:var(--ink-3)">${b.dispo} disponible${b.dispo > 1 ? "s" : ""} sur ${b.ex} · ${esc(b.rayon || "")}</div></div><button class="act" type="button" id="bClear" aria-label="Changer">${ic("x")}</button></div>` : "";
-        $("#l-m", el).hidden = $("#mPick", el).hidden = !!m; $("#l-b", el).hidden = $("#bPick", el).hidden = !!b;
+        const m = st.membre && D.membres.get(st.membre), bs = st.livres.map(id => D.livres.get(id)).filter(Boolean);
+        $("#mChosen", el).innerHTML = m ? `<div class="chosen">${avatar(m)}<div style="flex:1;min-width:0"><div class="t" style="font-weight:650">${esc(m.nom)}</div><div class="s" style="font-size:12.5px;color:var(--ink-3)">${esc(m.classe)} · ${m.cours} emprunt${m.cours > 1 ? "s" : ""} en cours${m.retard ? ` · <b style="color:var(--danger)">${m.retard} en retard</b>` : ""}</div></div><button class="act" type="button" id="mClear" aria-label="Changer de membre">${ic("x")}</button></div>` : "";
+        $("#bChosen", el).innerHTML = bs.map(b => `<div class="chosen">${miniCover(b)}<div style="flex:1;min-width:0"><div class="t" style="font-weight:650">${esc(b.titre)}</div><div class="s" style="font-size:12.5px;color:var(--ink-3)">${esc(b.auteur)} · ${esc(b.rayon || "")}</div></div><button class="act" type="button" data-unpick="${esc(b.id)}" aria-label="Retirer">${ic("x")}</button></div>`).join("");
+        $("#l-m", el).hidden = $("#mPick", el).hidden = !!m;
         if (m) $("#mClear", el).onclick = () => { st.membre = null; draw(); $("#l-m", el).focus(); };
-        if (b) $("#bClear", el).onclick = () => { st.livre = null; draw(); $("#l-b", el).focus(); };
+        $$("[data-unpick]", el).forEach(x => x.onclick = () => { st.livres = st.livres.filter(i => i !== x.dataset.unpick); draw(); });
+        $("#l-b", el).placeholder = bs.length ? "Ajouter un autre livre…" : "Rechercher un titre, un auteur, un code…";
         const due = addDays($("#l-d", el).value || todayISO(), p.duree); $("#l-due", el).value = fmtD(due);
-        const warn = []; if (m && m.cours >= p.max) warn.push(`${esc(m.nom)} a déjà ${m.cours} emprunts (limite : ${p.max}).`); if (m && m.retard) warn.push(`${esc(m.nom)} a ${m.retard} livre${m.retard > 1 ? "s" : ""} en retard.`);
-        $("#lRecap", el).innerHTML = m && b ? `<div><b>${esc(m.nom)}</b> emprunte <b>${esc(b.titre)}</b></div><div>Retour prévu le <b>${fmtLong(due)}</b> (${p.duree} jours)</div>${warn.map(w => `<div style="color:var(--warn);font-weight:600">${w}</div>`).join("")}` : "Choisissez un membre et un livre.";
+        const warn = []; if (m && m.cours + bs.length > p.max) warn.push(`Limite dépassée : ${m.cours + bs.length} emprunts pour un maximum de ${p.max}.`); if (m && m.retard) warn.push(`${esc(m.nom)} doit d'abord rendre ${m.retard} livre${m.retard > 1 ? "s" : ""} en retard.`);
+        $("#lRecap", el).innerHTML = m && bs.length ? `<div><b>${esc(m.nom)}</b> emprunte <b>${bs.length} livre${bs.length > 1 ? "s" : ""}</b></div><div>Retour prévu le <b>${fmtLong(due)}</b> (${p.duree} jours)</div>${warn.map(w => `<div style="color:var(--warn);font-weight:600">${w}</div>`).join("")}` : m ? "Choisissez maintenant le ou les livres." : "Commencez par choisir le membre.";
+        $("#st1", el).className = m ? "done" : "on"; $("#st2", el).className = bs.length ? "done" : m ? "on" : ""; $("#st3", el).className = m && bs.length ? "on" : "";
         listM(); listB();
       };
       const listM = () => { const q = norm($("#l-m", el).value); $("#mPick", el).innerHTML = [...D.membres.values()].filter(m => !q || norm(m.nom + " " + m.classe + " " + m.id).includes(q)).sort((a, b) => a.nom.localeCompare(b.nom, "fr")).slice(0, 30)
-        .map(m => `<button class="pick" type="button" data-pm="${esc(m.id)}">${avatar(m)}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}${m.retard ? " · en retard" : ""}</div></div></button>`).join("") || '<div class="empty">Aucun membre.</div>';
-        $$("[data-pm]", el).forEach(x => x.onclick = () => { st.membre = x.dataset.pm; draw(); if (!st.livre) $("#l-b", el).focus(); }); };
-      const listB = () => { const q = norm($("#l-b", el).value); $("#bPick", el).innerHTML = [...D.livres.values()].filter(b => !q || norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn).includes(q)).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, 30)
-        .map(b => `<button class="pick" type="button" data-pb="${esc(b.id)}" ${b.dispo <= 0 ? "disabled" : ""}>${miniCover(b)}<div style="min-width:0;flex:1"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)}</div></div><span class="avail ${b.dispo > 0 ? "ok" : "bad"}">${b.dispo}/${b.ex}</span></button>`).join("") || '<div class="empty">Aucun livre.</div>';
-        $$("[data-pb]", el).forEach(x => x.onclick = () => { st.livre = x.dataset.pb; draw(); }); };
+        .map(m => `<button class="pick" type="button" data-pm="${esc(m.id)}">${avatar(m)}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}${m.retard ? " · en retard" : ""}</div></div></button>`).join("") || '<div class="empty">Aucun membre. <button type="button" class="link" id="newMem">Inscrire un nouveau membre</button></div>';
+        $$("[data-pm]", el).forEach(x => x.onclick = () => { st.membre = x.dataset.pm; draw(); $("#l-b", el).focus(); });
+        const nm = $("#newMem", el); if (nm) nm.onclick = () => memberSheet(); };
+      const listB = () => { const q = norm($("#l-b", el).value); $("#bPick", el).innerHTML = [...D.livres.values()].filter(b => !st.livres.includes(b.id) && (!q || norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn).includes(q))).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, 30)
+        .map(b => `<button class="pick" type="button" data-pb="${esc(b.id)}" ${b.dispo <= 0 ? "disabled" : ""}>${miniCover(b)}<div style="min-width:0;flex:1"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)}${b.dispo <= 0 ? " · aucun exemplaire disponible" : ""}</div></div><span class="avail ${b.dispo > 0 ? "ok" : "bad"}">${b.dispo}/${b.ex}</span></button>`).join("") || '<div class="empty">Aucun livre.</div>';
+        $$("[data-pb]", el).forEach(x => x.onclick = () => { st.livres.push(x.dataset.pb); $("#l-b", el).value = ""; draw(); }); };
       $("#l-m", el).addEventListener("input", listM); $("#l-b", el).addEventListener("input", listB); $("#l-d", el).addEventListener("change", draw);
-      $("[data-close2]", el).onclick = () => closeSheet();
-      $("#saveBtn", el).onclick = () => {
-        if (!st.membre || !st.livre) return toast("Choisissez un membre et un livre", true);
-        const b = D.livres.get(st.livre); if (b.dispo <= 0) return toast("Aucun exemplaire disponible", true);
-        const date = $("#l-d", el).value || todayISO();
-        put("emprunts", { id: nextId(S.emprunts, "EMP-", 4), date, membre: st.membre, livre: st.livre, prevu: addDays(date, p.duree), retour: null, paye: false });
-        closeSheet(); toast("Emprunt enregistré · retour le " + fmtD(addDays(date, p.duree)));
-      };
+      wireForm(el, { view: "emprunts",
+        save: () => {
+          if (!st.membre) return fieldErr(el, "l-m", "Choisissez le membre qui emprunte.");
+          if (!st.livres.length) return fieldErr(el, "l-b", "Ajoutez au moins un livre.");
+          const date = $("#l-d", el).value || todayISO(); let n = nextId(S.emprunts, "EMP-", 4).match(/\d+$/)[0] * 1, first = null;
+          st.livres.forEach(lid => { const id = "EMP-" + pad(n++, 4); first = first || id; put("emprunts", { id, date, membre: st.membre, livre: lid, prevu: addDays(date, p.duree), retour: null, paye: false }); });
+          toast(`${st.livres.length > 1 ? st.livres.length + " emprunts enregistrés" : "Emprunt enregistré"} · retour le ${fmtD(addDays(date, p.duree))}`); return first; },
+        reset: () => { st.membre = null; st.livres = []; $("#l-m", el).value = ""; $("#l-b", el).value = ""; draw(); $("#l-m", el).focus(); } });
       draw();
     });
 }
 function returnPicker() {
-  const open = D.emprunts.filter(e => !e.retour).sort((a, b) => a.prevu < b.prevu ? -1 : 1);
-  openSheet("Enregistrer un retour", `<div class="f"><label for="r-q">Rechercher</label><input id="r-q" type="search" placeholder="Titre ou nom…"></div><div class="rows" id="rList"></div>`, null, el => {
-    const draw = () => { const q = norm($("#r-q", el).value); $("#rList", el).innerHTML = open.filter(e => !q || norm((e.b ? e.b.titre : "") + " " + (e.m ? e.m.nom : "")).includes(q)).map(e => loanRow(e)).join("") || '<div class="empty">Aucun livre à rendre.</div>'; };
-    $("#r-q", el).addEventListener("input", draw); draw();
+  ui.returning = true;
+  openSheet("Enregistrer un retour", `<div class="f"><label for="r-q">Qui rend un livre ?</label><input id="r-q" type="search" placeholder="Nom du membre ou titre du livre…"></div><div class="rows" id="rList"></div>`, null, el => {
+    const draw = () => { const open = derive().emprunts.filter(e => !e.retour).sort((a, b) => a.prevu < b.prevu ? -1 : 1); const q = norm($("#r-q", el).value);
+      $("#rList", el).innerHTML = open.filter(e => !q || norm((e.b ? e.b.titre : "") + " " + (e.m ? e.m.nom : "") + " " + (e.m ? e.m.classe : "")).includes(q)).map(e => loanRow(e, e.statut === "retard")).join("") || '<div class="empty">Aucun livre à rendre.</div>'; };
+    $("#r-q", el).addEventListener("input", draw); draw(); setTimeout(() => $("#r-q", el)?.focus(), 250);
   });
 }
 function doReturn(id) {
   const e = S.emprunts.find(x => x.id === id); if (!e) return;
+  const fromPicker = ui.returning && sheetEl;
   const p = params(); const prevu = e.prevu || addDays(e.date, p.duree); const jours = Math.max(0, diffDays(todayISO(), prevu));
-  const finish = paye => { put("emprunts", { ...e, retour: todayISO(), paye }); closeSheet(); toast(jours ? `Retour enregistré · ${jours} j de retard` : "Retour enregistré · merci !"); };
+  const finish = paye => { put("emprunts", { ...e, retour: todayISO(), paye }); toast(jours ? `Retour enregistré · ${jours} j de retard` : "Retour enregistré · merci !");
+    if (fromPicker) returnPicker(); else closeSheet(); };
   if (!jours) return finish(false);
   const b = S.livres.find(x => x.id === e.livre), m = S.membres.find(x => x.id === e.membre);
   openSheet("Retour en retard", `<div class="recap" style="border-style:solid"><div><b>${esc(b ? b.titre : e.livre)}</b> rendu par <b>${esc(m ? m.nom : e.membre)}</b></div><div>${jours} jour${jours > 1 ? "s" : ""} de retard · amende de <b>${fc(jours * p.amende)}</b></div></div><p style="margin:0;color:var(--ink-2)">L'amende est-elle payée maintenant ?</p>`,
@@ -1337,43 +1454,66 @@ function doPay(id) { const e = S.emprunts.find(x => x.id === id); put("emprunts"
 function supplySheet(f) {
   const p = params(), isNew = !f; f = f || { unite: p.unites[0], initial: 0, seuil: 5, prix: 0 };
   openSheet(isNew ? "Nouvel article" : f.article, `
-    <div class="f"><label for="s-art">Article</label><input id="s-art" value="${esc(f.article)}"></div>
-    <div class="f2"><div class="f"><label for="s-cat">Catégorie</label><input id="s-cat" value="${esc(f.categorie)}" list="catF"><datalist id="catF">${[...new Set(S.fournitures.map(x => x.categorie))].map(c => `<option value="${esc(c)}">`).join("")}</datalist></div>
+    <div class="f"><label for="s-art">${req("Article")}</label><input id="s-art" value="${esc(f.article)}" autocomplete="off" placeholder="Ex. : Rame de papier A4"></div>
+    <div id="dupBox"></div>
+    <div class="f2"><div class="f"><label for="s-cat">Catégorie</label><input id="s-cat" value="${esc(f.categorie)}" list="catF" autocomplete="off">${dlist("catF", ["Papeterie", "Écriture", "Matériel didactique", "Informatique", "Entretien", ...S.fournitures.map(x => x.categorie)])}</div>
       <div class="f"><label for="s-unite">Unité</label><select id="s-unite">${opt(p.unites, f.unite)}</select></div></div>
-    <div class="f2"><div class="f"><label for="s-init">Stock initial</label><input id="s-init" type="number" min="0" value="${esc(f.initial)}"></div>
-      <div class="f"><label for="s-seuil">Seuil d'alerte</label><input id="s-seuil" type="number" min="0" value="${esc(f.seuil)}"></div></div>
-    <div class="f2"><div class="f"><label for="s-prix">Prix unitaire (FC)</label><input id="s-prix" type="number" min="0" step="100" value="${esc(f.prix)}"></div>
-      <div class="f"><label for="s-four">Fournisseur</label><input id="s-four" value="${esc(f.fournisseur)}"></div></div>
-    ${isNew ? "" : `<div class="recap" style="border-style:solid"><div>Stock actuel : <b>${D.fmap.get(f.id)?.stock ?? 0}</b> · entrées ${D.fmap.get(f.id)?.ent ?? 0} · sorties ${D.fmap.get(f.id)?.sor ?? 0}</div></div>`}`,
-    `${isNew ? "" : `<button class="btn ghost" type="button" id="mvBtn" style="margin-right:auto">${ic("swap")}Mouvement</button>`}<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="saveBtn">${ic("check")}Enregistrer</button>`,
+    <div class="f2">${numField("s-init", isNew ? "Quantité en stock aujourd'hui" : "Stock initial", f.initial, 0)}${numField("s-seuil", "Seuil d'alerte", f.seuil, 0)}</div>
+    <div class="f2"><div class="f"><label for="s-prix">Prix unitaire (FC)</label><input id="s-prix" type="number" inputmode="numeric" min="0" step="100" value="${esc(f.prix)}"></div>
+      <div class="f"><label for="s-four">Fournisseur</label><input id="s-four" value="${esc(f.fournisseur)}" list="dlFour" autocomplete="off">${dlist("dlFour", S.fournitures.map(x => x.fournisseur))}</div></div>
+    ${isNew ? '<p class="form-note">Une alerte s\'affiche quand le stock descend au seuil. <span class="req">*</span> champ obligatoire</p>' : `<div class="recap" style="border-style:solid"><div>Stock actuel : <b>${D.fmap.get(f.id)?.stock ?? 0}</b> · entrées ${D.fmap.get(f.id)?.ent ?? 0} · sorties ${D.fmap.get(f.id)?.sor ?? 0}</div></div>`}`,
+    formFoot(isNew).replace(isNew ? "" : '<button class="btn ghost" type="button" data-close2>', isNew ? "" : `<button class="btn ghost" type="button" id="mvBtn">${ic("swap")}Mouvement</button><button class="btn ghost" type="button" data-close2>`),
     el => {
-      $("[data-close2]", el).onclick = () => closeSheet();
       const mv = $("#mvBtn", el); if (mv) mv.onclick = () => moveSheet(f.id);
-      $("#saveBtn", el).onclick = () => { const article = val("s-art"); if (!article) return toast("Indiquez le nom de l'article", true);
-        put("fournitures", { ...f, id: f.id || nextId(S.fournitures, "FOU-", 3), article, categorie: val("s-cat") || "Divers", unite: val("s-unite"), initial: +val("s-init") || 0, seuil: +val("s-seuil") || 0, prix: +val("s-prix") || 0, fournisseur: val("s-four") });
-        closeSheet(); toast(isNew ? "Article ajouté" : "Article modifié"); };
+      $("#s-art", el).addEventListener("input", () => { if (!isNew) return; const n = norm($("#s-art", el).value); const d = n.length > 2 && S.fournitures.find(x => norm(x.article) === n);
+        $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div><b>${esc(d.article)}</b> existe déjà. <button type="button" class="link" id="goMv">Enregistrer plutôt une entrée de stock</button></div></div>` : "";
+        const g = $("#goMv", el); if (g) g.onclick = () => moveSheet(d.id, "entree"); });
+      wireForm(el, { view: "fournitures",
+        save: () => { const article = val("s-art"); if (!article) return fieldErr(el, "s-art", "Indiquez le nom de l'article.");
+          const obj = { ...f, id: f.id || nextId(S.fournitures, "FOU-", 3), article, categorie: val("s-cat") || "Divers", unite: val("s-unite"), initial: +val("s-init") || 0, seuil: +val("s-seuil") || 0, prix: +val("s-prix") || 0, fournisseur: val("s-four") };
+          put("fournitures", obj); toast(isNew ? article + " ajouté au stock" : "Article modifié"); return obj.id; },
+        reset: () => { ["s-art", "s-prix"].forEach(i => $("#" + i, el).value = ""); $("#s-init", el).value = 0; $("#dupBox", el).innerHTML = ""; $("#s-art", el).focus(); },
+        onDelete: () => { if (S.mouvements.some(x => x.article === f.id)) return toast("Cet article a des mouvements enregistrés : il ne peut pas être supprimé.", true);
+          confirmSheet("Supprimer " + f.article + " ?", "L'article sera retiré du stock.", "Supprimer", () => { del("fournitures", f.id); toast("Article supprimé"); }); } });
     });
 }
-function moveSheet(pre) {
+function moveSheet(pre, preType) {
   if (!S.fournitures.length) return supplySheet();
-  let type = "sortie";
+  let type = preType || "sortie";
+  if (!pre) pre = (D.fournitures.find(f => f.stock > 0) || D.fournitures[0]).id;
   openSheet("Mouvement de stock", `
-    <div class="seg" role="group" style="align-self:flex-start"><button type="button" data-mt="sortie" aria-pressed="true">${ic("up")} Sortie</button><button type="button" data-mt="entree" aria-pressed="false">${ic("down")} Entrée</button></div>
-    <div class="f"><label for="mv-a">Article</label><select id="mv-a">${D.fournitures.map(f => `<option value="${esc(f.id)}" ${f.id === pre ? "selected" : ""}>${esc(f.article)} · ${f.stock} en stock</option>`).join("")}</select></div>
-    <div class="f2"><div class="f"><label for="mv-q">Quantité</label><input id="mv-q" type="number" min="1" value="1"></div><div class="f"><label for="mv-d">Date</label><input id="mv-d" type="date" value="${todayISO()}"></div></div>
-    <div class="f"><label for="mv-t" id="mvTL">Bénéficiaire</label><input id="mv-t" placeholder="Classe, service…"></div>
-    <div class="f"><label for="mv-n">Remarque</label><input id="mv-n"></div>
-    <div class="f"><button class="more" type="button" id="newArt" style="display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-weight:650">${ic("plus")} Nouvel article</button></div>`,
-    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="saveBtn">${ic("check")}Enregistrer</button>`,
+    <div class="seg big" role="group"><button type="button" data-mt="sortie" aria-pressed="${type === "sortie"}">${ic("up")} Sortie (distribution)</button><button type="button" data-mt="entree" aria-pressed="${type === "entree"}">${ic("down")} Entrée (achat)</button></div>
+    <div class="f"><label for="mv-a">${req("Article")}</label><select id="mv-a">${D.fournitures.map(f => `<option value="${esc(f.id)}" ${f.id === pre ? "selected" : ""}>${esc(f.article)} · ${f.stock} en stock</option>`).join("")}</select></div>
+    <div class="f2">${numField("mv-q", req("Quantité"), 1, 1)}<div class="f"><label for="mv-d">Date</label><input id="mv-d" type="date" value="${todayISO()}"></div></div>
+    <div class="f"><label for="mv-t" id="mvTL">Bénéficiaire</label><input id="mv-t" list="dlTiers" autocomplete="off" placeholder="Classe, service…">${dlist("dlTiers", [...S.mouvements.map(x => x.tiers), ...params().classes])}</div>
+    <div class="f"><label for="mv-n">Remarque</label><input id="mv-n" autocomplete="off"></div>
+    <div class="recap" id="mvRecap"></div>
+    <p class="form-note"><button class="link" type="button" id="newArt">${ic("plus")} L'article n'existe pas encore ? Créez-le</button></p>`,
+    formFoot(true),
     el => {
-      $$("[data-mt]", el).forEach(b => b.onclick = () => { type = b.dataset.mt; $$("[data-mt]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); $("#mvTL", el).textContent = type === "entree" ? "Fournisseur" : "Bénéficiaire"; });
+      const recap = () => { const f = D.fmap.get(val("mv-a")), q = Math.max(0, +val("mv-q") || 0), after = f.stock + (type === "entree" ? q : -q);
+        $("#mvRecap", el).innerHTML = `<div>Stock actuel : <b>${f.stock} ${esc(f.unite.toLowerCase())}</b> → après ce mouvement : <b style="color:var(--${after < 0 ? "danger" : after <= f.seuil ? "warn" : "green"})">${after}</b></div>${after >= 0 && after <= f.seuil ? `<div style="color:var(--warn);font-weight:600">Le stock sera au seuil d'alerte (${f.seuil}).</div>` : ""}`; };
+      const setType = t => { type = t; $$("[data-mt]", el).forEach(x => x.setAttribute("aria-pressed", x.dataset.mt === t)); $("#mvTL", el).textContent = t === "entree" ? "Fournisseur" : "Bénéficiaire"; $("#mv-t", el).placeholder = t === "entree" ? "Nom du fournisseur" : "Classe, service…"; recap(); };
+      $$("[data-mt]", el).forEach(b => b.onclick = () => setType(b.dataset.mt));
+      $("#mv-a", el).addEventListener("change", recap); $("#mv-q", el).addEventListener("input", recap);
       $("#newArt", el).onclick = () => supplySheet();
-      $("[data-close2]", el).onclick = () => closeSheet();
-      $("#saveBtn", el).onclick = () => { const art = val("mv-a"), q = Math.max(1, +val("mv-q") || 0), f = D.fmap.get(art);
-        if (type === "sortie" && q > f.stock) return toast(`Stock insuffisant : ${f.stock} ${f.unite.toLowerCase()}(s) disponible(s)`, true);
-        put("mouvements", { id: nextId(S.mouvements, "MVT-", 4), date: val("mv-d") || todayISO(), article: art, type, qte: q, tiers: val("mv-t"), note: val("mv-n") });
-        closeSheet(); toast((type === "entree" ? "Entrée" : "Sortie") + " enregistrée · " + q + " " + f.unite.toLowerCase()); };
+      setType(type);
+      wireForm(el, { view: "fournitures",
+        save: () => { const art = val("mv-a"), q = +val("mv-q"), f = D.fmap.get(art);
+          if (!(q >= 1)) return fieldErr(el, "mv-q", "Indiquez une quantité d'au moins 1.");
+          if (type === "sortie" && q > f.stock) return fieldErr(el, "mv-q", `Stock insuffisant : ${f.stock} ${f.unite.toLowerCase()} disponible(s).`);
+          put("mouvements", { id: nextId(S.mouvements, "MVT-", 4), date: val("mv-d") || todayISO(), article: art, type, qte: q, tiers: val("mv-t"), note: val("mv-n") });
+          toast((type === "entree" ? "Entrée" : "Sortie") + " enregistrée · " + q + " " + f.unite.toLowerCase()); derive(); return art; },
+        reset: () => { $("#mv-q", el).value = 1; $("#mv-n", el).value = ""; $("#mv-a", el).innerHTML = D.fournitures.map(f => `<option value="${esc(f.id)}">${esc(f.article)} · ${f.stock} en stock</option>`).join(""); recap(); $("#mv-a", el).focus(); } });
     });
+}
+/* menu « Ajouter » disponible partout */
+function addMenu() {
+  const items = [["Un emprunt", "Prêter un ou plusieurs livres", "swap", "accent", () => loanSheet()], ["Un retour", "Un membre rend un livre", "ret", "green", () => returnPicker()],
+    ["Un livre", "Au catalogue", "book", "accent", () => bookSheet()], ["Un membre", "Élève, enseignant ou personnel", "users", "green", () => memberSheet()],
+    ["Un article", "Nouvelle fourniture", "box", "warn", () => supplySheet()], ["Un mouvement de stock", "Entrée ou sortie de fournitures", "swap", "warn", () => moveSheet()]];
+  openSheet("Que voulez-vous ajouter ?", `<div class="add-grid">${items.map(([t, s, i, tone], k) => `<button class="q add-item" type="button" data-ai="${k}" style="--tone:var(--${tone});--tone-soft:var(--${tone}-soft);animation-delay:${k * 45}ms"><span class="ic">${ic(i)}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("")}</div>`, null,
+    el => $$("[data-ai]", el).forEach(b => b.onclick = () => items[+b.dataset.ai][4]()));
 }
 function moreSheet() {
   openSheet("Plus", `<div class="rows">${VIEWS.filter(v => !["accueil", "livres", "emprunts", "membres"].includes(v.id)).map(v => `<button class="row" type="button" style="grid-template-columns:auto 1fr auto;text-align:left" data-go-more="${v.id}"><span class="k-ic" style="width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)">${ic(v.icon)}</span><span class="t">${v.label}</span>${ic("arrow")}</button>`).join("")}</div>
@@ -1390,7 +1530,7 @@ function openPalette() {
   document.body.appendChild(palEl);
   $(".backdrop", palEl).onclick = closePalette;
   const input = $("#palQ", palEl); let items = [], sel = 0;
-  const actions = [["Nouvel emprunt", "plus", () => loanSheet()], ["Enregistrer un retour", "ret", () => returnPicker()], ["Ajouter un livre", "book", () => bookSheet()], ["Ajouter un membre", "users", () => memberSheet()], ["Mouvement de stock", "box", () => moveSheet()], ...VIEWS.map(v => ["Aller à : " + v.label, v.icon, () => go(v.id)])];
+  const actions = [["Ajouter…", "plus", () => addMenu()], ["Nouvel emprunt", "plus", () => loanSheet()], ["Enregistrer un retour", "ret", () => returnPicker()], ["Ajouter un livre", "book", () => bookSheet()], ["Ajouter un membre", "users", () => memberSheet()], ["Mouvement de stock", "box", () => moveSheet()], ...VIEWS.map(v => ["Aller à : " + v.label, v.icon, () => go(v.id)])];
   const draw = () => {
     const q = norm(input.value); items = [];
     const A = actions.filter(a => !q || norm(a[0]).includes(q)).slice(0, q ? 4 : 6).map(a => ({ g: "Actions", html: `${ic(a[1])}<span class="t">${a[0]}</span>`, run: a[2] }));
@@ -1471,6 +1611,7 @@ addEventListener("resize", () => syncNav());
 setInterval(() => { if (D && D.T !== todayISO()) render(); }, 60000);
 
 $("#railLogo").src = LOGO;
+$("#fab").innerHTML = ic("plus") + "<span>Ajouter</span>"; $("#fab").addEventListener("click", addMenu);
 buildNav(); render(); initStore();
 </script>
 

@@ -199,9 +199,8 @@ def gen_data():
         else:
             typ, cls = "Personnel", "Personnel"
         sx = "F" if n.replace("Mme ", "").replace("M. ", "").split()[0] in sexe_f else "M"
-        tel = "+243 9%d %03d %04d" % (random.randint(70, 99), random.randint(0, 999), random.randint(0, 9999))
         insc = date(2025, 9, random.randint(2, 20)) if i < 34 else date(2026, 9 if i < 37 else 10, random.randint(1, 8))
-        members.append(["MEM-%03d" % (i + 1), n, typ, cls, sx, tel, insc])
+        members.append(["MEM-%03d" % (i + 1), n, typ, cls, sx, insc])
 
     weights = [5 if i in POPULAR else 1 for i in range(len(books))]
     loans = []
@@ -308,8 +307,8 @@ for n, s, c, cnt in [
     ("LIV_Dispo", "Livres", "O", N_LIV), ("LIV_Total", "Livres", "P", N_LIV), ("LIV_Statut", "Livres", "Q", N_LIV),
     ("LIV_Score", "Livres", "S", N_LIV), ("LIV_Rech", "Livres", "T", N_LIV),
     ("MEM_ID", "Membres", "E", N_MEM), ("MEM_Nom", "Membres", "F", N_MEM), ("MEM_Type", "Membres", "G", N_MEM),
-    ("MEM_Classe", "Membres", "H", N_MEM), ("MEM_Insc", "Membres", "K", N_MEM), ("MEM_Cours", "Membres", "L", N_MEM),
-    ("MEM_Statut", "Membres", "O", N_MEM), ("MEM_Rech", "Membres", "Q", N_MEM),
+    ("MEM_Classe", "Membres", "H", N_MEM), ("MEM_Insc", "Membres", "J", N_MEM), ("MEM_Cours", "Membres", "K", N_MEM),
+    ("MEM_Statut", "Membres", "N", N_MEM), ("MEM_Rech", "Membres", "P", N_MEM),
     ("EMP_Date", "Emprunts", "F", N_EMP), ("EMP_Membre", "Emprunts", "G", N_EMP), ("EMP_Nom", "Emprunts", "H", N_EMP),
     ("EMP_Livre", "Emprunts", "I", N_EMP), ("EMP_Titre", "Emprunts", "J", N_EMP), ("EMP_Prevu", "Emprunts", "K", N_EMP),
     ("EMP_Retour", "Emprunts", "L", N_EMP), ("EMP_Statut", "Emprunts", "M", N_EMP), ("EMP_Jours", "Emprunts", "N", N_EMP),
@@ -580,13 +579,13 @@ for r in range(R0, last + 1):
 
 # ---------------- Membres
 cols = [("ID membre", 12, "@", False), ("Nom complet", 28, "@", False), ("Type", 13, "@", False),
-        ("Classe", 17, "@", False), ("Sexe", 7, "@", False), ("Téléphone", 18, "@", False),
+        ("Classe", 17, "@", False), ("Sexe", 7, "@", False),
         ("Date d'inscription", 15, DATE, False), ("Emprunts en cours", 13, "0", True), ("En retard", 11, "0", True),
         ("Amendes dues", 14, FC, True), ("Statut", 17, "@", True)]
-calc = {7: '=IF($E{r}="","",COUNTIFS(EMP_Membre,$E{r},EMP_Retour,""))',
-        8: '=IF($E{r}="","",COUNTIFS(EMP_Membre,$E{r},EMP_Statut,"En retard"))',
-        9: '=IF($E{r}="","",SUMIFS(EMP_Amende,EMP_Membre,$E{r},EMP_Paye,"<>Oui"))',
-        10: '=IF($E{r}="","",IF($M{r}>0,"En retard",IF($L{r}>=P_Max,"Limite atteinte","Actif")))'}
+calc = {6: '=IF($E{r}="","",COUNTIFS(EMP_Membre,$E{r},EMP_Retour,""))',
+        7: '=IF($E{r}="","",COUNTIFS(EMP_Membre,$E{r},EMP_Statut,"En retard"))',
+        8: '=IF($E{r}="","",SUMIFS(EMP_Amende,EMP_Membre,$E{r},EMP_Paye,"<>Oui"))',
+        9: '=IF($E{r}="","",IF($L{r}>0,"En retard",IF($K{r}>=P_Max,"Limite atteinte","Actif")))'}
 fc, lc, last = data_sheet(
     ws_mem, "👥  Membres", "Élèves, enseignants et personnel inscrits à la bibliothèque.",
     cols, N_MEM, MEMBERS_D, calc, {}, [
@@ -596,17 +595,17 @@ fc, lc, last = data_sheet(
         ('=COUNTIF(MEM_Statut,"En retard")&" en retard"', "C62828", RED_T),
     ], ("＋  Nouveau membre", "MEM_ID"), "E", "39B54A")
 for r in range(R0, last + 1):
-    ws_mem.cell(r, 17).value = ('=IF(OR(Q_Rech="",$E{r}=""),"",IF(ISNUMBER(SEARCH(Q_Rech,$E{r}&" "&$F{r}&" "&$H{r})),'
-                                'COUNT($Q$6:$Q{p})+1,""))').format(r=r, p=r - 1)
-    for col in "ILM":
+    ws_mem.cell(r, 16).value = ('=IF(OR(Q_Rech="",$E{r}=""),"",IF(ISNUMBER(SEARCH(Q_Rech,$E{r}&" "&$F{r}&" "&$H{r})),'
+                                'COUNT($P$6:$P{p})+1,""))').format(r=r, p=r - 1)
+    for col in "IKL":
         ws_mem["%s%d" % (col, r)].alignment = C_AL
-ws_mem.column_dimensions["Q"].hidden = True
-ws_mem.column_dimensions["P"].width = 3
-status_cf(ws_mem, "O%d:O%d" % (R0, last), "$O%d" % R0)
+ws_mem.column_dimensions["P"].hidden = True
+ws_mem.column_dimensions["O"].width = 3
+status_cf(ws_mem, "N%d:N%d" % (R0, last), "$N%d" % R0)
 dv_list(ws_mem, "G%d:G%d" % (R0, last), "L_TypesMembre", "Choisissez : Élève, Enseignant ou Personnel.")
 dv_list(ws_mem, "H%d:H%d" % (R0, last), "L_Classes", "Choisissez une classe de la liste (modifiable dans Paramètres).")
 dv_list(ws_mem, "I%d:I%d" % (R0, last), '"M,F"', "Saisissez M ou F.")
-dv_date(ws_mem, "K%d:K%d" % (R0, last))
+dv_date(ws_mem, "J%d:J%d" % (R0, last))
 
 # ---------------- Emprunts
 cols = [("N°", 11, "@", True), ("Date d'emprunt", 14, DATE, False), ("ID membre", 12, "@", False),
@@ -760,6 +759,13 @@ for i in range(12):
     ws["A%d" % r].number_format = "mmm yy"
     ws["B%d" % r] = '=COUNTIFS(EMP_Date,">="&A%d,EMP_Date,"<"&EDATE(A%d,1))' % (r, r)
     ws["C%d" % r] = '=COUNTIFS(EMP_Retour,">="&A%d,EMP_Retour,"<"&EDATE(A%d,1))' % (r, r)
+ws["O1"], ws["P1"], ws["Q1"] = "Jour", "Emprunts", "Retours"
+for i in range(30):
+    r = i + 2
+    ws["O%d" % r] = "=TODAY()-%d" % (29 - i)
+    ws["O%d" % r].number_format = "dd/mm"
+    ws["P%d" % r] = "=COUNTIF(EMP_Date,O%d)" % r
+    ws["Q%d" % r] = "=COUNTIF(EMP_Retour,O%d)" % r
 ws["E1"], ws["F1"] = "Catégorie", "Exemplaires"
 for i in range(len(CAT_LIVRES)):
     r = i + 2
@@ -974,7 +980,7 @@ def table_rows(r1, n, spans, rule_cols=()):
 
 
 # ---- Bande A : graphique, catégories, top 5
-panel(12, 5, 27, 18, "Évolution des emprunts — 12 derniers mois", ("Voir tout →", "Emprunts", "E6"))
+panel(12, 5, 27, 18, "Évolution des emprunts — 30 derniers jours", ("Voir tout →", "Emprunts", "E6"))
 panel(12, 20, 27, 28, '="Livres par catégorie  ·  "&FIXED(SUM(LIV_Ex),0)&" exemplaires"')
 panel(12, 30, 27, 33, "🏆 Top 5 des livres")
 for k in range(5):
@@ -1097,14 +1103,14 @@ def no_line():
 
 # courbe Emprunts / Retours
 lc_ = LineChart()
-lc_.add_data(Reference(ws_cal, min_col=2, min_row=1, max_col=3, max_row=13), titles_from_data=True)
-lc_.set_categories(Reference(ws_cal, min_col=1, min_row=2, max_row=13))
+lc_.add_data(Reference(ws_cal, min_col=16, min_row=1, max_col=17, max_row=31), titles_from_data=True)
+lc_.set_categories(Reference(ws_cal, min_col=15, min_row=2, max_row=31))
 for s, color in zip(lc_.series, [BLUE, GREEN]):
     s.smooth = False
     s.graphicalProperties.line.solidFill = color
     s.graphicalProperties.line.width = 31750
     s.marker.symbol = "circle"
-    s.marker.size = 6
+    s.marker.size = 5
     s.marker.graphicalProperties = GraphicalProperties(solidFill=color)
     s.marker.graphicalProperties.line.solidFill = WHITE
 lc_.legend.position = "t"
@@ -1112,7 +1118,9 @@ lc_.legend.txPr = axis_text(900, TEXT)
 lc_.y_axis.majorGridlines.spPr = GraphicalProperties(ln=LineProperties(solidFill="E9EEF3"))
 lc_.y_axis.spPr = no_line()
 lc_.x_axis.spPr = GraphicalProperties(ln=LineProperties(solidFill="D5DDE5"))
-lc_.x_axis.number_format = "mmm"
+lc_.x_axis.number_format = "dd/mm"
+lc_.x_axis.tickLblSkip = 3
+lc_.y_axis.majorUnit = 1
 lc_.x_axis.txPr = axis_text()
 lc_.y_axis.txPr = axis_text()
 lc_.x_axis.delete = False
@@ -1130,8 +1138,8 @@ ws.add_chart(lc_)
 PALETTE = [BLUE, NAVY, GREEN, YELLOW, "7FD3F5", "2E7D9A", "8BD49A", "F28C6A", "9AA9B8", "5C6BC0"]
 
 
-def donut(data_ref, cats_ref, colors, anchor_, legend_pos="r", pct=True):
-    d = DoughnutChart(holeSize=62)
+def donut(data_ref, cats_ref, colors, anchor_, legend_pos="r", pct=True, leg_y=0.08, leg_h=0.84):
+    d = DoughnutChart(holeSize=55)
     d.add_data(data_ref, titles_from_data=True)
     d.set_categories(cats_ref)
     s = d.series[0]
@@ -1150,8 +1158,7 @@ def donut(data_ref, cats_ref, colors, anchor_, legend_pos="r", pct=True):
     s.dLbls.showLeaderLines = False
     s.dLbls.showLegendKey = False
     s.dLbls.txPr = axis_text(800, WHITE)
-    d.legend.position = legend_pos
-    d.legend.txPr = axis_text(850, TEXT)
+    d.legend = None  # légende construite dans les cellules à droite
     d.title = None
     d.graphical_properties = GraphicalProperties(ln=LineProperties(noFill=True))
     d.anchor = anchor_
@@ -1160,10 +1167,43 @@ def donut(data_ref, cats_ref, colors, anchor_, legend_pos="r", pct=True):
 
 ws.add_chart(donut(Reference(ws_cal, min_col=6, min_row=1, max_row=1 + len(CAT_LIVRES)),
                    Reference(ws_cal, min_col=5, min_row=2, max_row=1 + len(CAT_LIVRES)),
-                   PALETTE, anchor(20, 13, 29, 27, 6, 2, 0, 0)))
+                   PALETTE, anchor(20, 13, 24, 27, 4, 2, 0, 0)))
 ws.add_chart(donut(Reference(ws_cal, min_col=9, min_row=1, max_row=4),
                    Reference(ws_cal, min_col=8, min_row=2, max_row=4),
-                   [GREEN, ORANGE, RED], anchor(20, 40, 29, 48, 6, 2, 0, 0)))
+                   [GREEN, ORANGE, RED], anchor(20, 40, 24, 48, 4, 2, 0, 0)))
+
+
+def cell_legend(rows, items, total_label):
+    """Légende en cellules : pastille de couleur + libellé (Z:AB) et valeur (AC)."""
+    for r, (lab_f, val_f, color) in zip(rows, items):
+        ws.merge_cells(start_row=r, start_column=25, end_row=r, end_column=27)
+        dot = ws.cell(r, 24, "●")
+        dot.font = font(11, True, color)
+        dot.alignment = C_AL
+        c = ws.cell(r, 25)
+        c.value = "=" + lab_f
+        c.font = font(9, False, TEXT)
+        c.alignment = L_AL(0)
+        v = ws.cell(r, 28, val_f)
+        v.font = font(9.5, True, NAVY)
+        v.alignment = R_AL(1)
+        v.number_format = "#,##0"
+    if total_label:
+        r = rows[-1] + 1
+        ws.merge_cells(start_row=r, start_column=25, end_row=r, end_column=27)
+        ws.cell(r, 24).border = Border(top=thin(LINE))
+        put(ws, "Y%d" % r, total_label[0], font(8.5, True, MUTED), L_AL(0))
+        put(ws, "AB%d" % r, total_label[1], font(9.5, True, NAVY), R_AL(1), fmt="#,##0")
+        for cc in range(25, 29):
+            ws.cell(r, cc).border = Border(top=thin(LINE), right=thin(LINE) if cc == 28 else NOB)
+
+
+cell_legend(list(range(14, 14 + len(CAT_LIVRES))),
+            [("Calculs!E%d" % (i + 2), "=Calculs!F%d" % (i + 2), PALETTE[i]) for i in range(len(CAT_LIVRES))],
+            ("TOTAL", "=SUM(LIV_Ex)"))
+cell_legend([42, 43, 44],
+            [('"En stock"', "=Calculs!I2", GREEN), ('"Stock faible"', "=Calculs!I3", ORANGE), ('"Rupture"', "=Calculs!I4", RED)],
+            ("TOTAL ARTICLES", '=COUNTIF(FOU_Code,"?*")'))
 
 # =============================================================== FINITIONS
 for w_, r_ in ZEBRA:
@@ -1175,7 +1215,7 @@ for w in wb.worksheets:
     w.page_setup.fitToHeight = 0
     w.sheet_properties.pageSetUpPr.fitToPage = True
 ws_dash.page_setup.fitToHeight = 1
-for w_, key, lastcol in ((ws_liv, "LIV_Code", "Q"), (ws_mem, "MEM_ID", "O"), (ws_emp, "EMP_Date", "P"),
+for w_, key, lastcol in ((ws_liv, "LIV_Code", "Q"), (ws_mem, "MEM_ID", "N"), (ws_emp, "EMP_Date", "P"),
                          (ws_fou, "FOU_Code", "Q"), (ws_mov, "MOV_Date", "L")):
     crit = '">0"' if "Date" in key else '"?*"'
     dn = DefinedName("_xlnm.Print_Area", localSheetId=wb.worksheets.index(w_),

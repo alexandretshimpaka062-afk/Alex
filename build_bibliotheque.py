@@ -277,6 +277,7 @@ ws_emp = wb.create_sheet("Emprunts")
 ws_fou = wb.create_sheet("Fournitures")
 ws_mov = wb.create_sheet("Mouvements")
 ws_rec = wb.create_sheet("Recherche")
+ws_rap = wb.create_sheet("Rapport mensuel")
 ws_par = wb.create_sheet("Paramètres")
 ws_cal = wb.create_sheet("Calculs")
 
@@ -288,6 +289,7 @@ MENU = [  # libellé, feuille
     ("📦   Fournitures", "Fournitures"),
     ("↕   Mouvements de stock", "Mouvements"),
     ("🔍   Recherche", "Recherche"),
+    ("🖨   Rapport mensuel", "Rapport mensuel"),
     ("⚙   Paramètres", "Paramètres"),
 ]
 
@@ -306,6 +308,7 @@ for n, s, c, cnt in [
     ("LIV_Cat", "Livres", "I", N_LIV), ("LIV_Ex", "Livres", "L", N_LIV), ("LIV_Emp", "Livres", "N", N_LIV),
     ("LIV_Dispo", "Livres", "O", N_LIV), ("LIV_Total", "Livres", "P", N_LIV), ("LIV_Statut", "Livres", "Q", N_LIV),
     ("LIV_Score", "Livres", "S", N_LIV), ("LIV_Rech", "Livres", "T", N_LIV),
+    ("LIV_ScoreMois", "Livres", "U", N_LIV), ("EMP_Cat", "Emprunts", "T", N_EMP),
     ("MEM_ID", "Membres", "E", N_MEM), ("MEM_Nom", "Membres", "F", N_MEM), ("MEM_Type", "Membres", "G", N_MEM),
     ("MEM_Classe", "Membres", "H", N_MEM), ("MEM_Insc", "Membres", "J", N_MEM), ("MEM_Cours", "Membres", "K", N_MEM),
     ("MEM_Statut", "Membres", "N", N_MEM), ("MEM_Rech", "Membres", "P", N_MEM),
@@ -565,6 +568,10 @@ for r in range(R0, last + 1):  # colonnes masquées (top & recherche)
                                 'COUNT($T$6:$T{p})+1,""))').format(r=r, p=r - 1)
 ws_liv.column_dimensions["S"].hidden = True
 ws_liv.column_dimensions["T"].hidden = True
+for r in range(R0, R0 + N_LIV):
+    ws_liv.cell(r, 21).value = ('=IF($E{r}="","",IF(COUNTIFS(EMP_Livre,$E{r},EMP_Date,">="&R_Mois,EMP_Date,"<"&EDATE(R_Mois,1))=0,"",'
+                                'COUNTIFS(EMP_Livre,$E{r},EMP_Date,">="&R_Mois,EMP_Date,"<"&EDATE(R_Mois,1))+ROW()/100000))').format(r=r)
+ws_liv.column_dimensions["U"].hidden = True
 ws_liv.column_dimensions["R"].width = 3
 status_cf(ws_liv, "Q%d:Q%d" % (R0, last), "$Q%d" % R0)
 dv_list(ws_liv, "I%d:I%d" % (R0, last), "L_CatLivres", "Choisissez une catégorie de la liste (modifiable dans Paramètres).")
@@ -635,6 +642,9 @@ for r in range(R0, last + 1):
         ws_emp["%s%d" % (col, r)].alignment = C_AL
 ws_emp.column_dimensions["R"].hidden = True
 ws_emp.column_dimensions["S"].hidden = True
+for r in range(R0, R0 + N_EMP):
+    ws_emp.cell(r, 20).value = '=IF($I{r}="","",IFERROR(INDEX(LIV_Cat,MATCH($I{r},LIV_Code,0)),""))'.format(r=r)
+ws_emp.column_dimensions["T"].hidden = True
 ws_emp.column_dimensions["Q"].width = 3
 status_cf(ws_emp, "M%d:M%d" % (R0, last), "$M%d" % R0)
 status_cf(ws_emp, "P%d:P%d" % (R0, last), "$P%d" % R0)
@@ -766,6 +776,11 @@ for i in range(30):
     ws["O%d" % r].number_format = "dd/mm"
     ws["P%d" % r] = "=COUNTIF(EMP_Date,O%d)" % r
     ws["Q%d" % r] = "=COUNTIF(EMP_Retour,O%d)" % r
+ws["S1"] = "Mois (liste)"
+for i in range(24):
+    ws["S%d" % (i + 2)] = "=DATE(YEAR(TODAY()),MONTH(TODAY())-%d,1)" % i
+    ws["S%d" % (i + 2)].number_format = "mmmm yyyy"
+name("L_Mois", "'Calculs'!$S$2:$S$25")
 ws["E1"], ws["F1"] = "Catégorie", "Exemplaires"
 for i in range(len(CAT_LIVRES)):
     r = i + 2
@@ -841,6 +856,236 @@ end = result_block(ws, end + 2, "Membres trouvés", "1E7B34", ["ID", "Nom comple
                     ("MEM_ID", "MEM_Nom", "MEM_Type", "MEM_Classe", "MEM_Cours", "MEM_Statut")],
                    '=IF(Q_Rech="","",IF(COUNT(MEM_Rech)=0,"Aucun membre trouvé",COUNT(MEM_Rech)&" résultat(s)"&IF(COUNT(MEM_Rech)>10," — 10 premiers","")))')
 
+# =============================================================== RAPPORT MENSUEL
+ws = ws_rap
+ws.sheet_view.showGridLines = False
+ws.sheet_properties.tabColor = GREEN
+RAP_LAST = 112
+sidebar(ws, "Rapport mensuel", RAP_LAST, list(range(8, 8 + len(MENU))), logo_row=1, logo_h=112)
+setw(ws, {"E": 15, "F": 15, "G": 11, "H": 11, "I": 11, "J": 11, "K": 11, "L": 11, "M": 11, "N": 12, "O": 4, "P": 12})
+ws.column_dimensions["P"].hidden = True
+for r in range(1, RAP_LAST + 1):
+    ws.row_dimensions[r].height = 20
+for r, h in {1: 8, 2: 30, 3: 18, 4: 26, 5: 18, 6: 4, 7: 4, 8: 14}.items():
+    ws.row_dimensions[r].height = h
+
+# logo du rapport (imprimé)
+img = XLImage(LOGO)
+img.anchor = OneCellAnchor(_from=AnchorMarker(col=4, colOff=4 * 9525, row=1, rowOff=0),
+                           ext=XDRPositiveSize2D(int(84 * 420 / 498) * 9525, 84 * 9525))
+ws.add_image(img)
+put(ws, "F2", "RAPPORT MENSUEL DE LA BIBLIOTHÈQUE", font(17, True, NAVY), L_AL(1), merge="F2:N2")
+put(ws, "F3", '=P_Ecole&"  ·  Année scolaire "&P_Annee', font(10, True, "0089BF"), L_AL(1), merge="F3:N3")
+put(ws, "F4", "Mois :", font(10, True, TEXT), R_AL(1))
+box(ws, 4, 7, 4, 8, BLUE_T, BLUE)
+ws.merge_cells("G4:H4")
+put(ws, "G4", date(2026, 9, 1), font(11, True, "0077A8"), C_AL, fmt="mmmm yyyy")
+put(ws, "I4", "◀ choisissez le mois dans la liste", font(8.5, False, MUTED, italic=True), L_AL(1), merge="I4:L4")
+put(ws, "F5", "Période :", font(9, False, MUTED), R_AL(1))
+put(ws, "G5", "=R_Mois", font(9, False, MUTED), L_AL(0), fmt='"du "dd/mm/yyyy', merge="G5:H5")
+put(ws, "I5", "=EDATE(R_Mois,1)-1", font(9, False, MUTED), L_AL(0), fmt='"au "dd/mm/yyyy', merge="I5:J5")
+put(ws, "K5", '=TODAY()', font(9, False, MUTED), R_AL(0), fmt='"Édité le "dd/mm/yyyy', merge="K5:N5")
+name("R_Mois", "'Rapport mensuel'!$G$4")
+dv_list(ws, "G4", "L_Mois", "Choisissez un mois dans la liste.")
+for c in range(5, 15):
+    ws.cell(6, c).fill = fill(BLUE)
+    ws.cell(7, c).fill = fill(GREEN)
+
+M_IN = 'EMP_Date,">="&R_Mois,EMP_Date,"<"&EDATE(R_Mois,1)'
+R_IN = 'EMP_Retour,">="&R_Mois,EMP_Retour,"<"&EDATE(R_Mois,1)'
+FIN = "(EDATE(R_Mois,1)-1)"
+
+
+def section(r, title):
+    ws.row_dimensions[r].height = 26
+    put(ws, "E%d" % r, title, font(12, True, NAVY), L_AL(0), merge="E%d:N%d" % (r, r))
+    for c in range(5, 15):
+        ws.cell(r, c).border = Border(bottom=Side(style="medium", color=BLUE))
+
+
+def head(r, spans):
+    ws.row_dimensions[r].height = 30
+    for c1, c2, lab in spans:
+        if c2 > c1:
+            ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+        cell = ws.cell(r, c1, lab)
+        cell.font = font(9, True, WHITE)
+        cell.alignment = Alignment(horizontal="center" if c1 > 5 else "left", vertical="center", wrap_text=True, indent=0 if c1 > 5 else 1)
+        for c in range(c1, c2 + 1):
+            ws.cell(r, c).fill = fill(NAVY)
+
+
+def row(r, spans, zebra, bold=False, total=False):
+    for c1, c2, f, fmt in spans:
+        if c2 > c1:
+            ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c2)
+        cell = ws.cell(r, c1, f)
+        cell.font = font(9.5, bold or total or c1 == 5, NAVY if total else TEXT)
+        cell.number_format = fmt
+        cell.alignment = L_AL(1) if c1 == 5 else C_AL
+        for c in range(c1, c2 + 1):
+            cc = ws.cell(r, c)
+            cc.fill = fill(BLUE_T if total else ("F8FAFC" if zebra else WHITE))
+            cc.border = Border(bottom=thin("E3E8EE"), top=Side(style="medium", color=NAVY) if total else NOB)
+
+
+# 1. Activité du mois : 10 indicateurs
+section(9, "1.  Activité de la bibliothèque pendant le mois")
+KP = [
+    ("Emprunts du mois", "=COUNTIFS(%s)" % M_IN, "0", NAVY),
+    ("Retours du mois", "=COUNTIFS(%s)" % R_IN, "0", NAVY),
+    ("Retours en retard", '=COUNTIFS(%s,EMP_Statut,"Rendu en retard")' % R_IN, "0", "A15C00"),
+    ("Livres sortis (fin de mois)", '=COUNTIFS(EMP_Date,"<="&{f})-COUNTIFS(EMP_Date,"<="&{f},EMP_Retour,"<="&{f})'.format(f=FIN), "0", NAVY),
+    ("En retard (fin de mois)", '=COUNTIFS(EMP_Prevu,"<"&{f},EMP_Date,"<="&{f})-COUNTIFS(EMP_Prevu,"<"&{f},EMP_Retour,"<="&{f})'.format(f=FIN), "0", "C62828"),
+    ("Membres inscrits", '=COUNTIFS(MEM_Insc,"<="&%s)' % FIN, "0", NAVY),
+    ("Nouveaux membres", '=COUNTIFS(MEM_Insc,">="&R_Mois,MEM_Insc,"<="&%s)' % FIN, "0", NAVY),
+    ("Titres au catalogue", '=COUNTIF(LIV_Code,"?*")', "0", NAVY),
+    ("Amendes du mois", "=SUMIFS(EMP_Amende,%s)" % R_IN, '#,##0 "FC"', "A15C00"),
+    ("dont encaissées", '=SUMIFS(EMP_Amende,%s,EMP_Paye,"Oui")' % R_IN, '#,##0 "FC"', "1E7B34"),
+]
+for i, (lab, f, fmt, color) in enumerate(KP):
+    r = 11 + (i // 5) * 3
+    c1 = 5 + (i % 5) * 2
+    ws.row_dimensions[r].height = 18
+    ws.row_dimensions[r + 1].height = 28
+    ws.merge_cells(start_row=r, start_column=c1, end_row=r, end_column=c1 + 1)
+    ws.merge_cells(start_row=r + 1, start_column=c1, end_row=r + 1, end_column=c1 + 1)
+    box(ws, r, c1, r + 1, c1 + 1, "F7FBFE", "D6E9F3")
+    put(ws, "%s%d" % (CL(c1), r), lab, font(8.5, True, MUTED), L_AL(1))
+    put(ws, "%s%d" % (CL(c1), r + 1), f, font(15, True, color), L_AL(1), fmt=fmt)
+ws.row_dimensions[13].height = 6
+
+# 2. Fonds documentaire par catégorie
+section(17, "2.  Fonds documentaire et emprunts par catégorie")
+head(18, [(5, 6, "Catégorie"), (7, 7, "Titres"), (8, 8, "Exemplaires"), (9, 9, "Emprunts du mois"),
+          (10, 10, "Part des emprunts"), (11, 11, "Sortis (fin de mois)"), (12, 12, "Disponibles (fin de mois)"),
+          (13, 14, "Taux d'emprunt (emprunts / exemplaires)")])
+N_CAT_R = 12
+for k in range(1, N_CAT_R + 1):
+    r = 18 + k
+    cat = "INDEX(L_CatLivres,%d)" % k
+    g = 'IF(%s="","",%%s)' % cat
+    sortis = ('COUNTIFS(EMP_Cat,{c},EMP_Date,"<="&{f})-COUNTIFS(EMP_Cat,{c},EMP_Date,"<="&{f},EMP_Retour,"<="&{f})'
+              .format(c="$E%d" % r, f=FIN))
+    row(r, [(5, 6, '=IF(%s="","",%s)' % (cat, cat), "@"),
+            (7, 7, "=" + g % ("COUNTIF(LIV_Cat,$E%d)" % r), "0"),
+            (8, 8, "=" + g % ("SUMIF(LIV_Cat,$E%d,LIV_Ex)" % r), "0"),
+            (9, 9, "=" + g % ("COUNTIFS(EMP_Cat,$E%d,%s)" % (r, M_IN)), "0"),
+            (10, 10, "=" + g % ("IF($I$%d=0,0,I%d/$I$%d)" % (19 + N_CAT_R, r, 19 + N_CAT_R)), "0%"),
+            (11, 11, "=" + g % sortis, "0"),
+            (12, 12, "=" + g % ("H%d-K%d" % (r, r)), "0"),
+            (13, 14, "=" + g % ("IF(H%d=0,0,I%d/H%d)" % (r, r, r)), "0%")], k % 2 == 0)
+rt = 19 + N_CAT_R
+for r in range(19, rt):  # lignes de catégorie vides invisibles
+    for c in range(5, 15):
+        ws.cell(r, c).fill = fill(WHITE)
+        ws.cell(r, c).border = Border()
+ws.conditional_formatting.add("E19:N%d" % (rt - 1), FormulaRule(
+    formula=['AND($E19<>"",MOD(ROW(),2)=0)'], fill=fill("F8FAFC"), border=Border(bottom=thin("E3E8EE"))))
+ws.conditional_formatting.add("E19:N%d" % (rt - 1), FormulaRule(formula=['$E19<>""'], border=Border(bottom=thin("E3E8EE"))))
+row(rt, [(5, 6, "TOTAL", "@"), (7, 7, "=SUM(G19:G%d)" % (rt - 1), "0"), (8, 8, "=SUM(H19:H%d)" % (rt - 1), "0"),
+         (9, 9, "=SUM(I19:I%d)" % (rt - 1), "0"), (10, 10, '=IF(I%d=0,0,1)' % rt, "0%"),
+         (11, 11, "=SUM(K19:K%d)" % (rt - 1), "0"), (12, 12, "=SUM(L19:L%d)" % (rt - 1), "0"),
+         (13, 14, "=IF(H%d=0,0,I%d/H%d)" % (rt, rt, rt), "0%")], False, total=True)
+
+# 3. Top 5 du mois
+section(rt + 2, "3.  Les 5 livres les plus empruntés du mois")
+h3 = rt + 3
+head(h3, [(5, 5, "Rang"), (6, 8, "Titre"), (9, 11, "Auteur"), (12, 13, "Catégorie"), (14, 14, "Emprunts")])
+for k in range(1, 6):
+    r = h3 + k
+    m = "MATCH(LARGE(LIV_ScoreMois,%d),LIV_ScoreMois,0)" % k
+    row(r, [(5, 5, '=IF(COUNT(LIV_ScoreMois)<%d,"",%d)' % (k, k), "0"),
+            (6, 8, '=IFERROR(INDEX(LIV_Titre,%s),"")' % m, "@"),
+            (9, 11, '=IFERROR(INDEX(LIV_Auteur,%s),"")' % m, "@"),
+            (12, 13, '=IFERROR(INDEX(LIV_Cat,%s),"")' % m, "@"),
+            (14, 14, '=IFERROR(INT(LARGE(LIV_ScoreMois,%d)),"")' % k, "0")], k % 2 == 0)
+    ws.cell(r, 6).alignment = L_AL(1)
+    ws.cell(r, 9).alignment = L_AL(1)
+    ws.cell(r, 6).font = font(9.5, True, TEXT)
+put(ws, "E%d" % (h3 + 6), '=IF(COUNT(LIV_ScoreMois)=0,"Aucun emprunt enregistré pour ce mois.","")',
+    font(9, False, MUTED, italic=True), L_AL(1), merge="E%d:N%d" % (h3 + 6, h3 + 6))
+
+# 4. Stock des fournitures (nouvelle page)
+s4 = h3 + 8
+from openpyxl.worksheet.pagebreak import Break, RowBreak
+ws.row_breaks.append(Break(id=s4 - 1))
+section(s4, "4.  État du stock des fournitures")
+head(s4 + 1, [(5, 6, "Article"), (7, 7, "Unité"), (8, 8, "Stock début de mois"), (9, 9, "Entrées du mois"),
+              (10, 10, "Sorties du mois"), (11, 11, "Stock fin de mois"), (12, 12, "Seuil minimum"),
+              (13, 13, "Statut"), (14, 14, "Valeur (FC)")])
+N_FOU_R = 30
+f1 = s4 + 2
+for k in range(1, N_FOU_R + 1):
+    r = f1 + k - 1
+    ws.cell(r, 16).value = '=IF(%d>COUNTIF(FOU_Code,"?*"),"",INDEX(FOU_Code,%d))' % (k, k)
+    P = "$P%d" % r
+    look = lambda rng_: 'INDEX(%s,MATCH(%s,FOU_Code,0))' % (rng_, P)
+    mv = lambda typ, crit: 'SUMIFS(MOV_Qte,MOV_Code,%s,MOV_Type,"%s",%s)' % (P, typ, crit)
+    g = lambda x: '=IF(%s="","",%s)' % (P, x)
+    row(r, [(5, 6, g(look("FOU_Article")), "@"),
+            (7, 7, g(look("FOU_Unite")), "@"),
+            (8, 8, g(look("'Fournitures'!$I$7:$I$%d" % (R0 + N_FOU - 1)) + "+" + mv("Entrée", 'MOV_Date,"<"&R_Mois') + "-" + mv("Sortie", 'MOV_Date,"<"&R_Mois')), "0"),
+            (9, 9, g(mv("Entrée", 'MOV_Date,">="&R_Mois,MOV_Date,"<"&EDATE(R_Mois,1)')), "0;-0;\"–\""),
+            (10, 10, g(mv("Sortie", 'MOV_Date,">="&R_Mois,MOV_Date,"<"&EDATE(R_Mois,1)')), "0;-0;\"–\""),
+            (11, 11, g("H%d+I%d-J%d" % (r, r, r)), "0"),
+            (12, 12, g(look("FOU_Seuil")), "0"),
+            (13, 13, g('IF(K%d<=0,"Rupture",IF(K%d<=L%d,"Stock faible","En stock"))' % (r, r, r)), "@"),
+            (14, 14, g("K%d*%s" % (r, look("'Fournitures'!$K$7:$K$%d" % (R0 + N_FOU - 1)))), "#,##0")], k % 2 == 0)
+    ws.cell(r, 11).font = font(9.5, True, NAVY)
+    ws.row_dimensions[r].height = 17
+    for c in range(5, 15):  # lignes vides invisibles : style appliqué seulement si un article existe
+        ws.cell(r, c).fill = fill(WHITE)
+        ws.cell(r, c).border = Border()
+fl = f1 + N_FOU_R
+status_cf(ws, "M%d:M%d" % (f1, fl - 1), "$M%d" % f1)
+ws.conditional_formatting.add("E%d:N%d" % (f1, fl - 1), FormulaRule(
+    formula=['AND($P%d<>"",MOD(ROW(),2)=0)' % f1], fill=fill("F8FAFC"), border=Border(bottom=thin("E3E8EE"))))
+ws.conditional_formatting.add("E%d:N%d" % (f1, fl - 1), FormulaRule(
+    formula=['$P%d<>""' % f1], border=Border(bottom=thin("E3E8EE"))))
+row(fl, [(5, 6, "TOTAL", "@"), (7, 7, '=COUNTIF(P%d:P%d,"?*")&" art."' % (f1, fl - 1), "@"),
+         (8, 8, "=SUM(H%d:H%d)" % (f1, fl - 1), "0"), (9, 9, "=SUM(I%d:I%d)" % (f1, fl - 1), "0"),
+         (10, 10, "=SUM(J%d:J%d)" % (f1, fl - 1), "0"), (11, 11, "=SUM(K%d:K%d)" % (f1, fl - 1), "0"),
+         (12, 12, "", "@"), (13, 13, '=COUNTIF(M%d:M%d,"Rupture")&" rupt. · "&COUNTIF(M%d:M%d,"Stock faible")&" faible"' % (f1, fl - 1, f1, fl - 1), "@"),
+         (14, 14, "=SUM(N%d:N%d)" % (f1, fl - 1), "#,##0")], False, total=True)
+ws.cell(fl, 13).font = font(8, True, NAVY)
+
+# 5. Observations & signatures
+s5 = fl + 2
+section(s5, "5.  Observations")
+box(ws, s5 + 1, 5, s5 + 4, 14, WHITE, "C9D3DC")
+ws.merge_cells(start_row=s5 + 1, start_column=5, end_row=s5 + 4, end_column=14)
+ws.cell(s5 + 1, 5).alignment = Alignment(vertical="top", wrap_text=True, indent=1)
+ws.cell(s5 + 1, 5).font = font(10, False, TEXT)
+sg = s5 + 6
+put(ws, "E%d" % sg, "Établi par (Bibliothécaire)", font(9.5, True, NAVY), L_AL(0), merge="E%d:H%d" % (sg, sg))
+put(ws, "K%d" % sg, "Visa de la Direction", font(9.5, True, NAVY), L_AL(0), merge="K%d:N%d" % (sg, sg))
+for c1, c2 in ((5, 8), (11, 14)):
+    for c in range(c1, c2 + 1):
+        ws.cell(sg + 3, c).border = Border(bottom=thin("7A8B9A"))
+put(ws, "E%d" % (sg + 4), "Nom, date et signature", font(8, False, MUTED, italic=True), L_AL(0), merge="E%d:H%d" % (sg + 4, sg + 4))
+put(ws, "K%d" % (sg + 4), "Nom, date, signature et cachet", font(8, False, MUTED, italic=True), L_AL(0), merge="K%d:N%d" % (sg + 4, sg + 4))
+RAP_PRINT_LAST = sg + 4
+
+# impression : A4 portrait, uniquement la zone du rapport (sans le menu)
+ws.print_area = "E2:N%d" % RAP_PRINT_LAST
+ws.page_setup.paperSize = ws.PAPERSIZE_A4
+ws.page_setup.orientation = "portrait"
+ws.page_setup.fitToWidth = 1
+ws.page_setup.fitToHeight = 0
+ws.sheet_properties.pageSetUpPr.fitToPage = True
+ws.print_options.horizontalCentered = True
+ws.page_margins.left = ws.page_margins.right = 0.4
+ws.page_margins.top = ws.page_margins.bottom = 0.5
+ws.oddFooter.center.text = "Rapport mensuel — page &P / &N"
+ws.oddFooter.center.size = 8
+ws.oddFooter.center.color = "7A8B9A"
+# rappel à l'écran (hors zone d'impression)
+put(ws, "B%d" % 18, "🖨  Pour imprimer :", font(9.5, True, "0089BF"), L_AL(1), merge="B18:C18")
+put(ws, "B19", "1. Choisissez le mois (case bleue)\n2. Fichier ▸ Imprimer (Ctrl+P / ⌘+P)\n3. Le rapport tient sur 2 pages A4",
+    font(8.5, False, "3C5A73"), L_AL(1, "top", True), merge="B19:C22")
+box(ws, 18, 2, 22, 3, "F2FAFE", "CDEBF8")
+
 # =============================================================== TABLEAU DE BORD
 ws = ws_dash
 ws.sheet_view.showGridLines = False
@@ -871,7 +1116,7 @@ for r, h in row_h.items():
 for r in range(1, LAST_ROW + 1):
     for c in range(4, 35):
         ws.cell(r, c).fill = fill(BG)
-menu_rows = list(range(14, 22))
+menu_rows = list(range(14, 14 + len(MENU)))
 sidebar(ws, "Tableau de bord", LAST_ROW, menu_rows, logo_row=2, logo_h=150)
 put(ws, "B12", "MENU", font(8.5, True, "9AA9B8"), L_AL(1))
 # résumé du jour
@@ -1209,6 +1454,8 @@ cell_legend([42, 43, 44],
 for w_, r_ in ZEBRA:
     w_.conditional_formatting.add(r_, FormulaRule(formula=['AND($E%d<>"",MOD(ROW(),2)=0)' % R0], fill=fill("F8FAFC")))
 for w in wb.worksheets:
+    if w is ws_rap:
+        continue
     w.sheet_view.zoomScale = w.sheet_view.zoomScale or 100
     w.page_setup.orientation = "landscape"
     w.page_setup.fitToWidth = 1

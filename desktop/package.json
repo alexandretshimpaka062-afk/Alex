@@ -73,7 +73,8 @@
     "portable": {
       "artifactName": "Bibliotheque-KIS-${version}-portable.${ext}"
     },
-    "publish": null
+    "publish": null,
+    "afterPack": "build/adhoc-sign.js"
   },
   "repository": {
     "type": "git",

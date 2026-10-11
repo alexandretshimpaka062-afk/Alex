@@ -13,7 +13,7 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            cmd: npx electron-builder --mac dmg zip --universal -c.mac.identity=-
+            cmd: npx electron-builder --mac dmg zip --universal
             files: |
               desktop/dist/*.dmg
               desktop/dist/*.zip

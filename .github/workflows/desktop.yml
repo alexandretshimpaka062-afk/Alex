@@ -39,3 +39,34 @@ jobs:
           name: Bibliotheque-KIS-${{ runner.os }}
           path: ${{ matrix.files }}
           if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - run: ls -la out
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: bureau-v1.0.0
+          name: Bibliothèque KIS 1.0.0 — Mac et Windows
+          target_commitish: ${{ github.sha }}
+          prerelease: false
+          make_latest: true
+          body: |
+            Logiciel de bureau de la bibliothèque de Kivu International School.
+
+            **Windows** : `Bibliotheque-KIS-1.0.0-win-x64.exe` (installateur) ou `…-portable.exe` (sans installation).
+            Si Windows affiche « Windows a protégé votre ordinateur » : Informations complémentaires › Exécuter quand même.
+
+            **Mac** : `Bibliotheque-KIS-1.0.0-mac-universal.dmg` (Mac à puce Apple et Mac Intel).
+            Ouvrez le .dmg, glissez l'application dans Applications. Au premier lancement :
+            Réglages Système › Confidentialité et sécurité › Ouvrir quand même.
+
+            Les données sont enregistrées dans Documents › Bibliothèque KIS (sauvegarde automatique chaque jour).
+
+            Made by Alexandre Declaire
+          files: out/*

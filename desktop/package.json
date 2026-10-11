@@ -1,0 +1,82 @@
+{
+  "name": "bibliotheque-kis",
+  "productName": "Bibliothèque KIS",
+  "version": "1.0.0",
+  "description": "Logiciel de gestion de la bibliothèque de Kivu International School",
+  "author": "Alexandre Declaire",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "prepare-app": "python3 ../app/build.py",
+    "start": "electron .",
+    "dist:mac": "electron-builder --mac --universal",
+    "dist:win": "electron-builder --win --x64",
+    "dist": "electron-builder --mac --win"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "school.kivu.bibliotheque",
+    "productName": "Bibliothèque KIS",
+    "copyright": "Kivu International School — Made by Alexandre Declaire",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "package.json"
+    ],
+    "artifactName": "Bibliotheque-KIS-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "category": "public.app-category.education",
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "dmg"
+        },
+        {
+          "target": "zip"
+        }
+      ],
+      "identity": null,
+      "hardenedRuntime": false
+    },
+    "dmg": {
+      "title": "Bibliothèque KIS"
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis"
+        },
+        {
+          "target": "portable"
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Bibliothèque KIS",
+      "language": "1036"
+    },
+    "portable": {
+      "artifactName": "Bibliotheque-KIS-${version}-portable.${ext}"
+    },
+    "publish": null
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexandretshimpaka062-afk/Alex"
+  }
+}

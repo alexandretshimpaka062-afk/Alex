@@ -57,6 +57,7 @@
   color-scheme:dark}
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--body);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:hidden}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -637,8 +638,9 @@ const LS_KEY = "kis-bibliotheque-v1";
 const S = { livres: [], membres: [], emprunts: [], fournitures: [], mouvements: [], params: null };
 const store = { mode: "loading", db: null, loaded: new Set(), ready: false };
 
-function lsRead() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch { return null; } }
-function lsWrite() { if (store.mode !== "local") return; try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
+const DESKTOP = window.desktop || null;
+function lsRead() { if (DESKTOP) { try { return DESKTOP.load(); } catch { return null; } } try { return JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch { return null; } }
+function lsWrite() { if (store.mode !== "local") return; if (DESKTOP) { DESKTOP.save(JSON.stringify(S)); return; } try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
 
 async function initStore() {
   let db = null;
@@ -817,7 +819,7 @@ function render() {
 function syncChrome() {
   const chip = $("#modeChip");
   chip.classList.toggle("loading", !store.ready);
-  chip.querySelector("span").textContent = !store.ready ? "Connexion…" : store.mode === "db" ? "Synchronisé en ligne" : "Enregistré sur cet appareil";
+  chip.querySelector("span").textContent = !store.ready ? "Connexion…" : store.mode === "db" ? "Synchronisé en ligne" : DESKTOP ? "Enregistré sur cet ordinateur" : "Enregistré sur cet appareil";
   $("#themeBtn").innerHTML = ic(isDark() ? "sun" : "moon");
 }
 function sideSummary() {
@@ -1101,7 +1103,7 @@ const monthLabel = m => { const d = parse(m + "-01"); return MOIS[d.getMonth()] 
 function reportView() {
   if (!ui.month) { const d = parse(todayISO().slice(0, 8) + "01"); d.setMonth(d.getMonth() - 1); ui.month = iso(d).slice(0, 7); }
   return `<div class="toolbar"><select class="flat" id="monthSel" aria-label="Mois du rapport">${monthOptions().map(m => `<option value="${m}" ${m === ui.month ? "selected" : ""}>${monthLabel(m).replace(/^./, c => c.toUpperCase())}</option>`).join("")}</select>
-    <span class="s" style="color:var(--ink-3);font-size:13px">${store.mode === "local" ? "Imprimer ouvre la fenêtre d'impression de Safari (format A4)." : "Téléchargez le rapport, puis ouvrez-le pour l'imprimer en A4."}</span></div>
+    <span class="s" style="color:var(--ink-3);font-size:13px">${store.mode === "local" ? "Imprimer ouvre la fenêtre d'impression (format A4)." : "Téléchargez le rapport, puis ouvrez-le pour l'imprimer en A4."}</span></div>
     <div class="paper" id="paper">${reportHTML(reportData(ui.month))}</div>`;
 }
 function reportHTML(R) {
@@ -1151,7 +1153,8 @@ function settingsView() {
         <button class="btn primary" type="submit" style="align-self:flex-start">${ic("check")}Enregistrer</button>
       </div></form>
     <div class="card"><div class="card-h"><h3>Données</h3></div>
-      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">${store.mode === "db" ? "Les données sont synchronisées en ligne : toute personne qui ouvre cette application voit les mêmes informations." : "Les données sont enregistrées dans ce navigateur, sur cet appareil. Faites une sauvegarde régulièrement."}</p>
+      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">${store.mode === "db" ? "Les données sont synchronisées en ligne : toute personne qui ouvre cette application voit les mêmes informations." : DESKTOP ? "Les données sont enregistrées dans le dossier <b>Documents › Bibliothèque KIS</b> de cet ordinateur, avec une sauvegarde automatique chaque jour (30 jours conservés)." : "Les données sont enregistrées dans ce navigateur, sur cet appareil. Faites une sauvegarde régulièrement."}</p>
+      ${DESKTOP ? `<button class="btn sm ghost" type="button" id="openDataDir" style="margin-bottom:8px">${ic("box")}Ouvrir le dossier des données</button>` : ""}
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <button class="btn sm ghost" type="button" data-export="json">${ic("down")}Sauvegarde complète</button>
         <label class="btn sm ghost" style="cursor:pointer">${ic("up")}Restaurer une sauvegarde<input type="file" id="importFile" accept=".json,application/json" hidden></label>
@@ -1183,6 +1186,7 @@ function bindView() {
     toast("Réglages enregistrés"); });
   $$("form[data-add]", v).forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const key = f.dataset.add, inp = $("input", f), val = inp.value.trim(); if (!val) return;
     const p = params(); if (p[key].includes(val)) return toast("« " + val + " » existe déjà", true); saveParams({ ...p, [key]: [...p[key], val] }); }));
+  const od = $("#openDataDir", v); if (od) od.addEventListener("click", () => DESKTOP.openDataDir());
   const imp = $("#importFile", v); if (imp) imp.addEventListener("change", () => importBackup(imp.files[0]));
   const ls = $("#loadSample", v); if (ls) ls.addEventListener("click", () => confirmSheet("Recharger les exemples ?", "Toutes les données actuelles seront remplacées par les données d'exemple.", "Remplacer", () => bulkReplace(makeSample(), "Chargement des exemples…")));
   const wa = $("#wipeAll", v); if (wa) wa.addEventListener("click", () => confirmSheet("Tout effacer ?", "Livres, membres, emprunts et fournitures seront supprimés. Faites d'abord une sauvegarde si besoin.", "Tout effacer", () => bulkReplace({}, "Suppression…")));

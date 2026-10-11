@@ -4,12 +4,15 @@ Version installable de l'application, pour Mac et Windows. Elle fonctionne **san
 
 ## Installer
 
+Téléchargement : https://github.com/alexandretshimpaka062-afk/Alex/releases/tag/bureau-v1.0.0
+
+
 **Windows** : lancez `Bibliotheque-KIS-1.0.0-win-x64.exe` et suivez l'assistant.
 Windows affiche « Windows a protégé votre ordinateur » (le logiciel n'est pas signé) :
 cliquez sur **Informations complémentaires**, puis **Exécuter quand même**.
 `Bibliotheque-KIS-1.0.0-portable.exe` se lance sans installation (clé USB, par exemple).
 
-**Mac** : ouvrez le fichier `.zip` (Mac à puce Apple M1/M2/M3/M4 : `mac-arm64` ; ancien Mac Intel : `mac-x64`),
+**Mac** : ouvrez `Bibliotheque-KIS-1.0.0-mac-universal.dmg` (fonctionne sur les Mac à puce Apple et les Mac Intel),
 glissez **Bibliothèque KIS** dans le dossier **Applications**.
 Au premier lancement, macOS indique que le développeur ne peut pas être vérifié :
 ouvrez **Réglages Système › Confidentialité et sécurité**, puis cliquez sur **Ouvrir quand même**

@@ -68,5 +68,5 @@ jobs:
 
             Les données sont enregistrées dans Documents › Bibliothèque KIS (sauvegarde automatique chaque jour).
 
-            Made by Alexandre Declaire
+            Made by Alexandre et Declaire
           files: out/*

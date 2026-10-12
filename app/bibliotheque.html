@@ -1,4 +1,4 @@
-<title>Bibliothèque KIS</title>
+<title>Kivuthèque</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&display=swap">
@@ -358,6 +358,47 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 @keyframes flash{0%,30%{background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
 .book.flash{border-radius:14px}
 
+/* droits par rôle */
+body.no-biblio [data-perm="biblio"],body.no-fourn [data-perm="fourn"],body.no-admin [data-perm="admin"]{display:none!important}
+.user-chip{display:flex;align-items:center;gap:10px;padding:8px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}
+.user-chip b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-chip small{display:block;font-size:11.5px;color:var(--ink-3)}
+.user-chip .act{margin-left:auto;flex:none}
+/* écran de connexion */
+body.locked{overflow:hidden}
+.auth{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;overflow-y:auto;
+  background:radial-gradient(60vw 60vw at 10% 0%,var(--orb-1),transparent 60%),radial-gradient(50vw 50vw at 100% 80%,var(--orb-2),transparent 60%),radial-gradient(40vw 40vw at 50% 110%,var(--orb-3),transparent 60%),var(--bg)}
+.auth-card{width:min(440px,100%);padding:30px 28px;border-radius:28px;background:var(--glass-strong);border:1px solid var(--line-2);box-shadow:var(--shadow-lg);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);display:flex;flex-direction:column;gap:18px;animation:pop .6s var(--spring) both}
+.auth-brand{display:flex;align-items:center;gap:14px}
+.auth-brand .logo-tile{width:64px;height:64px;border-radius:20px}
+.auth-brand .logo-tile img{width:48px}
+.auth-brand h1{font-size:30px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--accent),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+.auth-brand p{margin:2px 0 0;color:var(--ink-3);font-size:13px}
+.auth h2{font-size:21px}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-form .btn{height:48px;font-size:15px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;align-self:stretch}
+.auth-tabs button{height:38px}
+.auth-p{margin:0;color:var(--ink-2);font-size:14px}
+.auth-p.small{font-size:12.5px;color:var(--ink-3)}
+.auth-link{align-self:center;margin:0}
+.auth-actions{display:flex;gap:10px;flex-wrap:wrap}
+.auth-msg{padding:11px 13px;border-radius:12px;font-size:13.5px;font-weight:600}
+.auth-msg.err{background:var(--danger-soft);color:var(--danger)}
+.auth-msg.ok{background:var(--green-soft);color:var(--green)}
+.auth-foot{font-size:11.5px;color:var(--ink-3)}
+.auth code{font:600 12.5px var(--mono);background:var(--line);padding:1px 6px;border-radius:6px}
+/* rapports */
+.report-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.rtab{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:18px;background:var(--glass);border:1px solid var(--line);text-align:left;transition:transform .3s var(--spring),border-color .2s,background .2s}
+.rtab:hover{transform:translateY(-2px);border-color:var(--line-2)}
+.rtab[aria-pressed="true"]{background:var(--glass-strong);border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.rtab .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none}
+.rtab .ic svg{width:19px;height:19px}
+.rtab b{display:block;font-size:14.5px}
+.rtab small{display:block;color:var(--ink-3);font-size:12px}
+.paper .p-brand{font:800 11px var(--display);letter-spacing:.14em;text-transform:uppercase;color:#00AEEF}
+
 /* palette ⌘K */
 .palette{position:fixed;inset:0;z-index:70;display:flex;justify-content:center;align-items:flex-start;padding:12vh 16px 16px}
 .palette .backdrop{opacity:1;animation:none}
@@ -466,14 +507,15 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
   <aside class="rail" aria-label="Navigation principale">
     <div class="brand">
       <div class="logo-tile"><img id="railLogo" alt="Logo Kivu International School"></div>
-      <div><b>Bibliothèque</b><small>Kivu International School</small></div>
+      <div><b>Kivuthèque</b><small>Kivu International School</small></div>
     </div>
     <div class="nav-label">Menu</div>
     <nav class="nav" id="nav"><span class="nav-pill" id="navPill" aria-hidden="true"></span></nav>
     <div class="rail-foot">
       <div class="today-card" id="todayCard"></div>
       <div class="mode-chip loading" id="modeChip"><i></i><span>Connexion…</span></div>
-      <div class="made">Made by Alexandre Declaire</div>
+      <div class="user-chip" id="userChip" hidden></div>
+      <div class="made">Made by Alexandre et Declaire</div>
     </div>
   </aside>
 
@@ -494,6 +536,8 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 <div class="toasts" id="toasts" role="status"></div>
 <div id="printArea"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
 <script>
 "use strict";
 const LOGO = "data:image/png;base64,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";
@@ -550,6 +594,8 @@ const P = {
   grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
   list: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
   trend: '<path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  key: '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14.5 8.5l2 2"/>',
+  logout: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/>',
   coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5V8M12 16v1.5"/>',
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -643,6 +689,7 @@ function lsRead() { if (DESKTOP) { try { return DESKTOP.load(); } catch { return
 function lsWrite() { if (store.mode !== "local") return; if (DESKTOP) { DESKTOP.save(JSON.stringify(S)); return; } try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
 
 async function initStore() {
+  if (CLOUD) return cloudBoot();
   let db = null;
   if (window.claude && typeof window.claude.use === "function") { try { db = await window.claude.use("db"); } catch { db = null; } }
   if (db) {
@@ -665,15 +712,18 @@ async function put(col, obj) {
   const i = S[col].findIndex(x => x.id === obj.id);
   if (i >= 0) S[col][i] = obj; else S[col].push(obj);
   onData(true);
-  if (store.mode === "db") { const { id, ...data } = obj; try { await store.db.collection(col).doc(id).set(data); } catch (e) { writeError(e); } }
+  if (store.mode === "cloud") { const { id, ...data } = obj; const { error } = await auth.sb.from(col).upsert({ id, data }); if (error) { toast(cloudError(error), true); cloudResync(col); } }
+  else if (store.mode === "db") { const { id, ...data } = obj; try { await store.db.collection(col).doc(id).set(data); } catch (e) { writeError(e); } }
   else lsWrite();
 }
 async function del(col, id) {
   S[col] = S[col].filter(x => x.id !== id); onData(true);
+  if (store.mode === "cloud") { const { error } = await auth.sb.from(col).delete().eq("id", id); if (error) { toast(cloudError(error), true); cloudResync(col); } return; }
   if (store.mode === "db") { try { await store.db.collection(col).doc(id).delete(); } catch (e) { writeError(e); } } else lsWrite();
 }
 async function saveParams(p) {
   S.params = p; onData(true);
+  if (store.mode === "cloud") { const { error } = await auth.sb.from("reglages").upsert({ id: "params", data: p }); if (error) toast(cloudError(error), true); return; }
   if (store.mode === "db") { try { await store.db.doc("config/params").set(p); } catch (e) { writeError(e); } } else lsWrite();
 }
 function writeError(e) {
@@ -687,6 +737,19 @@ async function bulkReplace(data, label) {
   COLS.forEach(c => { S[c].forEach(x => ops.push(["del", c, x.id])); (data[c] || []).forEach(x => ops.push(["set", c, x])); });
   const params = { ...(S.params || DEFAULT_PARAMS), ...(data.params || {}), initialized: true };
   if (store.mode === "local") { COLS.forEach(c => S[c] = (data[c] || []).slice()); S.params = params; lsWrite(); onData(true); return; }
+  if (store.mode === "cloud") {
+    if (!guard("admin")) return;
+    const ov = progressOverlay(label); const steps = COLS.length * 2 + 1; let k = 0;
+    try {
+      for (const c of COLS) { const { error } = await auth.sb.from(c).delete().neq("id", "\u0000"); if (error) throw error; ov.set(++k / steps); }
+      for (const c of COLS) { const rows = (data[c] || []).map(({ id, ...d }) => ({ id, data: d }));
+        for (let i = 0; i < rows.length; i += 400) { const { error } = await auth.sb.from(c).upsert(rows.slice(i, i + 400)); if (error) throw error; }
+        S[c] = (data[c] || []).slice(); ov.set(++k / steps); }
+      const { error } = await auth.sb.from("reglages").upsert({ id: "params", data: params }); if (error) throw error;
+      S.params = params; ov.close(); onData(true); toast(label.replace("…", "") + " : terminé");
+    } catch (e) { ov.close(); toast(cloudError(e), true); COLS.forEach(cloudResync); }
+    return;
+  }
   const ov = progressOverlay(label);
   let done = 0; const total = ops.length;
   const run = async op => {
@@ -701,6 +764,222 @@ async function bulkReplace(data, label) {
     await store.db.doc("config/params").set(params);
     ov.close(); toast(label.replace("…", "") + " : terminé");
   } catch (e) { ov.close(); writeError(e); }
+}
+
+/* ============================================================ en ligne : comptes et données (Supabase) */
+const CLOUD_CFG = window.KIV_CONFIG || null;
+const CLOUD = !!CLOUD_CFG;
+const ROLES = {
+  admin: ["Administrateur", "Tout gérer, y compris les comptes et les réglages"],
+  bibliothecaire: ["Bibliothécaire", "Livres, membres, emprunts et retours"],
+  fournitures: ["Gestion des fournitures", "Articles et mouvements de stock"],
+  consultation: ["Consultation", "Lecture seule, aucune modification"],
+  en_attente: ["En attente", "Compte créé, pas encore validé"],
+  desactive: ["Désactivé", "Accès retiré"],
+};
+const auth = { sb: null, user: null, profile: null, accounts: [], channel: null };
+const roleOf = () => (auth.profile && auth.profile.role) || "";
+function can(area) {
+  if (store.mode !== "cloud") return true;
+  const r = roleOf();
+  if (r === "admin") return true;
+  if (area === "biblio") return r === "bibliothecaire";
+  if (area === "fourn") return r === "fournitures";
+  return false;
+}
+function guard(area) {
+  if (can(area)) return true;
+  toast(`Votre rôle (${(ROLES[roleOf()] || ["?"])[0]}) ne permet pas cette action.`, true);
+  return false;
+}
+function applyPerms() {
+  document.body.classList.toggle("no-biblio", !can("biblio"));
+  document.body.classList.toggle("no-fourn", !can("fourn"));
+  document.body.classList.toggle("no-admin", !can("admin"));
+  document.body.classList.toggle("is-cloud", store.mode === "cloud");
+  $("#fab").hidden = !(can("biblio") || can("fourn"));
+}
+function cloudError(e) {
+  const m = (e && (e.message || e.error_description)) || "";
+  if (/Invalid login credentials/i.test(m)) return "E-mail ou mot de passe incorrect.";
+  if (/Email not confirmed/i.test(m)) return "Confirmez d'abord votre adresse e-mail grâce au lien reçu par e-mail.";
+  if (/already registered|already been registered/i.test(m)) return "Un compte existe déjà avec cette adresse e-mail.";
+  if (/Password should be at least|at least 6/i.test(m)) return "Le mot de passe doit contenir au moins 6 caractères.";
+  if (/rate limit|too many/i.test(m)) return "Trop de tentatives. Patientez une minute puis réessayez.";
+  if (/row-level security|permission denied|42501/i.test(m) || (e && e.code === "42501")) return "Votre rôle ne permet pas cette modification.";
+  if (/Failed to fetch|NetworkError|Load failed/i.test(m)) return "Pas de connexion au serveur. Vérifiez internet puis réessayez.";
+  return m || "Une erreur est survenue. Réessayez.";
+}
+
+/* ---------- écran de connexion ---------- */
+function authShell(inner) {
+  let el = $("#authScreen");
+  if (!el) { el = document.createElement("div"); el.id = "authScreen"; el.className = "auth"; document.body.appendChild(el); }
+  el.hidden = false; document.body.classList.add("locked");
+  el.innerHTML = `<div class="auth-card"><div class="auth-brand"><div class="logo-tile"><img src="${LOGO}" alt="Logo Kivu International School"></div>
+    <div><h1>Kivuthèque</h1><p>Bibliothèque et fournitures · Kivu International School</p></div></div>${inner}</div>
+    <div class="auth-foot">Made by Alexandre et Declaire</div>`;
+  return el;
+}
+function hideAuth() { const el = $("#authScreen"); if (el) el.hidden = true; document.body.classList.remove("locked"); }
+function authMsg(el, msg, ok) { const m = $(".auth-msg", el); m.textContent = msg; m.className = "auth-msg " + (ok ? "ok" : "err"); m.hidden = !msg; }
+function showAuth(mode, info) {
+  if (mode === "config") {
+    authShell(`<h2>Connexion au serveur à configurer</h2>
+      <p class="auth-p">L'adresse du projet Supabase et sa clé publique ne sont pas encore renseignées dans <code>config.js</code>.
+      Suivez le guide <b>INSTALLATION.md</b>, étapes 1 à 3.</p>`);
+    return;
+  }
+  if (mode === "pending") {
+    const r = roleOf(); const el = authShell(`<h2>${r === "desactive" ? "Accès désactivé" : "Compte en attente de validation"}</h2>
+      <p class="auth-p">${r === "desactive" ? "Votre accès a été retiré par un administrateur." : `Bonjour ${esc(auth.profile ? auth.profile.nom : "")}, votre compte <b>${esc(auth.user.email)}</b> est bien créé. Un administrateur doit maintenant vous attribuer un rôle.`}</p>
+      <div class="auth-actions"><button class="btn primary" type="button" id="aRefresh">${ic("ret")}Vérifier à nouveau</button><button class="btn ghost" type="button" id="aOut">Se déconnecter</button></div>
+      <div class="auth-msg" hidden></div>`);
+    $("#aRefresh", el).onclick = async () => { await afterLogin(auth.user); };
+    $("#aOut", el).onclick = signOut;
+    return;
+  }
+  if (mode === "newpass") {
+    const el = authShell(`<h2>Choisir un nouveau mot de passe</h2>
+      <form id="aForm" class="auth-form"><div class="f"><label for="a-p1">Nouveau mot de passe</label><input id="a-p1" type="password" autocomplete="new-password" minlength="6" required></div>
+      <div class="f"><label for="a-p2">Confirmer</label><input id="a-p2" type="password" autocomplete="new-password" minlength="6" required></div>
+      <button class="btn primary" type="submit">${ic("check")}Enregistrer le mot de passe</button><div class="auth-msg" hidden></div></form>`);
+    $("#aForm", el).onsubmit = async e => { e.preventDefault();
+      if ($("#a-p1", el).value !== $("#a-p2", el).value) return authMsg(el, "Les deux mots de passe sont différents.");
+      const { error } = await auth.sb.auth.updateUser({ password: $("#a-p1", el).value });
+      if (error) return authMsg(el, cloudError(error));
+      history.replaceState(null, "", location.pathname); const { data } = await auth.sb.auth.getSession(); if (data.session) afterLogin(data.session.user); };
+    return;
+  }
+  const tab = mode === "signup" ? "signup" : mode === "forgot" ? "forgot" : "login";
+  const el = authShell(`
+    ${tab !== "forgot" ? `<div class="seg auth-tabs" role="tablist"><button type="button" data-at="login" aria-pressed="${tab === "login"}">Connexion</button><button type="button" data-at="signup" aria-pressed="${tab === "signup"}">Créer un compte</button></div>` : "<h2>Mot de passe oublié</h2>"}
+    <form id="aForm" class="auth-form" novalidate>
+      ${tab === "signup" ? `<div class="f"><label for="a-nom">Prénom et nom</label><input id="a-nom" autocomplete="name" required></div>` : ""}
+      <div class="f"><label for="a-email">Adresse e-mail</label><input id="a-email" type="email" autocomplete="email" inputmode="email" required></div>
+      ${tab !== "forgot" ? `<div class="f"><label for="a-pass">Mot de passe</label><input id="a-pass" type="password" autocomplete="${tab === "signup" ? "new-password" : "current-password"}" minlength="6" required></div>` : '<p class="auth-p">Saisissez votre adresse : vous recevrez un lien pour choisir un nouveau mot de passe.</p>'}
+      <button class="btn primary" type="submit" id="aSubmit">${tab === "login" ? ic("arrow") + "Se connecter" : tab === "signup" ? ic("check") + "Créer mon compte" : ic("arrow") + "Recevoir le lien"}</button>
+      <div class="auth-msg" hidden></div>
+      ${tab === "login" ? '<button type="button" class="link auth-link" data-at="forgot">Mot de passe oublié ?</button>' : tab === "signup" ? '<p class="auth-p small">Après la création, un administrateur valide votre compte et vous attribue un rôle.</p>' : '<button type="button" class="link auth-link" data-at="login">Retour à la connexion</button>'}
+    </form>`);
+  if (info) authMsg(el, info, true);
+  $$("[data-at]", el).forEach(b => b.onclick = () => showAuth(b.dataset.at));
+  $("#aForm", el).onsubmit = async e => {
+    e.preventDefault(); const btn = $("#aSubmit", el); btn.disabled = true; authMsg(el, "");
+    const email = $("#a-email", el).value.trim(), pass = $("#a-pass", el) ? $("#a-pass", el).value : "";
+    try {
+      if (!/^\S+@\S+\.\S+$/.test(email)) throw { message: "Adresse e-mail invalide." };
+      if (tab === "login") {
+        const { data, error } = await auth.sb.auth.signInWithPassword({ email, password: pass }); if (error) throw error;
+        await afterLogin(data.user);
+      } else if (tab === "signup") {
+        const nom = $("#a-nom", el).value.trim(); if (!nom) throw { message: "Indiquez votre prénom et votre nom." };
+        if (pass.length < 6) throw { message: "Le mot de passe doit contenir au moins 6 caractères." };
+        const { data, error } = await auth.sb.auth.signUp({ email, password: pass, options: { data: { nom }, emailRedirectTo: location.origin + location.pathname } });
+        if (error) throw error;
+        if (data.session) await afterLogin(data.user);
+        else showAuth("login", "Compte créé. Ouvrez l'e-mail de confirmation que vous venez de recevoir, puis connectez-vous.");
+      } else {
+        const { error } = await auth.sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); if (error) throw error;
+        authMsg(el, "Si un compte existe pour cette adresse, un e-mail vient d'être envoyé.", true);
+      }
+    } catch (err) { authMsg(el, cloudError(err)); }
+    btn.disabled = false;
+  };
+  setTimeout(() => ($("#a-nom", el) || $("#a-email", el))?.focus(), 50);
+}
+async function signOut() { try { await auth.sb.auth.signOut(); } catch {} location.hash = ""; location.reload(); }
+
+/* ---------- démarrage ---------- */
+async function cloudBoot() {
+  if (!window.supabase || !CLOUD_CFG.supabaseUrl || !CLOUD_CFG.supabaseKey || /VOTRE|xxx/i.test(CLOUD_CFG.supabaseUrl)) return showAuth("config");
+  auth.sb = window.supabase.createClient(CLOUD_CFG.supabaseUrl, CLOUD_CFG.supabaseKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+  let recovering = /type=recovery/.test(location.hash);
+  auth.sb.auth.onAuthStateChange(ev => { if (ev === "PASSWORD_RECOVERY") { recovering = true; showAuth("newpass"); } });
+  const { data } = await auth.sb.auth.getSession();
+  if (recovering) return showAuth("newpass");
+  if (!data.session) return showAuth("login");
+  await afterLogin(data.session.user);
+}
+async function afterLogin(user) {
+  auth.user = user;
+  const { data: prof, error } = await auth.sb.from("profiles").select("*").eq("id", user.id).maybeSingle();
+  if (error) return showAuth("login", "") || toast(cloudError(error), true);
+  auth.profile = prof || { role: "en_attente", nom: user.email };
+  if (["en_attente", "desactive"].includes(roleOf())) return showAuth("pending");
+  hideAuth(); store.mode = "cloud"; applyPerms(); buildAccountNav();
+  if (!store.cloudLoaded) { store.cloudLoaded = true; await cloudLoad(); } else render();
+}
+async function cloudFetch(t) {
+  let rows = [], from = 0;
+  for (;;) {
+    const { data, error } = await auth.sb.from(t).select("id,data").order("id").range(from, from + 999);
+    if (error) throw error;
+    rows = rows.concat(data); if (data.length < 1000) break; from += 1000;
+  }
+  return rows;
+}
+async function cloudLoad() {
+  try {
+    await Promise.all([...COLS, "reglages"].map(async t => {
+      const rows = await cloudFetch(t);
+      if (t === "reglages") { const p = rows.find(r => r.id === "params"); S.params = p ? p.data : null; store.loaded.add("params"); }
+      else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
+    }));
+  } catch (e) { toast(cloudError(e), true); }
+  onData();
+  if (can("admin")) loadAccounts();
+  auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
+    const t = payload.table, row = payload.new && payload.new.id ? payload.new : null, oldId = payload.old && payload.old.id;
+    if (COLS.includes(t)) {
+      if (payload.eventType === "DELETE") S[t] = S[t].filter(x => x.id !== oldId);
+      else { const o = { ...row.data, id: row.id }; const i = S[t].findIndex(x => x.id === o.id); if (i >= 0) S[t][i] = o; else S[t].push(o); }
+      onData();
+    } else if (t === "reglages" && row && row.id === "params") { S.params = row.data; onData(); }
+    else if (t === "profiles") {
+      if (row && row.id === auth.user.id && row.role !== roleOf()) { auth.profile = row; if (["en_attente", "desactive"].includes(row.role)) return showAuth("pending"); applyPerms(); buildAccountNav(); toast("Votre rôle a changé : " + ROLES[row.role][0]); render(); }
+      if (can("admin")) loadAccounts();
+    }
+  }).subscribe();
+}
+async function cloudResync(t) { try { const rows = await cloudFetch(t); S[t] = rows.map(r => ({ ...r.data, id: r.id })); onData(); } catch {} }
+
+/* ---------- gestion des comptes (administrateur) ---------- */
+async function loadAccounts() {
+  const { data, error } = await auth.sb.from("profiles").select("*").order("created_at");
+  if (!error) { auth.accounts = data; const n = data.filter(p => p.role === "en_attente").length; const b = $("#navPending"); if (b) { b.hidden = !n; b.textContent = n; } if (ui.view === "comptes") render(); }
+}
+function buildAccountNav() {
+  const exists = $('#nav [data-go="comptes"]');
+  if (can("admin") && !exists) {
+    $('#nav [data-go="reglages"]').insertAdjacentHTML("beforebegin", `<button type="button" data-go="comptes">${ic("key")}<span>Comptes</span><span class="count" id="navPending" hidden></span></button>`);
+  }
+  if (!can("admin") && exists) exists.remove();
+  const foot = $("#userChip");
+  if (foot && auth.profile) { foot.hidden = false; foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom || auth.user.email })}<div style="min-width:0"><b>${esc(auth.profile.nom || auth.user.email)}</b><small>${esc(ROLES[roleOf()][0])}</small></div><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
+    $("#logoutBtn").onclick = signOut; }
+  syncNav();
+}
+function accountsView() {
+  const list = auth.accounts.slice().sort((a, b) => (a.role === "en_attente" ? -1 : 0) - (b.role === "en_attente" ? -1 : 0));
+  const pend = list.filter(p => p.role === "en_attente");
+  const opts = cur => Object.entries(ROLES).map(([k, [l]]) => `<option value="${k}" ${k === cur ? "selected" : ""}>${l}</option>`).join("");
+  return `${pend.length ? `<div class="card" style="border-color:var(--warn)"><div class="card-h"><h3>${pend.length} compte${pend.length > 1 ? "s" : ""} à valider</h3><span class="sub">Choisissez le rôle de chaque personne</span></div>
+      <div class="rows">${pend.map(p => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${avatar({ id: p.id, nom: p.nom || p.email })}<div style="min-width:0"><div class="t">${esc(p.nom || "")}</div><div class="s">${esc(p.email)} · inscrit le ${fmtD(String(p.created_at).slice(0, 10))}</div></div>
+        <div class="row-actions" style="opacity:1;flex-wrap:wrap">${["bibliothecaire", "fournitures", "consultation", "admin"].map(r => `<button class="btn sm ${r === "bibliothecaire" ? "primary" : "ghost"}" type="button" data-setrole="${p.id}:${r}">${ROLES[r][0]}</button>`).join("")}</div></div>`).join("")}</div></div>` : ""}
+    <div class="card"><div class="card-h"><h3>Tous les comptes</h3><span class="sub">${list.length} personne${list.length > 1 ? "s" : ""}</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Personne</th><th>Inscrit le</th><th>Rôle</th></tr></thead><tbody>
+      ${list.map(p => `<tr><td><div style="display:flex;gap:12px;align-items:center">${avatar({ id: p.id, nom: p.nom || p.email })}<div><div class="t">${esc(p.nom || "")}${p.id === auth.user.id ? ' <span class="pill info">vous</span>' : ""}</div><div class="s">${esc(p.email)}</div></div></div></td>
+        <td>${fmtD(String(p.created_at).slice(0, 10))}</td>
+        <td><select class="flat" data-role-of="${p.id}" aria-label="Rôle de ${esc(p.nom || p.email)}">${opts(p.role)}</select><div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div></td></tr>`).join("")}
+      </tbody></table></div></div>
+    <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "consultation"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
+      <p class="form-note" style="margin-top:12px">Pour ajouter quelqu'un : envoyez-lui l'adresse de Kivuthèque. Il clique sur « Créer un compte », puis vous validez son compte ici.</p></div>`;
+}
+async function setRole(id, role) {
+  const { error } = await auth.sb.rpc("kiv_set_role", { target: id, new_role: role });
+  if (error) { toast(cloudError(error), true); return loadAccounts(); }
+  const p = auth.accounts.find(x => x.id === id); toast(`${p ? p.nom || p.email : "Compte"} : ${ROLES[role][0]}`); loadAccounts();
 }
 
 /* ============================================================ calculs */
@@ -747,14 +1026,14 @@ const VIEWS = [
   { id: "emprunts", label: "Emprunts", icon: "swap" },
   { id: "membres", label: "Membres", icon: "users" },
   { id: "fournitures", label: "Fournitures", icon: "box" },
-  { id: "rapport", label: "Rapport mensuel", icon: "report" },
+  { id: "rapport", label: "Rapports", icon: "report" },
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
-const ui = { flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
-try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h)) ui.view = h; } catch {}
+const ui = { report: "biblio", flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
+try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes") ui.view = h; } catch {}
 
 function buildNav() {
-  $("#nav").insertAdjacentHTML("beforeend", VIEWS.map(v => `<button type="button" data-go="${v.id}">${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : ""}</button>`).join(""));
+  $("#nav").insertAdjacentHTML("beforeend", VIEWS.map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : ""}</button>`).join(""));
   const tabs = ["accueil", "livres", "emprunts", "membres"];
   $("#tabbar").innerHTML = tabs.map(id => { const v = VIEWS.find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
@@ -782,13 +1061,14 @@ function onData(immediate) {
   requestAnimationFrame(() => { renderQueued = false; render(); });
 }
 const HEAD = {
-  accueil: () => [greet(), "Accueil", ["Nouvel emprunt", "plus", () => loanSheet()]],
-  livres: () => [nf(S.livres.length) + " titres · " + nf(S.livres.reduce((a, b) => a + (+b.ex || 0), 0)) + " exemplaires", "Livres", ["Ajouter un livre", "plus", () => bookSheet()]],
-  emprunts: () => ["Sorties, retours et amendes", "Emprunts", ["Nouvel emprunt", "plus", () => loanSheet()]],
-  membres: () => [nf(S.membres.length) + " membres inscrits", "Membres", ["Ajouter un membre", "plus", () => memberSheet()]],
-  fournitures: () => ["Stock de l'école", "Fournitures", ["Ajouter un article", "plus", () => supplySheet()]],
-  rapport: () => ["À imprimer en fin de mois", "Rapport mensuel", store.mode === "local" ? ["Imprimer", "print", () => printReport()] : ["Télécharger", "down", () => downloadReport()]],
+  accueil: () => [greet(), "Accueil", ["Nouvel emprunt", "plus", () => loanSheet(), "biblio"]],
+  livres: () => [nf(S.livres.length) + " titres · " + nf(S.livres.reduce((a, b) => a + (+b.ex || 0), 0)) + " exemplaires", "Livres", ["Ajouter un livre", "plus", () => bookSheet(), "biblio"]],
+  emprunts: () => ["Sorties, retours et amendes", "Emprunts", ["Nouvel emprunt", "plus", () => loanSheet(), "biblio"]],
+  membres: () => [nf(S.membres.length) + " membres inscrits", "Membres", ["Ajouter un membre", "plus", () => memberSheet(), "biblio"]],
+  fournitures: () => ["Stock de l'école", "Fournitures", ["Ajouter un article", "plus", () => supplySheet(), "fourn"]],
+  rapport: () => ["Bibliothèque, fournitures, retards et inventaire · en PDF", "Rapports", null],
   reglages: () => ["École, règles de prêt et données", "Réglages", null],
+  comptes: () => ["Qui peut se connecter, et avec quels droits", "Comptes", null],
 };
 function greet() { const h = new Date().getHours(); return (h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir") + " · " + fmtLong(todayISO()); }
 
@@ -797,13 +1077,15 @@ function render() {
   const view = $("#view");
   if (!store.ready) { view.className = ""; view.innerHTML = `<div class="grid kpis">${'<div class="skeleton"></div>'.repeat(4)}</div><div class="skeleton" style="height:300px"></div>`; return; }
   const empty = !S.params && COLS.every(c => !S[c].length);
+  if (empty && store.mode === "cloud" && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
   if (empty) { view.className = "enter"; view.innerHTML = welcomeView(); bindWelcome(); return; }
   derive();
   const [eyebrow, title, action] = HEAD[ui.view]();
   $("#eyebrow").textContent = eyebrow; $("#viewTitle").textContent = title;
   const pb = $("#primaryBtn");
-  if (action) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView }[ui.view]();
+  if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
+  if ((ui.view === "comptes" && !(store.mode === "cloud" && can("admin"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: accountsView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -819,7 +1101,7 @@ function render() {
 function syncChrome() {
   const chip = $("#modeChip");
   chip.classList.toggle("loading", !store.ready);
-  chip.querySelector("span").textContent = !store.ready ? "Connexion…" : store.mode === "db" ? "Synchronisé en ligne" : DESKTOP ? "Enregistré sur cet ordinateur" : "Enregistré sur cet appareil";
+  chip.querySelector("span").textContent = !store.ready ? "Connexion…" : store.mode === "cloud" ? "En ligne · synchronisé" : store.mode === "db" ? "Synchronisé en ligne" : DESKTOP ? "Enregistré sur cet ordinateur" : "Enregistré sur cet appareil";
   $("#themeBtn").innerHTML = ic(isDark() ? "sun" : "moon");
 }
 function sideSummary() {
@@ -893,7 +1175,7 @@ function dashView() {
       <div class="card-h"><h3>Actions rapides</h3></div>
       <div class="quick">
         ${[["Nouvel emprunt", "plus", "accent", "loan"], ["Enregistrer un retour", "ret", "green", "return"], ["Ajouter un livre", "book", "accent", "book"], ["Ajouter un membre", "users", "green", "member"], ["Mouvement de stock", "box", "warn", "move"], ["Rapport du mois", "report", "accent", "report"]]
-          .map(([l, i, t, a]) => `<button class="q" type="button" data-quick="${a}" style="--tone:var(--${t});--tone-soft:var(--${t}-soft)"><span class="ic">${ic(i)}</span>${l}</button>`).join("")}
+          .map(([l, i, t, a]) => `<button class="q" type="button" data-quick="${a}" data-perm="${a === "move" ? "fourn" : a === "report" ? "" : "biblio"}" style="--tone:var(--${t});--tone-soft:var(--${t}-soft)"><span class="ic">${ic(i)}</span>${l}</button>`).join("")}
       </div>
     </div>
   </div>
@@ -913,7 +1195,7 @@ function loanRow(e, late) {
   return `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto auto">${miniCover(e.b)}
     <div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s">${esc(e.m ? e.m.nom : e.membre)}${e.m && e.m.classe && e.m.classe !== "Personnel" ? " · " + esc(e.m.classe) : ""} · ${late ? "à rendre le " + fmtShort(e.prevu) : fmtShort(e.date)}</div></div>
     ${late ? `<span class="num" style="color:var(--danger)">${e.jours} j</span>` : pill(lab, tone)}
-    ${!e.retour ? `<button class="act" type="button" title="Enregistrer le retour" data-return="${esc(e.id)}">${ic("ret")}</button>` : "<span></span>"}</div>`;
+    ${!e.retour ? `<button class="act" type="button" title="Enregistrer le retour" data-return="${esc(e.id)}" data-perm="biblio">${ic("ret")}</button>` : "<span></span>"}</div>`;
 }
 function supplyRow(f) {
   const pct = Math.min(100, f.stock / Math.max(1, f.seuil * 2) * 100);
@@ -997,7 +1279,7 @@ function booksList() {
       <div class="cover" style="${coverVars(b)}"><span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div></div>
       <div class="b-meta"><span class="b-title">${esc(b.titre)}</span><span class="avail ${t}">${b.dispo}/${b.ex}</span></div></button>`; }).join("")}</div>`;
   return `<div class="card"><div class="table-wrap"><table><thead><tr><th>Titre</th><th>Catégorie</th><th>Rayon</th><th class="c">Exemplaires</th><th class="c">Disponibles</th><th>Statut</th><th></th></tr></thead><tbody>
-    ${arr.map(b => { const [l, t] = bookAvail(b); return `<tr data-book="${esc(b.id)}" style="cursor:pointer"><td><div style="display:flex;gap:12px;align-items:center">${miniCover(b)}<div><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)} · <span class="code">${esc(b.id)}</span></div></div></div></td><td>${esc(b.categorie)}</td><td>${esc(b.rayon || "—")}</td><td class="c">${b.ex}</td><td class="c"><b>${b.dispo}</b></td><td>${pill(l, t)}</td><td><div class="row-actions"><button class="act" type="button" data-edit-book="${esc(b.id)}" title="Modifier">${ic("edit")}</button></div></td></tr>`; }).join("")}
+    ${arr.map(b => { const [l, t] = bookAvail(b); return `<tr data-book="${esc(b.id)}" style="cursor:pointer"><td><div style="display:flex;gap:12px;align-items:center">${miniCover(b)}<div><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)} · <span class="code">${esc(b.id)}</span></div></div></div></td><td>${esc(b.categorie)}</td><td>${esc(b.rayon || "—")}</td><td class="c">${b.ex}</td><td class="c"><b>${b.dispo}</b></td><td>${pill(l, t)}</td><td><div class="row-actions" data-perm="biblio"><button class="act" type="button" data-edit-book="${esc(b.id)}" title="Modifier">${ic("edit")}</button></div></td></tr>`; }).join("")}
     </tbody></table></div></div>`;
 }
 
@@ -1021,7 +1303,7 @@ function loansList() {
     <td>${fmtD(e.date)}</td><td>${fmtD(e.prevu)}${e.retour ? `<div class="s">rendu le ${fmtD(e.retour)}</div>` : ""}</td>
     <td>${pill(l + (e.jours && !e.retour ? " · " + e.jours + " j" : ""), t)}</td>
     <td class="r">${e.amende ? `<b>${fc(e.amende)}</b><div class="s">${e.paye ? "payée" : "due"}</div>` : '<span class="s">—</span>'}</td>
-    <td><div class="row-actions">${!e.retour ? `<button class="btn sm primary" type="button" data-return="${esc(e.id)}">${ic("ret")}Retour</button>` : e.amende && !e.paye ? `<button class="btn sm ghost" type="button" data-pay="${esc(e.id)}">${ic("coin")}Encaisser</button>` : ""}<button class="act" type="button" data-del-loan="${esc(e.id)}" title="Supprimer">${ic("trash")}</button></div></td></tr>`; }).join("")}
+    <td><div class="row-actions" data-perm="biblio">${!e.retour ? `<button class="btn sm primary" type="button" data-return="${esc(e.id)}">${ic("ret")}Retour</button>` : e.amende && !e.paye ? `<button class="btn sm ghost" type="button" data-pay="${esc(e.id)}">${ic("coin")}Encaisser</button>` : ""}<button class="act" type="button" data-del-loan="${esc(e.id)}" title="Supprimer">${ic("trash")}</button></div></td></tr>`; }).join("")}
   </tbody></table></div></div>`;
 }
 
@@ -1041,7 +1323,7 @@ function membersList() {
   ${arr.map(m => { const st = m.retard ? pill("En retard", "bad") : m.cours >= p.max ? pill("Limite atteinte", "warn") : pill("Actif", "ok");
     return `<tr data-member="${esc(m.id)}" style="cursor:pointer"><td><div style="display:flex;gap:12px;align-items:center">${avatar(m)}<div><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.type)} · <span class="code">${esc(m.id)}</span></div></div></div></td>
     <td>${esc(m.classe)}</td><td>${fmtD(m.inscription)}</td><td class="c"><b>${m.cours}</b><span class="s"> / ${p.max}</span></td><td class="r">${m.dues ? `<b style="color:var(--danger)">${fc(m.dues)}</b>` : '<span class="s">—</span>'}</td><td>${st}</td>
-    <td><div class="row-actions"><button class="act" type="button" data-loan-for="${esc(m.id)}" title="Nouvel emprunt">${ic("plus")}</button><button class="act" type="button" data-edit-member="${esc(m.id)}" title="Modifier">${ic("edit")}</button></div></td></tr>`; }).join("")}
+    <td><div class="row-actions" data-perm="biblio"><button class="act" type="button" data-loan-for="${esc(m.id)}" title="Nouvel emprunt">${ic("plus")}</button><button class="act" type="button" data-edit-member="${esc(m.id)}" title="Modifier">${ic("edit")}</button></div></td></tr>`; }).join("")}
   </tbody></table></div></div>`;
 }
 
@@ -1056,7 +1338,7 @@ function suppliesView() {
       <div class="card kpi" style="--tone:var(--warn);--tone-soft:var(--warn-soft)"><div class="k-top"><span class="k-ic">${ic("alert")}</span>À réapprovisionner</div><div class="k-val" data-count="${st[1][1] + st[2][1]}">0</div><div class="k-sub">${st[2][1]} en rupture</div></div>
     </div>
     <div class="grid cols-21">
-      <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Inventaire</h3><button class="btn sm ghost" type="button" data-quick="move">${ic("swap")}Entrée / sortie</button><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
+      <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Inventaire</h3><button class="btn sm ghost" type="button" data-quick="move" data-perm="fourn">${ic("swap")}Entrée / sortie</button><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
       <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
         <div class="card"><div class="card-h"><h3>État des stocks</h3></div>${donut(st.map(([label, value, color]) => ({ label, value, color })).filter(x => x.value), F.length, "articles")}</div>
         <div class="card"><div class="card-h"><h3>Derniers mouvements</h3></div><div class="rows">${recent.map(m => { const f = D.fmap.get(m.article); return `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto"><span class="k-ic" style="width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--${m.type === "entree" ? "green" : "warn"}-soft);color:var(--${m.type === "entree" ? "green" : "warn"})">${ic(m.type === "entree" ? "down" : "up")}</span><div style="min-width:0"><div class="t">${esc(f ? f.article : m.article)}</div><div class="s">${fmtShort(m.date)} · ${esc(m.tiers || "")}</div></div><b class="num">${m.type === "entree" ? "+" : "−"}${m.qte}</b></div>`; }).join("") || '<div class="empty">Aucun mouvement.</div>'}</div></div>
@@ -1070,71 +1352,178 @@ function suppliesList() {
     return `<div class="row" data-srow="${esc(f.id)}" style="grid-template-columns:minmax(0,1fr) minmax(70px,140px) auto auto">
       <div style="min-width:0;cursor:pointer" data-supply="${esc(f.id)}"><div class="t">${esc(f.article)}</div><div class="s">${esc(f.categorie)} · ${fc(f.prix)} / ${esc(f.unite.toLowerCase())}</div></div>
       <div class="meter" title="Seuil : ${f.seuil}" style="--tone:var(--${f.etat === "rupture" ? "danger" : f.etat === "faible" ? "warn" : "green"})"><b data-w="${pct}%"></b><span class="mark" style="left:33.3%"></span></div>
-      <div class="stepper"><button type="button" data-step="${esc(f.id)}:sortie" aria-label="Sortie d'une unité">${ic("minus")}</button><b>${f.stock}</b><button type="button" data-step="${esc(f.id)}:entree" aria-label="Entrée d'une unité">${ic("plus")}</button></div>
+      ${can("fourn") ? `<div class="stepper"><button type="button" data-step="${esc(f.id)}:sortie" aria-label="Sortie d'une unité">${ic("minus")}</button><b>${f.stock}</b><button type="button" data-step="${esc(f.id)}:entree" aria-label="Entrée d'une unité">${ic("plus")}</button></div>` : `<b class="num" style="min-width:42px;text-align:center">${f.stock}</b>`}
       ${etatPill(f)}</div>`; }).join("")}</div>`;
 }
 
 /* ---------- rapport ---------- */
+/* ============================================================ rapports (aperçu + PDF) */
+const REPORTS = [
+  { id: "biblio", label: "Bibliothèque", sub: "Activité du mois", icon: "book", monthly: true },
+  { id: "fourn", label: "Fournitures", sub: "Stock du mois", icon: "box", monthly: true },
+  { id: "retards", label: "Retards et amendes", sub: "Situation à ce jour", icon: "clock" },
+  { id: "inventaire", label: "Inventaire des livres", sub: "Catalogue à ce jour", icon: "list" },
+];
 function monthBounds(m) { const s = m + "-01"; const e = parse(s); e.setMonth(e.getMonth() + 1); e.setDate(0); return [s, iso(e)]; }
-function reportData(m) {
-  const [s, e] = monthBounds(m); const inM = d => d && d >= s && d <= e; const p = params();
-  const E = D.emprunts;
-  const k = {
-    emprunts: E.filter(x => inM(x.date)).length, retours: E.filter(x => inM(x.retour)).length,
-    retoursRetard: E.filter(x => inM(x.retour) && x.retour > x.prevu).length,
-    sortis: E.filter(x => x.date <= e && !(x.retour && x.retour <= e)).length,
-    retard: E.filter(x => x.prevu < e && x.date <= e && !(x.retour && x.retour <= e)).length,
-    inscrits: S.membres.filter(x => x.inscription <= e).length, nouveaux: S.membres.filter(x => inM(x.inscription)).length,
-    titres: S.livres.length, amendes: E.filter(x => inM(x.retour)).reduce((a, x) => a + x.amende, 0),
-    encaisse: E.filter(x => inM(x.retour) && x.paye).reduce((a, x) => a + x.amende, 0),
-  };
-  const cats = p.categories.map(c => { const bs = S.livres.filter(b => b.categorie === c); const ex = bs.reduce((a, b) => a + (+b.ex || 0), 0);
-    const ids = new Set(bs.map(b => b.id)); const em = E.filter(x => ids.has(x.livre) && inM(x.date)).length; const so = E.filter(x => ids.has(x.livre) && x.date <= e && !(x.retour && x.retour <= e)).length;
-    return { c, titres: bs.length, ex, em, so, dispo: ex - so }; }).filter(r => r.titres);
-  const cnt = {}; E.filter(x => inM(x.date)).forEach(x => cnt[x.livre] = (cnt[x.livre] || 0) + 1);
-  const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, n]) => ({ b: D.livres.get(id), n }));
-  const four = D.fournitures.map(f => { let ent0 = 0, sor0 = 0, ent = 0, sor = 0;
-    S.mouvements.forEach(mv => { if (mv.article !== f.id) return; const q = +mv.qte || 0; if (mv.date < s) mv.type === "entree" ? ent0 += q : sor0 += q; else if (mv.date <= e) mv.type === "entree" ? ent += q : sor += q; });
-    const debut = (+f.initial || 0) + ent0 - sor0, fin = debut + ent - sor; return { f, debut, ent, sor, fin, etat: fin <= 0 ? "rupture" : fin <= f.seuil ? "faible" : "ok", valeur: fin * (+f.prix || 0) }; });
-  return { s, e, k, cats, top, four, p };
-}
 function monthOptions() { const out = []; const d = parse(todayISO().slice(0, 8) + "01"); for (let i = 0; i < 24; i++) { out.push(iso(d).slice(0, 7)); d.setMonth(d.getMonth() - 1); } return out; }
 const monthLabel = m => { const d = parse(m + "-01"); return MOIS[d.getMonth()] + " " + d.getFullYear(); };
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const ST_TXT = { rupture: "Rupture", faible: "Stock faible", ok: "En stock" };
+
+function reportModel(kind, m) {
+  const p = params(), T = todayISO(), E = D.emprunts;
+  const base = { kind, school: p.ecole, year: p.annee, edited: fmtD(T), signatures: false };
+  if (kind === "biblio" || kind === "fourn") {
+    const [s, e] = monthBounds(m); const inM = d => d && d >= s && d <= e;
+    base.period = `${cap(monthLabel(m))} · du ${fmtD(s)} au ${fmtD(e)}`; base.signatures = true;
+    if (kind === "biblio") {
+      const loansM = E.filter(x => inM(x.date));
+      const k = [
+        ["Emprunts", loansM.length], ["Retours", E.filter(x => inM(x.retour)).length],
+        ["Retours en retard", E.filter(x => inM(x.retour) && x.retour > x.prevu).length],
+        ["Sortis en fin de mois", E.filter(x => x.date <= e && !(x.retour && x.retour <= e)).length],
+        ["En retard en fin de mois", E.filter(x => x.prevu < e && x.date <= e && !(x.retour && x.retour <= e)).length],
+        ["Membres inscrits", S.membres.filter(x => (x.inscription || "") <= e).length], ["Nouveaux membres", S.membres.filter(x => inM(x.inscription)).length],
+        ["Lecteurs actifs", new Set(loansM.map(x => x.membre)).size], ["Amendes du mois", fc(E.filter(x => inM(x.retour)).reduce((a, x) => a + x.amende, 0))],
+        ["dont encaissées", fc(E.filter(x => inM(x.retour) && x.paye).reduce((a, x) => a + x.amende, 0))]];
+      const cats = p.categories.map(c => { const bs = S.livres.filter(b => b.categorie === c); const ids = new Set(bs.map(b => b.id)); const ex = bs.reduce((a, b) => a + (+b.ex || 0), 0);
+        const em = loansM.filter(x => ids.has(x.livre)).length, so = E.filter(x => ids.has(x.livre) && x.date <= e && !(x.retour && x.retour <= e)).length;
+        return { c, t: bs.length, ex, em, so }; }).filter(r => r.t);
+      const tot = cats.reduce((a, r) => ({ t: a.t + r.t, ex: a.ex + r.ex, em: a.em + r.em, so: a.so + r.so }), { t: 0, ex: 0, em: 0, so: 0 });
+      const cnt = {}; loansM.forEach(x => cnt[x.livre] = (cnt[x.livre] || 0) + 1);
+      const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const byClass = {}; loansM.forEach(x => { const c = x.m ? x.m.classe : "—"; (byClass[c] = byClass[c] || { n: 0, mem: new Set() }).n++; byClass[c].mem.add(x.membre); });
+      const classes = Object.entries(byClass).sort((a, b) => b[1].n - a[1].n);
+      return { ...base, title: "Rapport mensuel de la bibliothèque", sections: [
+        { title: "Activité du mois", kpis: k },
+        { title: "Fonds et emprunts par catégorie", table: { head: ["Catégorie", "Titres", "Exemplaires", "Emprunts du mois", "Part", "Sortis (fin de mois)", "Disponibles"], align: ["l", "c", "c", "c", "c", "c", "c"],
+          body: cats.map(r => [r.c, r.t, r.ex, r.em, (tot.em ? Math.round(r.em / tot.em * 100) : 0) + " %", r.so, r.ex - r.so]),
+          foot: ["Total", tot.t, tot.ex, tot.em, "100 %", tot.so, tot.ex - tot.so] } },
+        { title: "Les livres les plus empruntés", table: { head: ["#", "Titre", "Auteur", "Catégorie", "Emprunts"], align: ["c", "l", "l", "l", "c"], bold: [1],
+          body: top.map(([id, n], i) => { const b = D.livres.get(id); return [i + 1, b ? b.titre : id, b ? b.auteur : "", b ? b.categorie : "", n]; }) }, empty: "Aucun emprunt ce mois-ci." },
+        { title: "Emprunts par classe", table: { head: ["Classe", "Emprunts", "Lecteurs différents", "Part des emprunts"], align: ["l", "c", "c", "c"],
+          body: classes.map(([c, v]) => [c, v.n, v.mem.size, (loansM.length ? Math.round(v.n / loansM.length * 100) : 0) + " %"]) }, empty: "Aucun emprunt ce mois-ci." },
+      ] };
+    }
+    const four = D.fournitures.map(f => { let e0 = 0, s0 = 0, en = 0, so = 0;
+      S.mouvements.forEach(mv => { if (mv.article !== f.id) return; const q = +mv.qte || 0; if (mv.date < s) mv.type === "entree" ? e0 += q : s0 += q; else if (mv.date <= e) mv.type === "entree" ? en += q : so += q; });
+      const debut = (+f.initial || 0) + e0 - s0, fin = debut + en - so; return { f, debut, en, so, fin, etat: fin <= 0 ? "rupture" : fin <= f.seuil ? "faible" : "ok", valeur: fin * (+f.prix || 0) }; });
+    const mvts = S.mouvements.filter(x => inM(x.date)).sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : (a.id < b.id ? -1 : 1));
+    const byT = {}; mvts.filter(x => x.type === "sortie").forEach(x => { const f = D.fmap.get(x.article); const k = x.tiers || "Non précisé"; (byT[k] = byT[k] || { q: 0, v: 0 }); byT[k].q += +x.qte || 0; byT[k].v += (+x.qte || 0) * (f ? +f.prix || 0 : 0); });
+    const tot = four.reduce((a, x) => ({ d: a.d + x.debut, e: a.e + x.en, s: a.s + x.so, f: a.f + x.fin, v: a.v + x.valeur }), { d: 0, e: 0, s: 0, f: 0, v: 0 });
+    return { ...base, title: "Rapport mensuel des fournitures", sections: [
+      { title: "Synthèse du mois", kpis: [["Articles suivis", four.length], ["Unités entrées", tot.e], ["Unités sorties", tot.s], ["Valeur des sorties", fc(Object.values(byT).reduce((a, x) => a + x.v, 0))], ["Valeur du stock (fin de mois)", fc(tot.v)],
+        ["En rupture", four.filter(x => x.etat === "rupture").length], ["Stock faible", four.filter(x => x.etat === "faible").length], ["Mouvements enregistrés", mvts.length]] },
+      { title: "État du stock", table: { head: ["Article", "Unité", "Début", "Entrées", "Sorties", "Fin", "Seuil", "Statut", "Valeur"], align: ["l", "l", "c", "c", "c", "c", "c", "l", "r"], bold: [0, 5], status: 7,
+        body: four.map(x => [x.f.article, x.f.unite, x.debut, x.en || "–", x.so || "–", x.fin, x.f.seuil, ST_TXT[x.etat], fc(x.valeur)]),
+        foot: [`Total · ${four.length} articles`, "", tot.d, tot.e, tot.s, tot.f, "", `${four.filter(x => x.etat !== "ok").length} alertes`, fc(tot.v)] }, empty: "Aucun article." },
+      { title: "Mouvements du mois", table: { head: ["Date", "Article", "Type", "Quantité", "Bénéficiaire / fournisseur", "Remarque"], align: ["l", "l", "l", "c", "l", "l"],
+        body: mvts.map(x => { const f = D.fmap.get(x.article); return [fmtD(x.date), f ? f.article : x.article, x.type === "entree" ? "Entrée" : "Sortie", x.qte, x.tiers || "", x.note || ""]; }) }, empty: "Aucun mouvement ce mois-ci." },
+      { title: "Sorties par bénéficiaire", table: { head: ["Bénéficiaire", "Unités sorties", "Valeur"], align: ["l", "c", "r"],
+        body: Object.entries(byT).sort((a, b) => b[1].q - a[1].q).map(([k, v]) => [k, v.q, fc(v.v)]) }, empty: "Aucune sortie ce mois-ci." },
+    ] };
+  }
+  base.period = "Situation au " + fmtLong(T);
+  if (kind === "retards") {
+    const late = E.filter(x => x.statut === "retard").sort((a, b) => (a.m ? a.m.classe : "").localeCompare(b.m ? b.m.classe : "", "fr") || (a.m ? a.m.nom : "").localeCompare(b.m ? b.m.nom : "", "fr"));
+    const unpaid = E.filter(x => x.retour && x.amende && !x.paye).sort((a, b) => a.retour < b.retour ? 1 : -1);
+    const dues = late.reduce((a, x) => a + x.amende, 0), up = unpaid.reduce((a, x) => a + x.amende, 0);
+    return { ...base, title: "Retards et amendes", sections: [
+      { title: "Synthèse", kpis: [["Livres en retard", late.length], ["Membres concernés", new Set(late.map(x => x.membre)).size], ["Amendes des retards en cours", fc(dues)], ["Amendes impayées (livres rendus)", fc(up)], ["Total à encaisser", fc(dues + up)]] },
+      { title: "Livres à récupérer", table: { head: ["Classe", "Membre", "Livre", "Sorti le", "À rendre le", "Jours", "Amende"], align: ["l", "l", "l", "l", "l", "c", "r"], bold: [1],
+        body: late.map(x => [x.m ? x.m.classe : "", x.m ? x.m.nom : x.membre, x.b ? x.b.titre : x.livre, fmtD(x.date), fmtD(x.prevu), x.jours, fc(x.amende)]),
+        foot: ["Total", "", "", "", "", "", fc(dues)] }, empty: "Aucun livre en retard." },
+      { title: "Amendes impayées sur des livres déjà rendus", table: { head: ["Membre", "Classe", "Livre", "Rendu le", "Jours de retard", "Amende"], align: ["l", "l", "l", "l", "c", "r"], bold: [0],
+        body: unpaid.map(x => [x.m ? x.m.nom : x.membre, x.m ? x.m.classe : "", x.b ? x.b.titre : x.livre, fmtD(x.retour), x.jours, fc(x.amende)]),
+        foot: ["Total", "", "", "", "", fc(up)] }, empty: "Aucune amende impayée." },
+    ] };
+  }
+  const books = [...D.livres.values()].sort((a, b) => a.categorie.localeCompare(b.categorie, "fr") || a.titre.localeCompare(b.titre, "fr"));
+  const t = books.reduce((a, b) => ({ ex: a.ex + (+b.ex || 0), so: a.so + b.sortis }), { ex: 0, so: 0 });
+  return { ...base, title: "Inventaire des livres", sections: [
+    { title: "Synthèse", kpis: [["Titres", books.length], ["Exemplaires", t.ex], ["Sortis", t.so], ["Disponibles", t.ex - t.so], ["Catégories", new Set(books.map(b => b.categorie)).size]] },
+    { title: "Catalogue par catégorie", table: { head: ["Catégorie", "Code", "Titre", "Auteur", "Rayon", "Ex.", "Disp."], align: ["l", "l", "l", "l", "l", "c", "c"], bold: [2],
+      body: books.map(b => [b.categorie, b.id, b.titre, b.auteur, b.rayon || "", b.ex, b.dispo]), foot: ["Total", "", `${books.length} titres`, "", "", t.ex, t.ex - t.so] }, empty: "Aucun livre au catalogue." },
+  ] };
+}
+
+/* ---------- aperçu à l'écran ---------- */
+function reportHTML(M) {
+  const tone = v => v === "Rupture" ? "bad" : v === "Stock faible" ? "warn" : v === "En stock" ? "ok" : "";
+  const sec = (s, i) => `<h2>${i + 1}. ${esc(s.title)}</h2>` + (s.kpis ? `<div class="p-kpis">${s.kpis.map(([l, v]) => `<div class="p-kpi"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join("")}</div>` : "") +
+    (s.table ? (s.table.body.length ? `<div class="table-wrap" style="margin:0;padding:0"><table><thead><tr>${s.table.head.map((h, j) => `<th class="${{ c: "c", r: "r" }[s.table.align[j]] || ""}">${esc(h)}</th>`).join("")}</tr></thead>
+      <tbody>${s.table.body.map(r => `<tr>${r.map((v, j) => `<td class="${{ c: "c", r: "r" }[s.table.align[j]] || ""}">${s.table.status === j ? `<span class="pill ${tone(v)}">${esc(v)}</span>` : (s.table.bold || []).includes(j) ? `<b>${esc(v)}</b>` : esc(v)}</td>`).join("")}</tr>`).join("")}</tbody>
+      ${s.table.foot ? `<tfoot><tr>${s.table.foot.map((v, j) => `<td class="${{ c: "c", r: "r" }[s.table.align[j]] || ""}">${esc(v)}</td>`).join("")}</tr></tfoot>` : ""}</table></div>` : `<p style="color:#7A8B9A">${esc(s.empty || "Aucune donnée.")}</p>`) : "");
+  return `<div class="p-head"><img src="${LOGO}" alt=""><div><div class="p-brand">Kivuthèque</div><h1>${esc(M.title)}</h1><div class="p-sub">${esc(M.school)} · Année scolaire ${esc(M.year)}</div>
+    <div class="p-meta">${esc(M.period)} · édité le ${esc(M.edited)}</div></div></div><div class="p-bar"></div>
+    ${M.sections.map(sec).join("")}
+    ${M.signatures ? `<h2>${M.sections.length + 1}. Observations</h2><div class="obs"></div><div class="sign"><div>Établi par<small>Nom, date et signature</small></div><div>Visa de la Direction<small>Nom, date, signature et cachet</small></div></div>` : ""}`;
+}
 function reportView() {
   if (!ui.month) { const d = parse(todayISO().slice(0, 8) + "01"); d.setMonth(d.getMonth() - 1); ui.month = iso(d).slice(0, 7); }
-  return `<div class="toolbar"><select class="flat" id="monthSel" aria-label="Mois du rapport">${monthOptions().map(m => `<option value="${m}" ${m === ui.month ? "selected" : ""}>${monthLabel(m).replace(/^./, c => c.toUpperCase())}</option>`).join("")}</select>
-    <span class="s" style="color:var(--ink-3);font-size:13px">${store.mode === "local" ? "Imprimer ouvre la fenêtre d'impression (format A4)." : "Téléchargez le rapport, puis ouvrez-le pour l'imprimer en A4."}</span></div>
-    <div class="paper" id="paper">${reportHTML(reportData(ui.month))}</div>`;
+  const R = REPORTS.find(r => r.id === ui.report) || REPORTS[0];
+  return `<div class="report-tabs">${REPORTS.map(r => `<button type="button" class="rtab" data-report="${r.id}" aria-pressed="${r.id === R.id}"><span class="ic">${ic(r.icon)}</span><span><b>${r.label}</b><small>${r.sub}</small></span></button>`).join("")}</div>
+    <div class="toolbar">${R.monthly ? `<select class="flat" id="monthSel" aria-label="Mois du rapport">${monthOptions().map(m => `<option value="${m}" ${m === ui.month ? "selected" : ""}>${cap(monthLabel(m))}</option>`).join("")}</select>` : `<span class="pill info">À ce jour</span>`}
+      <button class="btn primary" type="button" id="pdfBtn">${ic("down")}Télécharger le PDF</button>
+      ${store.mode !== "db" ? `<button class="btn ghost" type="button" id="printBtn">${ic("print")}Imprimer</button>` : ""}</div>
+    <div class="paper" id="paper">${reportHTML(reportModel(R.id, ui.month))}</div>`;
 }
-function reportHTML(R) {
-  const { k, p } = R; const P = (l, v) => `<div class="p-kpi"><span>${l}</span><b>${v}</b></div>`;
-  const pe = x => x.etat === "rupture" ? '<span class="pill bad">Rupture</span>' : x.etat === "faible" ? '<span class="pill warn">Stock faible</span>' : '<span class="pill ok">En stock</span>';
-  const tot = R.cats.reduce((a, r) => ({ t: a.t + r.titres, ex: a.ex + r.ex, em: a.em + r.em, so: a.so + r.so }), { t: 0, ex: 0, em: 0, so: 0 });
-  return `<div class="p-head"><img src="${LOGO}" alt=""><div><h1>Rapport mensuel de la bibliothèque</h1><div class="p-sub">${esc(p.ecole)} · Année scolaire ${esc(p.annee)}</div>
-    <div class="p-meta">${monthLabel(R.s.slice(0, 7)).replace(/^./, c => c.toUpperCase())} · du ${fmtD(R.s)} au ${fmtD(R.e)} · édité le ${fmtD(todayISO())}</div></div></div><div class="p-bar"></div>
-  <h2>1. Activité du mois</h2>
-  <div class="p-kpis">${P("Emprunts", k.emprunts)}${P("Retours", k.retours)}${P("Retours en retard", k.retoursRetard)}${P("Sortis en fin de mois", k.sortis)}${P("En retard en fin de mois", k.retard)}
-    ${P("Membres inscrits", k.inscrits)}${P("Nouveaux membres", k.nouveaux)}${P("Titres au catalogue", k.titres)}${P("Amendes du mois", fc(k.amendes))}${P("dont encaissées", fc(k.encaisse))}</div>
-  <h2>2. Fonds et emprunts par catégorie</h2>
-  <table><thead><tr><th>Catégorie</th><th class="c">Titres</th><th class="c">Exemplaires</th><th class="c">Emprunts du mois</th><th class="c">Part</th><th class="c">Sortis (fin de mois)</th><th class="c">Disponibles</th></tr></thead>
-  <tbody>${R.cats.map(r => `<tr><td><b>${esc(r.c)}</b></td><td class="c">${r.titres}</td><td class="c">${r.ex}</td><td class="c">${r.em}</td><td class="c">${tot.em ? Math.round(r.em / tot.em * 100) : 0} %</td><td class="c">${r.so}</td><td class="c">${r.dispo}</td></tr>`).join("")}</tbody>
-  <tfoot><tr><td>Total</td><td class="c">${tot.t}</td><td class="c">${tot.ex}</td><td class="c">${tot.em}</td><td class="c">100 %</td><td class="c">${tot.so}</td><td class="c">${tot.ex - tot.so}</td></tr></tfoot></table>
-  <h2>3. Les livres les plus empruntés</h2>
-  ${R.top.length ? `<table><thead><tr><th>#</th><th>Titre</th><th>Auteur</th><th>Catégorie</th><th class="c">Emprunts</th></tr></thead><tbody>${R.top.map((t, i) => `<tr><td>${i + 1}</td><td><b>${esc(t.b ? t.b.titre : "—")}</b></td><td>${esc(t.b ? t.b.auteur : "")}</td><td>${esc(t.b ? t.b.categorie : "")}</td><td class="c">${t.n}</td></tr>`).join("")}</tbody></table>` : '<p style="color:#7A8B9A">Aucun emprunt ce mois-ci.</p>'}
-  <h2 class="p-break">4. Stock des fournitures</h2>
-  <table><thead><tr><th>Article</th><th>Unité</th><th class="c">Début de mois</th><th class="c">Entrées</th><th class="c">Sorties</th><th class="c">Fin de mois</th><th class="c">Seuil</th><th>Statut</th><th class="r">Valeur</th></tr></thead>
-  <tbody>${R.four.map(x => `<tr><td><b>${esc(x.f.article)}</b></td><td>${esc(x.f.unite)}</td><td class="c">${x.debut}</td><td class="c">${x.ent || "–"}</td><td class="c">${x.sor || "–"}</td><td class="c"><b>${x.fin}</b></td><td class="c">${x.f.seuil}</td><td>${pe(x)}</td><td class="r">${fc(x.valeur)}</td></tr>`).join("")}</tbody>
-  <tfoot><tr><td colspan="2">Total · ${R.four.length} articles</td><td class="c">${R.four.reduce((a, x) => a + x.debut, 0)}</td><td class="c">${R.four.reduce((a, x) => a + x.ent, 0)}</td><td class="c">${R.four.reduce((a, x) => a + x.sor, 0)}</td><td class="c">${R.four.reduce((a, x) => a + x.fin, 0)}</td><td></td><td>${R.four.filter(x => x.etat !== "ok").length} alertes</td><td class="r">${fc(R.four.reduce((a, x) => a + x.valeur, 0))}</td></tr></tfoot></table>
-  <h2>5. Observations</h2><div class="obs"></div>
-  <div class="sign"><div>Établi par (bibliothécaire)<small>Nom, date et signature</small></div><div>Visa de la Direction<small>Nom, date, signature et cachet</small></div></div>`;
+function printReport() { const R = REPORTS.find(r => r.id === ui.report) || REPORTS[0]; $("#printArea").innerHTML = `<div class="paper">${reportHTML(reportModel(R.id, ui.month))}</div>`; window.print(); }
+
+/* ---------- PDF (A4) ---------- */
+function pdfSafe(v) { return String(v ?? "").replace(/ /g, " ").replace(/[→›]/g, ">").replace(/[▲▼]/g, ""); }
+async function downloadReport() {
+  const R = REPORTS.find(r => r.id === ui.report) || REPORTS[0];
+  if (!window.jspdf || !window.jspdf.jsPDF) return toast("Le module PDF n'a pas pu être chargé. Vérifiez la connexion internet.", true);
+  const M = reportModel(R.id, ui.month);
+  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const W = 210, L = 14, Rm = 14, CW = W - L - Rm; const NAVY = [11, 60, 93], BLUE = [0, 174, 239], GREEN = [57, 181, 74], MUTED = [122, 139, 154], INK = [31, 51, 70];
+  let y = 12;
+  try { doc.addImage(LOGO, "PNG", L, y, 15, 15 * 213 / 180); } catch {}
+  doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(...BLUE); doc.text("KIVUTHÈQUE", L + 20, y + 4);
+  doc.setFontSize(16); doc.setTextColor(...NAVY); doc.text(pdfSafe(M.title), L + 20, y + 11);
+  doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(0, 137, 191); doc.text(pdfSafe(`${M.school} · Année scolaire ${M.year}`), L + 20, y + 16.5);
+  doc.setFontSize(8.5); doc.setTextColor(...MUTED); doc.text(pdfSafe(`${M.period} · édité le ${M.edited}`), L + 20, y + 21);
+  y += 26; doc.setFillColor(...BLUE); doc.rect(L, y, CW * .72, 1.3, "F"); doc.setFillColor(...GREEN); doc.rect(L + CW * .72, y, CW * .28, 1.3, "F"); y += 7;
+  const need = h => { if (y + h > 282) { doc.addPage(); y = 16; } };
+  const title = (t) => { need(14); doc.setFont("helvetica", "bold"); doc.setFontSize(11.5); doc.setTextColor(...NAVY); doc.text(pdfSafe(t), L, y); y += 1.8; doc.setDrawColor(...BLUE); doc.setLineWidth(.5); doc.line(L, y, L + CW, y); y += 4.5; };
+  const tone = v => v === "Rupture" ? [198, 40, 40] : v === "Stock faible" ? [161, 92, 0] : v === "En stock" ? [30, 123, 52] : null;
+  M.sections.forEach((s, i) => {
+    title(`${i + 1}. ${s.title}`);
+    if (s.kpis) {
+      const per = 5, gap = 2.5, bw = (CW - gap * (per - 1)) / per, bh = 14;
+      s.kpis.forEach(([lab, v], j) => { if (j % per === 0) { need(bh + 2); if (j) y += bh + gap; }
+        const x = L + (j % per) * (bw + gap); doc.setFillColor(247, 251, 254); doc.setDrawColor(214, 233, 243); doc.setLineWidth(.25); doc.roundedRect(x, y, bw, bh, 1.5, 1.5, "FD");
+        doc.setFont("helvetica", "normal"); doc.setFontSize(6.6); doc.setTextColor(...MUTED); doc.text(doc.splitTextToSize(pdfSafe(lab), bw - 4).slice(0, 2), x + 2, y + 4);
+        doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor(...NAVY); doc.text(pdfSafe(v), x + 2, y + 11.5); });
+      y += bh + 6;
+    }
+    if (s.table) {
+      if (!s.table.body.length) { need(8); doc.setFont("helvetica", "italic"); doc.setFontSize(9); doc.setTextColor(...MUTED); doc.text(pdfSafe(s.empty || "Aucune donnée."), L, y + 2); y += 9; return; }
+      const halign = s.table.align.map(a => ({ c: "center", r: "right" }[a] || "left"));
+      doc.autoTable({ startY: y, margin: { left: L, right: Rm, top: 16, bottom: 18 }, head: [s.table.head.map(pdfSafe)], body: s.table.body.map(r => r.map(pdfSafe)), foot: s.table.foot ? [s.table.foot.map(pdfSafe)] : undefined,
+        theme: "plain", showFoot: "lastPage",
+        styles: { font: "helvetica", fontSize: 8, cellPadding: { top: 1.6, bottom: 1.6, left: 2, right: 2 }, textColor: INK, lineColor: [227, 232, 238], lineWidth: { bottom: .2 }, overflow: "linebreak" },
+        headStyles: { fillColor: NAVY, textColor: 255, fontStyle: "bold", fontSize: 7.8 }, footStyles: { fillColor: [227, 246, 253], textColor: NAVY, fontStyle: "bold" },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        columnStyles: Object.fromEntries(halign.map((h, j) => [j, { halign: h, fontStyle: (s.table.bold || []).includes(j) ? "bold" : "normal" }])),
+        didParseCell: d => { if (d.section !== "body") { d.cell.styles.halign = halign[d.column.index]; return; } if (s.table.status === d.column.index) { const c = tone(d.cell.raw); if (c) { d.cell.styles.textColor = c; d.cell.styles.fontStyle = "bold"; } } } });
+      y = doc.lastAutoTable.finalY + 8;
+    }
+  });
+  if (M.signatures) {
+    title(`${M.sections.length + 1}. Observations`); need(52); doc.setDrawColor(201, 211, 220); doc.setLineWidth(.3); doc.roundedRect(L, y, CW, 22, 1.5, 1.5); y += 32;
+    const half = (CW - 12) / 2; doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(...NAVY);
+    doc.text("Établi par", L, y); doc.text("Visa de la Direction", L + half + 12, y); doc.setDrawColor(...MUTED); doc.line(L, y + 14, L + half, y + 14); doc.line(L + half + 12, y + 14, L + CW, y + 14);
+    doc.setFont("helvetica", "italic"); doc.setFontSize(7.5); doc.setTextColor(...MUTED); doc.text("Nom, date et signature", L, y + 18); doc.text("Nom, date, signature et cachet", L + half + 12, y + 18);
+  }
+  const n = doc.getNumberOfPages();
+  for (let i = 1; i <= n; i++) { doc.setPage(i); doc.setFont("helvetica", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUTED);
+    doc.text(pdfSafe(`Kivuthèque · ${M.school} · ${M.title}`), L, 290); doc.text(`Page ${i} / ${n}`, W - Rm, 290, { align: "right" }); }
+  const name = `Kivutheque-${{ biblio: "Bibliotheque", fourn: "Fournitures", retards: "Retards-amendes", inventaire: "Inventaire" }[R.id]}-${R.monthly ? ui.month : todayISO()}.pdf`;
+  if (store.mode === "db") return saveFile(name, doc.output("blob"), "application/pdf");
+  doc.save(name); toast("PDF enregistré : " + name);
 }
-function printReport() { $("#printArea").innerHTML = `<div class="paper">${reportHTML(reportData(ui.month))}</div>`; window.print(); }
-function reportDoc() {
-  const css = [...document.styleSheets].map(s => { try { return [...s.cssRules].map(r => r.cssText).join("\n"); } catch { return ""; } }).join("\n");
-  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rapport ${monthLabel(ui.month)}</title><style>${css}
-    body{background:#fff;padding:20px}.paper{box-shadow:none;margin:0 auto}@media print{body{padding:0}.paper{padding:0}}</style></head><body><div class="paper">${reportHTML(reportData(ui.month))}</div></body></html>`;
-}
-async function downloadReport() { await saveFile(`Rapport-bibliotheque-${ui.month}.html`, reportDoc()); }
 
 /* ---------- réglages ---------- */
 function settingsView() {
@@ -1153,7 +1542,7 @@ function settingsView() {
         <button class="btn primary" type="submit" style="align-self:flex-start">${ic("check")}Enregistrer</button>
       </div></form>
     <div class="card"><div class="card-h"><h3>Données</h3></div>
-      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">${store.mode === "db" ? "Les données sont synchronisées en ligne : toute personne qui ouvre cette application voit les mêmes informations." : DESKTOP ? "Les données sont enregistrées dans le dossier <b>Documents › Bibliothèque KIS</b> de cet ordinateur, avec une sauvegarde automatique chaque jour (30 jours conservés)." : "Les données sont enregistrées dans ce navigateur, sur cet appareil. Faites une sauvegarde régulièrement."}</p>
+      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">${store.mode === "cloud" ? "Les données sont enregistrées en ligne dans la base sécurisée de Kivuthèque : chaque modification apparaît instantanément chez tous les utilisateurs. Téléchargez une sauvegarde complète chaque mois." : store.mode === "db" ? "Les données sont synchronisées en ligne : toute personne qui ouvre cette application voit les mêmes informations." : DESKTOP ? "Les données sont enregistrées dans le dossier <b>Documents › Bibliothèque KIS</b> de cet ordinateur, avec une sauvegarde automatique chaque jour (30 jours conservés)." : "Les données sont enregistrées dans ce navigateur, sur cet appareil. Faites une sauvegarde régulièrement."}</p>
       ${DESKTOP ? `<button class="btn sm ghost" type="button" id="openDataDir" style="margin-bottom:8px">${ic("box")}Ouvrir le dossier des données</button>` : ""}
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <button class="btn sm ghost" type="button" data-export="json">${ic("down")}Sauvegarde complète</button>
@@ -1180,7 +1569,10 @@ function bindView() {
   live("qLivres", "livres", booksList); live("qEmprunts", "emprunts", loansList); live("qMembres", "membres", membersList); live("qFourn", "fourn", suppliesList);
   const sel = (id, key, fn) => { const el = $("#" + id, v); if (el) el.addEventListener("change", () => { ui.q[key] = el.value; $("#list").innerHTML = fn(); }); };
   sel("catLivres", "cat", booksList); sel("clsMembres", "cls", membersList);
-  const ms = $("#monthSel", v); if (ms) ms.addEventListener("change", () => { ui.month = ms.value; $("#paper").innerHTML = reportHTML(reportData(ui.month)); });
+  const ms = $("#monthSel", v); if (ms) ms.addEventListener("change", () => { ui.month = ms.value; $("#paper").innerHTML = reportHTML(reportModel(ui.report, ui.month)); });
+  const pb_ = $("#pdfBtn", v); if (pb_) pb_.addEventListener("click", downloadReport);
+  const pr_ = $("#printBtn", v); if (pr_) pr_.addEventListener("click", printReport);
+  $$("[data-role-of]", v).forEach(sel => sel.addEventListener("change", () => setRole(sel.dataset.roleOf, sel.value)));
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
     saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3) });
     toast("Réglages enregistrés"); });
@@ -1197,6 +1589,8 @@ document.addEventListener("click", e => {
   if (!t) return;
   const d = t.dataset;
   if (d.go) return go(d.go);
+  if (d.report) { ui.report = d.report; $$("[data-report]").forEach(b => b.setAttribute("aria-pressed", b.dataset.report === ui.report)); const v = $("#view"); const html = reportView(); v.innerHTML = html; bindView(); return; }
+  if (d.setrole) { const [id, r] = d.setrole.split(":"); return setRole(id, r); }
   if (d.goLink) return go(d.goLink);
   if (d.goCard) return go(d.goCard);
   if (t.id === "tabMore") return moreSheet();
@@ -1217,7 +1611,8 @@ document.addEventListener("click", e => {
   if (d.newBook !== undefined) return bookSheet();
   if (d.book) return bookDetail(d.book);
   if (d.member) return memberDetail(d.member);
-  if (d.supply) return supplySheet(S.fournitures.find(f => f.id === d.supply));
+  if (d.supply) { const f = D.fmap.get(d.supply); if (can("fourn")) return supplySheet(S.fournitures.find(x => x.id === d.supply));
+    return openSheet(f.article, `${etatPill(f)}<div class="recap" style="border-style:solid"><div>Stock actuel : <b>${f.stock} ${esc(f.unite.toLowerCase())}</b> · seuil ${f.seuil}</div><div>Entrées : <b>${f.ent}</b> · sorties : <b>${f.sor}</b></div><div>Catégorie : <b>${esc(f.categorie)}</b> · prix : <b>${fc(f.prix)}</b></div><div>Fournisseur : <b>${esc(f.fournisseur || "—")}</b></div></div>`, null); }
 });
 document.addEventListener("keydown", e => {
   if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); openPalette(); }
@@ -1294,6 +1689,7 @@ function showAdded(view, id) {
 }
 
 function bookSheet(b) {
+  if (!guard("biblio")) return;
   const p = params(), isNew = !b; b = b || { ex: 1, categorie: p.categories[0] };
   const rayonFor = c => "Rayon " + "ABCDEFGHIJKLMNOP"[Math.max(0, p.categories.indexOf(c))] + "1";
   openSheet(isNew ? "Nouveau livre" : "Modifier le livre", `
@@ -1335,10 +1731,11 @@ function bookDetail(id) {
       <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><div style="color:var(--ink-2)">${esc(b.auteur)}</div>${pill(l, t)}
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div><div>Emprunté <b>${b.total}</b> fois</div></div></div></div>
     <h3 style="font-size:15px;margin-top:6px">Historique</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
-    `<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>`,
-    el => { $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
+    can("biblio") ? `<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
+    el => { if (!$("#editB", el)) return; $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
+  if (!guard("biblio")) return;
   const p = params(), isNew = !m; m = m || { type: "Élève", classe: ui.lastClass || p.classes[0], sexe: "F", inscription: todayISO() };
   openSheet(isNew ? "Nouveau membre" : "Modifier le membre", `
     <div class="f"><label for="m-nom">${req("Nom complet")}</label><input id="m-nom" value="${esc(m.nom)}" autocomplete="off" placeholder="Prénom et nom"></div>
@@ -1372,12 +1769,13 @@ function memberDetail(id) {
       <div><div style="font-weight:650">${esc(m.type)} · ${esc(m.classe)}</div><div class="s" style="color:var(--ink-3)">Inscrit le ${fmtD(m.inscription)} · <span class="code">${esc(m.id)}</span></div></div></div>
     <div class="recap" style="border-style:solid"><div>Emprunts en cours : <b>${m.cours} / ${params().max}</b></div><div>En retard : <b>${m.retard}</b></div><div>Amendes dues : <b>${fc(m.dues)}</b></div><div>Total emprunté : <b>${loans.length}</b></div></div>
     <h3 style="font-size:15px">Emprunts</h3><div class="rows">${loans.slice(0, 12).map(e => loanRow(e)).join("") || '<div class="empty">Aucun emprunt.</div>'}</div>`,
-    `<button class="btn ghost" type="button" id="editM">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendM">${ic("plus")}Nouvel emprunt</button>`,
-    el => { $("#editM", el).onclick = () => memberSheet(S.membres.find(x => x.id === id)); $("#lendM", el).onclick = () => loanSheet({ membre: id }); });
+    can("biblio") ? `<button class="btn ghost" type="button" id="editM">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendM">${ic("plus")}Nouvel emprunt</button>` : null,
+    el => { if (!$("#editM", el)) return; $("#editM", el).onclick = () => memberSheet(S.membres.find(x => x.id === id)); $("#lendM", el).onclick = () => loanSheet({ membre: id }); });
 }
 
 /* emprunt : un membre, un ou plusieurs livres */
 function loanSheet(pre = {}) {
+  if (!guard("biblio")) return;
   if (!D) derive();
   const st = { membre: pre.membre || null, livres: pre.livre ? [pre.livre] : [] };
   const p = params();
@@ -1424,6 +1822,7 @@ function loanSheet(pre = {}) {
     });
 }
 function returnPicker() {
+  if (!guard("biblio")) return;
   ui.returning = true;
   openSheet("Enregistrer un retour", `<div class="f"><label for="r-q">Qui rend un livre ?</label><input id="r-q" type="search" placeholder="Nom du membre ou titre du livre…"></div><div class="rows" id="rList"></div>`, null, el => {
     const draw = () => { const open = derive().emprunts.filter(e => !e.retour).sort((a, b) => a.prevu < b.prevu ? -1 : 1); const q = norm($("#r-q", el).value);
@@ -1432,6 +1831,7 @@ function returnPicker() {
   });
 }
 function doReturn(id) {
+  if (!guard("biblio")) return;
   const e = S.emprunts.find(x => x.id === id); if (!e) return;
   const fromPicker = ui.returning && sheetEl;
   const p = params(); const prevu = e.prevu || addDays(e.date, p.duree); const jours = Math.max(0, diffDays(todayISO(), prevu));
@@ -1443,9 +1843,10 @@ function doReturn(id) {
     `<button class="btn ghost" type="button" id="later">Plus tard</button><button class="btn primary" type="button" id="paid">${ic("coin")}Encaissée</button>`,
     el => { $("#later", el).onclick = () => finish(false); $("#paid", el).onclick = () => finish(true); });
 }
-function doPay(id) { const e = S.emprunts.find(x => x.id === id); put("emprunts", { ...e, paye: true }); toast("Amende encaissée"); }
+function doPay(id) { if (!guard("biblio")) return; const e = S.emprunts.find(x => x.id === id); put("emprunts", { ...e, paye: true }); toast("Amende encaissée"); }
 
 function supplySheet(f) {
+  if (!guard("fourn")) return;
   const p = params(), isNew = !f; f = f || { unite: p.unites[0], initial: 0, seuil: 5, prix: 0 };
   openSheet(isNew ? "Nouvel article" : f.article, `
     <div class="f"><label for="s-art">${req("Article")}</label><input id="s-art" value="${esc(f.article)}" autocomplete="off" placeholder="Ex. : Rame de papier A4"></div>
@@ -1472,6 +1873,7 @@ function supplySheet(f) {
     });
 }
 function moveSheet(pre, preType) {
+  if (!guard("fourn")) return;
   if (!S.fournitures.length) return supplySheet();
   let type = preType || "sortie";
   if (!pre) pre = (D.fournitures.find(f => f.stock > 0) || D.fournitures[0]).id;
@@ -1503,16 +1905,17 @@ function moveSheet(pre, preType) {
 }
 /* menu « Ajouter » disponible partout */
 function addMenu() {
-  const items = [["Un emprunt", "Prêter un ou plusieurs livres", "swap", "accent", () => loanSheet()], ["Un retour", "Un membre rend un livre", "ret", "green", () => returnPicker()],
-    ["Un livre", "Au catalogue", "book", "accent", () => bookSheet()], ["Un membre", "Élève, enseignant ou personnel", "users", "green", () => memberSheet()],
-    ["Un article", "Nouvelle fourniture", "box", "warn", () => supplySheet()], ["Un mouvement de stock", "Entrée ou sortie de fournitures", "swap", "warn", () => moveSheet()]];
+  const items = [["Un emprunt", "Prêter un ou plusieurs livres", "swap", "accent", () => loanSheet(), "biblio"], ["Un retour", "Un membre rend un livre", "ret", "green", () => returnPicker(), "biblio"],
+    ["Un livre", "Au catalogue", "book", "accent", () => bookSheet(), "biblio"], ["Un membre", "Élève, enseignant ou personnel", "users", "green", () => memberSheet(), "biblio"],
+    ["Un article", "Nouvelle fourniture", "box", "warn", () => supplySheet(), "fourn"], ["Un mouvement de stock", "Entrée ou sortie de fournitures", "swap", "warn", () => moveSheet(), "fourn"]].filter(x => can(x[5]));
   openSheet("Que voulez-vous ajouter ?", `<div class="add-grid">${items.map(([t, s, i, tone], k) => `<button class="q add-item" type="button" data-ai="${k}" style="--tone:var(--${tone});--tone-soft:var(--${tone}-soft);animation-delay:${k * 45}ms"><span class="ic">${ic(i)}</span><span><b>${t}</b><small>${s}</small></span></button>`).join("")}</div>`, null,
     el => $$("[data-ai]", el).forEach(b => b.onclick = () => items[+b.dataset.ai][4]()));
 }
 function moreSheet() {
-  openSheet("Plus", `<div class="rows">${VIEWS.filter(v => !["accueil", "livres", "emprunts", "membres"].includes(v.id)).map(v => `<button class="row" type="button" style="grid-template-columns:auto 1fr auto;text-align:left" data-go-more="${v.id}"><span class="k-ic" style="width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)">${ic(v.icon)}</span><span class="t">${v.label}</span>${ic("arrow")}</button>`).join("")}</div>
-    <div class="made" style="text-align:center;margin-top:12px">Made by Alexandre Declaire</div>`, null,
-    el => $$("[data-go-more]", el).forEach(b => b.onclick = () => { closeSheet(); go(b.dataset.goMore); }));
+  openSheet("Plus", `<div class="rows">${[...VIEWS, ...(store.mode === "cloud" && can("admin") ? [{ id: "comptes", label: "Comptes", icon: "key" }] : [])].filter(v => !["accueil", "livres", "emprunts", "membres"].includes(v.id) && (v.id !== "reglages" || can("admin"))).map(v => `<button class="row" type="button" style="grid-template-columns:auto 1fr auto;text-align:left" data-go-more="${v.id}"><span class="k-ic" style="width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)">${ic(v.icon)}</span><span class="t">${v.label}</span>${ic("arrow")}</button>`).join("")}</div>
+    ${store.mode === "cloud" ? `<button class="btn ghost" type="button" id="moreOut" style="margin-top:12px">${ic("logout")}Se déconnecter</button>` : ""}
+    <div class="made" style="text-align:center;margin-top:12px">Made by Alexandre et Declaire</div>`, null,
+    el => { $$("[data-go-more]", el).forEach(b => b.onclick = () => { closeSheet(); go(b.dataset.goMore); }); const o = $("#moreOut", el); if (o) o.onclick = signOut; });
 }
 
 /* ============================================================ palette ⌘K */
@@ -1524,7 +1927,7 @@ function openPalette() {
   document.body.appendChild(palEl);
   $(".backdrop", palEl).onclick = closePalette;
   const input = $("#palQ", palEl); let items = [], sel = 0;
-  const actions = [["Ajouter…", "plus", () => addMenu()], ["Nouvel emprunt", "plus", () => loanSheet()], ["Enregistrer un retour", "ret", () => returnPicker()], ["Ajouter un livre", "book", () => bookSheet()], ["Ajouter un membre", "users", () => memberSheet()], ["Mouvement de stock", "box", () => moveSheet()], ...VIEWS.map(v => ["Aller à : " + v.label, v.icon, () => go(v.id)])];
+  const actions = [["Ajouter…", "plus", () => addMenu(), can("biblio") || can("fourn")], ["Nouvel emprunt", "plus", () => loanSheet(), can("biblio")], ["Enregistrer un retour", "ret", () => returnPicker(), can("biblio")], ["Ajouter un livre", "book", () => bookSheet(), can("biblio")], ["Ajouter un membre", "users", () => memberSheet(), can("biblio")], ["Mouvement de stock", "box", () => moveSheet(), can("fourn")], ...VIEWS.filter(v => v.id !== "reglages" || can("admin")).map(v => ["Aller à : " + v.label, v.icon, () => go(v.id), true])].filter(a => a[3]);
   const draw = () => {
     const q = norm(input.value); items = [];
     const A = actions.filter(a => !q || norm(a[0]).includes(q)).slice(0, q ? 4 : 6).map(a => ({ g: "Actions", html: `${ic(a[1])}<span class="t">${a[0]}</span>`, run: a[2] }));
@@ -1546,13 +1949,14 @@ function closePalette() { if (palEl) { palEl.remove(); palEl = null; } }
 
 /* ============================================================ fichiers */
 async function saveFile(name, text, mime = "text/html") {
+  const blob = text instanceof Blob ? text : new Blob([text], { type: mime + ";charset=utf-8" });
   if (store.mode === "db") {
     let dl = null; try { dl = await window.claude.use("downloads"); } catch {}
     if (!dl) return toast("Le téléchargement n'est pas disponible ici.", true);
-    try { const r = await dl.save({ filename: name, data: text }); if (r && r.status === "saved") toast("Fichier enregistré : " + name); } catch (e) { if (e && e.code !== "cancelled" && e.code !== "declined") toast("Le fichier n'a pas pu être enregistré.", true); }
+    try { const r = await dl.save({ filename: name, data: blob }); if (r && r.status === "saved") toast("Fichier enregistré : " + name); } catch (e) { if (e && e.code !== "cancelled" && e.code !== "declined") toast("Le fichier n'a pas pu être enregistré.", true); }
     return;
   }
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: mime + ";charset=utf-8" })); a.download = name; document.body.appendChild(a); a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000); toast("Fichier enregistré : " + name);
 }
 function csv(rows) { return "﻿" + rows.map(r => r.map(v => { const s = String(v ?? ""); return /[";\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }).join(";")).join("\r\n"); }
@@ -1578,7 +1982,7 @@ function importBackup(file) {
 /* ============================================================ accueil vide, progression, toasts, thème */
 function welcomeView() {
   return `<div class="welcome"><div class="card"><div class="logo-tile" style="width:84px;height:84px;border-radius:26px"><img src="${LOGO}" alt="" style="width:64px"></div>
-    <h2>Bienvenue dans votre bibliothèque</h2>
+    <h2>Bienvenue dans Kivuthèque</h2>
     <p>Livres, membres, emprunts, retards et fournitures, au même endroit. Commencez avec des données d'exemple pour découvrir l'application, ou partez d'une bibliothèque vide.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="btn primary" type="button" id="wSample">${ic("spark")}Découvrir avec des exemples</button><button class="btn ghost" type="button" id="wEmpty">Commencer vide</button></div>
     <p style="font-size:12.5px;color:var(--ink-3)">Les exemples sont fictifs. Vous pourrez les effacer à tout moment dans Réglages.</p></div></div>`;
@@ -1606,5 +2010,6 @@ setInterval(() => { if (D && D.T !== todayISO()) render(); }, 60000);
 
 $("#railLogo").src = LOGO;
 $("#fab").innerHTML = ic("plus") + "<span>Ajouter</span>"; $("#fab").addEventListener("click", addMenu);
+applyPerms();
 buildNav(); render(); initStore();
 </script>

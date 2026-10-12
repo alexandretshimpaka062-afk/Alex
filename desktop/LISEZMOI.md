@@ -36,4 +36,4 @@ npm run dist:mac              # Mac (sur un Mac)
 ```
 L'action GitHub « Logiciel de bureau » fabrique aussi les installateurs Mac (.dmg) et Windows (.exe) à chaque modification.
 
-Made by Alexandre Declaire
+Made by Alexandre et Declaire

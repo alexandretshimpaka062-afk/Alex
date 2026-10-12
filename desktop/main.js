@@ -76,7 +76,7 @@ function buildMenu() {
     { label: "Fenêtre", submenu: [{ role: "minimize", label: "Réduire dans le Dock" }, { role: "zoom", label: "Zoom" }] },
     { label: "Aide", submenu: [{ label: "À propos", click: () => dialog.showMessageBox(win, {
       type: "info", title: "Bibliothèque KIS", message: "Bibliothèque KIS " + app.getVersion(),
-      detail: "Logiciel de gestion de la bibliothèque de Kivu International School.\n\nDonnées enregistrées dans :\n" + DATA_DIR + "\n\nMade by Alexandre Declaire" }) }] },
+      detail: "Logiciel de gestion de la bibliothèque de Kivu International School.\n\nDonnées enregistrées dans :\n" + DATA_DIR + "\n\nMade by Alexandre et Declaire" }) }] },
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 }

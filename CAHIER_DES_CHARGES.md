@@ -60,7 +60,17 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
    - Réservation d'un livre dont tous les exemplaires sont sortis ; 3 au maximum ; rang dans la file.
    - Au retour du livre, la bibliothécaire est alertée et le met de côté (3 jours) ; l'élève est prévenu ; « Prêter » termine la réservation ; un délai dépassé libère l'exemplaire.
    - La bibliothécaire choisit les « livres du mois » depuis la fiche d'un livre.
-3. Défis, classements, recommandations.
+3. ✅ Défis, classements, recommandations.
+   - Page « Défis » pour l'élève :
+     - objectif du trimestre avec un anneau de progression ;
+     - 8 badges (premier livre, 5, 10 et 25 livres, explorateur, toujours à l'heure, fidèle, critique) ;
+     - rang dans la classe et dans l'école ; classement de sa classe, top 10 de l'école, classement des classes ;
+     - diplôme PDF quand l'objectif est atteint.
+   - Page « Défis » pour le personnel : classement des classes, top 10, classement complet d'une classe, diplômes PDF de la classe ou d'un élève.
+   - Trimestres : septembre à décembre, janvier à mars, avril à juillet. L'objectif (3 livres par défaut) se règle dans Réglages.
+   - Notes de 1 à 5 étoiles sur les livres empruntés ; rangée « Les mieux notés ».
+   - « Les lecteurs de ce livre ont aussi lu » sur chaque fiche. « Pour toi » combine les lectures des élèves proches, les genres préférés, les notes et la popularité.
+   - Badges visibles aussi sur la fiche d'un membre (personnel).
 4. Espace enseignant, borne publique.
 5. Rappels de retard, état des livres, bon de commande.
 

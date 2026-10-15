@@ -407,6 +407,95 @@ revoke execute on function public.kiv_dispo(), public.kiv_reserver(text, text), 
 grant execute on function public.kiv_dispo(), public.kiv_reserver(text, text), public.kiv_annuler_reservation(uuid), public.kiv_mes_reservations(),
   public.kiv_mes_genres(text[]), public.kiv_a_lire(text, boolean) to authenticated;
 
+-- ---------------------------------------------------------------- notes des lecteurs (1 à 5 étoiles)
+create table if not exists public.avis (
+  livre      text not null,
+  membre     text not null,
+  note       int  not null check (note between 1 and 5),
+  updated_at timestamptz not null default now(),
+  primary key (livre, membre)
+);
+alter table public.avis enable row level security;
+revoke all on public.avis from anon;
+revoke insert, update, delete on public.avis from authenticated;
+grant select on public.avis to authenticated;
+drop policy if exists "avis : lecture" on public.avis;
+create policy "avis : lecture" on public.avis for select to authenticated
+  using (public.kiv_role() in ('admin', 'bibliothecaire', 'direction') or membre = public.kiv_membre());
+-- noter un livre qu'on a emprunté (0 = retirer sa note)
+create or replace function public.kiv_noter(livre text, note int)
+returns void language plpgsql security definer set search_path = public as $$
+declare m text := public.kiv_membre();
+begin
+  if m is null or public.kiv_role() not in ('eleve', 'enseignant', 'admin', 'bibliothecaire') then raise exception 'Connecte-toi avec ton compte de lecteur.'; end if;
+  if not exists (select 1 from public.emprunts e where e.data ->> 'livre' = kiv_noter.livre and e.data ->> 'membre' = m) then
+    raise exception 'Tu peux noter un livre après l''avoir emprunté.'; end if;
+  if coalesce(kiv_noter.note, 0) = 0 then delete from public.avis a where a.livre = kiv_noter.livre and a.membre = m; return; end if;
+  if kiv_noter.note not between 1 and 5 then raise exception 'La note va de 1 à 5 étoiles.'; end if;
+  insert into public.avis as a (livre, membre, note) values (kiv_noter.livre, m, kiv_noter.note)
+  on conflict on constraint avis_pkey do update set note = excluded.note, updated_at = now();
+end;
+$$;
+-- moyenne des notes par livre (sans les noms)
+create or replace function public.kiv_notes()
+returns table (livre text, moyenne numeric, nb int) language sql stable security definer set search_path = public as $$
+  select a.livre, round(avg(a.note)::numeric, 1), count(*)::int from public.avis a
+  where public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve')
+  group by a.livre;
+$$;
+
+-- ---------------------------------------------------------------- recommandations
+-- « les lecteurs qui ont lu ce livre ont aussi lu… »
+create or replace function public.kiv_aussi_lu(livre text)
+returns table (livre_id text, nb int) language sql stable security definer set search_path = public as $$
+  with lecteurs as (select distinct data ->> 'membre' as m from public.emprunts where data ->> 'livre' = kiv_aussi_lu.livre)
+  select e.data ->> 'livre', count(distinct e.data ->> 'membre')::int
+  from public.emprunts e join lecteurs l on l.m = e.data ->> 'membre'
+  where e.data ->> 'livre' <> kiv_aussi_lu.livre
+    and public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve')
+  group by 1 order by 2 desc, 1 limit 12;
+$$;
+-- pour moi : les livres lus par les lecteurs qui ont les mêmes lectures que moi
+create or replace function public.kiv_pour_moi()
+returns table (livre text, score int) language sql stable security definer set search_path = public as $$
+  with mine as (select distinct data ->> 'livre' as l from public.emprunts where data ->> 'membre' = public.kiv_membre()),
+  proches as (
+    select e.data ->> 'membre' as m, count(distinct e.data ->> 'livre')::int as communs
+    from public.emprunts e where e.data ->> 'livre' in (select l from mine) and e.data ->> 'membre' <> public.kiv_membre() group by 1
+  )
+  select e.data ->> 'livre', sum(p.communs)::int
+  from public.emprunts e join proches p on p.m = e.data ->> 'membre'
+  where e.data ->> 'livre' not in (select l from mine)
+  group by 1 order by 2 desc, 1 limit 24;
+$$;
+
+-- ---------------------------------------------------------------- défis de lecture : classements
+-- livres rendus entre deux dates, par élève. Noms affichés « Prénom N. » ; photo seulement pour les premiers.
+create or replace function public.kiv_classement(debut date, fin date)
+returns table (membre text, nom text, classe text, lus int, rang_ecole int, rang_classe int, avatar text, moi boolean)
+language sql stable security definer set search_path = public as $$
+  with base as (
+    select m.id, m.data ->> 'nom' as nom, coalesce(m.data ->> 'classe', '') as classe,
+           count(e.id) filter (where (e.data ->> 'retour') is not null and (e.data ->> 'retour')::date between debut and fin)::int as lus
+    from public.membres m left join public.emprunts e on e.data ->> 'membre' = m.id
+    where coalesce(m.data ->> 'type', 'Élève') = 'Élève'
+    group by m.id, m.data
+  ), r as (
+    select *, rank() over (order by lus desc)::int as re, rank() over (partition by classe order by lus desc)::int as rc from base
+  ), me as (select classe from base where id = public.kiv_membre())
+  select r.id,
+         split_part(trim(r.nom), ' ', 1) || case when position(' ' in trim(r.nom)) > 0
+           then ' ' || left(regexp_replace(trim(r.nom), '^.*\s', ''), 1) || '.' else '' end,
+         r.classe, r.lus, r.re, r.rc,
+         case when r.lus > 0 and (r.re <= 10 or (r.rc <= 10 and r.classe = (select classe from me)) or r.id = public.kiv_membre())
+           then (select p.avatar from public.profiles p where p.membre_id = r.id) end,
+         r.id = public.kiv_membre()
+  from r
+  where public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve');
+$$;
+revoke execute on function public.kiv_noter(text, int), public.kiv_notes(), public.kiv_aussi_lu(text), public.kiv_pour_moi(), public.kiv_classement(date, date) from public, anon;
+grant execute on function public.kiv_noter(text, int), public.kiv_notes(), public.kiv_aussi_lu(text), public.kiv_pour_moi(), public.kiv_classement(date, date) to authenticated;
+
 -- ---------------------------------------------------------------- couvertures des livres
 -- Copie réduite (environ 15 Ko) de chaque couverture, gardée dans Supabase :
 -- elle reste affichée même si Google Livres ou Open Library la retire.
@@ -429,7 +518,7 @@ create policy "couvertures : suppression" on storage.objects for delete to authe
 do $$
 declare t text;
 begin
-  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles', 'reservations'] loop
+  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles', 'reservations', 'avis'] loop
     begin
       execute format('alter publication supabase_realtime add table public.%I', t);
     exception when duplicate_object then null;

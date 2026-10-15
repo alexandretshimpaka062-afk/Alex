@@ -510,6 +510,7 @@ body.locked{overflow:hidden}
 .genre{all:unset;cursor:pointer;padding:12px 18px;border-radius:16px;border:1.5px solid var(--line-2);font-weight:650;transition:all .2s var(--ease)}
 .genre[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#fff;transform:scale(1.04)}
 .rd-head{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;align-items:start}
+.rd-head .s .ic{width:14px;height:14px;vertical-align:-2px}
 .rd-resume{margin:0;color:var(--ink-2);font-size:14px;line-height:1.6}
 .nf-status{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line-2);font-size:14px}
 .nf-status .ic{width:18px;height:18px;flex:none}
@@ -519,6 +520,45 @@ body.locked{overflow:hidden}
 .res-row{grid-template-columns:auto minmax(0,1fr) auto!important}
 .res-alert{display:flex;gap:14px;align-items:flex-start;line-height:1.55}
 .btn.on{border-color:#FFC83D;color:#B57900}
+/* défis, badges, notes */
+.defi-top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px}
+@media(max-width:900px){.defi-top{grid-template-columns:1fr}}
+.defi-goal{display:flex;gap:22px;align-items:center}
+.defi-goal h2{font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:12;stroke-linecap:round}
+.ring-bg{stroke:var(--line)}.ring-fg{stroke:url(#none);stroke:var(--accent);transition:stroke-dasharray 1s var(--ease)}
+.ring>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring b{font:800 36px/1 var(--display)}.ring span{font-size:12px;color:var(--ink-3)}
+.defi-place{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:center}
+.defi-place>div{display:flex;flex-direction:column;gap:2px;padding:10px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}
+.defi-place span{font-size:12px;color:var(--ink-3)}.defi-place b{font:800 28px var(--display)}.defi-place small{font-size:11.5px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.badges.mini{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.badge{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:14px 10px;border-radius:18px;border:1px dashed var(--line-2);opacity:.55;filter:grayscale(1)}
+.badge.got{opacity:1;filter:none;border-style:solid;border-color:#FFC83D;background:linear-gradient(160deg,rgba(255,200,61,.18),transparent)}
+.badge b{font-size:13.5px}.badge small{font-size:11.5px;color:var(--ink-3)}
+.badge-ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none}
+.badge.got .badge-ic{background:linear-gradient(135deg,#FFD45C,#F2A900);color:#5A3B00;box-shadow:0 8px 18px -8px rgba(242,169,0,.8)}
+.badge-ic .ic{width:22px;height:22px}
+.badges.mini .badge{padding:10px 6px}.badges.mini .badge-ic{width:34px;height:34px}.badges.mini small{display:none}
+.rk{grid-template-columns:34px auto minmax(0,1fr) auto!important}
+.rk.me{background:var(--accent-soft);border-radius:12px}
+.rk-n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:800 13px var(--display);background:var(--line);color:var(--ink-2)}
+.rk-n.p1{background:linear-gradient(135deg,#FFD45C,#F2A900);color:#5A3B00}.rk-n.p2{background:linear-gradient(135deg,#E5ECF2,#A9B8C6);color:#24384A}.rk-n.p3{background:linear-gradient(135deg,#F2C29B,#C27A43);color:#4A2508}
+.cls-row{grid-template-columns:34px minmax(0,1fr) auto!important}
+.cls-row .meter{margin-top:6px}
+.defi-mini{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px 16px}
+.defi-mini b{display:block;font-size:14px;margin-bottom:6px}.defi-mini small{display:block;font-size:12px;color:var(--ink-3);margin-top:4px}
+.defi-mini>.ic{width:16px;height:16px;color:var(--ink-3)}
+.stars{color:var(--line-2);letter-spacing:1px;font-size:16px}.stars i{font-style:normal}.stars i.on{color:#F2A900}.stars i.half{background:linear-gradient(90deg,#F2A900 50%,var(--line-2) 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stars.sm{font-size:11px}
+.rd-rate{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.my-rate{display:flex;align-items:center;gap:2px}
+.star-btn{all:unset;cursor:pointer;font-size:24px;color:var(--line-2);padding:0 2px;transition:transform .15s}
+.star-btn:hover{transform:scale(1.2)}.star-btn.on{color:#F2A900}
+.nf-track.mini{grid-auto-columns:110px;gap:12px}.nf-track.mini .cv-title{font-size:12px}
 .lib-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .lib-act{display:flex;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:18px;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--accent-soft),var(--green-soft));color:inherit;font:inherit;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
 .lib-act:hover{transform:translateY(-2px);border-color:var(--accent)}
@@ -793,6 +833,8 @@ const P = {
   lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
   scan: '<path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M8 8v8M11 8v8M14 8v8M17 8v8"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/>',
+  trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M16 5h3v2a3 3 0 0 1-3 3M8 5H5v2a3 3 0 0 0 3 3M12 13v4M8 20h8M9.5 17h5"/>',
+  star: '<path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/>',
   coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5V8M12 16v1.5"/>',
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -1177,7 +1219,7 @@ async function afterLogin(user) {
   clearInterval(auth.poll);
   if (roleOf() === "consultation") auth.profile.role = "direction";
   hideAuth(); store.mode = "cloud"; applyPerms(); buildNav(); buildAccountNav();
-  if (isReader() && !["espace", "livres"].includes(ui.view)) ui.view = "espace";
+  if (isReader() && !READER_IDS.includes(ui.view)) ui.view = "espace";
   if (!store.cloudLoaded) { store.cloudLoaded = true; await cloudLoad(); } else render();
 }
 async function cloudFetch(t) {
@@ -1197,7 +1239,7 @@ async function cloudLoad() {
       else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
     }));
   } catch (e) { toast(cloudError(e), true); }
-  if (isReader()) await Promise.all([loadDispo(), loadMesRes()]); else await loadReservations();
+  if (isReader()) await Promise.all([loadDispo(), loadMesRes(), loadReaderExtras()]); else await Promise.all([loadReservations(), loadNotes()]);
   onData();
   if (can("comptes")) loadAccounts();
   auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
@@ -1444,7 +1486,8 @@ function espaceView() {
   const vedettes = all.filter(b => b.vedette).sort((a, b) => a.titre.localeCompare(b.titre, "fr"));
   const hero = vedettes.length ? vedettes[Math.floor(Date.now() / 864e5) % vedettes.length] : null;
   const pop = all.filter(b => b.total > 0).sort((a, b) => b.total - a.total || a.titre.localeCompare(b.titre, "fr"));
-  const pourToi = all.filter(b => !readIds.has(b.id)).map(b => [b, (genres.includes(b.categorie) ? 100 : 0) + (b.total || 0) * 3 + (b.dispo > 0 ? 6 : 0) + (b.vedette ? 8 : 0) + (hash(b.id + P.id) % 5)])
+  const pm = store.pourMoi || new Map(), nt = id => (noteOf(id) || {}).moyenne || 0;
+  const pourToi = all.filter(b => !readIds.has(b.id)).map(b => [b, (genres.includes(b.categorie) ? 100 : 0) + (pm.get(b.id) || 0) * 12 + (b.total || 0) * 3 + nt(b.id) * 4 + (b.dispo > 0 ? 6 : 0) + (b.vedette ? 8 : 0) + (hash(b.id + P.id) % 5)])
     .sort((a, b) => b[1] - a[1]).slice(0, 16).map(x => x[0]);
   const nouveaux = all.slice().sort((a, b) => String(b.ajoute || "").localeCompare(String(a.ajoute || "")) || (+(String(b.id).match(/\d+/) || [0])[0]) - (+(String(a.id).match(/\d+/) || [0])[0])).slice(0, 14);
   const maListe = (P.a_lire || []).slice().reverse().map(id => D.livres.get(id)).filter(Boolean);
@@ -1462,6 +1505,7 @@ function espaceView() {
       : `<div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2><p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture ci-dessous."}</p>
         <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>`}
       <div class="espace-side">${memberCard(m)}
+        ${(() => { const t = trimCourant(), g = objectif(), n = lus.filter(e => e.retour >= t.debut && e.retour <= t.fin).length; return `<button class="card defi-mini" type="button" data-go="defis"><span class="badge-ic">${ic("trophy")}</span><div style="min-width:0;flex:1"><b>Défi du ${esc(t.nom)} : ${Math.min(n, g)} / ${g}</b><div class="meter"><b style="width:${Math.round(Math.min(1, n / g) * 100)}%"></b></div><small>${n >= g ? "Réussi ! Ton diplôme t'attend." : `Encore ${g - n} livre${g - n > 1 ? "s" : ""} à lire`}</small></div>${ic("arrow")}</button>`; })()}
         <div class="hello-stats card"><div><b>${cours.length}</b><span>en cours</span></div><div><b>${lus.length}</b><span>lus</span></div><div><b>${mesRes.length}</b><span>réservé${mesRes.length > 1 ? "s" : ""}</span></div><div><b>${maListe.length}</b><span>dans ma liste</span></div></div></div>
     </div>
     ${shelfRow("rowCours", "Mes livres en cours", cours.map(e => e.b).filter(Boolean), { badge: b => due(cours.find(e => e.livre === b.id)) })}
@@ -1469,6 +1513,7 @@ function espaceView() {
     ${shelfRow("rowMois", "Les livres du mois", vedettes, { badge: availBadge, sub: "choisis par la bibliothèque" })}
     ${shelfRow("rowPourToi", genres.length ? "Pour toi" : "À découvrir", pourToi, { badge: availBadge, sub: genres.length ? "d'après tes goûts : " + esc(genres.slice(0, 3).join(", ")) : "", action: `<button class="more" type="button" id="editGenres">${genres.length ? "Modifier mes goûts" : "Choisir mes genres préférés"} ${ic("arrow")}</button>` })}
     ${shelfRow("rowPop", "Les plus lus à l'école", pop.slice(0, 14), { badge: availBadge })}
+    ${shelfRow("rowTop", "Les mieux notés", all.filter(b => noteOf(b.id) && noteOf(b.id).nb >= 1).sort((a, b) => noteOf(b.id).moyenne - noteOf(a.id).moyenne || noteOf(b.id).nb - noteOf(a.id).nb).slice(0, 14), { badge: b => `<span class="nf-b">${starsHTML(noteOf(b.id).moyenne, "sm")} ${String(noteOf(b.id).moyenne).replace(".", ",")}</span>` })}
     ${shelfRow("rowNew", "Nouveautés", nouveaux, { badge: availBadge })}
     ${shelfRow("rowListe", "Ma liste", maListe, { badge: availBadge, empty: "Ajoute des livres à lire plus tard depuis leur fiche (bouton « Ma liste »)." })}
     ${shelfRow("rowLus", "Déjà lus", lus.map(e => e.b).filter((b, i, a) => b && a.indexOf(b) === i), { badge: b => { const e = lus.find(x => x.livre === b.id); return `<span class="nf-b">Lu en ${esc(new Date(e.retour + "T12:00:00").toLocaleDateString("fr-FR", { month: "short", year: "numeric" }))}</span>`; } })}`;
@@ -1504,9 +1549,16 @@ function readerBookDetail(id) {
   openSheet(b.titre, `<div class="rd-head"><div class="cover" style="${coverVars(b)};width:140px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:15px">${esc(b.titre)}</div></div></div>
       <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><div style="font-weight:650;font-size:17px">${esc(b.auteur)}</div><div class="s" style="color:var(--ink-3)">${esc([b.categorie, b.editeur, b.annee].filter(Boolean).join(" · "))}</div>
         ${b.total ? `<div class="s" style="color:var(--ink-3)">Emprunté ${b.total} fois à l'école</div>` : ""}${lu ? `<div class="s" style="color:var(--green)">${ic("check")} Tu l'as lu (rendu le ${fmtD(lu.retour)})</div>` : ""}</div></div>
-    ${status}${b.resume ? `<p class="rd-resume">${esc(b.resume)}</p>` : ""}`,
+    ${status}${b.resume ? `<p class="rd-resume">${esc(b.resume)}</p>` : ""}
+    <div class="rd-rate">${noteOf(id) ? `<div>${starsHTML(noteOf(id).moyenne)} <b>${String(noteOf(id).moyenne).replace(".", ",")}</b> <span class="s">· ${noteOf(id).nb} avis</span></div>` : '<div class="s">Pas encore noté</div>'}
+      ${mine.length ? `<div class="my-rate"><span class="s">Ta note :</span>${[1, 2, 3, 4, 5].map(i => `<button type="button" class="star-btn${(store.mesNotes && store.mesNotes.get(id) || 0) >= i ? " on" : ""}" data-rate="${i}" aria-label="${i} étoile${i > 1 ? "s" : ""}">★</button>`).join("")}</div>` : ""}</div>
+    <div id="aussiLu"></div>`,
     `<button class="btn ghost" type="button" id="rdList">${ic(inList ? "check" : "plus")}${inList ? "Dans ma liste" : "Ma liste"}</button>
      ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}`, el => {
+      fillAussiLu(el, id);
+      $$("[data-rate]", el).forEach(x => x.onclick = async () => { const n = +x.dataset.rate, cur = store.mesNotes && store.mesNotes.get(id), note = cur === n ? 0 : n;
+        const { error } = await auth.sb.rpc("kiv_noter", { livre: id, note }); if (error) return toast(cloudError(error), true);
+        await loadReaderExtras(); toast(note ? `Merci ! Tu as donné ${note} étoile${note > 1 ? "s" : ""}.` : "Note retirée"); render(); readerBookDetail(id); });
       $("#rdList", el).onclick = async () => {
         const { error } = await auth.sb.rpc("kiv_a_lire", { livre: id, garder: !inList }); if (error) return toast(cloudError(error), true);
         P.a_lire = inList ? (P.a_lire || []).filter(x => x !== id) : [...(P.a_lire || []).filter(x => x !== id), id];
@@ -1519,6 +1571,163 @@ function readerBookDetail(id) {
         const { error } = await auth.sb.rpc("kiv_annuler_reservation", { rid: r.id }); if (error) return toast(cloudError(error), true);
         await Promise.all([loadMesRes(), loadDispo()]); toast("Réservation annulée"); render(); });
     });
+}
+
+/* ============================================================ défis de lecture, badges, notes, recommandations */
+/* trimestres de l'année scolaire « 2026-2027 » : sept.–déc., janv.–mars, avril–juillet */
+function trimestres() {
+  const y = parseInt(String(params().annee || "").slice(0, 4), 10) || new Date().getFullYear();
+  return [{ n: 1, nom: "1er trimestre", debut: `${y}-09-01`, fin: `${y}-12-31` }, { n: 2, nom: "2e trimestre", debut: `${y + 1}-01-01`, fin: `${y + 1}-03-31` }, { n: 3, nom: "3e trimestre", debut: `${y + 1}-04-01`, fin: `${y + 1}-07-31` }];
+}
+function trimCourant() { const T = todayISO(), ts = trimestres(); return ts.find(t => T >= t.debut && T <= t.fin) || (T < ts[0].debut ? ts[0] : ts[2]); }
+const objectif = () => Math.max(1, +(params().objectif ?? 3));
+const shortName = n => { const w = String(n || "").replace(/^(M\.|Mme)\s+/, "").trim().split(/\s+/); return w.length > 1 ? `${w[0]} ${w[w.length - 1][0]}.` : w[0] || ""; };
+
+/* badges gagnés par un lecteur, à partir de ses emprunts */
+function badgesFor(loans, nbNotes = 0) {
+  const lus = loans.filter(e => e.retour), cats = new Set(lus.map(e => e.b && e.b.categorie).filter(Boolean));
+  const aLHeure = lus.filter(e => e.retour <= e.prevu).length, mois = new Set(lus.map(e => e.retour.slice(0, 7)));
+  const months = [...mois].sort(); let suite = 0, best = 0, prev = null;
+  months.forEach(m => { const [y, mo] = m.split("-").map(Number); const k = y * 12 + mo; suite = prev !== null && k === prev + 1 ? suite + 1 : 1; best = Math.max(best, suite); prev = k; });
+  const B = [
+    ["premier", "Premier livre", "Rendre son premier livre", "book", lus.length, 1],
+    ["lecteur", "Lecteur", "5 livres lus", "trend", lus.length, 5],
+    ["grand", "Grand lecteur", "10 livres lus", "trophy", lus.length, 10],
+    ["devoreur", "Dévoreur de livres", "25 livres lus", "spark", lus.length, 25],
+    ["explorateur", "Explorateur", "Lire 5 genres différents", "globe", cats.size, 5],
+    ["ponctuel", "Toujours à l'heure", "Rendre 5 livres à temps", "clock", aLHeure, 5],
+    ["fidele", "Fidèle", "Lire chaque mois, 3 mois de suite", "check", best, 3],
+    ["critique", "Critique", "Noter 5 livres", "star", nbNotes, 5],
+  ];
+  return B.map(([id, label, desc, icon, have, need]) => ({ id, label, desc, icon, have: Math.min(have, need), need, got: have >= need }));
+}
+const badgeHTML = b => `<div class="badge${b.got ? " got" : ""}" title="${esc(b.desc)}"><span class="badge-ic">${ic(b.icon)}</span><b>${esc(b.label)}</b><small>${b.got ? esc(b.desc) : `${b.have} / ${b.need} · ${esc(b.desc)}`}</small></div>`;
+
+/* classement local (personnel, logiciel de bureau) : tout est déjà sur l'ordinateur */
+function classementLocal(t) {
+  const base = [...D.membres.values()].filter(m => (m.type || "Élève") === "Élève").map(m => ({ membre: m.id, nom: m.nom, classe: m.classe || "", lus: D.emprunts.filter(e => e.membre === m.id && e.retour && e.retour >= t.debut && e.retour <= t.fin).length }));
+  const rank = (arr, key) => { const s = arr.slice().sort((a, b) => b.lus - a.lus); s.forEach((x, i) => x[key] = i && s[i - 1].lus === x.lus ? s[i - 1][key] : i + 1); };
+  rank(base, "rang_ecole"); const byC = {}; base.forEach(x => (byC[x.classe] = byC[x.classe] || []).push(x)); Object.values(byC).forEach(a => rank(a, "rang_classe"));
+  return base;
+}
+async function loadClassement(t) {
+  if (!isReader()) { store.classement = { t: t.n, rows: classementLocal(t) }; return; }
+  const { data, error } = await auth.sb.rpc("kiv_classement", { debut: t.debut, fin: t.fin });
+  store.classement = { t: t.n, rows: error ? [] : data };
+}
+async function loadReaderExtras() {
+  const [n, a, pm] = await Promise.all([auth.sb.rpc("kiv_notes"), auth.sb.from("avis").select("*"), auth.sb.rpc("kiv_pour_moi")]);
+  store.notes = new Map(((n && n.data) || []).map(r => [r.livre, r]));
+  store.mesNotes = new Map(((a && a.data) || []).filter(r => r.membre === auth.profile.membre_id).map(r => [r.livre, r.note]));
+  store.pourMoi = new Map(((pm && pm.data) || []).map(r => [r.livre, r.score]));
+}
+async function loadNotes() { if (store.mode !== "cloud") return; const { data } = await auth.sb.rpc("kiv_notes"); store.notes = new Map((data || []).map(r => [r.livre, r])); }
+const starsHTML = (v, size = "") => `<span class="stars ${size}" aria-label="${v} sur 5">${[1, 2, 3, 4, 5].map(i => `<i class="${v >= i - .25 ? "on" : v >= i - .75 ? "half" : ""}">★</i>`).join("")}</span>`;
+const noteOf = id => store.notes && store.notes.get(id);
+/* « les lecteurs de ce livre ont aussi lu » : en ligne pour un lecteur, calculé sur place pour le personnel */
+async function aussiLu(id) {
+  if (isReader()) { const { data } = await auth.sb.rpc("kiv_aussi_lu", { livre: id }); return (data || []).map(r => D.livres.get(r.livre_id)).filter(Boolean); }
+  const readers = new Set(D.emprunts.filter(e => e.livre === id).map(e => e.membre)), c = {};
+  D.emprunts.forEach(e => { if (e.livre !== id && readers.has(e.membre)) (c[e.livre] = c[e.livre] || new Set()).add(e.membre); });
+  return Object.entries(c).sort((a, b) => b[1].size - a[1].size).slice(0, 12).map(([l]) => D.livres.get(l)).filter(Boolean);
+}
+async function fillAussiLu(el, id) {
+  const box = $("#aussiLu", el); if (!box) return;
+  const list = await aussiLu(id).catch(() => []);
+  if (!$("#aussiLu", el)) return;
+  box.innerHTML = list.length ? `<h3 style="font-size:15px;margin:4px 0 0">Les lecteurs de ce livre ont aussi lu</h3><div class="nf-track mini">${list.map(b => nfCard(b)).join("")}</div>` : "";
+}
+
+/* ---------- page « Défis » ---------- */
+function defisView() {
+  const ts = trimestres(); ui.trim = ui.trim || trimCourant().n; const t = ts.find(x => x.n === ui.trim) || ts[0];
+  if (!store.classement || store.classement.t !== t.n || !isReader()) { if (isReader()) { loadClassement(t).then(() => { if (ui.view === "defis") render(); }); } else store.classement = { t: t.n, rows: classementLocal(t) }; }
+  const rows = (store.classement && store.classement.t === t.n && store.classement.rows) || [];
+  const goal = objectif(), sel = `<div class="seg" role="group" aria-label="Trimestre">${ts.map(x => `<button type="button" data-trim="${x.n}" aria-pressed="${x.n === t.n}">${x.nom}</button>`).join("")}</div>`;
+  const classes = {}; rows.forEach(r => { const c = classes[r.classe] = classes[r.classe] || { classe: r.classe, eleves: 0, lus: 0, ok: 0 }; c.eleves++; c.lus += r.lus; if (r.lus >= goal) c.ok++; });
+  const cls = Object.values(classes).filter(c => c.classe && c.classe !== "Personnel").map(c => ({ ...c, moy: c.lus / Math.max(1, c.eleves) })).sort((a, b) => b.moy - a.moy || b.lus - a.lus);
+  const maxMoy = Math.max(1, ...cls.map(c => c.moy));
+  const podium = rows.filter(r => r.lus > 0).sort((a, b) => a.rang_ecole - b.rang_ecole).slice(0, 10);
+  const person = r => `${personAvatar({ id: r.membre, nom: r.nom, avatar: r.avatar || PHOTOS.get(r.membre) })}<div style="min-width:0"><div class="t">${esc(isReader() ? r.nom : r.nom)}${r.moi ? ' <span class="pill info">toi</span>' : ""}</div><div class="s">${esc(r.classe)}</div></div>`;
+  const rankRow = (r, k) => `<div class="row rk${r.moi ? " me" : ""}"><span class="rk-n${k <= 3 ? " p" + k : ""}">${k}</span>${person(r)}<b class="num">${r.lus}<span class="s"> livre${r.lus > 1 ? "s" : ""}</span></b></div>`;
+  const classTable = `<div class="card"><div class="card-h"><h3>Classement des classes</h3><span class="sub">moyenne de livres lus par élève</span></div>
+    <div class="rows">${cls.map((c, i) => `<div class="row cls-row"><span class="rk-n${i < 3 ? " p" + (i + 1) : ""}">${i + 1}</span><div style="min-width:0"><div class="t">${esc(c.classe)}</div><div class="meter"><b data-w="${Math.round(c.moy / maxMoy * 100)}%" style="width:0"></b></div></div><div class="num">${c.moy.toFixed(1).replace(".", ",")}<div class="s">${c.ok} élève${c.ok > 1 ? "s" : ""} ≥ ${goal}</div></div></div>`).join("") || '<div class="empty">Aucune lecture ce trimestre pour l\'instant.</div>'}</div></div>`;
+  if (isReader()) {
+    const me = rows.find(r => r.moi), m = D.membres.get(auth.profile.membre_id), mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id);
+    const lusT = mine.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length, pct = Math.min(1, lusT / goal);
+    const myClass = rows.filter(r => r.classe === (m && m.classe)).sort((a, b) => a.rang_classe - b.rang_classe);
+    const badges = badgesFor(mine, store.mesNotes ? store.mesNotes.size : 0), got = badges.filter(b => b.got).length;
+    const left = Math.max(0, diffDays(t.fin, todayISO()));
+    return `<div class="toolbar">${sel}</div>
+      <div class="defi-top">
+        <div class="card defi-goal"><div class="ring" style="--p:${pct}"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" pathLength="100" style="stroke-dasharray:${Math.round(pct * 100)} 100"/></svg><div><b>${lusT}</b><span>/ ${goal}</span></div></div>
+          <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><span class="nf-kicker" style="color:var(--accent)">Défi du ${esc(t.nom)}</span><h2 style="margin:0">${lusT >= goal ? "Défi réussi, bravo !" : `Lis ${goal} livre${goal > 1 ? "s" : ""} ce trimestre`}</h2>
+            <p style="margin:0;color:var(--ink-2)">${lusT >= goal ? "Ton diplôme de lecture t'attend. Continue : chaque livre te fait monter dans le classement." : `Encore <b>${goal - lusT}</b> livre${goal - lusT > 1 ? "s" : ""} à lire et à rendre${t.n === trimCourant().n ? ` · il reste ${left} jour${left > 1 ? "s" : ""}` : ""}.`}</p>
+            <button class="btn ${lusT >= goal ? "primary" : "ghost"}" type="button" id="myDiploma" ${lusT >= goal ? "" : "disabled"} style="align-self:flex-start">${ic("down")}${lusT >= goal ? "Télécharger mon diplôme" : "Diplôme à débloquer"}</button></div></div>
+        <div class="card defi-place"><div><span>Dans ta classe</span><b>${me && me.lus ? ordinal(me.rang_classe).replace("1re", "1er") : "—"}</b><small>${esc(m ? m.classe : "")}</small></div><div><span>Dans l'école</span><b>${me && me.lus ? ordinal(me.rang_ecole).replace("1re", "1er") : "—"}</b><small>${rows.length} élèves</small></div><div><span>Badges</span><b>${got}</b><small>sur ${badges.length}</small></div></div>
+      </div>
+      <div class="card"><div class="card-h"><h3>Mes badges</h3><span class="sub">${got} gagné${got > 1 ? "s" : ""}</span></div><div class="badges">${badges.map(badgeHTML).join("")}</div></div>
+      <div class="grid cols-2">
+        <div class="card"><div class="card-h"><h3>Ma classe</h3><span class="sub">${esc(m ? m.classe : "")}</span></div><div class="rows">${myClass.filter(r => r.lus > 0 || r.moi).slice(0, 10).map(r => rankRow(r, r.rang_classe)).join("") || '<div class="empty">Personne n\'a encore rendu de livre ce trimestre : sois le premier !</div>'}${me && me.rang_classe > 10 ? rankRow(me, me.rang_classe) : ""}</div></div>
+        <div class="card"><div class="card-h"><h3>Top 10 de l'école</h3></div><div class="rows">${podium.map(r => rankRow(r, r.rang_ecole)).join("") || '<div class="empty">Le classement démarre dès le premier livre rendu.</div>'}</div></div>
+      </div>${classTable}`;
+  }
+  /* personnel : vue d'ensemble, classement d'une classe, diplômes */
+  ui.defiClasse = ui.defiClasse && classes[ui.defiClasse] ? ui.defiClasse : (cls[0] && cls[0].classe) || "";
+  const cr = rows.filter(r => r.classe === ui.defiClasse).sort((a, b) => b.lus - a.lus || a.nom.localeCompare(b.nom, "fr")), okN = cr.filter(r => r.lus >= goal).length;
+  return `<div class="toolbar">${sel}<span class="s" style="margin-left:auto;color:var(--ink-3)">Objectif : <b>${goal} livre${goal > 1 ? "s" : ""}</b> rendus par trimestre${can("admin") ? " · modifiable dans Réglages" : ""}</span></div>
+    <div class="grid cols-2">${classTable}<div class="card"><div class="card-h"><h3>Top 10 de l'école</h3><span class="sub">${esc(t.nom)}</span></div><div class="rows">${podium.map(r => rankRow(r, r.rang_ecole)).join("") || '<div class="empty">Aucun livre rendu ce trimestre pour l\'instant.</div>'}</div></div></div>
+    <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Classe</h3><select class="flat" id="defiClasse" aria-label="Classe">${cls.map(c => `<option ${c.classe === ui.defiClasse ? "selected" : ""}>${esc(c.classe)}</option>`).join("")}</select>
+        <span class="sub">${okN} élève${okN > 1 ? "s ont" : " a"} atteint l'objectif</span><button class="btn sm primary" type="button" id="classDiplomas" style="margin-left:auto" ${okN ? "" : "disabled"}>${ic("down")}Diplômes de la classe (PDF)</button></div>
+      <div class="table-wrap"><table><thead><tr><th class="c">Rang</th><th>Élève</th><th class="c">Livres lus</th><th>Objectif</th><th></th></tr></thead><tbody>
+      ${cr.map(r => `<tr><td class="c"><span class="rk-n${r.rang_classe <= 3 && r.lus ? " p" + r.rang_classe : ""}">${r.lus ? r.rang_classe : "—"}</span></td><td><div style="display:flex;gap:12px;align-items:center">${personAvatar({ id: r.membre, nom: r.nom, avatar: PHOTOS.get(r.membre) })}<div><div class="t">${esc(r.nom)}</div><div class="s"><span class="code">${esc(r.membre)}</span></div></div></div></td>
+        <td class="c"><b>${r.lus}</b></td><td>${r.lus >= goal ? pill("Atteint", "ok") : `<div class="meter" style="max-width:140px"><b data-w="${Math.round(r.lus / goal * 100)}%" style="width:0"></b></div>`}</td>
+        <td style="text-align:right">${r.lus >= goal ? `<button class="btn sm ghost" type="button" data-diploma="${esc(r.membre)}">${ic("down")}Diplôme</button>` : ""}</td></tr>`).join("") || '<tr><td colspan="5" class="empty">Aucun élève dans cette classe.</td></tr>'}
+      </tbody></table></div></div>`;
+}
+function bindDefis(v) {
+  $$("[data-trim]", v).forEach(b => b.onclick = () => { ui.trim = +b.dataset.trim; store.classement = null; render(); });
+  const dc = $("#defiClasse", v); if (dc) dc.onchange = () => { ui.defiClasse = dc.value; render(); };
+  const t = trimestres().find(x => x.n === ui.trim) || trimCourant(), goal = objectif();
+  const md = $("#myDiploma", v); if (md) md.onclick = () => { const m = D.membres.get(auth.profile.membre_id); const lus = D.emprunts.filter(e => e.membre === m.id && e.retour && e.retour >= t.debut && e.retour <= t.fin).length; diplomasPDF([{ nom: m.nom, classe: m.classe, lus }], t); };
+  const cd = $("#classDiplomas", v); if (cd) cd.onclick = () => diplomasPDF(store.classement.rows.filter(r => r.classe === ui.defiClasse && r.lus >= goal).sort((a, b) => a.nom.localeCompare(b.nom, "fr")), t);
+  $$("[data-diploma]", v).forEach(b => b.onclick = () => diplomasPDF(store.classement.rows.filter(r => r.membre === b.dataset.diploma), t));
+}
+
+/* ---------- diplôme de lecture (PDF, A4 paysage, une page par élève) ---------- */
+function diplomasPDF(list, t) {
+  if (!list.length) return;
+  if (!window.jspdf || !window.jspdf.jsPDF) return toast("Le module PDF n'a pas pu être chargé.", true);
+  const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "landscape" });
+  const W = 297, H = 210, NAVY = [11, 60, 93], BLUE = [0, 150, 214], GREEN = [46, 158, 69], GOLD = [201, 150, 30], MUTED = [110, 128, 145], p = params();
+  list.forEach((r, i) => {
+    if (i) doc.addPage();
+    doc.setFillColor(250, 252, 255); doc.rect(0, 0, W, H, "F");
+    doc.setDrawColor(...BLUE); doc.setLineWidth(2.2); doc.rect(9, 9, W - 18, H - 18);
+    doc.setDrawColor(...GREEN); doc.setLineWidth(.6); doc.rect(13, 13, W - 26, H - 26);
+    doc.setFillColor(...BLUE); doc.triangle(9, 9, 46, 9, 9, 46, "F"); doc.setFillColor(...GREEN); doc.triangle(W - 9, H - 9, W - 46, H - 9, W - 9, H - 46, "F");
+    try { doc.addImage(LOGO, "PNG", W / 2 - 11, 20, 22, 22 * 213 / 180); } catch {}
+    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(...BLUE); doc.text(pdfSafe(p.ecole.toUpperCase()), W / 2, 52, { align: "center" });
+    doc.setFont("times", "bold"); doc.setFontSize(40); doc.setTextColor(...NAVY); doc.text("Diplôme de lecture", W / 2, 74, { align: "center" });
+    doc.setFont("helvetica", "normal"); doc.setFontSize(13); doc.setTextColor(...MUTED); doc.text("décerné à", W / 2, 88, { align: "center" });
+    doc.setFont("times", "bolditalic"); doc.setFontSize(34); doc.setTextColor(...GOLD); doc.text(pdfSafe(r.nom), W / 2, 106, { align: "center" });
+    doc.setDrawColor(...GOLD); doc.setLineWidth(.4); doc.line(W / 2 - 70, 110, W / 2 + 70, 110);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(13.5); doc.setTextColor(...NAVY);
+    doc.text(pdfSafe(`${r.classe && r.classe !== "Personnel" ? "élève de " + r.classe + ", " : ""}pour avoir lu ${r.lus} livre${r.lus > 1 ? "s" : ""} au ${t.nom} de l'année ${p.annee}`), W / 2, 124, { align: "center" });
+    doc.setFontSize(11.5); doc.setTextColor(...MUTED); doc.text(pdfSafe(`et relevé le défi de lecture de la bibliothèque (${objectif()} livre${objectif() > 1 ? "s" : ""}). Félicitations !`), W / 2, 132, { align: "center" });
+    // médaille
+    doc.setFillColor(...GOLD); doc.circle(W / 2, 156, 11, "F"); doc.setFillColor(255, 214, 92); doc.circle(W / 2, 156, 8, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(...NAVY); doc.text(String(r.lus), W / 2, 158.5, { align: "center" });
+    // signatures
+    doc.setDrawColor(...MUTED); doc.setLineWidth(.3); doc.line(40, 176, 105, 176); doc.line(W - 105, 176, W - 40, 176);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...MUTED); doc.text("La bibliothécaire", 72.5, 182, { align: "center" }); doc.text("La direction", W - 72.5, 182, { align: "center" });
+    doc.text(pdfSafe(`Goma, le ${fmtLong(todayISO())}`), W / 2, 182, { align: "center" });
+    doc.setFontSize(7); doc.text("Kivuthèque", W / 2, H - 15.5, { align: "center" });
+  });
+  const slug = x => String(x).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const name = list.length === 1 ? `Diplome-lecture-${slug(list[0].nom)}.pdf` : `Diplomes-lecture-${slug(list[0].classe || "classe")}-T${t.n}.pdf`;
+  if (store.mode === "db") return saveFile(name, doc.output("blob"), "application/pdf");
+  doc.save(name); toast(list.length > 1 ? `${list.length} diplômes enregistrés dans ${name}` : "Diplôme enregistré : " + name);
 }
 
 /* ---------- réservations côté bibliothèque ---------- */
@@ -1824,17 +2033,19 @@ const VIEWS = [
   { id: "membres", label: "Membres", icon: "users" },
   { id: "fournitures", label: "Fournitures", icon: "box" },
   { id: "rapport", label: "Rapports", icon: "report" },
+  { id: "defis", label: "Défis", icon: "trophy" },
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
-const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }];
+const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }, { id: "defis", label: "Défis", icon: "trophy" }];
+const READER_IDS = READER_VIEWS.map(v => v.id);
 const navViews = () => isReader() ? READER_VIEWS : VIEWS;
 const ui = { report: "biblio", flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
-try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes" || h === "espace") ui.view = h; } catch {}
+try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes" || h === "espace" || h === "defis") ui.view = h; } catch {}
 
 function buildNav() {
   $$("#nav [data-go]").forEach(b => b.remove());
   $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : ""}</button>`).join(""));
-  const tabs = isReader() ? ["espace", "livres"] : ["accueil", "livres", "emprunts", "membres"];
+  const tabs = isReader() ? ["espace", "livres", "defis"] : ["accueil", "livres", "emprunts", "membres"];
   $("#tabbar").innerHTML = tabs.map(id => { const v = navViews().find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
   $("#searchIc").innerHTML = ic("search");
@@ -1870,6 +2081,7 @@ const HEAD = {
   reglages: () => ["École, règles de prêt et données", "Réglages", null],
   comptes: () => ["Demandes d'accès, rôles et photos", "Comptes", null],
   espace: () => [greet(), "Mon espace", null],
+  defis: () => [isReader() ? "Lis, gagne des badges et grimpe dans le classement" : "Classements, objectifs et diplômes de lecture", "Défis de lecture", null],
 };
 function greet() { const h = new Date().getHours(); return (h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir") + " · " + fmtLong(todayISO()); }
 
@@ -1880,7 +2092,7 @@ function render() {
   const empty = !S.params && COLS.every(c => !S[c].length);
   if (empty && (store.mode === "cloud" || store.localAuth) && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
   if (empty) { view.className = "enter"; view.innerHTML = welcomeView(); bindWelcome(); return; }
-  if (isReader() && !["espace", "livres"].includes(ui.view)) ui.view = "espace";
+  if (isReader() && !READER_IDS.includes(ui.view)) ui.view = "espace";
   if (!isReader() && ui.view === "espace") ui.view = "accueil";
   derive();
   const [eyebrow, title, action] = HEAD[ui.view]();
@@ -1888,7 +2100,7 @@ function render() {
   const pb = $("#primaryBtn");
   if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
   if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("comptes"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView }[ui.view]();
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView, defis: defisView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -2349,6 +2561,7 @@ function settingsView() {
         <div class="f"><label for="p-duree">Durée d'un prêt (jours)</label><input id="p-duree" type="number" min="1" value="${p.duree}"></div></div>
         <div class="f2"><div class="f"><label for="p-amende">Amende par jour de retard (FC)</label><input id="p-amende" type="number" min="0" step="50" value="${p.amende}"></div>
         <div class="f"><label for="p-max">Prêts simultanés par membre</label><input id="p-max" type="number" min="1" value="${p.max}"></div></div>
+        <div class="f"><label for="p-objectif">Défi de lecture : livres à lire par trimestre</label><input id="p-objectif" type="number" min="1" max="50" value="${objectif()}"></div>
         ${store.localAuth ? `<div class="f"><label for="p-verrou">Verrouillage automatique sans activité</label><select id="p-verrou">${[[5, "Après 5 minutes"], [15, "Après 15 minutes"], [30, "Après 30 minutes"], [60, "Après 1 heure"], [0, "Jamais"]].map(([k, l]) => `<option value="${k}" ${+(p.verrou ?? 15) === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>` : ""}
         <button class="btn primary" type="submit" style="align-self:flex-start">${ic("check")}Enregistrer</button>
       </div></form>
@@ -2386,8 +2599,9 @@ function bindView() {
   $$("[data-role-of]", v).forEach(sel => sel.addEventListener("change", () => setRole(sel.dataset.roleOf, sel.value)));
   if (store.localAuth && ui.view === "comptes") bindLocalAccounts(v);
   if (ui.view === "espace") bindEspace(v);
+  if (ui.view === "defis") bindDefis(v);
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
-    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });
+    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), objectif: Math.max(1, +$("#p-objectif").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });
     toast("Réglages enregistrés"); });
   $$("form[data-add]", v).forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const key = f.dataset.add, inp = $("input", f), val = inp.value.trim(); if (!val) return;
     const p = params(); if (p[key].includes(val)) return toast("« " + val + " » existe déjà", true); saveParams({ ...p, [key]: [...p[key], val] }); }));
@@ -2957,11 +3171,13 @@ function bookDetail(id) {
       <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><div style="color:var(--ink-2)">${esc(b.auteur)}</div>${pill(l, t)}
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div>${isReader() ? "" : `<div>Emprunté <b>${b.total}</b> fois</div>`}</div></div></div>
     ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
+    ${noteOf(id) ? `<div>${starsHTML(noteOf(id).moyenne)} <b>${String(noteOf(id).moyenne).replace(".", ",")}</b> <span class="s" style="color:var(--ink-3)">· ${noteOf(id).nb} avis de lecteurs</span></div>` : ""}
+    <div id="aussiLu"></div>
     ${queue.length ? `<div class="recap" style="border-style:solid"><div><b>Réservations</b></div>${queue.map((r, i) => `<div>${r.statut === "prete" ? (r.expiree ? "⏱ délai dépassé · " : "✓ mis de côté · ") : (i + 1 - queue.filter(x => x.statut === "prete").length) + ". "}${esc(r.m ? r.m.nom : r.membre)} <span class="code">${esc(r.membre)}</span></div>`).join("")}</div>` : ""}
     ${can("biblio") && store.mode !== "db" ? `<button class="btn sm ghost${b.vedette ? " on" : ""}" type="button" id="vedB" style="align-self:flex-start">${b.vedette ? "★ Livre du mois · retirer" : "☆ Mettre en avant dans les « livres du mois »"}</button>` : ""}
     <h3 style="font-size:15px;margin-top:6px">${isReader() ? "Tes emprunts de ce livre" : "Historique"}</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
     can("biblio") ? `${NET_OK() || store.mode === "local" ? `<button class="btn ghost" type="button" id="coverB" style="margin-right:auto">${ic("spark")}Couverture</button>` : ""}<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
-    el => { const vb = $("#vedB", el); if (vb) vb.onclick = async () => { const cur = S.livres.find(x => x.id === id); await put("livres", { ...cur, vedette: !cur.vedette }); toast(cur.vedette ? "Retiré des livres du mois" : "« " + cur.titre + " » est un livre du mois"); bookDetail(id); };
+    el => { fillAussiLu(el, id); const vb = $("#vedB", el); if (vb) vb.onclick = async () => { const cur = S.livres.find(x => x.id === id); await put("livres", { ...cur, vedette: !cur.vedette }); toast(cur.vedette ? "Retiré des livres du mois" : "« " + cur.titre + " » est un livre du mois"); bookDetail(id); };
       if (!$("#editB", el)) return; const cb = $("#coverB", el); if (cb) cb.onclick = () => coverSheet(id); $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
@@ -3004,6 +3220,7 @@ function memberDetail(id) {
   const loans = D.emprunts.filter(e => e.membre === id);
   openSheet(m.nom, `${memberCard(m)}${(() => { const a = store.mode === "cloud" && auth.accounts.find(x => x.membre_id === m.id); return a ? `<div class="s" style="color:var(--ink-3)">Compte relié : <b>${esc(a.email)}</b> · ${esc(ROLES[a.role][0])}</div>` : m.email ? `<div class="s" style="color:var(--ink-3)">E-mail : ${esc(m.email)} · pas encore de compte</div>` : ""; })()}
     <div class="recap" style="border-style:solid"><div>Emprunts en cours : <b>${m.cours} / ${params().max}</b></div><div>En retard : <b>${m.retard}</b></div><div>Amendes dues : <b>${fc(m.dues)}</b></div><div>Total emprunté : <b>${loans.length}</b></div></div>
+    <h3 style="font-size:15px">Badges</h3><div class="badges mini">${badgesFor(loans).map(badgeHTML).join("")}</div>
     <h3 style="font-size:15px">Emprunts</h3><div class="rows">${loans.slice(0, 12).map(e => loanRow(e)).join("") || '<div class="empty">Aucun emprunt.</div>'}</div>`,
     can("biblio") ? `<button class="btn ghost" type="button" id="editM">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendM">${ic("plus")}Nouvel emprunt</button>` : null,
     el => { if (!$("#editM", el)) return; $("#editM", el).onclick = () => memberSheet(S.membres.find(x => x.id === id)); $("#lendM", el).onclick = () => loanSheet({ membre: id }); });

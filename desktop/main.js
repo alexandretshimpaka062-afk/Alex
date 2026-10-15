@@ -102,7 +102,7 @@ function smokeTest() {
 function buildMenu() {
   const isMac = process.platform === "darwin";
   const template = [
-    ...(isMac ? [{ label: app.name, submenu: [
+    ...(isMac ? [{ label: "Kivuthèque", submenu: [
       { role: "about", label: "À propos de Kivuthèque" }, { type: "separator" },
       { role: "hide", label: "Masquer Kivuthèque" }, { role: "hideOthers", label: "Masquer les autres" }, { role: "unhide", label: "Tout afficher" },
       { type: "separator" }, { role: "quit", label: "Quitter Kivuthèque" }] }] : []),

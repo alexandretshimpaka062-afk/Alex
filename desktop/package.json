@@ -1,6 +1,6 @@
 {
   "name": "bibliotheque-kis",
-  "productName": "Kivuthèque",
+  "productName": "Kivutheque",
   "version": "1.1.0",
   "description": "Kivuthèque — gestion de la bibliothèque et des fournitures de Kivu International School",
   "author": "Alexandre Declaire",
@@ -20,7 +20,7 @@
   },
   "build": {
     "appId": "school.kivu.kivutheque",
-    "productName": "Kivuthèque",
+    "productName": "Kivutheque",
     "copyright": "Kivu International School — Made by Alexandre et Declaire",
     "directories": {
       "output": "dist",
@@ -46,7 +46,10 @@
       ],
       "identity": null,
       "hardenedRuntime": false,
-      "minimumSystemVersion": "11.0"
+      "minimumSystemVersion": "11.0",
+      "extendInfo": {
+        "CFBundleDisplayName": "Kivuthèque"
+      }
     },
     "dmg": {
       "title": "Kivuthèque",
@@ -85,7 +88,8 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Kivuthèque",
-      "language": "1036"
+      "language": "1036",
+      "uninstallDisplayName": "Kivuthèque"
     },
     "portable": {
       "artifactName": "Kivutheque-${version}-windows-portable.${ext}"

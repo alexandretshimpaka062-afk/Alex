@@ -21,6 +21,9 @@ Comptez environ 15 minutes. Les étapes 1 à 3 se font une seule fois.
 4. Copiez tout le contenu du fichier [`supabase/schema.sql`](supabase/schema.sql), collez-le, puis cliquez sur **Run**.
    Le message *Success. No rows returned* doit s'afficher.
 
+> **À chaque mise à jour de Kivuthèque**, relancez ce script de la même façon (SQL Editor › coller › Run).
+> Il ne supprime aucune donnée : il met seulement à jour les règles et les fonctions.
+
 ## 2. Régler la connexion (Supabase)
 
 1. Ouvrez **Authentication**, puis **Sign In / Providers**, puis **Email** :
@@ -54,22 +57,51 @@ Chaque modification envoyée sur GitHub met le site à jour automatiquement, en 
 > **Important** : la toute première personne qui crée un compte devient **administrateur**.
 > Faites-le vous-même tout de suite après la mise en ligne.
 
-1. Ouvrez `https://kivutheque.netlify.app`, cliquez sur **Créer un compte** et remplissez le formulaire.
+1. Ouvrez `https://kivutheque.netlify.app`, cliquez sur **Créer un compte**, choisissez **Personnel** et remplissez le formulaire.
 2. Vous arrivez sur l'accueil : choisissez **Découvrir avec des exemples** ou **Commencer vide**.
 
-## 5. Inviter l'équipe
+## 5. Inviter l'équipe, les enseignants et les élèves
 
-1. Envoyez l'adresse du site à chaque personne. Elle clique sur **Créer un compte**.
-2. Son compte apparaît dans **Comptes**, marqué « à valider ». Choisissez son rôle :
+1. Envoyez l'adresse du site à chaque personne. Elle clique sur **Créer un compte** et indique si elle est élève (avec sa classe), enseignant ou membre du personnel. Elle peut aussi utiliser le bouton **Continuer avec Google** (étape 6).
+2. Sa demande apparaît dans **Comptes**, rubrique « Demandes en attente », avec un compteur rouge dans le menu.
+3. Pour un élève ou un enseignant :
+   - choisissez sa **fiche de membre**, ou laissez « Nouvelle fiche » pour lui donner le prochain numéro (A001, A002…). Kivuthèque présélectionne la fiche dont le nom complet ou l'e-mail correspond ;
+   - cliquez sur **Accepter**.
+4. Pour le personnel, choisissez son rôle. Cela est réservé à l'administrateur.
 
-| Rôle | Peut faire |
-|---|---|
-| **Administrateur** | Tout, y compris les comptes et les réglages |
-| **Bibliothécaire** | Livres, membres, emprunts, retours et amendes |
-| **Gestion des fournitures** | Articles et mouvements de stock |
-| **Consultation** | Tout voir, sans rien modifier |
+| Rôle | Peut faire | Validé par |
+|---|---|---|
+| **Administrateur** | Tout, y compris les comptes et les réglages | Administrateur |
+| **Bibliothécaire** | Livres, membres, emprunts, retours ; valide les élèves et les enseignants | Administrateur |
+| **Gestion des fournitures** | Articles et mouvements de stock | Administrateur |
+| **Direction** | Tout voir, sans rien modifier | Administrateur |
+| **Enseignant** | Son espace de lecteur (et bientôt le suivi de ses classes) | Administrateur ou bibliothécaire |
+| **Élève** | Son espace personnel : carte de membre, livres en cours, lectures, catalogue | Administrateur ou bibliothécaire |
 
-Pour retirer l'accès à quelqu'un, choisissez **Désactivé**.
+Pour retirer l'accès à quelqu'un, choisissez **Désactivé** dans « Tous les comptes ».
+Un élève ne voit jamais les emprunts ni les fiches des autres élèves : c'est la base de données qui l'interdit.
+
+## 6. Activer le bouton « Continuer avec Google » (facultatif, environ 10 minutes)
+
+Cette étape permet aux élèves d'entrer avec leur compte Gmail, sans mot de passe à retenir. Toute nouvelle personne passe quand même par la liste d'attente.
+
+1. Allez sur <https://console.cloud.google.com> avec le compte Google de l'école.
+   - Créez un projet nommé `Kivutheque` (menu du haut › **Nouveau projet**).
+2. Ouvrez **API et services › Écran de consentement OAuth** (ou **Google Auth Platform › Branding**) :
+   - type d'utilisateur : **Externe** ;
+   - nom de l'application : `Kivuthèque` ;
+   - adresse e-mail d'assistance et coordonnées du développeur : l'e-mail de l'école ;
+   - enregistrez. Dans **Audience**, cliquez sur **Publier l'application**, sinon seuls les comptes de test pourront se connecter.
+3. Ouvrez **API et services › Identifiants › Créer des identifiants › ID client OAuth** :
+   - type : **Application Web** ;
+   - origines JavaScript autorisées : `https://kivutheque.netlify.app` ;
+   - URI de redirection autorisés : collez l'adresse **Callback URL** que donne Supabase (point 4 ci-dessous). Elle ressemble à `https://abcdefgh.supabase.co/auth/v1/callback` ;
+   - cliquez sur **Créer**, puis notez l'**ID client** et le **Code secret du client**.
+4. Dans Supabase, ouvrez **Authentication › Sign In / Providers › Google** :
+   - activez **Enable Sign in with Google** ;
+   - collez l'ID client et le code secret, puis cliquez sur **Save**.
+   Le code secret Google se colle **uniquement dans Supabase** : ne l'envoyez à personne et ne le mettez dans aucun fichier.
+5. Testez : ouvrez le site, cliquez sur **Continuer avec Google**, puis complétez la demande (profil et classe).
 
 ## Rapports PDF
 

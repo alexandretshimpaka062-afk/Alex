@@ -375,6 +375,60 @@ body.no-biblio [data-perm="biblio"],body.no-fourn [data-perm="fourn"],body.no-ad
 .user-chip b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .user-chip small{display:block;font-size:11.5px;color:var(--ink-3)}
 .user-chip .act{margin-left:auto;flex:none}
+/* comptes en ligne, espace lecteur, carte de membre */
+img.avatar{object-fit:cover;background:var(--line)}
+.avatar.xl{width:84px;height:84px;border-radius:50%;font-size:28px}
+.google-btn{height:48px;font-size:15px;gap:10px;justify-content:center;width:100%}
+.google-btn .ic{width:20px;height:20px}
+.auth-or{display:flex;align-items:center;gap:10px;color:var(--ink-3);font-size:12px}
+.auth-or::before,.auth-or::after{content:"";flex:1;height:1px;background:var(--line-2)}
+.pending-ic{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);animation:pulse 2.4s ease-in-out infinite}
+.pending-ic .ic{width:30px;height:30px}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.pend-list{display:flex;flex-direction:column;gap:10px}
+.pend-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-items:center;padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--glass-strong)}
+.pend-row.muted{opacity:.75}
+.pend-who .t{font-weight:650}
+.pend-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pend-act{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pend-act select{max-width:100%;min-width:0;flex:1 1 240px}
+@media(min-width:1100px){.pend-row{grid-template-columns:auto minmax(0,1fr) auto}.pend-act{grid-column:auto;justify-content:flex-end}.pend-act select{flex:0 1 260px}}
+.danger-t{color:var(--danger)}
+.prof-head{display:flex;gap:18px;align-items:center}
+.prof-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.crop-box{display:flex;flex-direction:column;gap:10px;align-items:center}
+.crop-box canvas{width:min(260px,70vw);aspect-ratio:1;border-radius:50%;cursor:grab;touch-action:none;box-shadow:0 0 0 4px var(--accent-soft),0 18px 40px -18px rgba(0,0,0,.5)}
+.crop-zoom{display:flex;gap:10px;align-items:center;width:min(260px,70vw);color:var(--ink-3)}
+.crop-zoom input{flex:1}
+.crop-zoom .ic{width:16px;height:16px}
+.pf-pass summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--accent)}
+.espace-top{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:stretch}
+@media(max-width:900px){.espace-top{grid-template-columns:1fr}}
+.hello{display:flex;flex-direction:column;gap:12px;justify-content:center}
+.hello h2{font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;margin:0}
+.hello p{margin:0;color:var(--ink-2)}
+.hello-stats{display:flex;gap:26px}
+.hello-stats b{display:block;font:800 28px var(--display)}
+.hello-stats span{font-size:12px;color:var(--ink-3)}
+.mcard{position:relative;overflow:hidden;border-radius:24px;padding:20px 22px;min-height:220px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:14px;
+  background:radial-gradient(120% 140% at 0% 0%,#22C3FF 0%,#0096D6 38%,#0B3F73 72%,#06243F 100%);box-shadow:0 24px 50px -24px rgba(0,80,140,.7),inset 0 1px 0 rgba(255,255,255,.3);animation:pop .7s var(--spring) both}
+.mc-glow{position:absolute;right:-60px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(46,177,74,.55),transparent 65%);pointer-events:none}
+.mc-top{display:flex;align-items:center;gap:10px}
+.mc-top b{display:block;font:800 16px var(--display);letter-spacing:-.01em}
+.mc-top small{display:block;font-size:11px;opacity:.8}
+.mc-logo{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.mc-logo img{width:28px}
+.mc-year{margin-left:auto;font:700 11px var(--mono);padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.16)}
+.mc-mid{display:flex;align-items:center;gap:14px;position:relative}
+.mc-ph{width:64px;height:64px;border-radius:50%;font-size:22px;border:3px solid rgba(255,255,255,.75);flex:none}
+.mc-name{font:800 20px/1.1 var(--display);letter-spacing:-.01em;overflow-wrap:anywhere}
+.mc-sub{font-size:13px;opacity:.85;margin-top:3px}
+.mc-bot{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;position:relative}
+.mc-bot small{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.mc-num{font:800 34px/1 var(--mono);letter-spacing:.06em;text-shadow:0 2px 12px rgba(0,0,0,.25)}
+.mc-since{text-transform:none!important;letter-spacing:0!important}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:18px 14px}
+.shelf .cover .cv-title{font-size:14px}
 /* écran de connexion */
 body.locked{overflow:hidden}
 .auth{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px 16px;overflow-y:auto;
@@ -691,7 +745,7 @@ function makeSample() {
     let f, n; do { f = pick(F); n = f + " " + pick(L); } while (used.has(n)); used.add(n);
     let type = "Élève", classe = CLASSES[i % 12];
     if (i >= 25) { type = i >= 29 ? "Personnel" : "Enseignant"; classe = "Personnel"; if (type === "Enseignant") n = (FEM.has(f) ? "Mme " : "M. ") + n; }
-    membres.push({ id: "MEM-" + pad(i + 1, 3), nom: n, type, classe, sexe: FEM.has(f) ? "F" : "M", inscription: addDays(T, -(i < 26 ? 40 + Math.floor(rnd() * 20) : Math.floor(rnd() * 8))) });
+    membres.push({ id: memNum(i + 1), nom: n, type, classe, sexe: FEM.has(f) ? "F" : "M", inscription: addDays(T, -(i < 26 ? 40 + Math.floor(rnd() * 20) : Math.floor(rnd() * 8))) });
   }
   const weights = livres.map((b, i) => popular.has(i) ? 5 : 1); const wsum = weights.reduce((a, b) => a + b, 0);
   const wpick = () => { let r = rnd() * wsum; for (let i = 0; i < weights.length; i++) { r -= weights[i]; if (r <= 0) return i; } return 0; };
@@ -764,7 +818,7 @@ async function initStore() {
   } else {
     store.mode = "local";
     const saved = lsRead();
-    if (saved) Object.assign(S, saved);
+    if (saved) { Object.assign(S, saved); if (renumberMembers(S)) lsWrite(); }
     store.loaded = new Set([...COLS, "params"]); onData();
   }
 }
@@ -832,17 +886,26 @@ const CLOUD_CFG = window.KIV_CONFIG || null;
 const CLOUD = !!CLOUD_CFG;
 const ROLES = {
   admin: ["Administrateur", "Tout gérer, y compris les comptes et les réglages"],
-  bibliothecaire: ["Bibliothécaire", "Livres, membres, emprunts et retours"],
+  bibliothecaire: ["Bibliothécaire", "Livres, membres, emprunts ; valide les élèves et les enseignants"],
   fournitures: ["Gestion des fournitures", "Articles et mouvements de stock"],
-  consultation: ["Consultation", "Lecture seule, aucune modification"],
-  en_attente: ["En attente", "Compte créé, pas encore validé"],
-  desactive: ["Désactivé", "Accès retiré"],
+  direction: ["Direction", "Tout voir, sans rien modifier"],
+  consultation: ["Consultation", "Tout voir, sans rien modifier"],
+  enseignant: ["Enseignant", "Son espace de lecteur et ses classes"],
+  eleve: ["Élève", "Son espace de lecteur personnel"],
+  en_attente: ["En attente", "Inscription pas encore validée"],
+  desactive: ["Désactivé", "Accès retiré ou demande refusée"],
 };
+const STAFF_ROLES = ["admin", "bibliothecaire", "fournitures", "direction"];
+const READER_ROLES = ["eleve", "enseignant"];
+const PROFILS = { eleve: "Élève", enseignant: "Enseignant", personnel: "Personnel de l'école" };
 const auth = { sb: null, user: null, profile: null, accounts: [], channel: null };
 const roleOf = () => (auth.profile && auth.profile.role) || "";
+/* lecteur = élève ou enseignant connecté en ligne : il n'a accès qu'à son espace et au catalogue */
+const isReader = () => store.mode === "cloud" && READER_ROLES.includes(roleOf());
 function can(area) {
   if (store.mode !== "cloud" && !store.localAuth) return true;
   const r = roleOf();
+  if (area === "comptes") return r === "admin" || (store.mode === "cloud" && r === "bibliothecaire");
   if (r === "admin") return true;
   if (area === "biblio") return r === "bibliothecaire";
   if (area === "fourn") return r === "fournitures";
@@ -858,6 +921,8 @@ function applyPerms() {
   document.body.classList.toggle("no-fourn", !can("fourn"));
   document.body.classList.toggle("no-admin", !can("admin"));
   document.body.classList.toggle("is-cloud", store.mode === "cloud");
+  document.body.classList.toggle("is-reader", isReader());
+  const sp = $("#openPalette span:nth-child(2)"); if (sp) sp.textContent = isReader() ? "Rechercher un livre…" : "Rechercher un livre, un membre…";
   $("#fab").hidden = !(can("biblio") || can("fourn"));
 }
 function cloudError(e) {
@@ -884,6 +949,24 @@ function authShell(inner) {
 }
 function hideAuth() { const el = $("#authScreen"); if (el) el.hidden = true; document.body.classList.remove("locked"); }
 function authMsg(el, msg, ok) { const m = $(".auth-msg", el); m.textContent = msg; m.className = "auth-msg " + (ok ? "ok" : "err"); m.hidden = !msg; }
+const GOOGLE_G = `<svg class="ic" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.5z"/></svg>`;
+/* champs de la demande d'accès : nom, profil, classe */
+function demandeFields(P) {
+  const prof = P.profil || "eleve";
+  return `<div class="f"><label for="a-nom">Prénom et nom</label><input id="a-nom" autocomplete="name" value="${esc(P.nom || "")}" required></div>
+    <div class="f"><label>Je suis</label><div class="seg auth-tabs" id="aProfil" style="grid-template-columns:repeat(3,1fr)">${Object.entries({ eleve: "Élève", enseignant: "Enseignant", personnel: "Personnel" }).map(([k, l]) => `<button type="button" data-pf="${k}" aria-pressed="${k === prof}">${l}</button>`).join("")}</div></div>
+    <div class="f" id="aClasseF"><label for="a-classe">Ma classe</label><input id="a-classe" list="aClasses" autocomplete="off" placeholder="Ex. : 7ème EB" value="${esc(P.classe || "")}"><datalist id="aClasses">${CLASSES.filter(c => c !== "Personnel").map(c => `<option value="${esc(c)}">`).join("")}</datalist></div>`;
+}
+function wireDemande(el) {
+  const sync = () => { const p = $("[data-pf][aria-pressed=true]", el).dataset.pf; $("#aClasseF", el).hidden = p === "personnel"; $("label[for=a-classe]", el).textContent = p === "enseignant" ? "Classe principale (facultatif)" : "Ma classe"; };
+  $$("[data-pf]", el).forEach(b => b.onclick = () => { $$("[data-pf]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); sync(); }); sync();
+}
+function readDemande(el) {
+  const nom = $("#a-nom", el).value.trim(), profil = $("[data-pf][aria-pressed=true]", el).dataset.pf, classe = profil === "personnel" ? "" : $("#a-classe", el).value.trim();
+  if (nom.split(/\s+/).length < 2) return { error: "Indique ton prénom et ton nom." };
+  if (profil === "eleve" && !classe) return { error: "Indique ta classe." };
+  return { nom, profil, classe };
+}
 function showAuth(mode, info) {
   if (mode === "config") {
     authShell(`<h2>Connexion au serveur à configurer</h2>
@@ -892,12 +975,29 @@ function showAuth(mode, info) {
     return;
   }
   if (mode === "pending") {
-    const r = roleOf(); const el = authShell(`<h2>${r === "desactive" ? "Accès désactivé" : "Compte en attente de validation"}</h2>
-      <p class="auth-p">${r === "desactive" ? "Votre accès a été retiré par un administrateur." : `Bonjour ${esc(auth.profile ? auth.profile.nom : "")}, votre compte <b>${esc(auth.user.email)}</b> est bien créé. Un administrateur doit maintenant vous attribuer un rôle.`}</p>
-      <div class="auth-actions"><button class="btn primary" type="button" id="aRefresh">${ic("ret")}Vérifier à nouveau</button><button class="btn ghost" type="button" id="aOut">Se déconnecter</button></div>
+    const r = roleOf(), P = auth.profile || {};
+    if (r === "en_attente" && !P.profil) {
+      /* inscription avec Google : il manque le profil et la classe */
+      const el = authShell(`<h2>Bienvenue ${esc((P.nom || "").split(" ")[0])} !</h2>
+        <p class="auth-p">Complète ta demande d'accès à la bibliothèque. Un responsable la validera ensuite.</p>
+        <form id="aForm" class="auth-form" novalidate>${demandeFields(P)}
+        <button class="btn primary" type="submit" id="aSubmit">${ic("check")}Envoyer ma demande</button><div class="auth-msg" hidden></div>
+        <button type="button" class="link auth-link" id="aOut">Se déconnecter</button></form>`);
+      wireDemande(el);
+      $("#aOut", el).onclick = signOut;
+      $("#aForm", el).onsubmit = async e => { e.preventDefault(); const d = readDemande(el); if (d.error) return authMsg(el, d.error);
+        const { error } = await auth.sb.rpc("kiv_ma_demande", { profil: d.profil, classe: d.classe, nom: d.nom });
+        if (error) return authMsg(el, cloudError(error)); await afterLogin(auth.user); };
+      return;
+    }
+    const el = authShell(`<div class="pending-ic">${ic(r === "desactive" ? "lock" : "clock")}</div><h2>${r === "desactive" ? "Accès non autorisé" : "Demande envoyée"}</h2>
+      <p class="auth-p">${r === "desactive" ? "Ta demande a été refusée ou ton accès a été retiré. Adresse-toi à la bibliothèque de l'école." : `Merci ${esc((P.nom || "").split(" ")[0])} ! Ta demande d'accès (<b>${esc(PROFILS[P.profil] || "")}${P.classe ? " · " + esc(P.classe) : ""}</b>) est entre les mains de la bibliothèque. Dès qu'elle est acceptée, cette page s'ouvre toute seule sur ton espace.`}</p>
+      <p class="auth-p small">Compte : ${esc(auth.user.email)}</p>
+      <div class="auth-actions"><button class="btn primary" type="button" id="aRefresh">${ic("ret")}Vérifier maintenant</button><button class="btn ghost" type="button" id="aOut">Se déconnecter</button></div>
       <div class="auth-msg" hidden></div>`);
-    $("#aRefresh", el).onclick = async () => { await afterLogin(auth.user); };
+    $("#aRefresh", el).onclick = async () => { await afterLogin(auth.user); if (["en_attente", "desactive"].includes(roleOf())) authMsg($("#authScreen"), "Pas encore validée. Réessaie un peu plus tard.", true); };
     $("#aOut", el).onclick = signOut;
+    clearInterval(auth.poll); auth.poll = setInterval(() => { if ($("#aRefresh")) afterLogin(auth.user); else clearInterval(auth.poll); }, 20000);
     return;
   }
   if (mode === "newpass") {
@@ -915,16 +1015,21 @@ function showAuth(mode, info) {
   const tab = mode === "signup" ? "signup" : mode === "forgot" ? "forgot" : "login";
   const el = authShell(`
     ${tab !== "forgot" ? `<div class="seg auth-tabs" role="tablist"><button type="button" data-at="login" aria-pressed="${tab === "login"}">Connexion</button><button type="button" data-at="signup" aria-pressed="${tab === "signup"}">Créer un compte</button></div>` : "<h2>Mot de passe oublié</h2>"}
+    ${tab !== "forgot" ? `<button class="btn ghost google-btn" type="button" id="aGoogle">${GOOGLE_G}Continuer avec Google</button><div class="auth-or"><span>ou avec ton adresse e-mail</span></div>` : ""}
     <form id="aForm" class="auth-form" novalidate>
-      ${tab === "signup" ? `<div class="f"><label for="a-nom">Prénom et nom</label><input id="a-nom" autocomplete="name" required></div>` : ""}
+      ${tab === "signup" ? demandeFields({}) : ""}
       <div class="f"><label for="a-email">Adresse e-mail</label><input id="a-email" type="email" autocomplete="email" inputmode="email" required></div>
       ${tab !== "forgot" ? `<div class="f"><label for="a-pass">Mot de passe</label><input id="a-pass" type="password" autocomplete="${tab === "signup" ? "new-password" : "current-password"}" minlength="6" required></div>` : '<p class="auth-p">Saisissez votre adresse : vous recevrez un lien pour choisir un nouveau mot de passe.</p>'}
       <button class="btn primary" type="submit" id="aSubmit">${tab === "login" ? ic("arrow") + "Se connecter" : tab === "signup" ? ic("check") + "Créer mon compte" : ic("arrow") + "Recevoir le lien"}</button>
       <div class="auth-msg" hidden></div>
-      ${tab === "login" ? '<button type="button" class="link auth-link" data-at="forgot">Mot de passe oublié ?</button>' : tab === "signup" ? '<p class="auth-p small">Après la création, un administrateur valide votre compte et vous attribue un rôle.</p>' : '<button type="button" class="link auth-link" data-at="login">Retour à la connexion</button>'}
+      ${tab === "login" ? '<button type="button" class="link auth-link" data-at="forgot">Mot de passe oublié ?</button>' : tab === "signup" ? '<p class="auth-p small">Ta demande sera validée par la bibliothèque de l\'école avant que tu puisses entrer.</p>' : '<button type="button" class="link auth-link" data-at="login">Retour à la connexion</button>'}
     </form>`);
   if (info) authMsg(el, info, true);
   $$("[data-at]", el).forEach(b => b.onclick = () => showAuth(b.dataset.at));
+  if (tab === "signup") wireDemande(el);
+  const g = $("#aGoogle", el); if (g) g.onclick = async () => {
+    const { error } = await auth.sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin + location.pathname } });
+    if (error) authMsg(el, /provider is not enabled|Unsupported provider/i.test(error.message) ? "La connexion avec Google n'est pas encore activée. Utilise ton adresse e-mail, ou demande à l'administrateur de l'activer (INSTALLATION.md, étape 6)." : cloudError(error)); };
   $("#aForm", el).onsubmit = async e => {
     e.preventDefault(); const btn = $("#aSubmit", el); btn.disabled = true; authMsg(el, "");
     const email = $("#a-email", el).value.trim(), pass = $("#a-pass", el) ? $("#a-pass", el).value : "";
@@ -934,12 +1039,12 @@ function showAuth(mode, info) {
         const { data, error } = await auth.sb.auth.signInWithPassword({ email, password: pass }); if (error) throw error;
         await afterLogin(data.user);
       } else if (tab === "signup") {
-        const nom = $("#a-nom", el).value.trim(); if (!nom) throw { message: "Indiquez votre prénom et votre nom." };
+        const d = readDemande(el); if (d.error) throw { message: d.error };
         if (pass.length < 6) throw { message: "Le mot de passe doit contenir au moins 6 caractères." };
-        const { data, error } = await auth.sb.auth.signUp({ email, password: pass, options: { data: { nom }, emailRedirectTo: location.origin + location.pathname } });
+        const { data, error } = await auth.sb.auth.signUp({ email, password: pass, options: { data: { nom: d.nom, profil: d.profil, classe: d.classe }, emailRedirectTo: location.origin + location.pathname } });
         if (error) throw error;
         if (data.session) await afterLogin(data.user);
-        else showAuth("login", "Compte créé. Ouvrez l'e-mail de confirmation que vous venez de recevoir, puis connectez-vous.");
+        else showAuth("login", "Demande enregistrée. Ouvre l'e-mail de confirmation que tu viens de recevoir, puis connecte-toi.");
       } else {
         const { error } = await auth.sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); if (error) throw error;
         authMsg(el, "Si un compte existe pour cette adresse, un e-mail vient d'être envoyé.", true);
@@ -968,7 +1073,10 @@ async function afterLogin(user) {
   if (error) return showAuth("login", "") || toast(cloudError(error), true);
   auth.profile = prof || { role: "en_attente", nom: user.email };
   if (["en_attente", "desactive"].includes(roleOf())) return showAuth("pending");
-  hideAuth(); store.mode = "cloud"; applyPerms(); buildAccountNav();
+  clearInterval(auth.poll);
+  if (roleOf() === "consultation") auth.profile.role = "direction";
+  hideAuth(); store.mode = "cloud"; applyPerms(); buildNav(); buildAccountNav();
+  if (isReader() && !["espace", "livres"].includes(ui.view)) ui.view = "espace";
   if (!store.cloudLoaded) { store.cloudLoaded = true; await cloudLoad(); } else render();
 }
 async function cloudFetch(t) {
@@ -988,64 +1096,235 @@ async function cloudLoad() {
       else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
     }));
   } catch (e) { toast(cloudError(e), true); }
+  if (isReader()) await loadDispo();
   onData();
-  if (can("admin")) loadAccounts();
+  if (can("comptes")) loadAccounts();
   auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
     const t = payload.table, row = payload.new && payload.new.id ? payload.new : null, oldId = payload.old && payload.old.id;
     if (COLS.includes(t)) {
       if (payload.eventType === "DELETE") S[t] = S[t].filter(x => x.id !== oldId);
       else { const o = { ...row.data, id: row.id }; const i = S[t].findIndex(x => x.id === o.id); if (i >= 0) S[t][i] = o; else S[t].push(o); }
       onData();
+      if (t === "emprunts" && isReader()) loadDispo().then(() => onData());
     } else if (t === "reglages" && row && row.id === "params") { S.params = row.data; onData(); }
     else if (t === "profiles") {
-      if (row && row.id === auth.user.id && row.role !== roleOf()) { auth.profile = row; if (["en_attente", "desactive"].includes(row.role)) return showAuth("pending"); applyPerms(); buildAccountNav(); toast("Votre rôle a changé : " + ROLES[row.role][0]); render(); }
-      if (can("admin")) loadAccounts();
+      if (row && row.id === auth.user.id) {
+        const changed = row.role !== roleOf(); auth.profile = { ...auth.profile, ...row };
+        if (changed) { if (["en_attente", "desactive"].includes(row.role)) return showAuth("pending"); location.reload(); return; }
+        buildAccountNav(); render();
+      }
+      if (can("comptes")) loadAccounts();
     }
   }).subscribe();
 }
+/* nombre d'exemplaires sortis par livre (un lecteur ne voit pas les emprunts des autres) */
+async function loadDispo() {
+  const { data, error } = await auth.sb.rpc("kiv_dispo");
+  if (!error && data) store.dispo = new Map(data.map(r => [r.livre, r.sortis]));
+}
+setInterval(() => { if (isReader() && !document.hidden) loadDispo().then(() => { if (ui.view === "livres") onData(); }); }, 60000);
 async function cloudResync(t) { try { const rows = await cloudFetch(t); S[t] = rows.map(r => ({ ...r.data, id: r.id })); onData(); } catch {} }
 
-/* ---------- gestion des comptes (administrateur) ---------- */
+/* ---------- photos de profil ---------- */
+const PHOTOS = new Map();   // numéro de membre → photo du compte relié
+function personAvatar(p, cls = "avatar") {
+  return p && p.avatar ? `<img class="${cls}" src="${esc(p.avatar)}" alt="">`
+    : `<span class="${cls}" style="background:linear-gradient(135deg,var(--c${hash(p.id) % 9 + 1}),var(--c${(hash(p.id) + 3) % 9 + 1}))">${esc(initials(p.nom || p.email || "?"))}</span>`;
+}
+
+/* ---------- gestion des comptes (administrateur et bibliothécaire) ---------- */
+/* la bibliothécaire valide les élèves et les enseignants ; le personnel est réservé à l'administrateur */
+const canValidate = p => roleOf() === "admin" || (roleOf() === "bibliothecaire" && p.profil !== "personnel" && ["en_attente", "eleve", "enseignant", "desactive"].includes(p.role) && p.id !== auth.user.id);
 async function loadAccounts() {
   const { data, error } = await auth.sb.from("profiles").select("*").order("created_at");
-  if (!error) { auth.accounts = data; const n = data.filter(p => p.role === "en_attente").length; const b = $("#navPending"); if (b) { b.hidden = !n; b.textContent = n; } if (ui.view === "comptes") render(); }
+  if (error) return;
+  auth.accounts = data;
+  PHOTOS.clear(); data.forEach(p => { if (p.membre_id && p.avatar) PHOTOS.set(p.membre_id, p.avatar); });
+  const n = data.filter(p => p.role === "en_attente" && canValidate(p)).length;
+  const b = $("#navPending"); if (b) { b.hidden = !n; b.textContent = n; }
+  if (ui.view === "comptes") render(); else onData();
 }
 function buildAccountNav() {
   const exists = $('#nav [data-go="comptes"]');
-  if (can("admin") && !exists) {
-    $('#nav [data-go="reglages"]').insertAdjacentHTML("beforebegin", `<button type="button" data-go="comptes">${ic("key")}<span>Comptes</span><span class="count" id="navPending" hidden></span></button>`);
+  if (can("comptes") && !exists) {
+    const anchor = $('#nav [data-go="reglages"]'), html = `<button type="button" data-go="comptes">${ic("key")}<span>Comptes</span><span class="count" id="navPending" hidden></span></button>`;
+    if (anchor) anchor.insertAdjacentHTML("beforebegin", html); else $("#nav").insertAdjacentHTML("beforeend", html);
   }
-  if (!can("admin") && exists) exists.remove();
+  if (!can("comptes") && exists) exists.remove();
+  const P = auth.profile;
+  if (P && P.membre_id) { if (P.avatar) PHOTOS.set(P.membre_id, P.avatar); else PHOTOS.delete(P.membre_id); }
   const foot = $("#userChip");
-  if (foot && auth.profile && store.localAuth) {
+  if (foot && P && store.localAuth) {
     foot.hidden = false;
-    foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom })}<button class="me" type="button" id="meBtn" title="Mon compte · changer de mot de passe"><b>${esc(auth.profile.nom)}</b><small>${esc(ROLES[roleOf()][0])}</small></button>
+    foot.innerHTML = `${avatar({ id: auth.user.id, nom: P.nom })}<button class="me" type="button" id="meBtn" title="Mon compte · changer de mot de passe"><b>${esc(P.nom)}</b><small>${esc(ROLES[roleOf()][0])}</small></button>
       <button class="act" type="button" id="lockBtn" title="Verrouiller" aria-label="Verrouiller">${ic("lock")}</button><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
     $("#meBtn").onclick = myAccountSheet; $("#lockBtn").onclick = () => localLock(true); $("#logoutBtn").onclick = () => localLock(false);
-  } else if (foot && auth.profile) { foot.hidden = false; foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom || auth.user.email })}<div style="min-width:0"><b>${esc(auth.profile.nom || auth.user.email)}</b><small>${esc(ROLES[roleOf()][0])}</small></div><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
-    $("#logoutBtn").onclick = signOut; }
+  } else if (foot && P) {
+    foot.hidden = false;
+    foot.innerHTML = `${personAvatar({ ...P, id: auth.user.id })}<button class="me" type="button" id="meBtn" title="Mon profil : photo, nom, mot de passe"><b>${esc(P.nom || auth.user.email)}</b><small>${esc((ROLES[roleOf()] || [""])[0])}${P.membre_id ? " · " + esc(P.membre_id) : ""}</small></button>
+      <button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
+    $("#meBtn").onclick = profileSheet; $("#logoutBtn").onclick = signOut;
+  }
   syncNav();
 }
+/* fiches de membre les plus proches d'une demande (nom, classe, e-mail) */
+function memberMatches(p) {
+  const linked = new Set(auth.accounts.filter(a => a.membre_id).map(a => a.membre_id));
+  const toks = norm(p.nom).split(/\s+/).filter(t => t.length > 1);
+  return S.membres.filter(m => !linked.has(m.id)).map(m => {
+    const words = norm(m.nom).replace(/^(m\.|mme)\s+/, "").split(/\s+/), hit = toks.filter(t => words.includes(t)).length;
+    let sc = hit * 2; if (p.classe && norm(m.classe) === norm(p.classe)) sc += 1;
+    const sure = (m.email && norm(m.email) === norm(p.email)) || (toks.length >= 2 && hit === toks.length);  // même e-mail, ou nom complet identique
+    if (sure) sc += 10;
+    return [m, sc];
+  }).sort((a, b) => b[1] - a[1] || a[0].nom.localeCompare(b[0].nom, "fr"));
+}
+const since = iso => { const d = diffDays(todayISO(), String(iso).slice(0, 10)); return d <= 0 ? "aujourd'hui" : d === 1 ? "hier" : `il y a ${d} jours`; };
 function accountsView() {
-  const list = auth.accounts.slice().sort((a, b) => (a.role === "en_attente" ? -1 : 0) - (b.role === "en_attente" ? -1 : 0));
-  const pend = list.filter(p => p.role === "en_attente");
-  const opts = cur => Object.entries(ROLES).map(([k, [l]]) => `<option value="${k}" ${k === cur ? "selected" : ""}>${l}</option>`).join("");
-  return `${pend.length ? `<div class="card" style="border-color:var(--warn)"><div class="card-h"><h3>${pend.length} compte${pend.length > 1 ? "s" : ""} à valider</h3><span class="sub">Choisissez le rôle de chaque personne</span></div>
-      <div class="rows">${pend.map(p => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${avatar({ id: p.id, nom: p.nom || p.email })}<div style="min-width:0"><div class="t">${esc(p.nom || "")}</div><div class="s">${esc(p.email)} · inscrit le ${fmtD(String(p.created_at).slice(0, 10))}</div></div>
-        <div class="row-actions" style="opacity:1;flex-wrap:wrap">${["bibliothecaire", "fournitures", "consultation", "admin"].map(r => `<button class="btn sm ${r === "bibliothecaire" ? "primary" : "ghost"}" type="button" data-setrole="${p.id}:${r}">${ROLES[r][0]}</button>`).join("")}</div></div>`).join("")}</div></div>` : ""}
-    <div class="card"><div class="card-h"><h3>Tous les comptes</h3><span class="sub">${list.length} personne${list.length > 1 ? "s" : ""}</span></div>
-      <div class="table-wrap"><table><thead><tr><th>Personne</th><th>Inscrit le</th><th>Rôle</th></tr></thead><tbody>
-      ${list.map(p => `<tr><td><div style="display:flex;gap:12px;align-items:center">${avatar({ id: p.id, nom: p.nom || p.email })}<div><div class="t">${esc(p.nom || "")}${p.id === auth.user.id ? ' <span class="pill info">vous</span>' : ""}</div><div class="s">${esc(p.email)}</div></div></div></td>
-        <td>${fmtD(String(p.created_at).slice(0, 10))}</td>
-        <td><select class="flat" data-role-of="${p.id}" aria-label="Rôle de ${esc(p.nom || p.email)}">${opts(p.role)}</select><div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div></td></tr>`).join("")}
+  const admin = roleOf() === "admin";
+  const pend = auth.accounts.filter(p => p.role === "en_attente").sort((a, b) => a.created_at < b.created_at ? -1 : 1);
+  const rest = auth.accounts.filter(p => p.role !== "en_attente").sort((a, b) => (STAFF_ROLES.indexOf(a.role) + 1 || 9) - (STAFF_ROLES.indexOf(b.role) + 1 || 9) || String(a.nom).localeCompare(String(b.nom), "fr"));
+  const roleOpts = p => (admin ? ["admin", "bibliothecaire", "fournitures", "direction", "enseignant", "eleve", "desactive"] : ["enseignant", "eleve", "desactive"])
+    .map(k => `<option value="${k}" ${k === p.role ? "selected" : ""}>${ROLES[k][0]}</option>`).join("");
+  const pendRow = p => {
+    const staff = p.profil === "personnel", mine = canValidate(p);
+    let act;
+    if (staff && !admin) act = `<span class="s">Personnel : validation par l'administrateur</span><button class="btn sm ghost" type="button" data-refuse="${p.id}">Refuser</button>`;
+    else if (staff) act = `${["bibliothecaire", "fournitures", "direction", "admin"].map((r, i) => `<button class="btn sm ${i ? "ghost" : "primary"}" type="button" data-accept="${p.id}:${r}">${ROLES[r][0]}</button>`).join("")}<button class="btn sm ghost danger-t" type="button" data-refuse="${p.id}">Refuser</button>`;
+    else {
+      const ms = memberMatches(p), best = ms[0] && ms[0][1] >= 10 ? ms[0][0].id : "new", main = p.profil === "enseignant" ? "enseignant" : "eleve";
+      act = `<select class="flat" id="lk-${p.id}" aria-label="Fiche de membre de ${esc(p.nom)}"><option value="new" ${best === "new" ? "selected" : ""}>Nouvelle fiche (n° ${esc(nextMemberId(S.membres))})</option>
+          ${ms.slice(0, 40).map(([m, sc]) => `<option value="${esc(m.id)}" ${m.id === best ? "selected" : ""}>${esc(m.id)} · ${esc(m.nom)} (${esc(m.classe)})${sc >= 10 ? " ✓ même personne" : ""}</option>`).join("")}</select>
+        <button class="btn sm primary" type="button" data-accept="${p.id}:${main}">${ic("check")}Accepter comme ${main === "eleve" ? "élève" : "enseignant"}</button>
+        <button class="btn sm ghost" type="button" data-accept="${p.id}:${main === "eleve" ? "enseignant" : "eleve"}">${main === "eleve" ? "Enseignant" : "Élève"}</button>
+        <button class="btn sm ghost danger-t" type="button" data-refuse="${p.id}">Refuser</button>`;
+    }
+    return `<div class="pend-row${mine ? "" : " muted"}">${personAvatar(p)}<div class="pend-who"><div class="t">${esc(p.nom || "")}</div><div class="s">${esc(p.email)} · ${since(p.created_at)}</div>
+      <div class="pend-tags">${pill(PROFILS[p.profil] || "Profil non précisé", p.profil === "personnel" ? "warn" : "info")}${p.classe ? pill(p.classe, "ok") : ""}</div></div><div class="pend-act">${act}</div></div>`;
+  };
+  return `${pend.length ? `<div class="card" style="border-color:var(--warn)"><div class="card-h"><h3>Demandes en attente</h3><span class="sub">${pend.length} demande${pend.length > 1 ? "s" : ""} · reliez chaque élève à sa fiche de membre</span></div>
+      <div class="pend-list">${pend.map(pendRow).join("")}</div></div>`
+    : `<div class="card empty" style="padding:22px">${ic("check")} Aucune demande en attente. Les nouvelles inscriptions apparaîtront ici.</div>`}
+    <div class="card"><div class="card-h"><h3>Tous les comptes</h3><span class="sub">${rest.length} personne${rest.length > 1 ? "s" : ""}</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Personne</th><th>Carte</th><th>Rôle</th><th></th></tr></thead><tbody>
+      ${rest.map(p => `<tr><td><div style="display:flex;gap:12px;align-items:center">${personAvatar(p)}<div><div class="t">${esc(p.nom || "")}${p.id === auth.user.id ? ' <span class="pill info">vous</span>' : ""}</div><div class="s">${esc(p.email)}</div></div></div></td>
+        <td>${p.membre_id ? `<span class="code">${esc(p.membre_id)}</span>` : '<span class="s">—</span>'}</td>
+        <td>${canValidate(p) && p.id !== auth.user.id ? `<select class="flat" data-role-of="${p.id}" aria-label="Rôle de ${esc(p.nom || p.email)}">${roleOpts(p)}</select>` : `<b>${esc(ROLES[p.role][0])}</b>`}<div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div></td>
+        <td style="text-align:right">${p.avatar && p.id !== auth.user.id ? `<button class="btn sm ghost" type="button" data-unphoto="${p.id}" title="Retirer une photo inappropriée">Retirer la photo</button>` : ""}</td></tr>`).join("")}
       </tbody></table></div></div>
-    <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "consultation"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
-      <p class="form-note" style="margin-top:12px">Pour ajouter quelqu'un : envoyez-lui l'adresse de Kivuthèque. Il clique sur « Créer un compte », puis vous validez son compte ici.</p></div>`;
+    <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "direction", "enseignant", "eleve"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
+      <p class="form-note" style="margin-top:12px">Pour rejoindre Kivuthèque, chacun ouvre l'adresse du site et clique sur « Créer un compte », avec son adresse Gmail ou le bouton Google. ${admin ? "L'administrateur attribue tous les rôles." : "Vous validez les élèves et les enseignants ; le personnel est validé par l'administrateur."}</p></div>`;
+}
+async function acceptAccount(id, role) {
+  const p = auth.accounts.find(x => x.id === id); if (!p) return;
+  let membre = null;
+  if (READER_ROLES.includes(role)) {
+    const sel = $("#lk-" + id); membre = sel ? sel.value : "new";
+    if (membre === "new") {
+      const fiche = { nom: p.nom, type: role === "enseignant" ? "Enseignant" : "Élève", classe: role === "enseignant" ? "Personnel" : (p.classe || ""), sexe: "", inscription: todayISO(), email: p.email };
+      const { data, error } = await auth.sb.rpc("kiv_nouveau_membre", { fiche });
+      if (error) return toast(cloudError(error), true);
+      membre = data;
+    }
+  }
+  const { error } = await auth.sb.rpc("kiv_valider", { target: id, new_role: role, membre });
+  if (error) return toast(cloudError(error), true);
+  if (membre) { const m = S.membres.find(x => x.id === membre); if (m && !m.email) put("membres", { ...m, email: p.email }); else cloudResync("membres"); }
+  toast(`${p.nom} : ${ROLES[role][0]}${membre ? " · carte " + membre : ""}`);
+  loadAccounts();
 }
 async function setRole(id, role) {
-  const { error } = await auth.sb.rpc("kiv_set_role", { target: id, new_role: role });
+  const { error } = await auth.sb.rpc("kiv_valider", { target: id, new_role: role });
   if (error) { toast(cloudError(error), true); return loadAccounts(); }
   const p = auth.accounts.find(x => x.id === id); toast(`${p ? p.nom || p.email : "Compte"} : ${ROLES[role][0]}`); loadAccounts();
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-accept],[data-refuse],[data-unphoto]"); if (!b) return;
+  if (b.dataset.accept) { const [id, r] = b.dataset.accept.split(":"); b.disabled = true; acceptAccount(id, r).finally(() => b.disabled = false); }
+  else if (b.dataset.refuse) { const p = auth.accounts.find(x => x.id === b.dataset.refuse); confirmSheet("Refuser la demande de " + (p.nom || p.email) + " ?", "La personne ne pourra pas entrer dans Kivuthèque. Vous pourrez changer d'avis plus tard dans « Tous les comptes ».", "Refuser", () => setRole(p.id, "desactive")); }
+  else if (b.dataset.unphoto) { const p = auth.accounts.find(x => x.id === b.dataset.unphoto); confirmSheet("Retirer la photo de " + (p.nom || p.email) + " ?", "Ses initiales s'afficheront à la place. La personne pourra choisir une autre photo.", "Retirer", async () => { const { error } = await auth.sb.rpc("kiv_retirer_photo", { target: p.id }); if (error) return toast(cloudError(error), true); toast("Photo retirée"); loadAccounts(); }); }
+});
+
+/* ---------- mon profil : photo, nom, mot de passe ---------- */
+function profileSheet() {
+  const P = auth.profile; let photo = P.avatar || "", changed = false, img = null, zoom = 1, ox = 0, oy = 0;
+  openSheet("Mon profil", `
+    <div class="prof-head"><div id="pfPrev">${personAvatar({ ...P, id: auth.user.id }, "avatar xl")}</div>
+      <div class="prof-actions"><label class="btn sm ghost" style="cursor:pointer">${ic("up")}${photo ? "Changer de photo" : "Ajouter une photo"}<input type="file" id="pfFile" accept="image/*" hidden></label>
+        <button class="btn sm ghost" type="button" id="pfRm" ${photo ? "" : "hidden"}>${ic("trash")}Retirer</button>
+        <p class="form-note" style="margin:0">Ta photo s'affiche sur ta carte de membre et dans les classements. Jamais sur la borne publique.</p></div></div>
+    <div id="pfCrop" class="crop-box" hidden><canvas id="pfCanvas" width="520" height="520" aria-label="Recadrage de la photo"></canvas>
+      <div class="crop-zoom">${ic("minus")}<input type="range" id="pfZoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom">${ic("plus")}</div><p class="form-note" style="margin:0;text-align:center">Fais glisser la photo pour la centrer dans le cercle.</p></div>
+    <div class="f"><label for="pf-nom">Nom affiché</label><input id="pf-nom" value="${esc(P.nom || "")}" maxlength="80"></div>
+    <div class="recap" style="border-style:solid"><div>Compte : <b>${esc(auth.user.email)}</b></div><div>Rôle : <b>${esc(ROLES[roleOf()][0])}</b>${P.membre_id ? ` · carte <b>${esc(P.membre_id)}</b>` : ""}</div></div>
+    <details class="pf-pass"><summary>Changer de mot de passe</summary>
+      <div class="f2" style="margin-top:10px"><div class="f"><label for="pf-p1">Nouveau mot de passe</label><input id="pf-p1" type="password" autocomplete="new-password" minlength="6"></div>
+      <div class="f"><label for="pf-p2">Confirmer</label><input id="pf-p2" type="password" autocomplete="new-password" minlength="6"></div></div></details>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="pfSave">${ic("check")}Enregistrer</button>`,
+    el => {
+      const cv = $("#pfCanvas", el), ctx = cv.getContext("2d");
+      const clamp = () => { const s = zoom * Math.max(cv.width / img.width, cv.height / img.height), w = img.width * s, h = img.height * s;
+        ox = Math.min(0, Math.max(cv.width - w, ox)); oy = Math.min(0, Math.max(cv.height - h, oy)); return [s, w, h]; };
+      const draw = () => { if (!img) return; const [, w, h] = clamp(); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, cv.width, cv.height); ctx.drawImage(img, ox, oy, w, h); };
+      const exportPhoto = () => { const out = document.createElement("canvas"); out.width = out.height = 192; const k = 192 / cv.width, [, w, h] = clamp(); const c = out.getContext("2d");
+        c.fillStyle = "#fff"; c.fillRect(0, 0, 192, 192); c.imageSmoothingQuality = "high"; c.drawImage(img, ox * k, oy * k, w * k, h * k);
+        let q = .86, d = out.toDataURL("image/jpeg", q); while (d.length > 60000 && q > .4) d = out.toDataURL("image/jpeg", q -= .12); return d; };
+      const preview = () => { photo = exportPhoto(); changed = true; $("#pfPrev", el).innerHTML = `<img class="avatar xl" src="${photo}" alt="">`; $("#pfRm", el).hidden = false; };
+      $("#pfFile", el).onchange = () => { const f = $("#pfFile", el).files[0]; if (!f) return; if (!/^image\//.test(f.type)) return toast("Choisis une image (JPEG, PNG…)", true);
+        const r = new FileReader(); r.onload = () => { const im = new Image(); im.onload = () => { img = im; zoom = 1; $("#pfZoom", el).value = 1; const s = Math.max(cv.width / im.width, cv.height / im.height); ox = (cv.width - im.width * s) / 2; oy = (cv.height - im.height * s) / 2; $("#pfCrop", el).hidden = false; draw(); preview(); };
+          im.onerror = () => toast("Cette image ne peut pas être lue. Essaie une photo JPEG ou PNG.", true); im.src = r.result; }; r.readAsDataURL(f); };
+      $("#pfZoom", el).oninput = e => { const [s0] = clamp(); const cx = cv.width / 2, cy = cv.height / 2; const before = zoom; zoom = +e.target.value; const k = zoom / before; ox = cx - (cx - ox) * k; oy = cy - (cy - oy) * k; draw(); preview(); };
+      let drag = null;
+      cv.addEventListener("pointerdown", e => { if (!img) return; drag = [e.clientX, e.clientY, ox, oy]; cv.setPointerCapture(e.pointerId); });
+      cv.addEventListener("pointermove", e => { if (!drag) return; const r = cv.getBoundingClientRect(), k = cv.width / r.width; ox = drag[2] + (e.clientX - drag[0]) * k; oy = drag[3] + (e.clientY - drag[1]) * k; draw(); });
+      cv.addEventListener("pointerup", () => { if (drag) { drag = null; preview(); } });
+      $("#pfRm", el).onclick = () => { photo = ""; changed = true; img = null; $("#pfCrop", el).hidden = true; $("#pfRm", el).hidden = true; $("#pfPrev", el).innerHTML = personAvatar({ ...P, avatar: "", id: auth.user.id }, "avatar xl"); };
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#pfSave", el).onclick = async () => {
+        clearErr(el);
+        const p1 = $("#pf-p1", el).value, nom = $("#pf-nom", el).value.trim();
+        if (!nom) return fieldErr(el, "pf-nom", "Indique ton nom.");
+        if (p1 && p1.length < 6) { $("details", el).open = true; return fieldErr(el, "pf-p1", "Au moins 6 caractères."); }
+        if (p1 && p1 !== $("#pf-p2", el).value) { $("details", el).open = true; return fieldErr(el, "pf-p2", "Les deux mots de passe sont différents."); }
+        $("#pfSave", el).disabled = true;
+        const { error } = await auth.sb.rpc("kiv_mon_profil", { nom, avatar: changed ? photo : null });
+        if (!error && p1) { const r = await auth.sb.auth.updateUser({ password: p1 }); if (r.error) { $("#pfSave", el).disabled = false; return toast(cloudError(r.error), true); } }
+        $("#pfSave", el).disabled = false;
+        if (error) return toast(cloudError(error), true);
+        auth.profile = { ...auth.profile, nom, avatar: changed ? (photo || null) : auth.profile.avatar };
+        closeSheet(); toast("Profil enregistré"); buildAccountNav(); if (can("comptes")) loadAccounts(); else render();
+      };
+    });
+}
+
+/* ---------- carte de membre numérique ---------- */
+function memberCard(m, photo) {
+  const P = { id: m.id, nom: m.nom, avatar: photo || PHOTOS.get(m.id) };
+  return `<div class="mcard" aria-label="Carte de membre ${esc(m.id)}">
+    <div class="mc-top"><span class="mc-logo"><img src="${LOGO}" alt=""></span><div><b>Kivuthèque</b><small>${esc(params().ecole)}</small></div><span class="mc-year">${esc(params().annee)}</span></div>
+    <div class="mc-mid">${personAvatar(P, "avatar mc-ph")}<div style="min-width:0"><div class="mc-name">${esc(m.nom)}</div><div class="mc-sub">${esc(m.type || "Élève")}${m.classe && m.classe !== "Personnel" ? " · " + esc(m.classe) : ""}</div></div></div>
+    <div class="mc-bot"><div><small>Numéro de membre</small><div class="mc-num">${esc(m.id)}</div></div><small class="mc-since">Membre depuis ${esc(fmtD(m.inscription || todayISO()))}</small></div>
+    <span class="mc-glow"></span></div>`;
+}
+
+/* ---------- mon espace (élève, enseignant) ---------- */
+function espaceView() {
+  const P = auth.profile, m = D.membres.get(P.membre_id);
+  if (!m) return `<div class="card empty">Ta fiche de membre n'est pas encore disponible. Actualise la page dans un instant.</div>`;
+  const mine = D.emprunts.filter(e => e.membre === m.id);
+  const cours = mine.filter(e => !e.retour).sort((a, b) => a.prevu < b.prevu ? -1 : 1), lus = mine.filter(e => e.retour);
+  const prenom = esc(String(P.nom || m.nom).split(" ")[0]);
+  const due = e => { const d = diffDays(e.prevu, D.T); return d < 0 ? pill(`En retard de ${-d} jour${d < -1 ? "s" : ""}`, "bad") : d === 0 ? pill("À rendre aujourd'hui", "warn") : pill(`À rendre dans ${d} jour${d > 1 ? "s" : ""}`, d <= 2 ? "warn" : "ok"); };
+  return `<div class="espace-top">
+      <div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2>
+        <p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture dans le catalogue."}${lus.length ? ` Tu as déjà lu <b>${lus.length} livre${lus.length > 1 ? "s" : ""}</b>.` : ""}</p>
+        <div class="hello-stats"><div><b data-count="${cours.length}">${cours.length}</b><span>en cours</span></div><div><b data-count="${lus.length}">${lus.length}</b><span>lus</span></div><div><b data-count="${mine.filter(e => e.statut === "retard").length}">0</b><span>en retard</span></div></div>
+        <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>
+      ${memberCard(m)}</div>
+    <div class="card"><div class="card-h"><h3>Mes livres en cours</h3><span class="sub">${cours.length}</span></div>
+      <div class="rows">${cours.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto" data-book="${esc(e.livre)}" role="button" tabindex="0">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s">Emprunté le ${fmtD(e.date)} · à rendre le ${fmtD(e.prevu)}${e.amende ? " · amende " + fc(e.amende) : ""}</div></div>${due(e)}</div>`).join("") || '<div class="empty">Rien pour l\'instant. Passe à la bibliothèque !</div>'}</div></div>
+    <div class="card"><div class="card-h"><h3>Déjà lus</h3><span class="sub">${lus.length}</span></div>
+      ${lus.length ? `<div class="shelf">${lus.slice(0, 18).map(e => e.b ? `<button class="book" type="button" data-book="${esc(e.b.id)}"><div class="cover" style="${coverVars(e.b)}">${cvImg(e.b)}<span class="cv-deco"></span><span class="cv-cat">${esc(e.b.categorie)}</span><div><div class="cv-title">${esc(e.b.titre)}</div><div class="cv-author">${esc(e.b.auteur)}</div></div></div><div class="b-meta"><span class="b-title">${esc(e.b.titre)}</span></div></button>` : "").join("")}</div>` : '<div class="empty">Tes lectures terminées apparaîtront ici.</div>'}</div>`;
 }
 
 /* ============================================================ logiciel de bureau : comptes et mots de passe
@@ -1145,6 +1424,7 @@ function localEnter(user) {
   auth.profile = user; auth.user = { id: user.id, email: user.login };
   COLS.forEach(c => S[c] = []); S.params = null;
   store.mode = "local"; const saved = lsRead(); if (saved) Object.assign(S, saved);
+  if (can("biblio") && renumberMembers(S)) lsWrite();
   store.loaded = new Set([...COLS, "params"]);
   hideAuth(); applyPerms(); buildAccountNav(); ui.animate = true; onData(true);
   if (can("admin")) loadLocalAccounts();
@@ -1262,6 +1542,7 @@ function derive() {
     if (m) { if (!e.retour) m.cours++; if (statut === "retard") m.retard++; if (!e.paye) m.dues += amende; }
     return { ...e, prevu, jours, statut, amende, b, m };
   }).sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : (a.id < b.id ? 1 : -1));
+  if (isReader() && store.dispo) livres.forEach(b => { b.sortis = store.dispo.get(b.id) || 0; });
   livres.forEach(b => { b.dispo = (Number(b.ex) || 0) - b.sortis; });
   const fournitures = S.fournitures.map(f => {
     let ent = 0, sor = 0; S.mouvements.forEach(m => { if (m.article === f.id) { if (m.type === "entree") ent += +m.qte || 0; else sor += +m.qte || 0; } });
@@ -1272,13 +1553,25 @@ function derive() {
   return D;
 }
 function params() { return { ...DEFAULT_PARAMS, ...(S.params || {}) }; }
+/* numéros de membre : A001 … A999, puis B001 … */
+const memRank = id => { const m = /^([A-Z])(\d{3})$/.exec(id || ""); return m ? (m[1].charCodeAt(0) - 65) * 999 + +m[2] : 0; };
+const memNum = r => String.fromCharCode(65 + Math.floor((r - 1) / 999)) + pad((r - 1) % 999 + 1, 3);
+const nextMemberId = arr => memNum(Math.max(0, ...arr.map(x => memRank(x.id))) + 1);
+/* anciens numéros (MEM-001…) → A001… ; les emprunts suivent */
+function renumberMembers(data) {
+  const old = (data.membres || []).filter(m => !memRank(m.id)); if (!old.length) return false;
+  let r = Math.max(0, ...data.membres.map(m => memRank(m.id))); const map = new Map();
+  old.sort((a, b) => String(a.id).localeCompare(String(b.id))).forEach(m => { map.set(m.id, memNum(++r)); m.id = map.get(m.id); });
+  (data.emprunts || []).forEach(e => { if (map.has(e.membre)) e.membre = map.get(e.membre); });
+  return true;
+}
 const nextId = (arr, prefix, len) => { let n = 0; arr.forEach(x => { const m = String(x.id).match(/(\d+)$/); if (m) n = Math.max(n, +m[1]); }); return prefix + pad(n + 1, len); };
 const catColor = c => { const i = params().categories.indexOf(c); return `var(--c${(i < 0 ? hash(c) : i) % 9 + 1})`; };
 const STAT = { cours: ["En cours", "info"], retard: ["En retard", "bad"], rendu: ["Rendu", "ok"], "rendu-retard": ["Rendu en retard", "warn"] };
 const pill = (txt, tone) => `<span class="pill ${tone}">${esc(txt)}</span>`;
 const bookAvail = b => b.dispo <= 0 ? ["Indisponible", "bad"] : (b.dispo === 1 && b.ex > 1) ? ["Dernier exemplaire", "warn"] : ["Disponible", "ok"];
 const etatPill = f => f.etat === "rupture" ? pill("Rupture", "bad") : f.etat === "faible" ? pill("Stock faible", "warn") : pill("En stock", "ok");
-const avatar = m => `<span class="avatar" style="background:linear-gradient(135deg,var(--c${hash(m.id) % 9 + 1}),var(--c${(hash(m.id) + 3) % 9 + 1}))">${esc(initials(m.nom))}</span>`;
+const avatar = m => { const ph = PHOTOS.get(m.id); return ph ? `<img class="avatar" src="${esc(ph)}" alt="">` : `<span class="avatar" style="background:linear-gradient(135deg,var(--c${hash(m.id) % 9 + 1}),var(--c${(hash(m.id) + 3) % 9 + 1}))">${esc(initials(m.nom))}</span>`; };
 const coverVars = b => { const c = catColor(b.categorie); const v = hash(b.id) % 3; return `--cv1:${c};--cv2:${["var(--c2)", "#0B2235", "var(--c9)"][v]}`; };
 const cvImg = b => b && b.cover ? `<img class="cv-img" src="${esc(b.cover)}" alt="" loading="lazy" onerror="this.remove()">` : "";
 const miniCover = b => b && b.cover ? `<img class="mini-cover" src="${esc(b.cover)}" alt="" loading="lazy">` : b ? `<span class="mini-cover" style="background:linear-gradient(155deg,${catColor(b.categorie)},#0B2235)"></span>` : `<span class="mini-cover" style="background:var(--line)"></span>`;
@@ -1293,13 +1586,16 @@ const VIEWS = [
   { id: "rapport", label: "Rapports", icon: "report" },
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
+const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }];
+const navViews = () => isReader() ? READER_VIEWS : VIEWS;
 const ui = { report: "biblio", flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
-try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes") ui.view = h; } catch {}
+try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes" || h === "espace") ui.view = h; } catch {}
 
 function buildNav() {
-  $("#nav").insertAdjacentHTML("beforeend", VIEWS.map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : ""}</button>`).join(""));
-  const tabs = ["accueil", "livres", "emprunts", "membres"];
-  $("#tabbar").innerHTML = tabs.map(id => { const v = VIEWS.find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
+  $$("#nav [data-go]").forEach(b => b.remove());
+  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : ""}</button>`).join(""));
+  const tabs = isReader() ? ["espace", "livres"] : ["accueil", "livres", "emprunts", "membres"];
+  $("#tabbar").innerHTML = tabs.map(id => { const v = navViews().find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
   $("#searchIc").innerHTML = ic("search");
 }
@@ -1326,13 +1622,14 @@ function onData(immediate) {
 }
 const HEAD = {
   accueil: () => [greet(), "Accueil", ["Nouvel emprunt", "plus", () => loanSheet(), "biblio"]],
-  livres: () => [nf(S.livres.length) + " titres · " + nf(S.livres.reduce((a, b) => a + (+b.ex || 0), 0)) + " exemplaires", "Livres", ["Ajouter un livre", "plus", () => bookSheet(), "biblio"]],
+  livres: () => isReader() ? [nf(S.livres.length) + " titres · trouve ta prochaine lecture", "Catalogue", null] : [nf(S.livres.length) + " titres · " + nf(S.livres.reduce((a, b) => a + (+b.ex || 0), 0)) + " exemplaires", "Livres", ["Ajouter un livre", "plus", () => bookSheet(), "biblio"]],
   emprunts: () => ["Sorties, retours et amendes", "Emprunts", ["Nouvel emprunt", "plus", () => loanSheet(), "biblio"]],
   membres: () => [nf(S.membres.length) + " membres inscrits", "Membres", ["Ajouter un membre", "plus", () => memberSheet(), "biblio"]],
   fournitures: () => ["Stock de l'école", "Fournitures", ["Ajouter un article", "plus", () => supplySheet(), "fourn"]],
   rapport: () => ["Bibliothèque, fournitures, retards et inventaire · en PDF", "Rapports", null],
   reglages: () => ["École, règles de prêt et données", "Réglages", null],
-  comptes: () => ["Qui peut se connecter, et avec quels droits", "Comptes", null],
+  comptes: () => ["Demandes d'accès, rôles et photos", "Comptes", null],
+  espace: () => [greet(), "Mon espace", null],
 };
 function greet() { const h = new Date().getHours(); return (h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir") + " · " + fmtLong(todayISO()); }
 
@@ -1343,13 +1640,15 @@ function render() {
   const empty = !S.params && COLS.every(c => !S[c].length);
   if (empty && (store.mode === "cloud" || store.localAuth) && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
   if (empty) { view.className = "enter"; view.innerHTML = welcomeView(); bindWelcome(); return; }
+  if (isReader() && !["espace", "livres"].includes(ui.view)) ui.view = "espace";
+  if (!isReader() && ui.view === "espace") ui.view = "accueil";
   derive();
   const [eyebrow, title, action] = HEAD[ui.view]();
   $("#eyebrow").textContent = eyebrow; $("#viewTitle").textContent = title;
   const pb = $("#primaryBtn");
   if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
-  if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("admin"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView }[ui.view]();
+  if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("comptes"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -1370,6 +1669,7 @@ function syncChrome() {
 }
 function sideSummary() {
   if (!D) return; const T = D.T;
+  $("#todayCard").hidden = isReader(); if (isReader()) return;
   const late = D.emprunts.filter(e => e.statut === "retard").length;
   const nl = $("#navLate"); if (nl) { nl.hidden = !late; nl.textContent = late; }
   $("#todayCard").innerHTML = `<h4>Aujourd'hui</h4>
@@ -1935,7 +2235,7 @@ function clearErr(el) { $$(".f.err", el).forEach(f => { f.classList.remove("err"
 function wireForm(el, { save, view, reset, onDelete }) {
   let added = 0;
   $("[data-close2]", el).onclick = () => closeSheet();
-  const run = again => { clearErr(el); const id = save(); if (!id) return;
+  const run = async again => { clearErr(el); const id = await save(); if (!id) return;
     if (again) { added++; reset(); const h = $(".panel-h h2", el); let c = $(".added", el); if (!c) { c = document.createElement("span"); c.className = "added"; h.after(c); } c.textContent = added + " ajouté" + (added > 1 ? "s" : ""); c.animate?.([{ transform: "scale(.6)" }, { transform: "scale(1)" }], { duration: 350, easing: "cubic-bezier(.34,1.56,.64,1)" }); $("input:not([type=hidden]),select", el)?.focus(); }
     else { closeSheet(); showAdded(view, id); } };
   $("#saveBtn", el).onclick = () => run(false);
@@ -2209,9 +2509,9 @@ function bookDetail(id) {
   openSheet(b.titre, `<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start">
       <div class="cover" style="${coverVars(b)};width:120px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:14px">${esc(b.titre)}</div></div></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><div style="color:var(--ink-2)">${esc(b.auteur)}</div>${pill(l, t)}
-        <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div><div>Emprunté <b>${b.total}</b> fois</div></div></div></div>
+        <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div>${isReader() ? "" : `<div>Emprunté <b>${b.total}</b> fois</div>`}</div></div></div>
     ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
-    <h3 style="font-size:15px;margin-top:6px">Historique</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
+    <h3 style="font-size:15px;margin-top:6px">${isReader() ? "Tes emprunts de ce livre" : "Historique"}</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
     can("biblio") ? `<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
     el => { if (!$("#editB", el)) return; $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
@@ -2224,8 +2524,9 @@ function memberSheet(m) {
     <div class="f"><label>Type</label><div class="seg" role="group" id="mType">${["Élève", "Enseignant", "Personnel"].map(t => `<button type="button" data-ty="${t}" aria-pressed="${t === m.type}">${t}</button>`).join("")}</div></div>
     <div class="f2"><div class="f"><label for="m-classe">${req("Classe")}</label><select id="m-classe">${opt(p.classes, m.classe)}</select></div>
       <div class="f"><label>Sexe</label><div class="seg" role="group" id="mSexe">${[["F", "Féminin"], ["M", "Masculin"]].map(([k, l]) => `<button type="button" data-sx="${k}" aria-pressed="${k === m.sexe}">${l}</button>`).join("")}</div></div></div>
-    <div class="f"><label for="m-insc">Date d'inscription</label><input id="m-insc" type="date" value="${esc(m.inscription)}"></div>
-    <p class="form-note">${isNew ? "L'identifiant du membre est attribué automatiquement" : "ID : <span class=\"code\">" + esc(m.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
+    <div class="f2"><div class="f"><label for="m-insc">Date d'inscription</label><input id="m-insc" type="date" value="${esc(m.inscription)}"></div>
+      <div class="f"><label for="m-email">E-mail (Gmail)</label><input id="m-email" type="email" value="${esc(m.email || "")}" placeholder="Pour reconnaître son compte" autocomplete="off"></div></div>
+    <p class="form-note">${isNew ? `Numéro de membre attribué automatiquement (${esc(nextMemberId(S.membres))})` : "Numéro de membre : <span class=\"code\">" + esc(m.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
     formFoot(isNew),
     el => {
       let type = m.type, sexe = m.sexe;
@@ -2235,8 +2536,14 @@ function memberSheet(m) {
         $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div>Un membre porte déjà ce nom : <b>${esc(d.nom)}</b> (${esc(d.classe)}). Vérifiez qu'il ne s'agit pas d'un doublon.</div></div>` : ""; });
       wireForm(el, { view: "membres",
         save: () => { const nom = val("m-nom"); if (!nom) return fieldErr(el, "m-nom", "Indiquez le nom du membre.");
-          const obj = { ...m, id: m.id || nextId(S.membres, "MEM-", 3), nom, type, classe: val("m-classe"), sexe, inscription: val("m-insc") || todayISO() };
+          const obj = { ...m, id: m.id || nextMemberId(S.membres), nom, type, classe: val("m-classe"), sexe, inscription: val("m-insc") || todayISO(), email: val("m-email") };
+          if (!obj.email) delete obj.email;
           if (type === "Élève") ui.lastClass = obj.classe;
+          if (isNew && store.mode === "cloud") {
+            const { id, ...fiche } = obj;
+            return auth.sb.rpc("kiv_nouveau_membre", { fiche }).then(({ data, error }) => { if (error) { toast(cloudError(error), true); return null; }
+              S.membres.push({ ...fiche, id: data }); onData(true); toast(`${nom} est inscrit${sexe === "F" ? "e" : ""} · carte ${data}`); return data; });
+          }
           put("membres", obj); toast(isNew ? nom + " est inscrit" + (sexe === "F" ? "e" : "") : "Membre modifié"); return obj.id; },
         reset: () => { $("#m-nom", el).value = ""; $("#dupBox", el).innerHTML = ""; $("#m-nom", el).focus(); },
         onDelete: () => { if (S.emprunts.some(x => x.membre === m.id && !x.retour)) return toast("Ce membre a des livres à rendre.", true);
@@ -2246,8 +2553,7 @@ function memberSheet(m) {
 function memberDetail(id) {
   const m = D.membres.get(id); if (!m) return;
   const loans = D.emprunts.filter(e => e.membre === id);
-  openSheet(m.nom, `<div style="display:flex;gap:14px;align-items:center">${avatar(m).replace('class="avatar"', 'class="avatar" style="width:56px;height:56px;border-radius:18px;font-size:20px;background:linear-gradient(135deg,var(--c' + (hash(m.id) % 9 + 1) + '),var(--c' + ((hash(m.id) + 3) % 9 + 1) + '))"')}
-      <div><div style="font-weight:650">${esc(m.type)} · ${esc(m.classe)}</div><div class="s" style="color:var(--ink-3)">Inscrit le ${fmtD(m.inscription)} · <span class="code">${esc(m.id)}</span></div></div></div>
+  openSheet(m.nom, `${memberCard(m)}${(() => { const a = store.mode === "cloud" && auth.accounts.find(x => x.membre_id === m.id); return a ? `<div class="s" style="color:var(--ink-3)">Compte relié : <b>${esc(a.email)}</b> · ${esc(ROLES[a.role][0])}</div>` : m.email ? `<div class="s" style="color:var(--ink-3)">E-mail : ${esc(m.email)} · pas encore de compte</div>` : ""; })()}
     <div class="recap" style="border-style:solid"><div>Emprunts en cours : <b>${m.cours} / ${params().max}</b></div><div>En retard : <b>${m.retard}</b></div><div>Amendes dues : <b>${fc(m.dues)}</b></div><div>Total emprunté : <b>${loans.length}</b></div></div>
     <h3 style="font-size:15px">Emprunts</h3><div class="rows">${loans.slice(0, 12).map(e => loanRow(e)).join("") || '<div class="empty">Aucun emprunt.</div>'}</div>`,
     can("biblio") ? `<button class="btn ghost" type="button" id="editM">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendM">${ic("plus")}Nouvel emprunt</button>` : null,
@@ -2401,10 +2707,11 @@ function addMenu() {
     el => $$("[data-ai]", el).forEach(b => b.onclick = () => items[+b.dataset.ai][4]()));
 }
 function moreSheet() {
-  openSheet("Plus", `<div class="rows">${[...VIEWS, ...(store.mode === "cloud" && can("admin") ? [{ id: "comptes", label: "Comptes", icon: "key" }] : [])].filter(v => !["accueil", "livres", "emprunts", "membres"].includes(v.id) && (v.id !== "reglages" || can("admin"))).map(v => `<button class="row" type="button" style="grid-template-columns:auto 1fr auto;text-align:left" data-go-more="${v.id}"><span class="k-ic" style="width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)">${ic(v.icon)}</span><span class="t">${v.label}</span>${ic("arrow")}</button>`).join("")}</div>
+  openSheet("Plus", `${store.mode === "cloud" && auth.profile ? `<button class="row" type="button" id="moreMe" style="grid-template-columns:auto 1fr auto;text-align:left;margin-bottom:8px">${personAvatar({ ...auth.profile, id: auth.user.id })}<span class="t">Mon profil<span class="s" style="display:block">Photo, nom, mot de passe</span></span>${ic("arrow")}</button>` : ""}
+    <div class="rows">${[...navViews(), ...(store.mode === "cloud" && can("comptes") ? [{ id: "comptes", label: "Comptes", icon: "key" }] : [])].filter(v => !["accueil", "livres", "emprunts", "membres", "espace"].includes(v.id) && (v.id !== "reglages" || can("admin"))).map(v => `<button class="row" type="button" style="grid-template-columns:auto 1fr auto;text-align:left" data-go-more="${v.id}"><span class="k-ic" style="width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)">${ic(v.icon)}</span><span class="t">${v.label}</span>${ic("arrow")}</button>`).join("")}</div>
     ${store.mode === "cloud" ? `<button class="btn ghost" type="button" id="moreOut" style="margin-top:12px">${ic("logout")}Se déconnecter</button>` : ""}
     <div class="made" style="text-align:center;margin-top:12px">Made by Alexandre et Declaire</div>`, null,
-    el => { $$("[data-go-more]", el).forEach(b => b.onclick = () => { closeSheet(); go(b.dataset.goMore); }); const o = $("#moreOut", el); if (o) o.onclick = signOut; });
+    el => { $$("[data-go-more]", el).forEach(b => b.onclick = () => { closeSheet(); go(b.dataset.goMore); }); const o = $("#moreOut", el); if (o) o.onclick = signOut; const me = $("#moreMe", el); if (me) me.onclick = profileSheet; });
 }
 
 /* ============================================================ palette ⌘K */
@@ -2416,12 +2723,12 @@ function openPalette() {
   document.body.appendChild(palEl);
   $(".backdrop", palEl).onclick = closePalette;
   const input = $("#palQ", palEl); let items = [], sel = 0;
-  const actions = [["Ajouter…", "plus", () => addMenu(), can("biblio") || can("fourn")], ["Nouvel emprunt", "plus", () => loanSheet(), can("biblio")], ["Enregistrer un retour", "ret", () => returnPicker(), can("biblio")], ["Ajouter un livre", "book", () => bookSheet(), can("biblio")], ["Ajouter un membre", "users", () => memberSheet(), can("biblio")], ["Mouvement de stock", "box", () => moveSheet(), can("fourn")], ...VIEWS.filter(v => v.id !== "reglages" || can("admin")).map(v => ["Aller à : " + v.label, v.icon, () => go(v.id), true])].filter(a => a[3]);
+  const actions = [["Ajouter…", "plus", () => addMenu(), can("biblio") || can("fourn")], ["Nouvel emprunt", "plus", () => loanSheet(), can("biblio")], ["Enregistrer un retour", "ret", () => returnPicker(), can("biblio")], ["Ajouter un livre", "book", () => bookSheet(), can("biblio")], ["Ajouter un membre", "users", () => memberSheet(), can("biblio")], ["Mouvement de stock", "box", () => moveSheet(), can("fourn")], ...navViews().filter(v => v.id !== "reglages" || can("admin")).map(v => ["Aller à : " + v.label, v.icon, () => go(v.id), true])].filter(a => a[3]);
   const draw = () => {
     const q = norm(input.value); items = [];
     const A = actions.filter(a => !q || norm(a[0]).includes(q)).slice(0, q ? 4 : 6).map(a => ({ g: "Actions", html: `${ic(a[1])}<span class="t">${a[0]}</span>`, run: a[2] }));
     const B = q ? [...D.livres.values()].filter(b => norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn).includes(q)).slice(0, 6).map(b => { const [l, t] = bookAvail(b); return { g: "Livres", html: `${miniCover(b)}<div><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)} · ${esc(b.rayon || "")}</div></div><span class="end">${pill(b.dispo + "/" + b.ex, t)}</span>`, run: () => bookDetail(b.id) }; }) : [];
-    const M = q ? [...D.membres.values()].filter(m => norm(m.nom + " " + m.classe + " " + m.id).includes(q)).slice(0, 6).map(m => ({ g: "Membres", html: `${avatar(m)}<div><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}</div></div>${m.retard ? `<span class="end">${pill("En retard", "bad")}</span>` : ""}`, run: () => memberDetail(m.id) })) : [];
+    const M = q && !isReader() ? [...D.membres.values()].filter(m => norm(m.nom + " " + m.classe + " " + m.id).includes(q)).slice(0, 6).map(m => ({ g: "Membres", html: `${avatar(m)}<div><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}</div></div>${m.retard ? `<span class="end">${pill("En retard", "bad")}</span>` : ""}`, run: () => memberDetail(m.id) })) : [];
     items = [...B, ...M, ...A]; sel = Math.min(sel, Math.max(0, items.length - 1));
     let g = ""; $("#palList", palEl).innerHTML = items.map((it, i) => (it.g !== g ? `<div class="pal-group">${g = it.g}</div>` : "") + `<button class="pal-item" type="button" data-pi="${i}" aria-selected="${i === sel}">${it.html}</button>`).join("") || '<div class="empty">Aucun résultat.</div>';
     $$("[data-pi]", palEl).forEach(b => { b.onclick = () => run(+b.dataset.pi); b.onpointermove = () => { if (sel !== +b.dataset.pi) { sel = +b.dataset.pi; $$("[data-pi]", palEl).forEach(x => x.setAttribute("aria-selected", +x.dataset.pi === sel)); } }; });
@@ -2464,6 +2771,7 @@ function importBackup(file) {
   if (!file) return; const r = new FileReader();
   r.onload = () => { let data; try { data = JSON.parse(r.result); } catch { return toast("Ce fichier n'est pas une sauvegarde valide.", true); }
     if (!data || !COLS.some(c => Array.isArray(data[c]))) return toast("Ce fichier ne contient pas de données de bibliothèque.", true);
+    renumberMembers(data);
     confirmSheet("Restaurer cette sauvegarde ?", `${(data.livres || []).length} livres, ${(data.membres || []).length} membres et ${(data.emprunts || []).length} emprunts remplaceront les données actuelles.`, "Restaurer", () => bulkReplace(data, "Restauration…")); };
   r.readAsText(file);
 }

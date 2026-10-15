@@ -157,7 +157,9 @@ drop policy if exists "profil : lecture" on public.profiles;
 create policy "profil : lecture" on public.profiles
   for select to authenticated using (id = auth.uid() or public.kiv_role() in ('admin', 'bibliothecaire', 'direction'));
 -- aucune écriture directe : uniquement par les fonctions ci-dessus
-revoke insert, update, delete on public.profiles from anon, authenticated;
+revoke all on public.profiles from anon;
+revoke insert, update, delete on public.profiles from authenticated;
+grant select on public.profiles to authenticated;   -- les règles ci-dessus filtrent les lignes
 revoke execute on function public.kiv_valider(uuid, text, text), public.kiv_set_role(uuid, text), public.kiv_mon_profil(text, text),
   public.kiv_ma_demande(text, text, text), public.kiv_retirer_photo(uuid) from public, anon;
 grant execute on function public.kiv_valider(uuid, text, text), public.kiv_set_role(uuid, text), public.kiv_mon_profil(text, text),

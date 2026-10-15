@@ -985,6 +985,12 @@ function readDemande(el) {
   if (profil === "eleve" && !classe) return { error: "Indique ta classe." };
   return { nom, profil, classe };
 }
+let googleCheck = null;
+function googleEnabled() {
+  googleCheck = googleCheck || fetch(CLOUD_CFG.supabaseUrl.replace(/\/$/, "") + "/auth/v1/settings", { headers: { apikey: CLOUD_CFG.supabaseKey } })
+    .then(r => r.ok ? r.json() : null).then(j => !j || !j.external || j.external.google !== false).catch(() => true);
+  return googleCheck;
+}
 function showAuth(mode, info) {
   if (mode === "config") {
     authShell(`<h2>Connexion au serveur à configurer</h2>
@@ -1045,6 +1051,8 @@ function showAuth(mode, info) {
   if (info) authMsg(el, info, true);
   $$("[data-at]", el).forEach(b => b.onclick = () => showAuth(b.dataset.at));
   if (tab === "signup") wireDemande(el);
+  /* le bouton Google n'apparaît que si Google est activé dans Supabase (INSTALLATION.md, étape 6) */
+  googleEnabled().then(on => { if (!on) { $("#aGoogle", el)?.remove(); $(".auth-or", el)?.remove(); } });
   const g = $("#aGoogle", el); if (g) g.onclick = async () => {
     const { error } = await auth.sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin + location.pathname } });
     if (error) authMsg(el, /provider is not enabled|Unsupported provider/i.test(error.message) ? "La connexion avec Google n'est pas encore activée. Utilise ton adresse e-mail, ou demande à l'administrateur de l'activer (INSTALLATION.md, étape 6)." : cloudError(error)); };

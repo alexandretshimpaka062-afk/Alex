@@ -667,6 +667,85 @@ body.locked{overflow:hidden}
 .wrap-btn{all:unset;box-sizing:border-box;cursor:pointer;grid-column:1/-1;border-radius:16px;padding:12px 14px;overflow:hidden;box-shadow:0 8px 22px -12px rgba(3,38,61,.6);display:flex;gap:12px;align-items:center;background:linear-gradient(120deg,#03263D,#0A6FA8 55%,#1E8E3E)!important;color:#fff;border:0!important}
 .wrap-btn>span{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center}.wrap-btn .ic{width:20px;height:20px}
 .wrap-btn small{color:rgba(255,255,255,.75)!important}
+/* assistant IA */
+.ai-cta{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:14px;align-items:center;padding:14px 18px;border-radius:18px;color:#fff;background:linear-gradient(120deg,#3B1C7A,#6B3FD6 55%,#0A6FA8);box-shadow:0 14px 30px -18px rgba(59,28,122,.8);transition:transform .25s var(--spring)}
+.ai-cta:hover{transform:translateY(-2px)}.ai-cta>.ic:first-child{width:26px;height:26px;flex:none}.ai-cta>.ic:last-child{width:18px;height:18px;margin-left:auto;opacity:.8}
+.ai-cta span{display:flex;flex-direction:column;gap:2px}.ai-cta small{font-size:13px;color:rgba(255,255,255,.85)}
+.ai-log{display:flex;flex-direction:column;gap:12px;max-height:min(52vh,520px);overflow:auto;padding:4px 2px}
+.ai-msg{max-width:88%;font-size:14.5px;line-height:1.5}.ai-msg p{margin:0}
+.ai-msg.me{align-self:flex-end;background:var(--accent);color:#fff;padding:10px 14px;border-radius:18px 18px 4px 18px}
+.ai-msg.bot{display:flex;gap:10px;align-items:flex-start}.ai-msg.bot>div{display:flex;flex-direction:column;gap:8px;background:var(--glass-strong);border:1px solid var(--line);padding:10px 14px;border-radius:18px 18px 18px 4px;min-width:0}
+.ai-msg.err>div{border-color:var(--warn);background:var(--warn-soft)}
+.ai-av{width:30px;height:30px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#6B3FD6,#0A6FA8)}.ai-av .ic{width:16px;height:16px}
+.ai-book{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--solid)}
+.ai-book:hover{border-color:var(--accent)}.ai-book b{display:block;font-size:14px}.ai-book small{display:block;font-size:12px;color:var(--ink-3)}.ai-book em{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.ai-sugg{display:flex;flex-wrap:wrap;gap:8px}.ai-sugg .chip{cursor:pointer;padding:0 12px}.ai-sugg .chip:hover{border-color:var(--accent)}
+.ai-form{display:flex;gap:8px;align-items:flex-end}.ai-form textarea{flex:1;resize:none}.ai-form .btn{height:48px;width:48px;padding:0;justify-content:center}
+.typing p{display:flex;gap:4px;padding:6px 0}.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:taPulse 1s infinite}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+/* import Excel */
+.im-sum{display:flex;gap:8px;flex-wrap:wrap}.im-table{max-height:300px;overflow:auto;margin:0 0 10px!important}.im-table th,.im-table td{padding:8px 6px!important;font-size:12.5px}.im-table td:nth-child(2){white-space:nowrap}.im-table td:nth-child(3){word-break:break-all}.im-table tr.skip{opacity:.55}
+.im-drop{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;padding:28px 16px;border-radius:16px;border:2px dashed var(--line-2);color:var(--ink-2)}
+.check-line{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2);cursor:pointer}.check-line input{margin-top:3px;width:18px;height:18px;flex:none}
+/* tableau de bord direction */
+.heat{border-collapse:separate;border-spacing:3px}.heat td.hc{padding:0}.heat td.hc span{display:grid;place-items:center;min-width:46px;height:38px;border-radius:8px;font-weight:650;font-size:13px}
+.heat-legend{display:flex;gap:4px;align-items:center;justify-content:flex-end;margin-top:10px;font-size:12px;color:var(--ink-3)}.heat-legend i{width:22px;height:12px;border-radius:4px;display:block}.heat-legend span{margin:0 4px}
+.mbars{display:flex;gap:8px;align-items:stretch;height:200px;padding-top:6px}.mbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-width:0}
+.mbar b{width:min(36px,80%);background:var(--accent);border-radius:4px 4px 0 0;transition:height .8s var(--ease)}.mbar .mv{font-size:12px;font-weight:650;color:var(--ink-2)}.mbar .ml{font-size:12px;color:var(--ink-3)}
+/* avis écrits */
+.rv-box{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:16px;border:1px solid var(--line-2);background:var(--glass-strong)}
+.rv-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.rv-txt{margin:0;font-style:italic;color:var(--ink-2)}
+.rv-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rv-list{display:flex;flex-direction:column;gap:10px}.rv-item{padding:12px 14px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}
+.rv-item p{margin:6px 0 0;font-size:14px;line-height:1.5}.rv-who{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rv-prompt{display:flex;gap:14px;align-items:center;padding:14px 18px;border-radius:18px;border:1px dashed var(--accent);background:var(--accent-soft)}
+.rv-prompt b{display:block}.rv-prompt span{font-size:13.5px;color:var(--ink-2)}.rv-prompt .ta-cover .mini-cover{width:38px;height:54px}
+.quote-card{all:unset;box-sizing:border-box;cursor:pointer;flex:none;width:300px;display:flex;gap:12px;padding:14px;border-radius:18px;background:var(--glass-strong);border:1px solid var(--line);scroll-snap-align:start;transition:transform .25s var(--spring)}
+.quote-card:hover{transform:translateY(-3px)}.quote-card .mini-cover{width:44px;height:62px}.quote-card>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.q-t{font-size:14px;line-height:1.45;font-style:italic}.q-b{font-size:12.5px;font-weight:650;display:flex;gap:6px;align-items:center}.q-w{font-size:12px;color:var(--ink-3)}
+.mod-list{display:flex;flex-direction:column;gap:12px}.mod-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--glass-strong)}
+.mod-row .mini-cover{width:44px;height:62px}.mod-main{display:flex;flex-direction:column;gap:8px;min-width:0}.mod-main .t{font-weight:650}
+.mod-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.mod-motif{flex:1 1 220px;min-width:0;height:34px}
+/* clubs */
+.club-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.club-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:14px;padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--glass-strong);transition:transform .25s var(--spring),border-color .2s}
+.club-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.club-cv{width:78px;flex:none;padding:8px 8px 8px 12px}.club-cv .cv-title{font-size:11px}.club-cv.none{height:112px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}.club-cv.none .ic{width:30px;height:30px}
+.club-in{display:flex;flex-direction:column;gap:4px;min-width:0}.club-in b{font-size:16px}.club-in .s{font-size:12.5px;color:var(--ink-3)}
+.club-rdv{display:flex;gap:6px;align-items:center;font-size:12.5px;font-weight:650;color:var(--accent)}.club-rdv .ic{width:14px;height:14px}
+.club-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.club-hero{position:relative;overflow:hidden;border-radius:26px;color:#fff;background:linear-gradient(135deg,var(--cv1,#0A6FA8),#04192A)}
+.club-hero .bd-bg{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);object-fit:cover;filter:blur(30px) brightness(.45);transform:scale(1.1)}
+.club-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,14,24,.85),rgba(2,14,24,.35))}
+.club-hero-in{position:relative;z-index:1;display:flex;gap:24px;padding:26px;align-items:center}.club-hero-in>.cover,.club-hero-in>.club-cv{width:150px;flex:none}
+.club-hero-txt{display:flex;flex-direction:column;gap:10px;min-width:0}.club-hero-txt h2{margin:0;font:800 clamp(24px,3vw,34px) var(--display)}.club-hero-txt p{margin:0;color:rgba(255,255,255,.85)}
+.club-facts{display:flex;flex-direction:column;gap:6px;font-size:14px;color:rgba(255,255,255,.88)}.club-facts span{display:flex;gap:8px;align-items:center}.club-facts .ic{width:16px;height:16px;flex:none}.club-facts [data-book]{cursor:pointer;text-decoration:underline}
+.club-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.club-hero .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
+.club-q{display:flex;flex-direction:column;gap:10px;padding:6px 0}.club-q h3{margin:0;font-size:17px}.club-q.big h3{font-size:21px}
+.ans-list{display:flex;flex-direction:column;gap:8px}.ans{padding:10px 12px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}.ans p{margin:4px 0 0;font-size:14px}
+.ans.pending{border-style:dashed;opacity:.85}.ans-act{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:6px}
+.ans-form{display:flex;gap:8px;align-items:flex-end}.ans-form textarea{flex:1}
+.vote-list{display:flex;flex-direction:column;gap:8px}.vote-opt{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px;border-radius:14px;border:1.5px solid var(--line)}
+.vote-opt.on{border-color:var(--accent);background:var(--accent-soft)}.vote-opt:disabled{cursor:default}.vote-in{display:flex;flex-direction:column;gap:6px;min-width:0}.vote-in b{font-size:14px}
+.club-members{display:flex;flex-wrap:wrap;gap:10px}.cm{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:76px;text-align:center;font-size:12px}
+.cm .avatar{width:46px;height:46px}.cm.done .avatar{box-shadow:0 0 0 3px var(--green)}.cm i{position:absolute;top:30px;right:12px;width:18px;height:18px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center}.cm i .ic{width:11px;height:11px}
+#clubBack .ic{transform:rotate(180deg)}
+.nf-alert.club{cursor:pointer;border-color:var(--accent);background:var(--accent-soft)}.nf-alert.club .ic{color:var(--accent)}
+@media (max-width:700px){.club-hero-in{flex-direction:column;align-items:flex-start;padding:20px}.club-hero-in>.cover{width:110px}.quote-card{width:250px}.rv-prompt{flex-wrap:wrap}}
+.etat-pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.etat-pick button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px;border-radius:14px;border:1.5px solid var(--line-2);background:var(--glass-strong);text-align:left;transition:all .2s var(--ease)}
+.etat-pick b{font-size:14px}.etat-pick small{font-size:11.5px;color:var(--ink-3);line-height:1.3}
+.ep-ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--line)}.ep-ic .ic{width:16px;height:16px}
+.etat-pick [data-etat=bon][aria-pressed=true]{border-color:var(--green);background:var(--green-soft)}.etat-pick [data-etat=bon][aria-pressed=true] .ep-ic{background:var(--green);color:#fff}
+.etat-pick [data-etat=abime][aria-pressed=true]{border-color:var(--warn);background:var(--warn-soft)}.etat-pick [data-etat=abime][aria-pressed=true] .ep-ic{background:var(--warn);color:#fff}
+.etat-pick [data-etat=perdu][aria-pressed=true]{border-color:var(--danger);background:var(--danger-soft)}.etat-pick [data-etat=perdu][aria-pressed=true] .ep-ic{background:var(--danger);color:#fff}
+.rem-act{display:flex;gap:6px}.rem-row.sent{opacity:.6}.rem-row.sent .rem-act .btn.primary{background:var(--green)}
+.po-body{display:flex;flex-direction:column;gap:14px}
+.po-group{border:1px solid var(--line);border-radius:16px;padding:10px;background:var(--glass)}.po-group.empty-g{opacity:.7}
+.po-h{display:flex;gap:10px;align-items:center;padding:4px 6px 8px}
+.po-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto 76px;gap:10px;align-items:center;padding:8px 6px;border-top:1px solid var(--line);cursor:pointer}
+.po-row:not(.on){opacity:.65}.po-art b{display:block;font-size:14px}.po-art small{font-size:12px;color:var(--ink-3)}
+.po-q{height:36px;text-align:center;padding:0 6px}
+@media (max-width:700px){.etat-pick small{display:none}.po-row{grid-template-columns:auto minmax(0,1fr) 64px}.po-row .pill{display:none}}
 .kiosk{position:fixed;inset:0;z-index:200;overflow:auto;padding:22px clamp(16px,3vw,40px) 30px;background:radial-gradient(1200px 600px at 10% -10%,#0A6FA8 0%,transparent 60%),radial-gradient(900px 500px at 100% 0%,#1E8E3E55 0%,transparent 60%),#04192A;color:#fff;-webkit-tap-highlight-color:transparent}
 body.kiosk-on{overflow:hidden}
 .k-head{display:flex;align-items:center;gap:16px}.k-head img{height:64px;width:auto;filter:drop-shadow(0 6px 16px rgba(0,0,0,.4))}
@@ -1065,6 +1144,7 @@ const P = {
   book: '<path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6.5A2.5 2.5 0 0 0 4 21.5v-2Z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19"/><path d="M9 7h6"/>',
   users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/>',
   swap: '<path d="M7 4 3 8l4 4"/><path d="M3 8h13a4 4 0 0 1 4 4"/><path d="m17 20 4-4-4-4"/><path d="M21 16H8a4 4 0 0 1-4-4"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>',
   box: '<path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/>',
   report: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6"/><path d="M8 17v-3M12 17v-6M16 17v-4"/>',
   gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
@@ -1509,7 +1589,7 @@ async function cloudLoad() {
       else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
     }));
   } catch (e) { toast(cloudError(e), true); }
-  if (isReader()) await Promise.all([loadDispo(), loadMesRes(), loadReaderExtras(), loadClassData()]); else await Promise.all([loadReservations(), loadNotes(), loadClassData()]);
+  if (isReader()) await Promise.all([loadDispo(), loadMesRes(), loadReaderExtras(), loadClassData(), loadSocial()]); else await Promise.all([loadReservations(), loadNotes(), loadClassData(), loadSocial()]);
   onData();
   if (can("comptes")) loadAccounts();
   auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
@@ -1521,6 +1601,7 @@ async function cloudLoad() {
       if (t === "emprunts" && isReader()) loadDispo().then(() => onData());
     } else if (t === "reglages" && row && row.id === "params") { S.params = row.data; onData(); }
     else if (t === "reservations") { (isReader() ? Promise.all([loadMesRes(), loadDispo()]) : loadReservations()).then(() => onData()); }
+    else if (t === "avis") { Promise.all([isReader() ? loadReaderExtras() : loadNotes(), loadSocial()]).then(() => onData()); }
     else if (["consignes", "consigne_vues", "objectifs_classe"].includes(t)) {
       const fresh = t === "consignes" && payload.eventType === "INSERT" && roleOf() === "eleve" && row && !(store.consignes || []).some(c => c.id === row.id);
       loadClassData().then(() => { onData(); if (fresh && mesConsignes().some(c => c.id === row.id)) { const b = D.livres.get(row.livre); toast(`Nouvelle lecture donnée par ${row.auteur_nom || "ton enseignant"} : « ${b ? b.titre : ""} »`); } }); }
@@ -1891,8 +1972,9 @@ function espaceView() {
   const maListe = (P.a_lire || []).slice().reverse().map(id => D.livres.get(id)).filter(Boolean);
   const due = e => { const d = diffDays(e.prevu, D.T); return d < 0 ? `<span class="nf-b bad">En retard de ${-d} j</span>` : d === 0 ? `<span class="nf-b warn">À rendre aujourd'hui</span>` : `<span class="nf-b ${d <= 2 ? "warn" : "ok"}">Encore ${d} jour${d > 1 ? "s" : ""}</span>`; };
   const resBadge = b => { const r = mesRes.find(x => x.livre === b.id); return !r ? "" : r.statut === "prete" ? `<span class="nf-b ok">T'attend · ${fmtD(r.expire_le)}</span>` : r.statut === "expiree" ? `<span class="nf-b bad">Expirée</span>` : `<span class="nf-b">${ordinal(r.rang || 1)} dans la file</span>`; };
-  return `${consigneAlerts()}${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
+  return `${consigneAlerts()}${clubAlerts()}${reviewAlerts()}${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
     ${retard.length ? `<div class="nf-alert bad">${ic("clock")}<div><b>${retard.length > 1 ? retard.length + " livres sont" : "Un livre est"} en retard</b><span>${retard.map(e => "« " + esc(e.b ? e.b.titre : e.livre) + " »").join(", ")} : rapporte${retard.length > 1 ? "-les" : "-le"} vite à la bibliothèque.</span></div></div>` : ""}
+    ${aiCTA()}
     <div class="espace-top">
       ${heroes.length ? heroCarousel(heroes)
       : `<div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2><p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture ci-dessous."}</p>
@@ -1908,6 +1990,7 @@ function espaceView() {
     ${shelfRow("rowPourToi", genres.length ? "Pour toi" : "À découvrir", pourToi, { badge: availBadge, sub: genres.length ? "d'après tes goûts : " + esc(genres.slice(0, 3).join(", ")) : "", action: `<button class="more" type="button" id="editGenres">${genres.length ? "Modifier mes goûts" : "Choisir mes genres préférés"} ${ic("arrow")}</button>` })}
     ${shelfRow("rowPop", "Les plus lus à l'école", pop.slice(0, 14), { badge: availBadge })}
     ${shelfRow("rowTop", "Les mieux notés", all.filter(b => noteOf(b.id) && noteOf(b.id).nb >= 1).sort((a, b) => noteOf(b.id).moyenne - noteOf(a.id).moyenne || noteOf(b.id).nb - noteOf(a.id).nb).slice(0, 14), { badge: b => `<span class="nf-b">${starsHTML(noteOf(b.id).moyenne, "sm")} ${String(noteOf(b.id).moyenne).replace(".", ",")}</span>` })}
+    ${reviewsRow()}
     ${shelfRow("rowNew", "Nouveautés", nouveaux, { badge: availBadge })}
     ${shelfRow("rowListe", "Ma liste", maListe, { badge: availBadge, empty: "Ajoute des livres à lire plus tard depuis leur fiche (bouton « Ma liste »)." })}
     ${shelfRow("rowLus", "Déjà lus", lus.map(e => e.b).filter((b, i, a) => b && a.indexOf(b) === i), { badge: b => { const e = lus.find(x => x.livre === b.id); return `<span class="nf-b">Lu en ${esc(new Date(e.retour + "T12:00:00").toLocaleDateString("fr-FR", { month: "short", year: "numeric" }))}</span>`; } })}`;
@@ -1955,8 +2038,9 @@ function readerBookDetail(id) {
           <div class="bd-act">${acts}</div></div></div></div>
     ${status}${b.resume ? `<p class="rd-resume">${esc(b.resume)}</p>` : ""}
     ${mine.length ? `<div class="rd-rate"><span class="s">Qu'en as-tu pensé ?</span><div class="my-rate">${[1, 2, 3, 4, 5].map(i => `<button type="button" class="star-btn${(store.mesNotes && store.mesNotes.get(id) || 0) >= i ? " on" : ""}" data-rate="${i}" aria-label="${i} étoile${i > 1 ? "s" : ""}">★</button>`).join("")}</div></div>` : ""}
+    ${store.mode === "cloud" ? reviewBox(id) : ""}<div id="rvList"></div>
     <div id="aussiLu"></div>`, null, el => {
-      fillAussiLu(el, id);
+      fillAussiLu(el, id); bindReviewBox(el, id); fillReviews(el, id);
       const gv = $("#rdGive", el); if (gv) gv.onclick = () => { closeSheet(true); consigneSheet({ livre: id }); };
       $$("[data-rate]", el).forEach(x => x.onclick = async () => { const n = +x.dataset.rate, cur = store.mesNotes && store.mesNotes.get(id), note = cur === n ? 0 : n;
         const { error } = await auth.sb.rpc("kiv_noter", { livre: id, note }); if (error) return toast(cloudError(error), true);
@@ -1986,7 +2070,7 @@ const objectif = classe => (classe && store.objClasses && store.objClasses.get(c
 const shortName = n => { const w = String(n || "").replace(/^(M\.|Mme)\s+/, "").trim().split(/\s+/); return w.length > 1 ? `${w[0]} ${w[w.length - 1][0]}.` : w[0] || ""; };
 
 /* badges gagnés par un lecteur, à partir de ses emprunts */
-function badgesFor(loans, nbNotes = 0) {
+function badgesFor(loans, nbNotes = 0, nbClubs = 0) {
   const lus = loans.filter(e => e.retour), cats = new Set(lus.map(e => e.b && e.b.categorie).filter(Boolean));
   const aLHeure = lus.filter(e => e.retour <= e.prevu).length, mois = new Set(lus.map(e => e.retour.slice(0, 7)));
   const months = [...mois].sort(); let suite = 0, best = 0, prev = null;
@@ -2000,6 +2084,7 @@ function badgesFor(loans, nbNotes = 0) {
     ["ponctuel", "Toujours à l'heure", "Rendre 5 livres à temps", "clock", aLHeure, 5],
     ["fidele", "Fidèle", "Lire chaque mois, 3 mois de suite", "check", best, 3],
     ["critique", "Critique", "Noter 5 livres", "star", nbNotes, 5],
+    ["club", "Club de lecture", "Rejoindre un club de lecture", "users", nbClubs, 1],
   ];
   return B.map(([id, label, desc, icon, have, need]) => ({ id, label, desc, icon, have: Math.min(have, need), need, got: have >= need }));
 }
@@ -2022,6 +2107,7 @@ async function loadReaderExtras() {
   store.top7 = (tp && tp.data) || [];
   store.notes = new Map(((n && n.data) || []).map(r => [r.livre, r]));
   store.mesNotes = new Map(((a && a.data) || []).filter(r => r.membre === auth.profile.membre_id).map(r => [r.livre, r.note]));
+  store.mesAvis = new Map(((a && a.data) || []).filter(r => r.membre === auth.profile.membre_id).map(r => [r.livre, r]));
   store.pourMoi = new Map(((pm && pm.data) || []).map(r => [r.livre, r.score]));
 }
 async function loadNotes() { if (store.mode !== "cloud") return; const { data } = await auth.sb.rpc("kiv_notes"); store.notes = new Map((data || []).map(r => [r.livre, r])); }
@@ -2059,7 +2145,7 @@ function defisView() {
     const me = rows.find(r => r.moi), m = D.membres.get(auth.profile.membre_id), mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id), goal = objectif(m && m.classe);
     const lusT = mine.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length, pct = Math.min(1, lusT / goal);
     const myClass = rows.filter(r => r.classe === (m && m.classe)).sort((a, b) => a.rang_classe - b.rang_classe);
-    const badges = badgesFor(mine, store.mesNotes ? store.mesNotes.size : 0), got = badges.filter(b => b.got).length;
+    const badges = badgesFor(mine, store.mesNotes ? store.mesNotes.size : 0, (store.clubs || []).filter(c => c.moi).length), got = badges.filter(b => b.got).length;
     const left = Math.max(0, diffDays(t.fin, todayISO()));
     return `<div class="toolbar">${sel}<button class="btn sm primary" type="button" id="defYear" style="margin-left:auto">${ic("spark")}Mon année de lecture</button></div>
       <div class="defi-top">
@@ -2693,6 +2779,611 @@ function kioskDetail(id) {
   $("#kiosk").appendChild(d);
 }
 
+/* ============================================================ étape 5 : retours (état du livre), rappels par e-mail, bons de commande */
+/* ---------- retour d'un livre : état, frais, amende ---------- */
+function doReturn(id) {
+  if (!guard("biblio")) return;
+  const e = S.emprunts.find(x => x.id === id); if (!e) return;
+  const fromPicker = ui.returning && sheetEl;
+  const p = params(), prevu = e.prevu || addDays(e.date, p.duree), jours = Math.max(0, diffDays(todayISO(), prevu)), retard = jours * p.amende;
+  const b = S.livres.find(x => x.id === e.livre), m = S.membres.find(x => x.id === e.membre), prix = +(b && b.prix) || 0;
+  let etat = "bon";
+  const fraisFor = k => k === "perdu" ? prix : k === "abime" ? (prix ? Math.round(prix * .25 / 100) * 100 : +(p.fraisAbime || 0)) : 0;
+  const finish = (paye, frais) => {
+    put("emprunts", { ...e, retour: todayISO(), paye: paye || (!retard && !frais), etat, frais: frais || 0 });
+    if (etat === "perdu" && b) put("livres", { ...b, ex: Math.max(0, (+b.ex || 0) - 1), perdus: (+b.perdus || 0) + 1 });
+    toast(etat === "perdu" ? `Livre perdu enregistré · ${fc(retard + frais)} à payer` : etat === "abime" ? `Retour enregistré · livre abîmé${frais ? " · " + fc(frais) : ""}` : jours ? `Retour enregistré · ${jours} j de retard` : "Retour enregistré · merci !");
+    const waiting = etat !== "perdu" && (S.reservations || []).some(r => r.livre === e.livre && r.statut === "attente");
+    if (waiting) { closeSheet(true); setTimeout(() => reservedAlert(e.livre), 120); } else if (fromPicker) returnPicker(); else closeSheet();
+  };
+  const ETATS = [["bon", "Bon état", "check", "Comme avant le prêt"], ["abime", "Abîmé", "alert", "Pages déchirées, taches, couverture…"], ["perdu", "Perdu", "x", "Le livre ne reviendra pas"]];
+  openSheet("Retour du livre", `<div class="recap" style="border-style:solid"><div><b>${esc(b ? b.titre : e.livre)}</b> rendu par <b>${esc(m ? m.nom : e.membre)}</b></div>
+      <div>${jours ? `${jours} jour${jours > 1 ? "s" : ""} de retard · amende de <b>${fc(retard)}</b>` : "Rendu à temps"}</div></div>
+    <div class="f"><label>État du livre</label><div class="etat-pick">${ETATS.map(([k, l, i, d]) => `<button type="button" data-etat="${k}" aria-pressed="${k === "bon"}"><span class="ep-ic">${ic(i)}</span><b>${l}</b><small>${d}</small></button>`).join("")}</div></div>
+    <div class="f" id="fraisF" hidden><label for="r-frais">Frais à payer (FC)</label><input id="r-frais" type="number" inputmode="numeric" min="0" step="500"><span class="form-note" id="fraisHint" style="margin:0"></span></div>
+    <div id="rTotal"></div>`,
+    `<button class="btn ghost" type="button" id="later">Payer plus tard</button><button class="btn primary" type="button" id="paid">${ic("check")}Enregistrer le retour</button>`,
+    el => {
+      const frais = () => Math.max(0, +$("#r-frais", el).value || 0);
+      const sync = () => {
+        $("#fraisF", el).hidden = etat === "bon";
+        $("#fraisHint", el).textContent = etat === "perdu" ? (prix ? `Prix de remplacement indiqué sur la fiche du livre : ${fc(prix)}. Un exemplaire sera retiré du catalogue.` : "Aucun prix sur la fiche du livre : indiquez le prix de remplacement. Un exemplaire sera retiré du catalogue.")
+          : etat === "abime" ? (prix ? `Proposé : un quart du prix du livre (${fc(prix)}). Modifiable.` : "Montant libre (0 si rien à payer).") : "";
+        const tot = retard + (etat === "bon" ? 0 : frais());
+        $("#rTotal", el).innerHTML = tot ? `<div class="nf-status warn">${ic("coin")}<span>Total à payer : <b>${fc(tot)}</b>${retard && etat !== "bon" && frais() ? ` (retard ${fc(retard)} + ${etat === "perdu" ? "remplacement" : "dégâts"} ${fc(frais())})` : ""}</span></div>` : "";
+        $("#later", el).hidden = !tot; $("#paid", el).innerHTML = ic(tot ? "coin" : "check") + (tot ? "Encaissé" : "Enregistrer le retour");
+      };
+      $$("[data-etat]", el).forEach(x => x.onclick = () => { etat = x.dataset.etat; $$("[data-etat]", el).forEach(y => y.setAttribute("aria-pressed", y === x)); $("#r-frais", el).value = fraisFor(etat) || ""; sync(); if (etat !== "bon") $("#r-frais", el).focus(); });
+      $("#r-frais", el).oninput = sync;
+      $("#later", el).onclick = () => finish(false, etat === "bon" ? 0 : frais());
+      $("#paid", el).onclick = () => finish(true, etat === "bon" ? 0 : frais());
+      sync(); setTimeout(() => $("#paid", el).focus(), 60);
+    });
+}
+
+/* ---------- rappels de retard par e-mail (à l'élève) ---------- */
+const emailOf = id => { const a = (auth.accounts || []).find(x => x.membre_id === id); return (a && a.email) || ((D.membres.get(id) || {}).email) || ""; };
+function lateMail(m, loans) {
+  const p = params(), prenom = String(m.nom || "").replace(/^(M\.|Mme)\s+/, "").split(" ")[0], n = loans.length, tot = loans.reduce((a, e) => a + (e.amende || 0), 0);
+  const subject = n > 1 ? `Rappel : ${n} livres à rendre à la bibliothèque` : `Rappel : « ${loans[0].b ? loans[0].b.titre : loans[0].livre} » à rendre à la bibliothèque`;
+  const body = `Bonjour ${prenom},\n\nLa bibliothèque te rappelle que ${n > 1 ? "ces livres sont" : "ce livre est"} en retard :\n`
+    + loans.map(e => `• « ${e.b ? e.b.titre : e.livre} » : emprunté le ${fmtD(e.date)}, à rendre le ${fmtD(e.prevu)} (${e.jours} jour${e.jours > 1 ? "s" : ""} de retard)`).join("\n")
+    + `\n\nMerci de ${n > 1 ? "les" : "le"} rapporter le plus vite possible.${tot ? `\nAmende à ce jour : ${fc(tot).replace(/ | /g, " ")}.` : ""}\n\nÀ bientôt,\nLa bibliothèque de ${p.ecole}`;
+  return { subject, body };
+}
+function remindersSheet() {
+  const late = D.emprunts.filter(e => e.statut === "retard"), by = new Map();
+  late.forEach(e => { if (!by.has(e.membre)) by.set(e.membre, []); by.get(e.membre).push(e); });
+  const rows = [...by.entries()].map(([id, loans]) => ({ m: D.membres.get(id) || { id, nom: id, classe: "" }, loans, email: emailOf(id) }))
+    .sort((a, b) => String(a.m.classe).localeCompare(String(b.m.classe), "fr") || String(a.m.nom).localeCompare(String(b.m.nom), "fr"));
+  const withMail = rows.filter(r => r.email), T = todayISO();
+  openSheet("Rappels de retard par e-mail", `<p class="form-note block" style="margin:0">Chaque élève reçoit un e-mail à l'adresse de son compte. « Gmail » ouvre le message déjà écrit : il ne reste qu'à cliquer sur Envoyer.</p>
+    <div class="toolbar"><span class="s">${rows.length} élève${rows.length > 1 ? "s" : ""} en retard · ${withMail.length} avec une adresse</span>
+      ${withMail.length ? `<button class="btn sm ghost" type="button" id="copyMails" style="margin-left:auto">${ic("list")}Copier les adresses</button>` : ""}</div>
+    <div class="rows">${rows.map(r => { const sent = r.loans.map(e => e.rappel).filter(Boolean).sort().pop();
+      return `<div class="row rem-row" style="grid-template-columns:auto minmax(0,1fr) auto">${avatar(r.m)}<div style="min-width:0"><div class="t">${esc(r.m.nom)} <span class="s">· ${esc(r.m.classe || "")}</span></div>
+          <div class="s" style="white-space:normal">${r.loans.map(e => `« ${esc(e.b ? e.b.titre : e.livre)} » · ${e.jours} j`).join(" · ")}</div>
+          <div class="s">${r.email ? esc(r.email) : '<span style="color:var(--warn)">Pas d\'e-mail : pas encore de compte. À prévenir de vive voix.</span>'}${sent ? ` · rappel envoyé ${sent === T ? "aujourd'hui" : "le " + fmtD(sent)}` : ""}</div></div>
+        <div class="rem-act">${r.email ? `<button class="btn sm primary" type="button" data-gmail="${esc(r.m.id)}">${ic("mail")}Gmail</button><button class="btn sm ghost" type="button" data-mailto="${esc(r.m.id)}" title="Ouvrir avec la messagerie de l'ordinateur">Autre</button>` : ""}</div></div>`; }).join("") || '<div class="empty">Aucun livre en retard. Bravo !</div>'}</div>
+    ${can("admin") && store.mode === "cloud" ? `<p class="form-note block" style="margin:0">Envoi automatique : un agent n8n peut envoyer ces rappels tout seul (Réglages › Rappels automatiques).</p>` : ""}`, null, el => {
+      const send = (id, gmail) => { const r = rows.find(x => x.m.id === id); if (!r) return; const { subject, body } = lateMail(r.m, r.loans), q = encodeURIComponent;
+        const url = gmail ? `https://mail.google.com/mail/?view=cm&fs=1&to=${q(r.email)}&su=${q(subject)}&body=${q(body)}` : `mailto:${r.email}?subject=${q(subject)}&body=${q(body)}`;
+        window.open(url, "_blank", "noopener"); r.loans.forEach(e => { const o = S.emprunts.find(x => x.id === e.id); if (o) put("emprunts", { ...o, rappel: todayISO() }); });
+        const row = $(`[data-gmail="${CSS.escape(id)}"]`, el); if (row) row.closest(".rem-row").classList.add("sent"); };
+      $$("[data-gmail]", el).forEach(b => b.onclick = () => send(b.dataset.gmail, true));
+      $$("[data-mailto]", el).forEach(b => b.onclick = () => send(b.dataset.mailto, false));
+      const cp = $("#copyMails", el); if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(withMail.map(r => r.email).join(", ")); toast(`${withMail.length} adresse${withMail.length > 1 ? "s" : ""} copiée${withMail.length > 1 ? "s" : ""}`); } catch { toast("Copie impossible sur cet appareil.", true); } };
+    });
+}
+/* clé pour l'agent n8n (Réglages, administrateur) */
+async function n8nSheet(nouvelle) {
+  const { data, error } = await auth.sb.rpc("kiv_cle_n8n", { nouvelle: !!nouvelle }); if (error) return toast(cloudError(error), true);
+  const url = CLOUD_CFG.supabaseUrl.replace(/\/$/, "") + "/rest/v1/rpc/kiv_retards_n8n";
+  openSheet("Rappels automatiques avec n8n", data ? `<p class="form-note block" style="margin:0">Dans n8n, ajoutez un nœud <b>HTTP Request</b> (méthode POST) avec ces réglages. Il renvoie la liste des élèves en retard (nom, classe, e-mail, livre, jours de retard, amende) ; un nœud <b>Gmail</b> peut ensuite envoyer un e-mail à chacun, par exemple chaque lundi matin.</p>
+      <div class="f"><label>URL</label><input readonly value="${esc(url)}" onclick="this.select()"></div>
+      <div class="f"><label>En-têtes</label><textarea readonly rows="3" onclick="this.select()">apikey: ${esc(CLOUD_CFG.supabaseKey)}\nContent-Type: application/json</textarea></div>
+      <div class="f"><label>Corps (JSON)</label><textarea readonly rows="2" onclick="this.select()">{ "cle": "${esc(data)}" }</textarea></div>
+      <div class="warn-box">${ic("alert")}<div>Gardez cette clé secrète : elle donne accès aux adresses e-mail des élèves en retard. En cas de doute, créez-en une nouvelle (l'ancienne ne marchera plus).</div></div>`
+    : `<p class="form-note block" style="margin:0">Créez une clé secrète : elle permet à votre agent n8n de récupérer la liste des élèves en retard pour leur envoyer un e-mail automatiquement.</p>`,
+    `${data ? `<button class="btn ghost" type="button" id="n8nNew">Nouvelle clé</button>` : ""}<button class="btn primary" type="button" id="n8nOk">${data ? "Fermer" : ic("key") + "Créer la clé"}</button>`, el => {
+      $("#n8nOk", el).onclick = () => data ? closeSheet() : (closeSheet(true), n8nSheet(true));
+      const nw = $("#n8nNew", el); if (nw) nw.onclick = () => confirmSheet("Créer une nouvelle clé ?", "L'ancienne clé ne fonctionnera plus : il faudra mettre la nouvelle dans n8n.", "Nouvelle clé", () => n8nSheet(true));
+    });
+}
+
+/* ---------- bon de commande des fournitures (PDF par fournisseur) ---------- */
+function orderSheet() {
+  if (!guard("fourn")) return;
+  const items = D.fournitures.slice().sort((a, b) => (a.etat === "ok") - (b.etat === "ok") || String(a.fournisseur || "").localeCompare(String(b.fournisseur || ""), "fr") || a.article.localeCompare(b.article, "fr"));
+  const sel = new Map(items.filter(f => f.etat !== "ok").map(f => [f.id, Math.max(1, (+f.seuil || 0) * 2 - f.stock)]));
+  const supplier = f => (f.fournisseur || "").trim() || "Fournisseur non précisé";
+  const draw = el => {
+    const groups = new Map(); items.forEach(f => { const k = supplier(f); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(f); });
+    const order = [...groups.entries()].sort((a, b) => b[1].filter(f => sel.has(f.id)).length - a[1].filter(f => sel.has(f.id)).length || a[0].localeCompare(b[0], "fr"));
+    $("#poBody", el).innerHTML = order.map(([k, fs]) => { const tot = fs.filter(f => sel.has(f.id)).reduce((a, f) => a + sel.get(f.id) * (+f.prix || 0), 0), n = fs.filter(f => sel.has(f.id)).length;
+      return `<div class="po-group${n ? "" : " empty-g"}"><div class="po-h"><b>${esc(k)}</b><span class="s">${n ? `${n} article${n > 1 ? "s" : ""} · ${fc(tot)}` : "rien à commander"}</span>${n ? `<button class="btn sm ghost" type="button" data-po-pdf="${esc(k)}" style="margin-left:auto">${ic("down")}PDF</button>` : ""}</div>
+        ${fs.map(f => `<label class="po-row${sel.has(f.id) ? " on" : ""}"><input type="checkbox" data-po="${esc(f.id)}" ${sel.has(f.id) ? "checked" : ""}><span class="po-art"><b>${esc(f.article)}</b><small>stock ${f.stock} · seuil ${f.seuil} · ${fc(f.prix)} / ${esc(String(f.unite).toLowerCase())}</small></span>${etatPill(f)}
+          <input type="number" min="1" step="1" inputmode="numeric" class="po-q" data-po-q="${esc(f.id)}" value="${sel.has(f.id) ? sel.get(f.id) : Math.max(1, (+f.seuil || 0) * 2 - f.stock)}" ${sel.has(f.id) ? "" : "disabled"} aria-label="Quantité de ${esc(f.article)}"></label>`).join("")}</div>`; }).join("");
+    $$("[data-po]", el).forEach(c => c.onchange = () => { const f = items.find(x => x.id === c.dataset.po); if (c.checked) sel.set(f.id, Math.max(1, +$(`[data-po-q="${CSS.escape(f.id)}"]`, el).value || 1)); else sel.delete(f.id); draw(el); });
+    $$("[data-po-q]", el).forEach(i => i.onchange = () => { if (sel.has(i.dataset.poQ)) { sel.set(i.dataset.poQ, Math.max(1, +i.value || 1)); draw(el); } });
+    $$("[data-po-pdf]", el).forEach(b => b.onclick = () => orderPDF([[b.dataset.poPdf, groups.get(b.dataset.poPdf).filter(f => sel.has(f.id))]], sel));
+    const all = order.map(([k, fs]) => [k, fs.filter(f => sel.has(f.id))]).filter(([, fs]) => fs.length);
+    $("#poAll", el).disabled = !all.length; $("#poAll", el).onclick = () => orderPDF(all, sel);
+  };
+  openSheet("Bon de commande", `<p class="form-note block" style="margin:0">Les articles sous le seuil d'alerte sont déjà cochés, avec une quantité proposée (deux fois le seuil, moins le stock). Ajustez puis téléchargez un bon par fournisseur.</p><div id="poBody" class="po-body"></div>`,
+    `<button class="btn ghost" type="button" data-close2>Fermer</button><button class="btn primary" type="button" id="poAll">${ic("down")}Tous les bons (PDF)</button>`, el => { $("[data-close2]", el).onclick = () => closeSheet(); draw(el); });
+}
+function orderPDF(groups, sel) {
+  if (!window.jspdf || !window.jspdf.jsPDF) return toast("Le module PDF n'a pas pu être chargé.", true);
+  const { jsPDF } = window.jspdf, doc = new jsPDF({ unit: "mm", format: "a4" }), p = params(), NAVY = [11, 60, 93], BLUE = [0, 150, 214], MUTED = [110, 128, 145];
+  const d = todayISO().replace(/-/g, "");
+  groups.forEach(([four, fs], i) => {
+    if (i) doc.addPage();
+    try { doc.addImage(LOGO, "PNG", 16, 12, 16, 16 * 213 / 180); } catch {}
+    doc.setFont("helvetica", "bold"); doc.setFontSize(20); doc.setTextColor(...NAVY); doc.text("BON DE COMMANDE", 194, 20, { align: "right" });
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(...MUTED);
+    doc.text(pdfSafe(`N° BC-${d}-${i + 1}`), 194, 26, { align: "right" }); doc.text(pdfSafe(`Goma, le ${fmtLong(todayISO())}`), 194, 31, { align: "right" });
+    doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(...NAVY); doc.text(pdfSafe(p.ecole), 36, 19);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9.5); doc.setTextColor(...MUTED); doc.text("Gestion des fournitures", 36, 24.5);
+    doc.setDrawColor(...BLUE); doc.setLineWidth(.6); doc.line(16, 40, 194, 40);
+    doc.setFontSize(9.5); doc.text("FOURNISSEUR", 16, 49); doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(...NAVY); doc.text(pdfSafe(four), 16, 56);
+    const body = fs.map(f => { const q = sel.get(f.id), pu = +f.prix || 0; return [f.article, f.unite, String(q), fc(pu), fc(q * pu)].map(pdfSafe); });
+    const tot = fs.reduce((a, f) => a + sel.get(f.id) * (+f.prix || 0), 0);
+    doc.autoTable({ startY: 64, margin: { left: 16, right: 16 }, head: [["Article", "Unité", "Quantité", "Prix unitaire", "Total"]], body, foot: [["", "", "", "Total", pdfSafe(fc(tot))]],
+      headStyles: { fillColor: BLUE, textColor: 255, fontStyle: "bold" }, footStyles: { fillColor: [240, 245, 250], textColor: NAVY, fontStyle: "bold" },
+      styles: { fontSize: 10, cellPadding: 3, textColor: NAVY }, alternateRowStyles: { fillColor: [247, 250, 253] },
+      columnStyles: { 2: { halign: "center" }, 3: { halign: "right" }, 4: { halign: "right" } } });
+    const y = Math.min(250, doc.lastAutoTable.finalY + 22);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(...MUTED);
+    doc.text("Merci de livrer à l'économat de l'école et de joindre la facture.", 16, y);
+    doc.setDrawColor(...MUTED); doc.setLineWidth(.3); doc.line(16, y + 24, 80, y + 24); doc.line(130, y + 24, 194, y + 24);
+    doc.text("Le gestionnaire des fournitures", 48, y + 30, { align: "center" }); doc.text("La direction", 162, y + 30, { align: "center" });
+    doc.setFontSize(7); doc.text("Kivuthèque", 105, 290, { align: "center" });
+  });
+  const slug = x => String(x).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const name = groups.length === 1 ? `Bon-de-commande-${slug(groups[0][0])}-${d}.pdf` : `Bons-de-commande-${d}.pdf`;
+  if (store.mode === "db") return saveFile(name, doc.output("blob"), "application/pdf");
+  doc.save(name); toast(groups.length > 1 ? `${groups.length} bons de commande enregistrés` : "Bon de commande enregistré : " + name);
+}
+
+/* ============================================================ avis écrits et clubs de lecture */
+const lsGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
+async function loadSocial() {
+  if (store.mode !== "cloud" || !auth.sb) return;
+  const staff = ["admin", "bibliothecaire"].includes(roleOf());
+  const [c, r, a] = await Promise.all([auth.sb.rpc("kiv_clubs"), auth.sb.rpc("kiv_avis_publies", { livre: null, n: 14 }),
+    staff ? auth.sb.from("avis").select("*").eq("statut", "attente").order("texte_le") : null]);
+  store.clubs = (c && c.data) || [];
+  store.avisRecents = (r && r.data) || [];
+  store.avisAttente = staff ? ((a && a.data) || []) : [];
+}
+const fmtRdv = iso => { if (!iso) return ""; const d = new Date(iso); return d.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) + " à " + pad(d.getHours()) + "h" + pad(d.getMinutes()); };
+
+/* ---------- avis écrits ---------- */
+/* encadré « ton avis » dans la fiche d'un livre (lecteur) */
+function reviewBox(id) {
+  const lu = D.emprunts.some(e => e.livre === id && e.membre === auth.profile.membre_id && e.retour); if (!lu) return "";
+  const a = store.mesAvis && store.mesAvis.get(id);
+  if (a && a.texte && !ui.editReview) {
+    const st = a.statut === "publie" ? pill("Publié", "ok") : a.statut === "refuse" ? pill("Pas publié", "bad") : pill("En attente de validation", "warn");
+    return `<div class="rv-box"><div class="rv-h"><b>Ton avis</b>${st}<button class="link" type="button" id="rvEdit" style="margin:0 0 0 auto">${ic("edit")}Modifier</button></div>
+      <p class="rv-txt">« ${esc(a.texte)} »</p>${a.statut === "refuse" && a.motif ? `<div class="s">Message de la bibliothèque : ${esc(a.motif)}</div>` : ""}</div>`;
+  }
+  return `<div class="rv-box"><div class="rv-h"><b>Donne ton avis</b><span class="s">la bibliothèque le lit avant de le publier</span></div>
+    <textarea id="rvTxt" rows="3" maxlength="500" placeholder="Qu'as-tu aimé ? À qui le conseillerais-tu ?">${esc(a && a.texte || "")}</textarea>
+    <div class="rv-foot"><span class="s" id="rvCount">${(a && a.texte || "").length} / 500</span><button class="btn sm primary" type="button" id="rvSend">${ic("check")}Envoyer mon avis</button></div></div>`;
+}
+function bindReviewBox(el, id) {
+  const ed = $("#rvEdit", el); if (ed) ed.onclick = () => { ui.editReview = true; readerBookDetail(id); ui.editReview = false; setTimeout(() => { const t = $("#rvTxt"); if (t) t.focus(); }, 80); };
+  const t = $("#rvTxt", el); if (t) t.oninput = () => $("#rvCount", el).textContent = t.value.length + " / 500";
+  const s = $("#rvSend", el); if (s) s.onclick = async () => {
+    const texte = t.value.trim(), note = store.mesNotes && store.mesNotes.get(id);
+    if (texte.length < 10) return toast("Écris au moins une phrase (10 caractères).", true);
+    if (!note) return toast("Choisis d'abord tes étoiles juste au-dessus.", true);
+    s.disabled = true; const { error } = await auth.sb.rpc("kiv_avis_ecrire", { livre: id, note, texte }); s.disabled = false;
+    if (error) return toast(cloudError(error), true);
+    await loadReaderExtras(); toast("Merci ! La bibliothèque va lire ton avis."); render(); readerBookDetail(id);
+  };
+}
+/* avis publiés d'un livre */
+async function fillReviews(el, id) {
+  const box = $("#rvList", el); if (!box || store.mode !== "cloud") return;
+  const { data } = await auth.sb.rpc("kiv_avis_publies", { livre: id, n: 20 });
+  if (!$("#rvList", el) || !data || !data.length) return;
+  box.innerHTML = `<h3 style="font-size:15px;margin:4px 0 0">Avis des lecteurs</h3><div class="rv-list">${data.map(r => `<div class="rv-item"><div class="rv-who"><b>${esc(r.nom)}</b><span class="s">${esc(r.classe || "")}</span>${starsHTML(r.note, "sm")}</div><p>${esc(r.texte)}</p></div>`).join("")}</div>`;
+}
+/* dans l'espace de l'élève : « donne ton avis », avis publié ou refusé (affiché pendant toute la visite où il apparaît) */
+const rvSession = new Set();
+function reviewAlerts() {
+  const out = [], mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id && e.retour).sort((a, b) => a.retour < b.retour ? 1 : -1);
+  (store.mesAvis ? [...store.mesAvis.values()] : []).filter(a => a.texte && ["publie", "refuse"].includes(a.statut) && (!lsGet(`kiv-rv-${a.statut}-${a.livre}`) || rvSession.has(`${a.statut}-${a.livre}`))).forEach(a => {
+    const b = D.livres.get(a.livre); if (!b) return; lsSet(`kiv-rv-${a.statut}-${a.livre}`, "1"); rvSession.add(`${a.statut}-${a.livre}`);
+    out.push(a.statut === "publie" ? `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("star")}<div><b>Ton avis sur « ${esc(b.titre)} » a été publié !</b><span>Les autres élèves peuvent le lire sur la fiche du livre.</span></div></div>`
+      : `<div class="nf-alert" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("edit")}<div><b>Ton avis sur « ${esc(b.titre)} » n'a pas été publié</b><span>${a.motif ? esc(a.motif) + " · " : ""}Tu peux le modifier depuis la fiche du livre.</span></div></div>`); });
+  const todo = mine.find(e => diffDays(D.T, e.retour) <= 30 && !(store.mesAvis && store.mesAvis.get(e.livre) && store.mesAvis.get(e.livre).texte) && !lsGet("kiv-rv-skip-" + e.livre) && D.livres.get(e.livre));
+  if (todo) { const b = D.livres.get(todo.livre);
+    out.push(`<div class="rv-prompt"><span class="ta-cover">${miniCover(b)}</span><div style="flex:1;min-width:0"><b>Tu as fini « ${esc(b.titre)} » ?</b><span>Donne ton avis : il aidera les autres élèves à choisir leur prochain livre.</span></div>
+      <button class="btn sm primary" type="button" data-rv-go="${esc(b.id)}">${ic("star")}Donner mon avis</button><button class="btn sm ghost" type="button" data-rv-skip="${esc(b.id)}">Plus tard</button></div>`); }
+  return out.join("");
+}
+function reviewsRow() {
+  const list = (store.avisRecents || []).filter(r => D.livres.get(r.livre_id)); if (!list.length) return "";
+  return `<section class="nf-row" aria-label="Les élèves en parlent"><div class="nf-h"><h3>Les élèves en parlent</h3><span class="sub">avis publiés par la bibliothèque</span></div>
+    <div class="nf-track">${list.map(r => { const b = D.livres.get(r.livre_id); return `<button type="button" class="quote-card" data-book="${esc(b.id)}">${miniCover(b)}<div><span class="q-t">« ${esc(r.texte.length > 140 ? r.texte.slice(0, 137) + "…" : r.texte)} »</span>
+      <span class="q-b">${starsHTML(r.note, "sm")} ${esc(b.titre)}</span><span class="q-w">${esc(r.nom)}${r.classe ? " · " + esc(r.classe) : ""}</span></div></button>`; }).join("")}</div></section>`;
+}
+/* ---------- page « Avis à valider » (bibliothèque) ---------- */
+function avisView() {
+  const list = (store.avisAttente || []).slice(), rec = store.avisRecents || [];
+  return `<div class="card"><div class="card-h"><h3>Avis à valider</h3><span class="sub">${list.length} avis · corrigez une faute si besoin avant de publier</span></div>
+      ${list.length ? `<div class="mod-list">${list.map(a => { const b = D.livres.get(a.livre), m = D.membres.get(a.membre);
+        return `<div class="mod-row" data-mod="${esc(a.livre)}|${esc(a.membre)}">${miniCover(b)}<div class="mod-main"><div class="t">« ${esc(b ? b.titre : a.livre)} » ${starsHTML(a.note, "sm")}</div>
+          <div class="s">${esc(m ? m.nom : a.membre)}${m ? " · " + esc(m.classe) : ""} · ${since(a.texte_le || a.updated_at)}</div>
+          <textarea rows="2" maxlength="500" class="mod-txt">${esc(a.texte)}</textarea>
+          <div class="mod-act"><input class="mod-motif" maxlength="300" placeholder="Message à l'élève si vous refusez (facultatif)"><button class="btn sm ghost danger-t" type="button" data-mod-no>Refuser</button><button class="btn sm primary" type="button" data-mod-ok>${ic("check")}Publier</button></div></div></div>`; }).join("")}</div>`
+      : `<div class="empty">${ic("check")} Aucun avis en attente. Les nouveaux avis des élèves apparaîtront ici.</div>`}</div>
+    <div class="card"><div class="card-h"><h3>Derniers avis publiés</h3></div><div class="rv-list">${rec.map(r => { const b = D.livres.get(r.livre_id); return `<div class="rv-item"><div class="rv-who"><b>${esc(r.nom)}</b><span class="s">${esc(r.classe || "")} · « ${esc(b ? b.titre : r.livre_id)} »</span>${starsHTML(r.note, "sm")}</div><p>${esc(r.texte)}</p></div>`; }).join("") || '<div class="empty">Aucun avis publié pour l\'instant.</div>'}</div></div>`;
+}
+function bindAvis(v) {
+  $$("[data-mod]", v).forEach(row => { const [livre, membre] = row.dataset.mod.split("|");
+    const go = async publier => { $$("button", row).forEach(b => b.disabled = true);
+      const { error } = await auth.sb.rpc("kiv_avis_valider", { livre, membre, publier, texte: $(".mod-txt", row).value, motif: $(".mod-motif", row).value });
+      if (error) { $$("button", row).forEach(b => b.disabled = false); return toast(cloudError(error), true); }
+      await loadSocial(); toast(publier ? "Avis publié" : "Avis refusé"); render(); };
+    $("[data-mod-ok]", row).onclick = () => go(true); $("[data-mod-no]", row).onclick = () => go(false); });
+}
+
+/* ---------- clubs de lecture ---------- */
+const canCreateClub = () => store.mode === "cloud" && ["enseignant", "admin", "bibliothecaire"].includes(roleOf());
+function clubCover(c) { const b = c.livre && D.livres.get(c.livre); return b ? `<div class="cover club-cv" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><div><div class="cv-title">${esc(b.titre)}</div></div></div>` : `<div class="club-cv none">${ic("users")}</div>`; }
+function clubsView() {
+  if (ui.club) return clubDetailView();
+  const all = store.clubs || [], mine = all.filter(c => c.moi || c.gere), others = all.filter(c => !c.moi && !c.gere);
+  const card = c => { const b = c.livre && D.livres.get(c.livre); return `<button type="button" class="club-card" data-club="${esc(c.id)}">${clubCover(c)}<div class="club-in"><b>${esc(c.nom)}</b>
+      <span class="s">${b ? "Livre du moment : « " + esc(b.titre) + " »" : "Pas encore de livre"}</span>
+      <span class="s">${c.membres} membre${c.membres > 1 ? "s" : ""} · animé par ${esc(c.animateur_nom || "la bibliothèque")}</span>
+      ${c.rdv && new Date(c.rdv) > new Date() ? `<span class="club-rdv">${ic("clock")}${esc(fmtRdv(c.rdv))}</span>` : ""}
+      <span class="club-tags">${c.moi ? pill("Membre", "ok") : ""}${c.gere ? pill("Animateur", "info") : ""}${c.a_valider ? pill(c.a_valider + " à valider", "warn") : ""}${c.acces === "classe" ? pill(c.classe, "mute") : c.acces === "invitation" ? pill("Sur invitation", "mute") : ""}</span></div></button>`; };
+  return `<div class="toolbar"><p class="s" style="margin:0;font-size:14px">Lire le même livre en même temps, en parler et voter pour le suivant.</p>${canCreateClub() ? `<button class="btn sm primary" type="button" id="newClub" style="margin-left:auto">${ic("plus")}Créer un club</button>` : ""}</div>
+    ${mine.length ? `<div class="card"><div class="card-h"><h3>${isReader() && !isTeacher() ? "Mes clubs" : "Mes clubs"}</h3></div><div class="club-grid">${mine.map(card).join("")}</div></div>` : ""}
+    <div class="card"><div class="card-h"><h3>${mine.length ? "Autres clubs" : "Les clubs"}</h3></div>${others.length ? `<div class="club-grid">${others.map(card).join("")}</div>` : `<div class="empty">${all.length ? "Tu fais déjà partie de tous les clubs ouverts !" : canCreateClub() ? "Aucun club pour l'instant. Créez le premier !" : "Aucun club pour l'instant. Demande à ton enseignant ou à la bibliothécaire d'en créer un."}</div>`}</div>`;
+}
+async function loadClub(id) {
+  const { data, error } = await auth.sb.rpc("kiv_club", { cid: id });
+  if (error) { toast(cloudError(error), true); ui.club = null; return render(); }
+  store.clubDetail = { id, ...data }; if (ui.view === "clubs" && ui.club === id) render();
+}
+function clubDetailView() {
+  const c = (store.clubs || []).find(x => x.id === ui.club);
+  if (!c) { ui.club = null; return clubsView(); }
+  const d = store.clubDetail && store.clubDetail.id === c.id ? store.clubDetail : null;
+  if (!d) { loadClub(c.id); return `<button class="link" type="button" id="clubBack">${ic("arrow")} Tous les clubs</button><div class="skeleton" style="height:280px"></div>`; }
+  const b = c.livre && D.livres.get(c.livre), me = d.membres.find(x => x.moi), fini = d.membres.filter(x => x.fini).length, reader = !!auth.profile.membre_id;
+  const q0 = d.questions[0], older = d.questions.slice(1), totalVotes = Object.values(d.votes || {}).reduce((a, n) => a + n, 0);
+  const answer = r => `<div class="ans${r.statut !== "publie" ? " pending" : ""}"><b>${esc(r.nom)}</b><p>${esc(r.texte)}</p>${r.statut === "attente" ? (c.gere ? `<div class="ans-act"><span class="s">En attente</span><button class="btn sm ghost danger-t" type="button" data-ans-no="${esc(r.id)}">Refuser</button><button class="btn sm primary" type="button" data-ans-ok="${esc(r.id)}">Publier</button></div>` : `<span class="s">En attente de validation</span>`) : r.statut === "refuse" ? `<span class="s">Pas publiée</span>` : ""}</div>`;
+  const qBlock = (q, big) => { const mine = q.reponses.find(r => r.moi);
+    return `<div class="club-q${big ? " big" : ""}"><span class="nf-kicker" style="color:var(--accent)">${big ? "Question de la semaine" : "Question du " + esc(fmtD(String(q.le).slice(0, 10)))}</span><h3>${esc(q.texte)}</h3>
+      <div class="ans-list">${q.reponses.map(answer).join("") || '<span class="s">Pas encore de réponse.</span>'}</div>
+      ${big && (me || c.gere) && reader ? `<div class="ans-form"><textarea rows="2" maxlength="500" id="ansTxt" placeholder="${mine ? "Modifier ma réponse…" : "Ma réponse…"}">${esc(mine ? mine.texte : "")}</textarea><button class="btn sm primary" type="button" id="ansSend" data-q="${esc(q.id)}">${ic("check")}${mine ? "Modifier" : "Répondre"}</button></div>` : ""}</div>`; };
+  return `<button class="link" type="button" id="clubBack" style="margin:0">${ic("arrow")} Tous les clubs</button>
+    <div class="club-hero" style="${b ? coverVars(b) : ""}">${b && b.cover ? `<img class="bd-bg" src="${esc(b.cover)}" alt="">` : ""}<div class="club-hero-in">${clubCover(c)}
+      <div class="club-hero-txt"><span class="nf-kicker">Club de lecture${c.acces === "classe" ? " · " + esc(c.classe) : c.acces === "invitation" ? " · sur invitation" : ""}</span><h2>${esc(c.nom)}</h2>
+        ${c.description ? `<p>${esc(c.description)}</p>` : ""}
+        <div class="club-facts">${b ? `<span>${ic("book")}Livre du moment : <b data-book="${esc(b.id)}" role="button" tabindex="0">« ${esc(b.titre)} »</b></span>` : ""}
+          ${c.rdv ? `<span>${ic("clock")}Rendez-vous : <b>${esc(fmtRdv(c.rdv))}</b>${c.lieu ? " · " + esc(c.lieu) : ""}</span>` : ""}
+          ${c.a_lire ? `<span>${ic("check")}À lire : <b>${esc(c.a_lire)}</b></span>` : ""}
+          <span>${ic("users")}${d.membres.length} membre${d.membres.length > 1 ? "s" : ""} · animé par ${esc(c.animateur_nom || "la bibliothèque")}</span></div>
+        <div class="club-act">${reader && !c.gere ? me ? `<button class="btn sm ${me.fini ? "ghost" : "primary"}" type="button" id="clubFini">${ic("check")}${me.fini ? "Lecture finie" : "J'ai fini ma lecture"}</button><button class="btn sm ghost" type="button" id="clubLeave">Quitter le club</button>`
+            : c.acces === "invitation" ? `<span class="s" style="color:#fff">Club sur invitation</span>` : `<button class="btn primary" type="button" id="clubJoin">${ic("plus")}Rejoindre le club</button>` : ""}
+          ${c.gere ? `<button class="btn sm primary" type="button" id="clubAsk">${ic("plus")}Poser une question</button><button class="btn sm ghost" type="button" id="clubEdit">${ic("edit")}Modifier</button><button class="btn sm ghost" type="button" id="clubInvite">${ic("users")}Membres</button><button class="btn sm ghost" type="button" id="clubDel">${ic("trash")}</button>` : ""}</div></div></div></div>
+    <div class="grid cols-21">
+      <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+        <div class="card">${q0 ? qBlock(q0, true) : `<div class="empty">${c.gere ? "Posez la première question pour lancer la discussion." : "L'animateur n'a pas encore posé de question."}</div>`}
+          ${older.length ? `<details class="cons-old"><summary>Questions précédentes (${older.length})</summary>${older.map(q => qBlock(q, false)).join("")}</details>` : ""}</div></div>
+      <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+        ${c.vote && c.vote.length ? `<div class="card"><div class="card-h"><h3>Vote : le prochain livre</h3><span class="sub">${totalVotes} vote${totalVotes > 1 ? "s" : ""}</span></div><div class="vote-list">${c.vote.map(id => { const vb = D.livres.get(id), n = (d.votes || {})[id] || 0, on = d.mon_vote === id;
+            return `<button type="button" class="vote-opt${on ? " on" : ""}" data-vote="${esc(id)}" ${me ? "" : "disabled"}>${miniCover(vb)}<span class="vote-in"><b>${esc(vb ? vb.titre : id)}</b><span class="meter"><b data-w="${totalVotes ? Math.round(n / totalVotes * 100) : 0}%" style="width:0"></b></span></span><span class="num">${n}</span></button>`; }).join("")}</div>
+          ${me ? "" : `<p class="s" style="margin:8px 0 0">Rejoins le club pour voter.</p>`}</div>` : ""}
+        <div class="card"><div class="card-h"><h3>Membres</h3><span class="sub">${fini} / ${d.membres.length} ont fini le livre</span></div><div class="club-members">${d.membres.map(x => `<div class="cm${x.fini ? " done" : ""}" title="${esc(x.nom)}${x.fini ? " · a fini" : ""}">${personAvatar({ id: x.membre, nom: x.nom, avatar: x.avatar })}<span>${esc(x.nom)}${x.moi ? " (toi)" : ""}</span>${x.fini ? `<i>${ic("check")}</i>` : ""}</div>`).join("") || '<span class="s">Personne pour l\'instant.</span>'}</div></div>
+      </div></div>`;
+}
+let clubPoll = null;
+function bindClubs(v) {
+  clearInterval(clubPoll);
+  const nb = $("#newClub", v); if (nb) nb.onclick = () => clubSheet();
+  $$("[data-club]", v).forEach(x => x.onclick = () => { ui.club = x.dataset.club; store.clubDetail = null; ui.animate = true; render(); window.scrollTo({ top: 0 }); });
+  const back = $("#clubBack", v); if (back) back.onclick = () => { ui.club = null; ui.animate = true; loadSocial().then(render); render(); };
+  if (!ui.club) return;
+  const c = (store.clubs || []).find(x => x.id === ui.club); if (!c) return;
+  clubPoll = setInterval(() => { if (ui.view === "clubs" && ui.club === c.id && !sheetEl && !document.hidden && !(document.activeElement && document.activeElement.id === "ansTxt")) loadClub(c.id); else if (ui.view !== "clubs") clearInterval(clubPoll); }, 30000);
+  const act = (fn, args, msg) => async () => { const { error } = await auth.sb.rpc(fn, args); if (error) return toast(cloudError(error), true); if (msg) toast(msg); await loadSocial(); await loadClub(c.id); };
+  const j = $("#clubJoin", v); if (j) j.onclick = act("kiv_club_rejoindre", { cid: c.id, oui: true }, `Bienvenue dans « ${c.nom} » !`);
+  const l = $("#clubLeave", v); if (l) l.onclick = () => confirmSheet("Quitter le club ?", `Tu ne feras plus partie de « ${c.nom} ».`, "Quitter", act("kiv_club_rejoindre", { cid: c.id, oui: false }, "Tu as quitté le club"));
+  const f = $("#clubFini", v); if (f) { const me = store.clubDetail.membres.find(x => x.moi); f.onclick = act("kiv_club_fini", { cid: c.id, oui: !me.fini }, me.fini ? null : "Bravo, lecture finie !"); }
+  $$("[data-vote]", v).forEach(x => x.onclick = act("kiv_club_voter", { cid: c.id, livre: x.dataset.vote }, "Vote enregistré"));
+  const as = $("#ansSend", v); if (as) as.onclick = async () => { const t = $("#ansTxt", v).value.trim(); if (t.length < 2) return toast("Écris ta réponse.", true);
+    as.disabled = true; const { error } = await auth.sb.rpc("kiv_club_repondre", { qid: as.dataset.q, texte: t }); as.disabled = false; if (error) return toast(cloudError(error), true);
+    toast(c.gere ? "Réponse publiée" : "Merci ! Ta réponse sera visible après validation."); await loadClub(c.id); };
+  $$("[data-ans-ok],[data-ans-no]", v).forEach(x => x.onclick = act("kiv_club_moderer", { rid: x.dataset.ansOk || x.dataset.ansNo, publier: !!x.dataset.ansOk }, x.dataset.ansOk ? "Réponse publiée" : "Réponse refusée"));
+  const ask = $("#clubAsk", v); if (ask) ask.onclick = () => openSheet("Question de la semaine", `<div class="f"><label for="qTxt">Question pour les membres du club</label><textarea id="qTxt" rows="3" maxlength="300" placeholder="Ex. : Que ferais-tu à la place du personnage principal ?"></textarea></div>`,
+    `<button class="btn primary" type="button" id="qOk">${ic("check")}Publier la question</button>`, el => { $("#qOk", el).onclick = async () => { const t = $("#qTxt", el).value.trim(); if (t.length < 3) return toast("Écrivez la question.", true);
+      const { error } = await auth.sb.rpc("kiv_club_question", { cid: c.id, texte: t }); if (error) return toast(cloudError(error), true); closeSheet(); toast("Question publiée"); await loadClub(c.id); }; });
+  const ed = $("#clubEdit", v); if (ed) ed.onclick = () => clubSheet(c);
+  const iv = $("#clubInvite", v); if (iv) iv.onclick = () => clubMembersSheet(c);
+  const del = $("#clubDel", v); if (del) del.onclick = () => confirmSheet(`Supprimer « ${c.nom} » ?`, "Les questions, réponses et votes du club seront effacés.", "Supprimer", async () => {
+    const { error } = await auth.sb.rpc("kiv_club_supprimer", { cid: c.id }); if (error) return toast(cloudError(error), true); ui.club = null; await loadSocial(); toast("Club supprimé"); render(); });
+}
+/* choisir un livre du catalogue (clubs) */
+function bookSearchHTML(id) { return `<input id="${id}" placeholder="Chercher un titre ou un auteur…" autocomplete="off"><div class="cs-res" id="${id}-res"></div>`; }
+function wireBookSearch(el, id, onPick) {
+  const draw = () => { const q = norm($("#" + id, el).value.trim());
+    const list = [...D.livres.values()].filter(b => !q || norm(b.titre + " " + b.auteur).includes(q)).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, q ? 6 : 4);
+    $(`#${id}-res`, el).innerHTML = list.map(b => `<button type="button" class="cs-item" data-pick="${esc(b.id)}">${miniCover(b)}<span><b>${esc(b.titre)}</b><small>${esc(b.auteur || "")} · ${+b.ex || 0} exemplaire${(+b.ex || 0) > 1 ? "s" : ""}</small></span></button>`).join("");
+    $$(`#${id}-res [data-pick]`, el).forEach(x => x.onclick = () => { onPick(x.dataset.pick); $("#" + id, el).value = ""; draw(); }); };
+  $("#" + id, el).oninput = draw; draw();
+}
+function clubSheet(c) {
+  c = c || { nom: "", description: "", livre: "", acces: "ecole", classe: "", rdv: null, lieu: "Bibliothèque", a_lire: "", vote: [] };
+  let livre = c.livre || "", vote = (c.vote || []).slice(), acces = c.acces;
+  const classes = roleOf() === "enseignant" ? (auth.profile.classes || []) : ((S.params && S.params.classes) || CLASSES).filter(x => x !== "Personnel");
+  const rdvLocal = c.rdv ? (() => { const d = new Date(c.rdv); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`; })() : "";
+  openSheet(c.id ? "Modifier le club" : "Créer un club de lecture", `
+    <div class="f"><label for="cbNom">${req("Nom du club")}</label><input id="cbNom" maxlength="60" value="${esc(c.nom)}" placeholder="Ex. : Club des aventuriers"></div>
+    <div class="f"><label for="cbDesc">Description</label><textarea id="cbDesc" rows="2" maxlength="400" placeholder="Ex. : On lit des romans d'aventure et on en parle chaque jeudi.">${esc(c.description || "")}</textarea></div>
+    <div class="f"><label>Livre du moment</label><div id="cbBook"></div><div id="cbBookS"></div></div>
+    <div class="f"><label>Qui peut entrer ?</label><div class="seg" id="cbAcces" style="flex-wrap:wrap">${[["ecole", "Toute l'école"], ["classe", "Une classe"], ["invitation", "Sur invitation"]].map(([k, l]) => `<button type="button" data-acc="${k}" aria-pressed="${k === acces}">${l}</button>`).join("")}</div></div>
+    <div class="f" id="cbClasseF"><label for="cbClasse">Classe</label><select id="cbClasse">${classes.map(x => `<option ${x === c.classe ? "selected" : ""}>${esc(x)}</option>`).join("")}</select></div>
+    <div class="f2"><div class="f"><label for="cbRdv">Prochain rendez-vous</label><input id="cbRdv" type="datetime-local" value="${rdvLocal}"></div><div class="f"><label for="cbLieu">Lieu</label><input id="cbLieu" maxlength="80" value="${esc(c.lieu || "")}"></div></div>
+    <div class="f"><label for="cbLire">À lire pour le rendez-vous</label><input id="cbLire" maxlength="160" value="${esc(c.a_lire || "")}" placeholder="Ex. : chapitres 1 à 5"></div>
+    <div class="f"><label>Vote pour le prochain livre (3 au maximum, facultatif)</label><div class="chips" id="cbVote"></div><div id="cbVoteS"></div></div>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="cbOk">${ic("check")}${c.id ? "Enregistrer" : "Créer le club"}</button>`, el => {
+      const drawBook = () => { const b = D.livres.get(livre);
+        $("#cbBook", el).innerHTML = b ? `<div class="cs-item on">${miniCover(b)}<span><b>${esc(b.titre)}</b><small>${esc(b.auteur || "")}</small></span><button type="button" class="link" id="cbBookX">Changer</button></div>` : "";
+        $("#cbBookS", el).hidden = !!b; const x = $("#cbBookX", el); if (x) x.onclick = () => { livre = ""; drawBook(); }; };
+      const drawVote = () => { $("#cbVote", el).innerHTML = vote.map((id, i) => { const b = D.livres.get(id); return `<span class="chip">${esc(b ? b.titre : id)}<button type="button" data-vrm="${i}" aria-label="Retirer">${ic("x")}</button></span>`; }).join("") || '<span class="s">Aucun livre proposé.</span>';
+        $$("[data-vrm]", el).forEach(x => x.onclick = () => { vote.splice(+x.dataset.vrm, 1); drawVote(); }); $("#cbVoteS", el).hidden = vote.length >= 3; };
+      $("#cbBookS", el).innerHTML = bookSearchHTML("cbBq"); wireBookSearch(el, "cbBq", id => { livre = id; drawBook(); });
+      $("#cbVoteS", el).innerHTML = bookSearchHTML("cbVq"); wireBookSearch(el, "cbVq", id => { if (!vote.includes(id) && vote.length < 3) vote.push(id); drawVote(); });
+      const syncAcc = () => { $("#cbClasseF", el).hidden = acces !== "classe"; $$("[data-acc]", el).forEach(x => x.setAttribute("aria-pressed", x.dataset.acc === acces)); };
+      $$("[data-acc]", el).forEach(x => x.onclick = () => { acces = x.dataset.acc; syncAcc(); });
+      drawBook(); drawVote(); syncAcc();
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#cbOk", el).onclick = async () => {
+        const nom = $("#cbNom", el).value.trim(); if (nom.length < 2) return fieldErr(el, "cbNom", "Donnez un nom au club.");
+        if (acces === "classe" && !classes.length) return toast("Aucune classe disponible.", true);
+        const rdv = $("#cbRdv", el).value ? new Date($("#cbRdv", el).value).toISOString() : null;
+        $("#cbOk", el).disabled = true;
+        const { data, error } = await auth.sb.rpc("kiv_club_enregistrer", { cid: c.id || null, nom, description: $("#cbDesc", el).value, livre: livre || null, acces, classe: acces === "classe" ? $("#cbClasse", el).value : null,
+          rdv, lieu: $("#cbLieu", el).value, a_lire: $("#cbLire", el).value, vote });
+        $("#cbOk", el).disabled = false; if (error) return toast(cloudError(error), true);
+        closeSheet(); toast(c.id ? "Club modifié" : `Club « ${nom} » créé !`); await loadSocial(); ui.club = data || c.id; store.clubDetail = null; if (ui.view !== "clubs") go("clubs"); else render();
+      };
+    });
+}
+function clubMembersSheet(c) {
+  const d = store.clubDetail; if (!d) return;
+  const inClub = new Set(d.membres.map(x => x.membre));
+  const pool = [...D.membres.values()].filter(m => (m.type || "Élève") === "Élève" && (c.acces !== "classe" || m.classe === c.classe)).sort((a, b) => String(a.classe).localeCompare(String(b.classe), "fr") || a.nom.localeCompare(b.nom, "fr"));
+  openSheet(`Membres de « ${c.nom} »`, `<p class="form-note block" style="margin:0">Ajoutez ou retirez des élèves${roleOf() === "enseignant" ? " de vos classes" : ""}. Ils retrouvent le club dans leur espace.</p>
+    <label class="field-search">${ic("search")}<input id="cmQ" type="search" placeholder="Nom ou classe…"></label><div class="rows" id="cmList"></div>`, null, el => {
+      const draw = () => { const q = norm($("#cmQ", el).value.trim());
+        $("#cmList", el).innerHTML = pool.filter(m => !q || norm(m.nom + " " + m.classe).includes(q)).slice(0, 80).map(m => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${avatar(m)}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}</div></div>
+          <button class="btn sm ${inClub.has(m.id) ? "ghost" : "primary"}" type="button" data-cm="${esc(m.id)}">${inClub.has(m.id) ? "Retirer" : ic("plus") + "Ajouter"}</button></div>`).join("") || '<div class="empty">Aucun élève trouvé.</div>';
+        $$("[data-cm]", el).forEach(x => x.onclick = async () => { const id = x.dataset.cm, oui = !inClub.has(id); x.disabled = true;
+          const { error } = await auth.sb.rpc("kiv_club_inviter", { cid: c.id, membre: id, oui }); x.disabled = false; if (error) return toast(cloudError(error), true);
+          oui ? inClub.add(id) : inClub.delete(id); draw(); loadSocial().then(() => loadClub(c.id)); }); };
+      $("#cmQ", el).oninput = draw; draw();
+    });
+}
+/* rappel du prochain rendez-vous dans l'espace de l'élève */
+function clubAlerts() {
+  const now = new Date(), soon = (store.clubs || []).filter(c => c.moi && c.rdv && new Date(c.rdv) > now && (new Date(c.rdv) - now) < 7 * 864e5);
+  return soon.map(c => { const b = c.livre && D.livres.get(c.livre); return `<div class="nf-alert club" data-club-go="${esc(c.id)}" role="button" tabindex="0">${ic("users")}<div><b>Club « ${esc(c.nom)} » : ${esc(fmtRdv(c.rdv))}${c.lieu ? " · " + esc(c.lieu) : ""}</b><span>${b ? "« " + esc(b.titre) + " »" : ""}${c.a_lire ? " · à lire : " + esc(c.a_lire) : ""}</span></div></div>`; }).join("");
+}
+
+/* ============================================================ assistant bibliothécaire IA */
+const AI_SUGG = ["Un livre d'aventure pas trop long", "Quelque chose qui ressemble au dernier livre que j'ai aimé", "Un livre pour mieux comprendre l'histoire de l'Afrique", "Un livre drôle pour ce week-end"];
+function aiCTA() {
+  return `<button type="button" class="ai-cta" data-ai>${ic("spark")}<span><b>Tu ne sais pas quoi lire ?</b><small>Demande à la bibliothécaire IA : elle connaît tous les livres de l'école.</small></span>${ic("arrow")}</button>`;
+}
+function assistantSheet(first) {
+  ui.chat = ui.chat || [];
+  const bubble = m => m.role === "user" ? `<div class="ai-msg me">${esc(m.texte)}</div>`
+    : `<div class="ai-msg bot${m.erreur ? " err" : ""}"><span class="ai-av">${ic("spark")}</span><div><p>${esc(m.texte)}</p>${(m.livres || []).map(l => { const b = D.livres.get(l.id); if (!b) return "";
+        return `<button type="button" class="ai-book" data-ai-book="${esc(b.id)}">${miniCover(b)}<span><b>${esc(b.titre)}</b><small>${esc(b.auteur || "")}</small><em>${esc(l.pourquoi || "")}</em></span>${b.dispo > 0 ? `<span class="nf-b ok">Disponible${b.rayon ? " · " + esc(b.rayon) : ""}</span>` : `<span class="nf-b">Emprunté</span>`}</button>`; }).join("")}</div></div>`;
+  openSheet("Bibliothécaire IA", `<div class="ai-log" id="aiLog">
+      <div class="ai-msg bot"><span class="ai-av">${ic("spark")}</span><div><p>Bonjour ${esc(String(auth.profile.nom || "").split(" ")[0])} ! Dis-moi ce que tu aimes ou ce que tu cherches, je te propose des livres de notre bibliothèque.</p></div></div>
+      ${ui.chat.map(bubble).join("")}</div>
+    ${ui.chat.length ? "" : `<div class="ai-sugg">${AI_SUGG.map(s => `<button type="button" class="chip" data-sugg="${esc(s)}">${esc(s)}</button>`).join("")}</div>`}
+    <form class="ai-form" id="aiForm"><textarea id="aiQ" rows="2" maxlength="500" placeholder="Ex. : un livre de science-fiction pour la 7ème…"></textarea><button class="btn primary" type="submit" id="aiSend" aria-label="Envoyer">${ic("arrow")}</button></form>
+    <p class="form-note block" style="margin:0">L'assistant ne propose que des livres du catalogue. Il peut se tromper : demande aussi à la bibliothécaire !</p>`, null, el => {
+      const log = $("#aiLog", el), q = $("#aiQ", el);
+      const scroll = () => { log.scrollTop = log.scrollHeight; };
+      const bind = () => $$("[data-ai-book]", el).forEach(x => x.onclick = () => { closeSheet(true); bookDetail(x.dataset.aiBook); });
+      const ask = async text => {
+        text = text.trim(); if (text.length < 2) return;
+        const historique = ui.chat.filter(m => !m.erreur).slice(-6).map(m => ({ role: m.role, texte: m.texte }));
+        ui.chat.push({ role: "user", texte: text }); log.insertAdjacentHTML("beforeend", bubble(ui.chat.at(-1)) + `<div class="ai-msg bot typing" id="aiTyping"><span class="ai-av">${ic("spark")}</span><div><p><i></i><i></i><i></i></p></div></div>`);
+        const sg = $(".ai-sugg", el); if (sg) sg.remove(); q.value = ""; $("#aiSend", el).disabled = true; scroll();
+        let m;
+        try {
+          const { data, error } = await auth.sb.functions.invoke("assistant", { body: { question: text, historique } });
+          if (error) { let msg = ""; try { const j = await error.context.json(); msg = j.erreur || j.message || ""; } catch {}
+            const st = error.context && error.context.status;
+            m = { role: "assistant", erreur: true, texte: msg || (st === 404 || /Failed to send|not found/i.test(error.message || "") ? "L'assistant n'est pas encore activé. L'administrateur doit suivre l'étape 8 du guide d'installation." : "L'assistant ne répond pas pour l'instant. Réessaie dans un moment.") }; }
+          else m = { role: "assistant", texte: data.reponse || "", livres: data.livres || [] };
+        } catch { m = { role: "assistant", erreur: true, texte: "Pas de connexion pour l'instant. Réessaie dans un moment." }; }
+        ui.chat.push(m); const t = $("#aiTyping", el); if (t) t.remove(); log.insertAdjacentHTML("beforeend", bubble(m)); bind(); $("#aiSend", el).disabled = false; scroll(); q.focus();
+      };
+      $("#aiForm", el).onsubmit = e => { e.preventDefault(); ask(q.value); };
+      q.onkeydown = e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(q.value); } };
+      $$("[data-sugg]", el).forEach(x => x.onclick = () => ask(x.dataset.sugg));
+      bind(); scroll(); setTimeout(() => q.focus(), 80);
+      if (first) ask(first);
+    });
+}
+
+/* ============================================================ import des élèves (Excel ou CSV) */
+/* lecture d'un fichier .xlsx sans bibliothèque : c'est un zip de fichiers XML */
+async function readZip(buf) {
+  const dv = new DataView(buf), u8 = new Uint8Array(buf), out = new Map();
+  let e = -1; for (let i = u8.length - 22; i >= Math.max(0, u8.length - 65557); i--) if (dv.getUint32(i, true) === 0x06054b50) { e = i; break; }
+  if (e < 0) throw new Error("zip");
+  let p = dv.getUint32(e + 16, true); const n = dv.getUint16(e + 10, true), dec = new TextDecoder();
+  for (let k = 0; k < n && dv.getUint32(p, true) === 0x02014b50; k++) {
+    const method = dv.getUint16(p + 10, true), size = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), lo = dv.getUint32(p + 42, true);
+    const name = dec.decode(u8.subarray(p + 46, p + 46 + nl)), start = lo + 30 + dv.getUint16(lo + 26, true) + dv.getUint16(lo + 28, true);
+    out.set(name, { method, data: u8.subarray(start, start + size) }); p += 46 + nl + el + cl;
+  }
+  return out;
+}
+async function zipText(z, name) {
+  const f = z.get(name); if (!f) return null;
+  if (f.method === 0) return new TextDecoder().decode(f.data);
+  const s = new Blob([f.data]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return new TextDecoder().decode(await new Response(s).arrayBuffer());
+}
+async function readXlsx(file) {
+  const z = await readZip(await file.arrayBuffer()), X = s => new DOMParser().parseFromString(s, "application/xml");
+  const ss = await zipText(z, "xl/sharedStrings.xml"), shared = ss ? [...X(ss).getElementsByTagName("si")].map(si => [...si.getElementsByTagName("t")].map(t => t.textContent).join("")) : [];
+  let sheet = "xl/worksheets/sheet1.xml";
+  try { const first = X(await zipText(z, "xl/workbook.xml")).getElementsByTagName("sheet")[0], rid = first.getAttribute("r:id");
+    const rel = [...X(await zipText(z, "xl/_rels/workbook.xml.rels")).getElementsByTagName("Relationship")].find(r => r.getAttribute("Id") === rid);
+    if (rel) { const t = rel.getAttribute("Target"); sheet = t.startsWith("/") ? t.slice(1) : "xl/" + t.replace(/^\.\//, ""); } } catch {}
+  if (!z.has(sheet)) sheet = [...z.keys()].find(k => /^xl\/worksheets\/[^/]+\.xml$/.test(k));
+  const rows = [];
+  [...X(await zipText(z, sheet)).getElementsByTagName("row")].forEach(r => { const row = [];
+    [...r.getElementsByTagName("c")].forEach(c => { const ref = (c.getAttribute("r") || "").replace(/\d+/g, ""), col = ref ? ref.split("").reduce((a, ch) => a * 26 + ch.charCodeAt(0) - 64, 0) - 1 : row.length;
+      const t = c.getAttribute("t"), v = c.getElementsByTagName("v")[0];
+      row[col] = t === "s" ? shared[+(v && v.textContent)] ?? "" : t === "inlineStr" ? [...c.getElementsByTagName("t")].map(x => x.textContent).join("") : v ? v.textContent : ""; });
+    rows.push(Array.from(row, x => String(x ?? "").trim())); });
+  return rows;
+}
+function readCsv(text) {
+  text = text.replace(/^﻿/, ""); const first = text.split(/\r?\n/)[0] || "", sep = (first.match(/;/g) || []).length > (first.match(/,/g) || []).length ? ";" : (first.includes("\t") ? "\t" : ",");
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < text.length; i++) { const ch = text[i];
+    if (q) { if (ch === '"' && text[i + 1] === '"') { cur += '"'; i++; } else if (ch === '"') q = false; else cur += ch; }
+    else if (ch === '"') q = true; else if (ch === sep) { row.push(cur.trim()); cur = ""; } else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cur.trim()); rows.push(row); row = []; cur = ""; } else cur += ch; }
+  if (cur || row.length) { row.push(cur.trim()); rows.push(row); }
+  return rows;
+}
+/* colonnes : Nom, Postnom, Prénom (ou un seul « Nom complet »), Classe, E-mail, Sexe */
+function importRows(raw) {
+  raw = raw.filter(r => r.some(x => x));
+  const h = (raw[0] || []).map(x => norm(x));
+  const find = re => h.findIndex(x => re.test(x));
+  const hasHeader = h.some(x => /nom|name|eleve|classe|mail|prenom/.test(x));
+  const cP = find(/pr[ée]?nom|first/), cPost = find(/post-?nom/), cN = h.findIndex((x, i) => i !== cP && i !== cPost && /^(nom|noms|name|nom complet|nom de l.eleve|eleve|nom et prenom)/.test(x)),
+    cC = find(/classe|class|niveau/), cM = find(/mail|courriel/), cS = find(/^(sexe|genre|sex)/);
+  const body = hasHeader ? raw.slice(1) : raw;
+  return body.map(r => {
+    const nom = hasHeader ? [cP >= 0 ? r[cP] : "", cN >= 0 ? r[cN] : "", cPost >= 0 ? r[cPost] : ""].filter(Boolean).join(" ").replace(/\s+/g, " ").trim() : (r[0] || "");
+    const email = ((hasHeader ? (cM >= 0 ? r[cM] : "") : r[2]) || "").toLowerCase().trim(), sexeRaw = norm((hasHeader ? (cS >= 0 ? r[cS] : "") : r[3]) || "");
+    return { nom, classe: (hasHeader ? (cC >= 0 ? r[cC] : "") : r[1]) || "", email: /^\S+@\S+\.\S+$/.test(email) ? email : "", sexe: /^(f|fille|feminin|femme)/.test(sexeRaw) ? "F" : /^(m|g|garcon|masculin|homme)/.test(sexeRaw) ? "M" : "" };
+  });
+}
+function importSheet() {
+  if (!guard("biblio")) return;
+  let rows = [], plan = [];
+  const eleves = () => S.membres.filter(m => (m.type || "Élève") === "Élève");
+  const match = r => { const all = eleves(); return (r.email && all.find(m => (m.email || "").toLowerCase() === r.email)) || all.find(m => norm(m.nom) === norm(r.nom)) || null; };
+  const draw = el => {
+    plan = rows.map(r => { if (!r.nom) return { r, st: "skip" }; const m = match(r); if (!m) return { r, st: "new" };
+      const same = (m.classe || "") === (r.classe || m.classe || "") && (!r.email || (m.email || "").toLowerCase() === r.email);
+      return { r, m, st: same ? "same" : "update" }; });
+    const n = k => plan.filter(x => x.st === k).length, newCls = [...new Set(plan.filter(x => x.st !== "skip" && x.r.classe && !params().classes.includes(x.r.classe)).map(x => x.r.classe))];
+    $("#imBody", el).innerHTML = rows.length ? `<div class="im-sum">${pill(n("new") + " nouveaux", "ok")}${pill(n("update") + " mis à jour", "info")}${pill(n("same") + " déjà à jour", "mute")}${n("skip") ? pill(n("skip") + " ignorés (sans nom)", "warn") : ""}${pill(plan.filter(x => x.r.email).length + " avec e-mail", "mute")}</div>
+      ${newCls.length ? `<div class="warn-box">${ic("alert")}<div>Classes inconnues : <b>${newCls.map(esc).join(", ")}</b>. ${can("admin") ? "Elles seront ajoutées aux Réglages." : "Vérifiez l'orthographe, ou demandez à l'administrateur de les ajouter dans Réglages."}</div></div>` : ""}
+      <div class="table-wrap im-table"><table><thead><tr><th>Nom</th><th>Classe</th><th>E-mail</th><th>Sexe</th><th>Résultat</th></tr></thead><tbody>
+      ${plan.slice(0, 300).map(x => `<tr class="${x.st}"><td>${esc(x.r.nom || "—")}</td><td>${esc(x.r.classe)}</td><td>${esc(x.r.email)}</td><td>${esc(x.r.sexe)}</td><td>${x.st === "new" ? pill("Nouvelle fiche", "ok") : x.st === "update" ? pill("Mise à jour " + x.m.id, "info") : x.st === "same" ? `<span class="s">${esc(x.m.id)} · déjà à jour</span>` : pill("Ignoré", "warn")}</td></tr>`).join("")}</tbody></table></div>
+      ${plan.length > 300 ? `<p class="s">… et ${plan.length - 300} autres lignes.</p>` : ""}
+      ${store.mode === "cloud" ? can("admin") ? `<label class="check-line"><input type="checkbox" id="imAuto" ${params().autoAccept || plan.some(x => x.r.email) ? "checked" : ""}> Accepter automatiquement ces élèves quand ils créent leur compte avec la même adresse e-mail (pas de liste d'attente)</label>`
+        : `<p class="form-note block" style="margin:0">${params().autoAccept ? "L'acceptation automatique est activée : les élèves de la liste qui s'inscrivent avec la même adresse entreront directement." : "L'administrateur peut activer l'acceptation automatique des élèves de la liste dans Réglages."}</p>` : ""}`
+      : `<div class="im-drop"><b>Choisissez la liste des élèves</b><span>Fichier Excel (.xlsx) ou CSV. Colonnes reconnues : Nom, Postnom, Prénom (ou Nom complet), Classe, E-mail, Sexe.</span></div>`;
+    $("#imOk", el).disabled = !(n("new") + n("update"));
+    $("#imOk", el).innerHTML = ic("check") + (n("new") + n("update") ? `Importer ${n("new") + n("update")} élève${n("new") + n("update") > 1 ? "s" : ""}` : "Importer");
+  };
+  openSheet("Importer des élèves", `<p class="form-note block" style="margin:0">Créez d'un coup les fiches de toute une classe, ou de toute l'école. Les élèves déjà inscrits sont reconnus (par e-mail ou par nom complet) et seulement mis à jour : à la rentrée, réimportez simplement les nouvelles listes.</p>
+    <div class="toolbar"><label class="btn primary" style="cursor:pointer">${ic("up")}Choisir le fichier<input type="file" id="imFile" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden></label>
+      <button class="btn sm ghost" type="button" id="imModel">${ic("down")}Modèle Excel (CSV)</button><span class="s" id="imName"></span></div><div id="imBody"></div>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="imOk" disabled>${ic("check")}Importer</button>`, el => {
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#imModel", el).onclick = () => saveFile("modele-eleves.csv", csv([["Nom", "Postnom", "Prénom", "Classe", "E-mail", "Sexe"], ["Kahindo", "Muhindo", "Amani", "7ème EB", "amani.kahindo@gmail.com", "F"]]), "text/csv");
+      $("#imFile", el).onchange = async e => { const f = e.target.files[0]; if (!f) return; $("#imName", el).textContent = f.name;
+        try { rows = importRows(/\.xlsx$/i.test(f.name) ? await readXlsx(f) : readCsv(await f.text())); if (!rows.length) toast("Le fichier est vide.", true); }
+        catch { rows = []; toast("Ce fichier ne peut pas être lu. Enregistrez-le au format Excel (.xlsx) ou CSV.", true); }
+        draw(el); };
+      $("#imOk", el).onclick = async () => {
+        const todo = plan.filter(x => x.st === "new" || x.st === "update"); if (!todo.length) return;
+        const btn = $("#imOk", el); btn.disabled = true; btn.textContent = "Import en cours…";
+        const newCls = [...new Set(todo.map(x => x.r.classe).filter(c => c && !params().classes.includes(c)))];
+        try {
+          if (store.mode === "cloud") {
+            for (let i = 0; i < todo.length; i += 300) {
+              const { error } = await auth.sb.rpc("kiv_import_membres", { lignes: todo.slice(i, i + 300).map(x => ({ ...(x.m ? { id: x.m.id } : {}), nom: x.r.nom, classe: x.r.classe, email: x.r.email, sexe: x.r.sexe })) });
+              if (error) throw error; }
+            await cloudResync("membres");
+          } else {
+            const all = S.membres.slice();
+            for (const x of todo) {
+              if (x.m) await put("membres", { ...x.m, nom: x.r.nom, ...(x.r.classe ? { classe: x.r.classe } : {}), ...(x.r.email ? { email: x.r.email } : {}), ...(x.r.sexe ? { sexe: x.r.sexe } : {}) });
+              else { const m = { id: nextMemberId(all), nom: x.r.nom, type: "Élève", classe: x.r.classe, email: x.r.email, sexe: x.r.sexe, inscription: todayISO() }; all.push(m); await put("membres", m); }
+            }
+          }
+          const p = params(), auto = $("#imAuto", el);
+          if (can("admin") && (newCls.length || (auto && auto.checked !== !!p.autoAccept))) await saveParams({ ...p, classes: [...p.classes, ...newCls], ...(auto ? { autoAccept: auto.checked } : {}) });
+          closeSheet(); const nn = todo.filter(x => x.st === "new").length; toast(`${nn} fiche${nn > 1 ? "s" : ""} créée${nn > 1 ? "s" : ""} · ${todo.length - nn} mise${todo.length - nn > 1 ? "s" : ""} à jour`);
+          if (can("comptes") && store.mode === "cloud") loadAccounts();
+        } catch (err) { btn.disabled = false; btn.innerHTML = ic("check") + "Réessayer"; toast(store.mode === "cloud" ? cloudError(err) : "Import impossible.", true); }
+      };
+      draw(el);
+    });
+}
+
+/* ============================================================ tableau de bord de la direction */
+function pilotageView() {
+  const a = anneeScolaire(), T = D.T, eleves = [...D.membres.values()].filter(m => (m.type || "Élève") === "Élève");
+  const classes = params().classes.filter(c => c !== "Personnel" && eleves.some(m => m.classe === c));
+  eleves.forEach(m => { if (m.classe && !classes.includes(m.classe)) classes.push(m.classe); });
+  const months = []; for (let d = a.debut.slice(0, 7); d <= T.slice(0, 7) && d <= a.fin.slice(0, 7); d = addDays(d + "-01", 32).slice(0, 7)) months.push(d);
+  const yearLoans = D.emprunts.filter(e => e.date >= a.debut && e.date <= a.fin), byM = new Map(eleves.map(m => [m.id, m]));
+  const lus = D.emprunts.filter(e => e.retour && e.retour >= a.debut && e.retour <= a.fin && byM.has(e.membre)).length;
+  const actifs = new Set(yearLoans.filter(e => byM.has(e.membre)).map(e => e.membre)), taux = eleves.length ? Math.round(actifs.size / eleves.length * 100) : 0;
+  const never = [...D.livres.values()].filter(b => !b.total).sort((x, y) => x.titre.localeCompare(y.titre, "fr"));
+  const late = D.emprunts.filter(e => e.statut === "retard").length;
+  // carte de chaleur : livres empruntés par élève, par classe et par mois
+  const cell = (c, mo) => { const ids = eleves.filter(m => m.classe === c), n = yearLoans.filter(e => e.date.slice(0, 7) === mo && ids.some(m => m.id === e.membre)).length; return { n, v: ids.length ? n / ids.length : 0 }; };
+  const grid = classes.map(c => ({ c, nb: eleves.filter(m => m.classe === c).length, cells: months.map(mo => cell(c, mo)), act: eleves.filter(m => m.classe === c && actifs.has(m.id)).length }));
+  const vmax = Math.max(.5, ...grid.flatMap(g => g.cells.map(x => x.v)));
+  const shade = v => { const k = v / vmax; return `background:color-mix(in oklab,var(--accent) ${Math.round(8 + k * 82)}%,var(--solid));color:${k > .55 ? "#fff" : "var(--ink)"}`; };
+  const monthName = mo => MOIS_C[+mo.slice(5, 7) - 1];
+  // achats conseillés : livres demandés (file d'attente, beaucoup d'emprunts pour peu d'exemplaires)
+  const demand = [...D.livres.values()].map(b => { const n = yearLoans.filter(e => e.livre === b.id).length, ex = Math.max(1, +b.ex || 0); return { b, n, ratio: n / ex, add: Math.max(b.attente || 0, Math.ceil(n / 4) - ex) }; })
+    .filter(x => x.add > 0 && (x.b.attente || x.ratio >= 3)).sort((x, y) => (y.b.attente || 0) - (x.b.attente || 0) || y.ratio - x.ratio).slice(0, 8);
+  const cats = params().categories.map(c => { const ex = [...D.livres.values()].filter(b => b.categorie === c).reduce((s, b) => s + (+b.ex || 0), 0), n = yearLoans.filter(e => e.b && e.b.categorie === c).length; return { c, ex, n }; });
+  const totEx = Math.max(1, cats.reduce((s, x) => s + x.ex, 0)), totN = Math.max(1, cats.reduce((s, x) => s + x.n, 0));
+  const hot = cats.filter(x => x.n && x.n / totN > x.ex / totEx * 1.3).sort((x, y) => y.n / totN - y.ex / totEx - (x.n / totN - x.ex / totEx)).slice(0, 3);
+  const perMonth = months.map(mo => yearLoans.filter(e => e.date.slice(0, 7) === mo).length), pmMax = Math.max(1, ...perMonth);
+  const kpi = (lab, icon, tone, val, sub, fmt = "") => `<div class="card kpi" style="--tone:var(--${tone});--tone-soft:var(--${tone}-soft);cursor:default"><div class="k-top"><span class="k-ic">${ic(icon)}</span>${lab}</div><div class="k-val" data-count="${val}" data-fmt="${fmt}">0</div><div class="k-sub">${sub}</div></div>`;
+  return `<div class="toolbar"><span class="s" style="font-size:14px">Année scolaire ${esc(params().annee)} · du ${esc(fmtD(a.debut))} à aujourd'hui</span><button class="btn sm ghost" type="button" id="pilotCsv" style="margin-left:auto">${ic("down")}Exporter (Excel)</button></div>
+    <div class="grid kpis">
+      ${kpi("Élèves lecteurs (%)", "users", "accent", taux, `${actifs.size} élève${actifs.size > 1 ? "s" : ""} sur ${eleves.length} ont emprunté cette année`)}
+      ${kpi("Livres lus", "book", "green", lus, `${eleves.length ? (lus / eleves.length).toFixed(1).replace(".", ",") : 0} par élève cette année`)}
+      ${kpi("Jamais empruntés", "alert", "warn", never.length, `sur ${D.livres.size} titres du catalogue`)}
+      ${kpi("Retards en cours", "clock", "danger", late, late ? "rappels possibles par e-mail" : "aucun retard")}
+    </div>
+    <div class="card"><div class="card-h"><h3>Lecture par classe et par mois</h3><span class="sub">livres empruntés par élève · plus la case est foncée, plus la classe lit</span></div>
+      ${grid.length && months.length ? `<div class="table-wrap"><table class="heat"><thead><tr><th>Classe</th>${months.map(mo => `<th class="c">${monthName(mo)}</th>`).join("")}<th class="c">Élèves lecteurs</th></tr></thead><tbody>
+        ${grid.map(g => `<tr><td><b>${esc(g.c)}</b><div class="s">${g.nb} élève${g.nb > 1 ? "s" : ""}</div></td>${g.cells.map((x, i) => `<td class="hc"><span style="${shade(x.v)}" title="${esc(g.c)} · ${monthName(months[i])} : ${x.n} emprunt${x.n > 1 ? "s" : ""} pour ${g.nb} élève${g.nb > 1 ? "s" : ""}">${x.n ? x.v.toFixed(1).replace(".", ",") : "–"}</span></td>`).join("")}
+          <td class="c"><b>${g.nb ? Math.round(g.act / g.nb * 100) : 0} %</b><div class="meter" style="max-width:90px;margin:4px auto 0"><b data-w="${g.nb ? Math.round(g.act / g.nb * 100) : 0}%" style="width:0"></b></div></td></tr>`).join("")}</tbody></table></div>
+        <div class="heat-legend"><span>Moins</span>${[0, .25, .5, .75, 1].map(k => `<i style="${shade(k * vmax)}"></i>`).join("")}<span>Plus</span></div>` : '<div class="empty">Pas encore assez de données cette année.</div>'}</div>
+    <div class="grid cols-2">
+      <div class="card"><div class="card-h"><h3>Emprunts par mois</h3><span class="sub">toute l'école</span></div>
+        <div class="mbars">${months.map((mo, i) => `<div class="mbar" title="${monthName(mo)} : ${perMonth[i]} emprunt${perMonth[i] > 1 ? "s" : ""}"><span class="mv">${perMonth[i]}</span><b style="height:${Math.max(2, Math.round(perMonth[i] / pmMax * 100))}%"></b><span class="ml">${monthName(mo)}</span></div>`).join("")}</div></div>
+      <div class="card"><div class="card-h"><h3>Achats conseillés</h3><span class="sub">livres très demandés</span></div>
+        <div class="rows">${demand.map(x => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto" data-book="${esc(x.b.id)}">${miniCover(x.b)}<div style="min-width:0"><div class="t">${esc(x.b.titre)}</div><div class="s">${x.n} emprunt${x.n > 1 ? "s" : ""} cette année · ${+x.b.ex || 0} exemplaire${(+x.b.ex || 0) > 1 ? "s" : ""}${x.b.attente ? ` · ${x.b.attente} en attente` : ""}</div></div>${pill("+" + x.add + " ex.", "ok")}</div>`).join("") || '<div class="empty">Aucun livre en manque d\'exemplaires.</div>'}</div>
+        ${hot.length ? `<p class="form-note block" style="margin:12px 0 0">Genres très demandés : ${hot.map(x => `<b>${esc(x.c)}</b> (${Math.round(x.n / totN * 100)} % des emprunts pour ${Math.round(x.ex / totEx * 100)} % des livres)`).join(", ")}.</p>` : ""}</div>
+    </div>
+    <div class="card"><div class="card-h"><h3>Livres jamais empruntés</h3><span class="sub">${never.length} titre${never.length > 1 ? "s" : ""} · à mettre en avant (livres du mois, lectures données par les enseignants) ou à retirer du rayon</span></div>
+      <div class="rows">${never.slice(0, 12).map(b => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto" data-book="${esc(b.id)}">${miniCover(b)}<div style="min-width:0"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur || "")} · ${esc(b.categorie || "")}</div></div><span class="s">${esc(b.rayon || "")}</span></div>`).join("") || '<div class="empty">Tous les livres ont été empruntés au moins une fois. Bravo !</div>'}
+      ${never.length > 12 ? `<p class="s" style="margin:8px 0 0">… et ${never.length - 12} autres (export Excel).</p>` : ""}</div></div>`;
+}
+function bindPilotage(v) {
+  const b = $("#pilotCsv", v); if (!b) return;
+  b.onclick = () => {
+    const a = anneeScolaire(), eleves = [...D.membres.values()].filter(m => (m.type || "Élève") === "Élève"), months = [];
+    for (let d = a.debut.slice(0, 7); d <= D.T.slice(0, 7) && d <= a.fin.slice(0, 7); d = addDays(d + "-01", 32).slice(0, 7)) months.push(d);
+    const loans = D.emprunts.filter(e => e.date >= a.debut && e.date <= a.fin), classes = [...new Set(eleves.map(m => m.classe).filter(Boolean))].sort((x, y) => x.localeCompare(y, "fr"));
+    const rows = [["Classe", "Élèves", ...months.map(mo => MOIS[+mo.slice(5, 7) - 1] + " " + mo.slice(0, 4)), "Total emprunts", "Élèves lecteurs (%)"]];
+    classes.forEach(c => { const ids = new Set(eleves.filter(m => m.classe === c).map(m => m.id)), l = loans.filter(e => ids.has(e.membre));
+      rows.push([c, ids.size, ...months.map(mo => l.filter(e => e.date.slice(0, 7) === mo).length), l.length, ids.size ? Math.round(new Set(l.map(e => e.membre)).size / ids.size * 100) : 0]); });
+    rows.push([]); rows.push(["Livres jamais empruntés"]); [...D.livres.values()].filter(x => !x.total).forEach(x => rows.push([x.titre, x.auteur, x.categorie, x.rayon || ""]));
+    saveFile(`Tableau-de-bord-${params().annee}.csv`, csv(rows), "text/csv");
+  };
+}
+
 /* ---------- réservations côté bibliothèque ---------- */
 async function setReservation(r, patch, msg) {
   const { error } = await auth.sb.from("reservations").update(patch).eq("id", r.id);
@@ -2944,7 +3635,7 @@ function derive() {
     const end = e.retour || T;
     const jours = Math.max(0, diffDays(end, prevu));
     const statut = e.retour ? (jours > 0 ? "rendu-retard" : "rendu") : (T > prevu ? "retard" : "cours");
-    const amende = jours * p.amende;
+    const amende = jours * p.amende + (+e.frais || 0);
     const b = livres.get(e.livre), m = membres.get(e.membre);
     if (b) { b.total++; if (!e.retour) b.sortis++; }
     if (m) { if (!e.retour) m.cours++; if (statut === "retard") m.retard++; if (!e.paye) m.dues += amende; }
@@ -2996,20 +3687,23 @@ const VIEWS = [
   { id: "membres", label: "Membres", icon: "users" },
   { id: "fournitures", label: "Fournitures", icon: "box" },
   { id: "rapport", label: "Rapports", icon: "report" },
+  { id: "pilotage", label: "Tableau de bord", icon: "trend", roles: ["admin", "direction", "bibliothecaire"] },
   { id: "defis", label: "Défis", icon: "trophy" },
+  { id: "clubs", label: "Clubs de lecture", icon: "users", cloud: true },
+  { id: "avis", label: "Avis à valider", icon: "star", cloud: true, perm: "biblio" },
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
-const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }, { id: "defis", label: "Défis", icon: "trophy" }];
+const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }, { id: "defis", label: "Défis", icon: "trophy" }, { id: "clubs", label: "Clubs", icon: "users" }];
 const TEACHER_VIEWS = [{ id: "classes", label: "Mes classes", icon: "users" }, ...READER_VIEWS];
 const READER_IDS = TEACHER_VIEWS.map(v => v.id);
-const navViews = () => isTeacher() ? TEACHER_VIEWS : isReader() ? READER_VIEWS : VIEWS;
+const navViews = () => isTeacher() ? TEACHER_VIEWS : isReader() ? READER_VIEWS : VIEWS.filter(v => (!v.cloud || store.mode === "cloud") && (!v.roles || !(store.mode === "cloud" || store.localAuth) || v.roles.includes(roleOf())));
 const readerHome = () => isTeacher() ? "classes" : "espace";
 const ui = { report: "biblio", flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
-try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || ["comptes", "espace", "defis", "classes"].includes(h)) ui.view = h; } catch {}
+try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || ["comptes", "espace", "defis", "classes", "clubs", "avis", "pilotage"].includes(h)) ui.view = h; } catch {}
 
 function buildNav() {
   $$("#nav [data-go]").forEach(b => b.remove());
-  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : v.id === "classes" ? '<span class="count" id="navCls" hidden></span>' : ""}</button>`).join(""));
+  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : v.perm ? ` data-perm="${v.perm}"` : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "avis" ? '<span class="count" id="navAvis" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : v.id === "classes" ? '<span class="count" id="navCls" hidden></span>' : ""}</button>`).join(""));
   const tabs = isTeacher() ? ["classes", "espace", "livres"] : isReader() ? ["espace", "livres", "defis"] : ["accueil", "livres", "emprunts", "membres"];
   $("#tabbar").innerHTML = tabs.map(id => { const v = navViews().find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
@@ -3047,6 +3741,9 @@ const HEAD = {
   comptes: () => ["Demandes d'accès, rôles et photos", "Comptes", null],
   espace: () => [greet(), "Mon espace", null],
   classes: () => [greet(), "Mes classes", null],
+  clubs: () => ["Lire ensemble, en parler, voter", "Clubs de lecture", null],
+  pilotage: () => ["Taux de lecture, livres oubliés, achats conseillés", "Tableau de bord de la direction", null],
+  avis: () => ["Les avis des élèves, publiés après votre relecture", "Avis à valider", null],
   defis: () => [isReader() ? "Lis, gagne des badges et grimpe dans le classement" : "Classements, objectifs et diplômes de lecture", "Défis de lecture", null],
 };
 function greet() { const h = new Date().getHours(); return (h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir") + " · " + fmtLong(todayISO()); }
@@ -3065,8 +3762,8 @@ function render() {
   $("#eyebrow").textContent = eyebrow; $("#viewTitle").textContent = title;
   const pb = $("#primaryBtn");
   if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
-  if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("comptes"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView, defis: defisView, classes: classesView }[ui.view]();
+  if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("comptes"))) || (ui.view === "reglages" && !can("admin")) || (!isReader() && ["clubs", "avis"].includes(ui.view) && store.mode !== "cloud") || (!isReader() && ui.view === "avis" && !can("biblio")) || (!isReader() && ui.view === "pilotage" && !navViews().some(x => x.id === "pilotage"))) ui.view = "accueil";
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView, defis: defisView, classes: classesView, clubs: clubsView, avis: avisView, pilotage: pilotageView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -3093,6 +3790,7 @@ function sideSummary() {
     return; }
   const late = D.emprunts.filter(e => e.statut === "retard").length;
   const nl = $("#navLate"); if (nl) { nl.hidden = !late; nl.textContent = late; }
+  const na = $("#navAvis"); if (na) { const k = (store.avisAttente || []).length; na.hidden = !k; na.textContent = k; }
   $("#todayCard").innerHTML = `<h4>Aujourd'hui</h4>
     <div class="today-row"><span>Emprunts</span><b>${D.emprunts.filter(e => e.date === T).length}</b></div>
     <div class="today-row"><span>Retours</span><b>${D.emprunts.filter(e => e.retour === T).length}</b></div>
@@ -3253,7 +3951,7 @@ function booksView() {
     <div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qLivres" type="search" placeholder="Titre, auteur, ISBN, rayon…" value="${esc(ui.q.livres || "")}"></label>
       <div class="seg" role="group" aria-label="Filtre">${[["tous", "Tous"], ["dispo", "Disponibles"], ["sortis", "Empruntés"]].map(([k, l]) => `<button type="button" data-f="livres:${k}" aria-pressed="${ui.filter.livres === k}">${l}<span class="n">${counts[k]}</span></button>`).join("")}</div>
-      <button class="btn sm ghost" type="button" id="scanBook" title="Scanner un code-barres ISBN : ouvre le livre, ou propose de l'ajouter">${ic("scan")}Scanner</button>
+      ${isReader() ? `<button class="btn sm primary" type="button" data-ai>${ic("spark")}Bibliothécaire IA</button>` : `<button class="btn sm ghost" type="button" id="scanBook" title="Scanner un code-barres ISBN : ouvre le livre, ou propose de l'ajouter">${ic("scan")}Scanner</button>`}
       <select class="flat" id="catLivres" aria-label="Catégorie"><option value="">Toutes les catégories</option>${params().categories.map(c => `<option ${ui.q.cat === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
       <div class="seg" style="margin-left:auto" role="group" aria-label="Affichage"><button type="button" data-layout="covers" aria-pressed="${ui.layout === "covers"}" aria-label="Couvertures">${ic("grid")}</button><button type="button" data-layout="table" aria-pressed="${ui.layout === "table"}" aria-label="Liste">${ic("list")}</button></div>
     </div>
@@ -3279,6 +3977,7 @@ function loansView() {
   D.emprunts.forEach(e => { if (!e.retour) c.actifs++; if (e.statut === "retard") c.retard++; if (e.retour) c.rendus++; if (e.amende && !e.paye) c.amendes++; });
   return `${reservationsCard()}<div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qEmprunts" type="search" placeholder="Livre, membre, classe…" value="${esc(ui.q.emprunts || "")}"></label>
+      ${c.retard && can("biblio") ? `<button class="btn sm primary" type="button" id="mailLate">${ic("mail")}Rappels par e-mail</button>` : ""}
       <div class="seg" role="group" aria-label="Filtre">${[["actifs", "En cours"], ["retard", "En retard"], ["amendes", "Amendes dues"], ["rendus", "Rendus"], ["tous", "Tous"]].map(([k, l]) => `<button type="button" data-f="emprunts:${k}" aria-pressed="${ui.filter.emprunts === k}">${l}${k !== "tous" ? `<span class="n">${c[k]}</span>` : ""}</button>`).join("")}</div>
     </div><div id="list">${loansList()}</div>`;
 }
@@ -3291,7 +3990,7 @@ function loansList() {
   ${arr.slice(0, 300).map(e => { const [l, t] = STAT[e.statut]; return `<tr data-loan="${esc(e.id)}"><td><div style="display:flex;gap:12px;align-items:center">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s code">${esc(e.id)}</div></div></div></td>
     <td><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${esc(e.m ? e.m.classe : "")}</div></td>
     <td>${fmtD(e.date)}</td><td>${fmtD(e.prevu)}${e.retour ? `<div class="s">rendu le ${fmtD(e.retour)}</div>` : ""}</td>
-    <td>${pill(l + (e.jours && !e.retour ? " · " + e.jours + " j" : ""), t)}</td>
+    <td>${pill(l + (e.jours && !e.retour ? " · " + e.jours + " j" : ""), t)}${e.etat === "abime" ? " " + pill("Abîmé", "warn") : e.etat === "perdu" ? " " + pill("Perdu", "bad") : ""}${e.rappel && !e.retour ? `<div class="s">rappel le ${fmtD(e.rappel)}</div>` : ""}</td>
     <td class="r">${e.amende ? `<b>${fc(e.amende)}</b><div class="s">${e.paye ? "payée" : "due"}</div>` : '<span class="s">—</span>'}</td>
     <td><div class="row-actions" data-perm="biblio">${!e.retour ? `<button class="btn sm primary" type="button" data-return="${esc(e.id)}">${ic("ret")}Retour</button>` : e.amende && !e.paye ? `<button class="btn sm ghost" type="button" data-pay="${esc(e.id)}">${ic("coin")}Encaisser</button>` : ""}<button class="act" type="button" data-del-loan="${esc(e.id)}" title="Supprimer">${ic("trash")}</button></div></td></tr>`; }).join("")}
   </tbody></table></div></div>`;
@@ -3302,6 +4001,7 @@ function membersView() {
   return `<div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qMembres" type="search" placeholder="Nom, classe, identifiant…" value="${esc(ui.q.membres || "")}"></label>
       <select class="flat" id="clsMembres" aria-label="Classe"><option value="">Toutes les classes</option>${params().classes.map(c => `<option ${ui.q.cls === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
+      ${can("biblio") && store.mode !== "db" ? `<button class="btn sm ghost" type="button" id="importEleves" style="margin-left:auto">${ic("up")}Importer des élèves (Excel)</button>` : ""}
     </div><div id="list">${membersList()}</div>`;
 }
 function membersList() {
@@ -3328,7 +4028,7 @@ function suppliesView() {
       <div class="card kpi" style="--tone:var(--warn);--tone-soft:var(--warn-soft)"><div class="k-top"><span class="k-ic">${ic("alert")}</span>À réapprovisionner</div><div class="k-val" data-count="${st[1][1] + st[2][1]}">0</div><div class="k-sub">${st[2][1]} en rupture</div></div>
     </div>
     <div class="grid cols-21">
-      <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Inventaire</h3><button class="btn sm ghost" type="button" data-quick="move" data-perm="fourn">${ic("swap")}Entrée / sortie</button><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
+      <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Inventaire</h3><button class="btn sm ghost" type="button" data-quick="move" data-perm="fourn">${ic("swap")}Entrée / sortie</button><button class="btn sm ghost" type="button" id="orderBtn" data-perm="fourn">${ic("report")}Bon de commande</button><label class="field-search" style="margin-left:auto;max-width:260px;height:36px">${ic("search")}<input id="qFourn" type="search" placeholder="Article…" value="${esc(ui.q.fourn || "")}"></label></div><div id="list">${suppliesList()}</div></div>
       <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
         <div class="card"><div class="card-h"><h3>État des stocks</h3></div>${donut(st.map(([label, value, color]) => ({ label, value, color })).filter(x => x.value), F.length, "articles")}</div>
         <div class="card"><div class="card-h"><h3>Derniers mouvements</h3></div><div class="rows">${recent.map(m => { const f = D.fmap.get(m.article); return `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto"><span class="k-ic" style="width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--${m.type === "entree" ? "green" : "warn"}-soft);color:var(--${m.type === "entree" ? "green" : "warn"})">${ic(m.type === "entree" ? "down" : "up")}</span><div style="min-width:0"><div class="t">${esc(f ? f.article : m.article)}</div><div class="s">${fmtShort(m.date)} · ${esc(m.tiers || "")}</div></div><b class="num">${m.type === "entree" ? "+" : "−"}${m.qte}</b></div>`; }).join("") || '<div class="empty">Aucun mouvement.</div>'}</div></div>
@@ -3530,6 +4230,8 @@ function settingsView() {
         <div class="f2"><div class="f"><label for="p-amende">Amende par jour de retard (FC)</label><input id="p-amende" type="number" min="0" step="50" value="${p.amende}"></div>
         <div class="f"><label for="p-max">Prêts simultanés par membre</label><input id="p-max" type="number" min="1" value="${p.max}"></div></div>
         <div class="f"><label for="p-objectif">Défi de lecture : livres à lire par trimestre</label><input id="p-objectif" type="number" min="1" max="50" value="${objectif()}"></div>
+        ${store.mode === "cloud" ? `<div class="f"><label for="p-ai">Assistant IA : questions par personne et par jour</label><input id="p-ai" type="number" min="1" max="100" value="${+(p.assistantMax || 10)}"></div>
+        <label class="check-line"><input type="checkbox" id="p-auto" ${p.autoAccept ? "checked" : ""}> Accepter automatiquement les élèves de la liste importée (même adresse e-mail)</label>` : ""}
         ${store.localAuth ? `<div class="f"><label for="p-verrou">Verrouillage automatique sans activité</label><select id="p-verrou">${[[5, "Après 5 minutes"], [15, "Après 15 minutes"], [30, "Après 30 minutes"], [60, "Après 1 heure"], [0, "Jamais"]].map(([k, l]) => `<option value="${k}" ${+(p.verrou ?? 15) === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>` : ""}
         <button class="btn primary" type="submit" style="align-self:flex-start">${ic("check")}Enregistrer</button>
       </div></form>
@@ -3551,6 +4253,9 @@ function settingsView() {
     ${store.mode === "cloud" ? `<div class="card"><div class="card-h"><h3>Borne publique</h3></div>
       <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">Sur l'ordinateur de la bibliothèque, ouvrez cette adresse en plein écran : les élèves voient les livres disponibles et leur rayon, sans compte et sans aucun nom.</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="code" style="font-size:13px">${esc(location.origin + location.pathname)}?borne</span><a class="btn sm primary" href="?borne" target="_blank" rel="noopener">${ic("arrow")}Ouvrir la borne</a></div></div>` : ""}
+    ${store.mode === "cloud" && can("admin") ? `<div class="card"><div class="card-h"><h3>Rappels automatiques (n8n)</h3></div>
+      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">Les rappels de retard partent à l'adresse e-mail de chaque élève. Depuis Emprunts › « Rappels par e-mail », ou automatiquement avec un agent n8n et une clé secrète.</p>
+      <button class="btn sm primary" type="button" id="n8nBtn">${ic("key")}Clé pour n8n</button></div>` : ""}
     ${chips("categories", "Catégories de livres")}${chips("classes", "Classes")}${chips("unites", "Unités de fournitures")}
   </div>`;
 }
@@ -3571,9 +4276,20 @@ function bindView() {
   if (store.localAuth && ui.view === "comptes") bindLocalAccounts(v);
   if (ui.view === "espace") bindEspace(v);
   if (ui.view === "classes") bindClasses(v);
+  if (ui.view === "clubs") bindClubs(v); else clearInterval(clubPoll);
+  if (ui.view === "avis") bindAvis(v);
+  if (ui.view === "pilotage") bindPilotage(v);
+  $$("[data-ai]", v).forEach(x => x.onclick = () => assistantSheet());
+  const imp2 = $("#importEleves", v); if (imp2) imp2.onclick = importSheet;
+  $$("[data-rv-go]", v).forEach(x => x.onclick = () => readerBookDetail(x.dataset.rvGo));
+  $$("[data-rv-skip]", v).forEach(x => x.onclick = () => { lsSet("kiv-rv-skip-" + x.dataset.rvSkip, "1"); render(); });
+  $$("[data-club-go]", v).forEach(x => x.onclick = () => { ui.club = x.dataset.clubGo; store.clubDetail = null; go("clubs"); });
+  const ml = $("#mailLate", v); if (ml) ml.onclick = remindersSheet;
+  const ob = $("#orderBtn", v); if (ob) ob.onclick = orderSheet;
+  const n8 = $("#n8nBtn", v); if (n8) n8.onclick = () => n8nSheet(false);
   if (ui.view === "defis") bindDefis(v);
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
-    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), objectif: Math.max(1, +$("#p-objectif").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });
+    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), objectif: Math.max(1, +$("#p-objectif").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}), ...($("#p-ai") ? { assistantMax: Math.min(100, Math.max(1, +$("#p-ai").value || 10)), autoAccept: $("#p-auto").checked } : {}) });
     toast("Réglages enregistrés"); });
   $$("form[data-add]", v).forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const key = f.dataset.add, inp = $("input", f), val = inp.value.trim(); if (!val) return;
     const p = params(); if (p[key].includes(val)) return toast("« " + val + " » existe déjà", true); saveParams({ ...p, [key]: [...p[key], val] }); }));
@@ -4084,6 +4800,7 @@ function bookSheet(b, pre = {}) {
       <div class="f"><label for="b-isbn">ISBN</label><input id="b-isbn" value="${esc(b.isbn)}" inputmode="numeric" placeholder="978-…"></div></div>
     <div class="f2"><div class="f"><label for="b-editeur">Éditeur</label><input id="b-editeur" value="${esc(b.editeur)}" list="dlEd" autocomplete="off">${dlist("dlEd", S.livres.map(x => x.editeur))}</div>
       <div class="f"><label for="b-annee">Année</label><input id="b-annee" type="number" inputmode="numeric" value="${esc(b.annee)}"></div></div>
+    <div class="f2"><div class="f"><label for="b-prix">Prix de remplacement (FC)</label><input id="b-prix" type="number" inputmode="numeric" min="0" step="500" value="${esc(b.prix || "")}" placeholder="Ex. : 15000"></div><div></div></div>
     <div class="f" id="bCoverF"><label>Couverture</label><div class="cover-pick" id="bCover"></div></div>
     <p class="form-note">${isNew ? "Le code du livre est attribué automatiquement" : "Code : <span class=\"code\">" + esc(b.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
     formFoot(isNew),
@@ -4124,7 +4841,7 @@ function bookSheet(b, pre = {}) {
         save: () => { const titre = val("b-titre"); if (!titre) return fieldErr(el, "b-titre", "Indiquez le titre du livre.");
           const ex = +val("b-ex"); if (!(ex >= 0)) return fieldErr(el, "b-ex", "Nombre d'exemplaires invalide.");
           if (!isNew) { const sortis = S.emprunts.filter(x => x.livre === b.id && !x.retour).length; if (ex < sortis) return fieldErr(el, "b-ex", `${sortis} exemplaire${sortis > 1 ? "s sont" : " est"} actuellement sorti${sortis > 1 ? "s" : ""}.`); }
-          const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex, isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "" };
+          const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex, isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "", prix: +val("b-prix") || "" };
           if (cover) obj.cover = cover; else delete obj.cover; if (resume) obj.resume = resume; else delete obj.resume;
           if (isNew) obj.ajoute = todayISO();
           put("livres", obj); toast(isNew ? "« " + titre + " » ajouté au catalogue" : "Livre modifié"); return obj.id; },
@@ -4144,12 +4861,12 @@ function bookDetail(id) {
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div>${isReader() ? "" : `<div>Emprunté <b>${b.total}</b> fois</div>`}</div></div></div>
     ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
     ${noteOf(id) ? `<div>${starsHTML(noteOf(id).moyenne)} <b>${String(noteOf(id).moyenne).replace(".", ",")}</b> <span class="s" style="color:var(--ink-3)">· ${noteOf(id).nb} avis de lecteurs</span></div>` : ""}
-    <div id="aussiLu"></div>
+    <div id="rvList"></div><div id="aussiLu"></div>
     ${queue.length ? `<div class="recap" style="border-style:solid"><div><b>Réservations</b></div>${queue.map((r, i) => `<div>${r.statut === "prete" ? (r.expiree ? "⏱ délai dépassé · " : "✓ mis de côté · ") : (i + 1 - queue.filter(x => x.statut === "prete").length) + ". "}${esc(r.m ? r.m.nom : r.membre)} <span class="code">${esc(r.membre)}</span></div>`).join("")}</div>` : ""}
     ${can("biblio") && store.mode !== "db" ? `<button class="btn sm ghost${b.vedette ? " on" : ""}" type="button" id="vedB" style="align-self:flex-start">${b.vedette ? "★ Livre du mois · retirer" : "☆ Mettre en avant dans les « livres du mois »"}</button>` : ""}
     <h3 style="font-size:15px;margin-top:6px">${isReader() ? "Tes emprunts de ce livre" : "Historique"}</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
     can("biblio") ? `${NET_OK() || store.mode === "local" ? `<button class="btn ghost" type="button" id="coverB" style="margin-right:auto">${ic("spark")}Couverture</button>` : ""}<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
-    el => { fillAussiLu(el, id); const vb = $("#vedB", el); if (vb) vb.onclick = async () => { const cur = S.livres.find(x => x.id === id); await put("livres", { ...cur, vedette: !cur.vedette }); toast(cur.vedette ? "Retiré des livres du mois" : "« " + cur.titre + " » est un livre du mois"); bookDetail(id); };
+    el => { fillAussiLu(el, id); fillReviews(el, id); const vb = $("#vedB", el); if (vb) vb.onclick = async () => { const cur = S.livres.find(x => x.id === id); await put("livres", { ...cur, vedette: !cur.vedette }); toast(cur.vedette ? "Retiré des livres du mois" : "« " + cur.titre + " » est un livre du mois"); bookDetail(id); };
       if (!$("#editB", el)) return; const cb = $("#coverB", el); if (cb) cb.onclick = () => coverSheet(id); $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
@@ -4266,20 +4983,6 @@ function returnPicker() {
       $("#rList", el).innerHTML = open.filter(e => !q || norm((e.b ? e.b.titre : "") + " " + (e.m ? e.m.nom : "") + " " + (e.m ? e.m.classe : "")).includes(q)).map(e => loanRow(e, e.statut === "retard")).join("") || '<div class="empty">Aucun livre à rendre.</div>'; };
     $("#r-q", el).addEventListener("input", draw); draw(); setTimeout(() => $("#r-q", el)?.focus(), 250);
   });
-}
-function doReturn(id) {
-  if (!guard("biblio")) return;
-  const e = S.emprunts.find(x => x.id === id); if (!e) return;
-  const fromPicker = ui.returning && sheetEl;
-  const p = params(); const prevu = e.prevu || addDays(e.date, p.duree); const jours = Math.max(0, diffDays(todayISO(), prevu));
-  const finish = paye => { put("emprunts", { ...e, retour: todayISO(), paye }); toast(jours ? `Retour enregistré · ${jours} j de retard` : "Retour enregistré · merci !");
-    const waiting = (S.reservations || []).some(r => r.livre === e.livre && r.statut === "attente");
-    if (waiting) { closeSheet(true); setTimeout(() => reservedAlert(e.livre), 120); } else if (fromPicker) returnPicker(); else closeSheet(); };
-  if (!jours) return finish(false);
-  const b = S.livres.find(x => x.id === e.livre), m = S.membres.find(x => x.id === e.membre);
-  openSheet("Retour en retard", `<div class="recap" style="border-style:solid"><div><b>${esc(b ? b.titre : e.livre)}</b> rendu par <b>${esc(m ? m.nom : e.membre)}</b></div><div>${jours} jour${jours > 1 ? "s" : ""} de retard · amende de <b>${fc(jours * p.amende)}</b></div></div><p style="margin:0;color:var(--ink-2)">L'amende est-elle payée maintenant ?</p>`,
-    `<button class="btn ghost" type="button" id="later">Plus tard</button><button class="btn primary" type="button" id="paid">${ic("coin")}Encaissée</button>`,
-    el => { $("#later", el).onclick = () => finish(false); $("#paid", el).onclick = () => finish(true); });
 }
 function doPay(id) { if (!guard("biblio")) return; const e = S.emprunts.find(x => x.id === id); put("emprunts", { ...e, paye: true }); toast("Amende encaissée"); }
 

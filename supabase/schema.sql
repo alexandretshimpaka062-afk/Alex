@@ -63,6 +63,26 @@ returns text[] language sql immutable as $$
                         where trim(x) <> '' limit 12), '{}');
 $$;
 
+-- élève présent dans la liste importée (même adresse e-mail) : accepté tout de suite si l'option est activée dans Réglages
+create or replace function public.kiv_auto_accepter(uid uuid)
+returns void language plpgsql security definer set search_path = public as $$
+declare
+  p public.profiles;
+  m text;
+begin
+  select * into p from public.profiles where id = uid;
+  if not found or p.role <> 'en_attente' or coalesce(p.profil, '') <> 'eleve' or coalesce(p.email, '') = '' then return; end if;
+  if to_regclass('public.reglages') is null or coalesce((select (data ->> 'autoAccept')::boolean from public.reglages where id = 'params'), false) is not true then return; end if;
+  select mb.id into m from public.membres mb
+  where lower(trim(mb.data ->> 'email')) = lower(trim(p.email)) and coalesce(mb.data ->> 'type', 'Élève') = 'Élève'
+    and not exists (select 1 from public.profiles o where o.membre_id = mb.id)
+  limit 1;
+  if m is null then return; end if;
+  update public.profiles set role = 'eleve', membre_id = m where id = uid;
+end;
+$$;
+revoke execute on function public.kiv_auto_accepter(uuid) from public, anon, authenticated;
+
 -- chaque inscription crée un profil ; la toute première personne devient administrateur
 create or replace function public.kiv_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -80,6 +100,7 @@ begin
     case when m ->> 'profil' = 'enseignant' then public.kiv_liste_classes(m -> 'classes') else '{}' end
   )
   on conflict (id) do nothing;
+  perform public.kiv_auto_accepter(new.id);
   return new;
 end;
 $$;
@@ -155,6 +176,7 @@ begin
     nom    = coalesce(left(nullif(trim(kiv_ma_demande.nom), ''), 80), profiles.nom),
     classes_demande = case when kiv_ma_demande.profil = 'enseignant' then public.kiv_liste_classes(to_jsonb(coalesce(kiv_ma_demande.classes, '{}'))) else '{}' end
   where id = auth.uid();
+  perform public.kiv_auto_accepter(auth.uid());
 end;
 $$;
 -- un enseignant demande ses classes (l'administrateur valide ensuite)
@@ -452,6 +474,12 @@ grant select on public.avis to authenticated;
 drop policy if exists "avis : lecture" on public.avis;
 create policy "avis : lecture" on public.avis for select to authenticated
   using (public.kiv_role() in ('admin', 'bibliothecaire', 'direction') or membre = public.kiv_membre());
+-- avis écrits : quelques lignes après la lecture, publiées après validation par la bibliothèque
+alter table public.avis add column if not exists texte      text check (length(texte) <= 500);
+alter table public.avis add column if not exists statut     text check (statut in ('attente', 'publie', 'refuse'));
+alter table public.avis add column if not exists motif      text;
+alter table public.avis add column if not exists texte_le   timestamptz;
+alter table public.avis add column if not exists valide_par uuid;
 -- noter un livre qu'on a emprunté (0 = retirer sa note)
 create or replace function public.kiv_noter(livre text, note int)
 returns void language plpgsql security definer set search_path = public as $$
@@ -466,6 +494,53 @@ begin
   on conflict on constraint avis_pkey do update set note = excluded.note, updated_at = now();
 end;
 $$;
+-- écrire (ou modifier) son avis : le livre doit avoir été rendu
+create or replace function public.kiv_avis_ecrire(livre text, note int, texte text)
+returns void language plpgsql security definer set search_path = public as $$
+declare m text := public.kiv_membre(); t text := left(nullif(trim(kiv_avis_ecrire.texte), ''), 500);
+begin
+  if m is null or public.kiv_role() not in ('eleve', 'enseignant', 'admin', 'bibliothecaire') then raise exception 'Connecte-toi avec ton compte de lecteur.'; end if;
+  if not exists (select 1 from public.emprunts e where e.data ->> 'livre' = kiv_avis_ecrire.livre and e.data ->> 'membre' = m and (e.data ->> 'retour') is not null) then
+    raise exception 'Tu pourras donner ton avis quand tu auras rendu ce livre.'; end if;
+  if kiv_avis_ecrire.note not between 1 and 5 then raise exception 'Choisis d''abord une note de 1 à 5 étoiles.'; end if;
+  insert into public.avis as a (livre, membre, note, texte, statut, motif, texte_le)
+  values (kiv_avis_ecrire.livre, m, kiv_avis_ecrire.note, t, case when t is null then null else 'attente' end, null, case when t is null then null else now() end)
+  on conflict on constraint avis_pkey do update set note = excluded.note, texte = excluded.texte, statut = excluded.statut, motif = null,
+    texte_le = excluded.texte_le, updated_at = now(), valide_par = null;
+end;
+$$;
+-- publier ou refuser un avis (la bibliothécaire peut corriger une faute)
+create or replace function public.kiv_avis_valider(livre text, membre text, publier boolean, texte text default null, motif text default null)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if public.kiv_role() not in ('admin', 'bibliothecaire') then raise exception 'Action réservée à la bibliothèque.'; end if;
+  update public.avis a set statut = case when publier then 'publie' else 'refuse' end,
+    texte = coalesce(left(nullif(trim(kiv_avis_valider.texte), ''), 500), a.texte),
+    motif = left(nullif(trim(kiv_avis_valider.motif), ''), 300), valide_par = auth.uid()
+  where a.livre = kiv_avis_valider.livre and a.membre = kiv_avis_valider.membre and a.texte is not null;
+  if not found then raise exception 'Avis introuvable.'; end if;
+end;
+$$;
+-- avis publiés (nom affiché « Prénom N. »)
+create or replace function public.kiv_nom_court(n text)
+returns text language sql immutable as $$
+  select split_part(trim(regexp_replace(coalesce(n, ''), '^(M\.|Mme)\s+', '')), ' ', 1)
+    || case when position(' ' in trim(regexp_replace(coalesce(n, ''), '^(M\.|Mme)\s+', ''))) > 0
+       then ' ' || left(regexp_replace(trim(n), '^.*\s', ''), 1) || '.' else '' end;
+$$;
+create or replace function public.kiv_avis_publies(livre text default null, n int default 30)
+returns table (livre_id text, note int, texte text, nom text, classe text, le timestamptz, moi boolean)
+language sql stable security definer set search_path = public as $$
+  select a.livre, a.note, a.texte, public.kiv_nom_court(m.data ->> 'nom'), case when m.data ->> 'classe' = 'Personnel' then 'Enseignant' else m.data ->> 'classe' end,
+         a.texte_le, a.membre = public.kiv_membre()
+  from public.avis a left join public.membres m on m.id = a.membre
+  where a.statut = 'publie' and (kiv_avis_publies.livre is null or a.livre = kiv_avis_publies.livre)
+    and public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve')
+  order by a.texte_le desc limit greatest(1, least(coalesce(n, 30), 200));
+$$;
+revoke execute on function public.kiv_avis_ecrire(text, int, text), public.kiv_avis_valider(text, text, boolean, text, text), public.kiv_avis_publies(text, int) from public, anon;
+grant execute on function public.kiv_avis_ecrire(text, int, text), public.kiv_avis_valider(text, text, boolean, text, text), public.kiv_avis_publies(text, int) to authenticated;
+
 -- moyenne des notes par livre (sans les noms)
 create or replace function public.kiv_notes()
 returns table (livre text, moyenne numeric, nb int) language sql stable security definer set search_path = public as $$
@@ -647,6 +722,323 @@ revoke execute on function public.kiv_ma_classe(), public.kiv_consigne(text[], t
   public.kiv_objectif_classe(text, int) from public, anon;
 grant execute on function public.kiv_ma_classe(), public.kiv_consigne(text[], text, text, date), public.kiv_consigne_retirer(uuid), public.kiv_consigne_vue(uuid),
   public.kiv_objectif_classe(text, int) to authenticated;
+
+-- ---------------------------------------------------------------- clubs de lecture
+-- un enseignant ou la bibliothèque crée un club ; les élèves le rejoignent, répondent à la question
+-- de la semaine (réponses validées avant d'être visibles) et votent pour le prochain livre
+create table if not exists public.clubs (
+  id            uuid primary key default gen_random_uuid(),
+  nom           text not null check (length(nom) between 2 and 60),
+  description   text check (length(description) <= 400),
+  livre         text,
+  animateur     uuid default auth.uid(),
+  animateur_nom text,
+  acces         text not null default 'ecole' check (acces in ('ecole', 'classe', 'invitation')),
+  classe        text,
+  rdv           timestamptz,
+  lieu          text check (length(lieu) <= 80),
+  a_lire        text check (length(a_lire) <= 160),
+  vote          text[] not null default '{}',
+  created_at    timestamptz not null default now()
+);
+create table if not exists public.club_membres (
+  club    uuid not null references public.clubs (id) on delete cascade,
+  membre  text not null,
+  fini    boolean not null default false,
+  rejoint timestamptz not null default now(),
+  primary key (club, membre)
+);
+create table if not exists public.club_questions (
+  id         uuid primary key default gen_random_uuid(),
+  club       uuid not null references public.clubs (id) on delete cascade,
+  texte      text not null check (length(texte) between 3 and 300),
+  created_at timestamptz not null default now()
+);
+create table if not exists public.club_reponses (
+  id         uuid primary key default gen_random_uuid(),
+  question   uuid not null references public.club_questions (id) on delete cascade,
+  membre     text not null,
+  texte      text not null check (length(texte) between 1 and 500),
+  statut     text not null default 'attente' check (statut in ('attente', 'publie', 'refuse')),
+  created_at timestamptz not null default now(),
+  unique (question, membre)
+);
+create table if not exists public.club_votes (
+  club   uuid not null references public.clubs (id) on delete cascade,
+  membre text not null,
+  livre  text not null,
+  primary key (club, membre)
+);
+do $$
+declare t text;
+begin
+  foreach t in array array['clubs', 'club_membres', 'club_questions', 'club_reponses', 'club_votes'] loop
+    execute format('alter table public.%I enable row level security', t);
+    execute format('revoke all on public.%I from anon, authenticated', t);   -- lecture et écriture uniquement par les fonctions ci-dessous
+  end loop;
+end $$;
+-- peut voir le club / peut le gérer
+create or replace function public.kiv_club_voit(c public.clubs)
+returns boolean language sql stable security definer set search_path = public as $$
+  select public.kiv_role() in ('admin', 'bibliothecaire', 'direction')
+      or c.animateur = auth.uid()
+      or (public.kiv_role() in ('eleve', 'enseignant') and (c.acces = 'ecole'
+          or (c.acces = 'classe' and (c.classe = public.kiv_ma_classe() or c.classe = any (public.kiv_classes())))
+          or exists (select 1 from public.club_membres cm where cm.club = c.id and cm.membre = public.kiv_membre())));
+$$;
+create or replace function public.kiv_club_gere(c public.clubs)
+returns boolean language sql stable security definer set search_path = public as $$
+  select public.kiv_role() in ('admin', 'bibliothecaire') or (public.kiv_role() = 'enseignant' and c.animateur = auth.uid());
+$$;
+create or replace function public.kiv_clubs()
+returns jsonb language sql stable security definer set search_path = public as $$
+  select coalesce(jsonb_agg(jsonb_build_object(
+    'id', c.id, 'nom', c.nom, 'description', c.description, 'livre', c.livre, 'animateur_nom', c.animateur_nom, 'acces', c.acces, 'classe', c.classe,
+    'rdv', c.rdv, 'lieu', c.lieu, 'a_lire', c.a_lire, 'vote', c.vote, 'created_at', c.created_at,
+    'membres', (select count(*) from public.club_membres cm where cm.club = c.id),
+    'moi', exists (select 1 from public.club_membres cm where cm.club = c.id and cm.membre = public.kiv_membre()),
+    'gere', public.kiv_club_gere(c),
+    'a_valider', case when public.kiv_club_gere(c) then (select count(*) from public.club_reponses r join public.club_questions q on q.id = r.question where q.club = c.id and r.statut = 'attente') else 0 end
+  ) order by c.created_at desc), '[]'::jsonb)
+  from public.clubs c where public.kiv_club_voit(c);
+$$;
+create or replace function public.kiv_club(cid uuid)
+returns jsonb language plpgsql stable security definer set search_path = public as $$
+declare c public.clubs; g boolean; me text := public.kiv_membre();
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or not public.kiv_club_voit(c) then raise exception 'Club introuvable.'; end if;
+  g := public.kiv_club_gere(c);
+  return jsonb_build_object(
+    'membres', coalesce((select jsonb_agg(jsonb_build_object('membre', cm.membre, 'nom', public.kiv_nom_court(m.data ->> 'nom'), 'classe', m.data ->> 'classe',
+        'avatar', (select p.avatar from public.profiles p where p.membre_id = cm.membre), 'fini', cm.fini, 'moi', cm.membre = me) order by cm.rejoint)
+      from public.club_membres cm left join public.membres m on m.id = cm.membre where cm.club = cid), '[]'::jsonb),
+    'questions', coalesce((select jsonb_agg(jsonb_build_object('id', q.id, 'texte', q.texte, 'le', q.created_at,
+        'reponses', coalesce((select jsonb_agg(jsonb_build_object('id', r.id, 'nom', public.kiv_nom_court(m.data ->> 'nom'), 'texte', r.texte, 'statut', r.statut, 'moi', r.membre = me) order by r.created_at)
+          from public.club_reponses r left join public.membres m on m.id = r.membre
+          where r.question = q.id and (r.statut = 'publie' or r.membre = me or g)), '[]'::jsonb)) order by q.created_at desc)
+      from public.club_questions q where q.club = cid), '[]'::jsonb),
+    'votes', coalesce((select jsonb_object_agg(v.livre, v.nb) from (select livre, count(*) as nb from public.club_votes where club = cid group by livre) v), '{}'::jsonb),
+    'mon_vote', (select livre from public.club_votes where club = cid and membre = me));
+end;
+$$;
+create or replace function public.kiv_club_enregistrer(cid uuid, nom text, description text, livre text, acces text, classe text, rdv timestamptz, lieu text, a_lire text, vote text[])
+returns uuid language plpgsql security definer set search_path = public as $$
+declare c public.clubs; nid uuid; me text := public.kiv_role();
+begin
+  if me not in ('enseignant', 'admin', 'bibliothecaire') then raise exception 'Seuls les enseignants et la bibliothèque créent des clubs.'; end if;
+  if acces = 'classe' and me = 'enseignant' and not (classe = any (public.kiv_classes())) then raise exception 'Choisissez une de vos classes.'; end if;
+  if acces = 'classe' and coalesce(classe, '') = '' then raise exception 'Choisissez la classe du club.'; end if;
+  if cid is null then
+    insert into public.clubs (nom, description, livre, acces, classe, rdv, lieu, a_lire, vote, animateur_nom)
+    values (trim(nom), nullif(trim(description), ''), nullif(livre, ''), acces, case when acces = 'classe' then classe end, rdv, nullif(trim(lieu), ''), nullif(trim(a_lire), ''),
+            coalesce(vote[1:3], '{}'), (select p.nom from public.profiles p where p.id = auth.uid()))
+    returning id into nid;
+    return nid;
+  end if;
+  select * into c from public.clubs where id = cid;
+  if not found or not public.kiv_club_gere(c) then raise exception 'Vous ne pouvez pas modifier ce club.'; end if;
+  if c.livre is distinct from nullif(livre, '') then update public.club_membres set fini = false where club = cid; end if;
+  if c.vote is distinct from coalesce(vote[1:3], '{}') then delete from public.club_votes where club = cid; end if;
+  update public.clubs set nom = trim(kiv_club_enregistrer.nom), description = nullif(trim(kiv_club_enregistrer.description), ''), livre = nullif(kiv_club_enregistrer.livre, ''),
+    acces = kiv_club_enregistrer.acces, classe = case when kiv_club_enregistrer.acces = 'classe' then kiv_club_enregistrer.classe end, rdv = kiv_club_enregistrer.rdv,
+    lieu = nullif(trim(kiv_club_enregistrer.lieu), ''), a_lire = nullif(trim(kiv_club_enregistrer.a_lire), ''), vote = coalesce(kiv_club_enregistrer.vote[1:3], '{}')
+  where id = cid;
+  return cid;
+end;
+$$;
+create or replace function public.kiv_club_supprimer(cid uuid)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs;
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or not public.kiv_club_gere(c) then raise exception 'Vous ne pouvez pas supprimer ce club.'; end if;
+  delete from public.clubs where id = cid;
+end;
+$$;
+-- rejoindre ou quitter (l'élève) ; inviter ou retirer (l'animateur)
+create or replace function public.kiv_club_rejoindre(cid uuid, oui boolean)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs; m text := public.kiv_membre();
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or m is null or not public.kiv_club_voit(c) then raise exception 'Club introuvable.'; end if;
+  if not oui then delete from public.club_membres where club = cid and membre = m; delete from public.club_votes where club = cid and membre = m; return; end if;
+  if c.acces = 'invitation' then raise exception 'Ce club est sur invitation : demande à son animateur.'; end if;
+  insert into public.club_membres (club, membre) values (cid, m) on conflict do nothing;
+end;
+$$;
+create or replace function public.kiv_club_inviter(cid uuid, membre text, oui boolean)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs;
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or not public.kiv_club_gere(c) then raise exception 'Vous ne gérez pas ce club.'; end if;
+  if not exists (select 1 from public.membres where id = membre) then raise exception 'Membre introuvable.'; end if;
+  if oui then insert into public.club_membres (club, membre) values (cid, kiv_club_inviter.membre) on conflict do nothing;
+  else delete from public.club_membres cm where cm.club = cid and cm.membre = kiv_club_inviter.membre; end if;
+end;
+$$;
+create or replace function public.kiv_club_fini(cid uuid, oui boolean)
+returns void language sql security definer set search_path = public as $$
+  update public.club_membres set fini = oui where club = cid and membre = public.kiv_membre();
+$$;
+create or replace function public.kiv_club_question(cid uuid, texte text)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs;
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or not public.kiv_club_gere(c) then raise exception 'Seul l''animateur pose les questions.'; end if;
+  insert into public.club_questions (club, texte) values (cid, trim(texte));
+end;
+$$;
+create or replace function public.kiv_club_repondre(qid uuid, texte text)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs; m text := public.kiv_membre();
+begin
+  select cl.* into c from public.clubs cl join public.club_questions q on q.club = cl.id where q.id = qid;
+  if not found or m is null then raise exception 'Question introuvable.'; end if;
+  if not exists (select 1 from public.club_membres where club = c.id and membre = m) and not public.kiv_club_gere(c) then raise exception 'Rejoins d''abord le club.'; end if;
+  insert into public.club_reponses as r (question, membre, texte, statut)
+  values (qid, m, left(trim(texte), 500), case when public.kiv_club_gere(c) then 'publie' else 'attente' end)
+  on conflict (question, membre) do update set texte = excluded.texte, statut = excluded.statut, created_at = now();
+end;
+$$;
+create or replace function public.kiv_club_moderer(rid uuid, publier boolean)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs;
+begin
+  select cl.* into c from public.clubs cl join public.club_questions q on q.club = cl.id join public.club_reponses r on r.question = q.id where r.id = rid;
+  if not found or not public.kiv_club_gere(c) then raise exception 'Vous ne gérez pas ce club.'; end if;
+  update public.club_reponses set statut = case when publier then 'publie' else 'refuse' end where id = rid;
+end;
+$$;
+create or replace function public.kiv_club_voter(cid uuid, livre text)
+returns void language plpgsql security definer set search_path = public as $$
+declare c public.clubs; m text := public.kiv_membre();
+begin
+  select * into c from public.clubs where id = cid;
+  if not found or not exists (select 1 from public.club_membres where club = cid and membre = m) then raise exception 'Rejoins d''abord le club pour voter.'; end if;
+  if not (livre = any (c.vote)) then raise exception 'Ce livre ne fait pas partie du vote.'; end if;
+  insert into public.club_votes (club, membre, livre) values (cid, m, kiv_club_voter.livre)
+  on conflict (club, membre) do update set livre = excluded.livre;
+end;
+$$;
+revoke execute on function public.kiv_club_voit(public.clubs), public.kiv_club_gere(public.clubs) from public, anon, authenticated;
+revoke execute on function public.kiv_clubs(), public.kiv_club(uuid), public.kiv_club_enregistrer(uuid, text, text, text, text, text, timestamptz, text, text, text[]),
+  public.kiv_club_supprimer(uuid), public.kiv_club_rejoindre(uuid, boolean), public.kiv_club_inviter(uuid, text, boolean), public.kiv_club_fini(uuid, boolean),
+  public.kiv_club_question(uuid, text), public.kiv_club_repondre(uuid, text), public.kiv_club_moderer(uuid, boolean), public.kiv_club_voter(uuid, text) from public, anon;
+grant execute on function public.kiv_clubs(), public.kiv_club(uuid), public.kiv_club_enregistrer(uuid, text, text, text, text, text, timestamptz, text, text, text[]),
+  public.kiv_club_supprimer(uuid), public.kiv_club_rejoindre(uuid, boolean), public.kiv_club_inviter(uuid, text, boolean), public.kiv_club_fini(uuid, boolean),
+  public.kiv_club_question(uuid, text), public.kiv_club_repondre(uuid, text), public.kiv_club_moderer(uuid, boolean), public.kiv_club_voter(uuid, text) to authenticated;
+
+-- ---------------------------------------------------------------- import des élèves (Excel)
+-- lignes : [{ "id": "A012" (fiche existante) ou absent (nouvelle fiche), "nom", "classe", "email", "sexe" }]
+create or replace function public.kiv_import_membres(lignes jsonb)
+returns jsonb language plpgsql security definer set search_path = public as $$
+declare l jsonb; n int := 0; u int := 0; r int;
+begin
+  if public.kiv_role() not in ('admin', 'bibliothecaire') then raise exception 'Votre rôle ne permet pas cette modification.'; end if;
+  perform pg_advisory_xact_lock(4243);
+  r := coalesce((select max(public.kiv_rang(id)) from public.membres), 0);
+  for l in select * from jsonb_array_elements(coalesce(lignes, '[]'::jsonb)) loop
+    if coalesce(trim(l ->> 'nom'), '') = '' then continue; end if;
+    if l ? 'id' and exists (select 1 from public.membres where id = l ->> 'id') then
+      update public.membres set data = data
+        || jsonb_build_object('nom', left(trim(l ->> 'nom'), 80))
+        || case when coalesce(trim(l ->> 'classe'), '') <> '' then jsonb_build_object('classe', left(trim(l ->> 'classe'), 60)) else '{}'::jsonb end
+        || case when coalesce(trim(l ->> 'email'), '') <> '' then jsonb_build_object('email', lower(left(trim(l ->> 'email'), 120))) else '{}'::jsonb end
+        || case when coalesce(trim(l ->> 'sexe'), '') <> '' then jsonb_build_object('sexe', left(trim(l ->> 'sexe'), 1)) else '{}'::jsonb end
+      where id = l ->> 'id';
+      u := u + 1;
+    else
+      r := r + 1;
+      insert into public.membres (id, data) values (public.kiv_numero(r), jsonb_build_object('nom', left(trim(l ->> 'nom'), 80), 'type', 'Élève',
+        'classe', left(coalesce(trim(l ->> 'classe'), ''), 60), 'email', lower(left(coalesce(trim(l ->> 'email'), ''), 120)), 'sexe', left(coalesce(trim(l ->> 'sexe'), ''), 1),
+        'inscription', to_char(current_date, 'YYYY-MM-DD')));
+      n := n + 1;
+    end if;
+  end loop;
+  return jsonb_build_object('crees', n, 'modifies', u);
+end;
+$$;
+revoke execute on function public.kiv_import_membres(jsonb) from public, anon;
+grant execute on function public.kiv_import_membres(jsonb) to authenticated;
+
+-- ---------------------------------------------------------------- rappels de retard pour un agent n8n
+-- L'administrateur crée une clé dans Réglages ; n8n appelle kiv_retards_n8n avec cette clé.
+create table if not exists public.kiv_secrets (id text primary key, valeur text not null, created_at timestamptz not null default now());
+alter table public.kiv_secrets enable row level security;
+revoke all on public.kiv_secrets from anon, authenticated;
+create or replace function public.kiv_cle_n8n(nouvelle boolean default false)
+returns text language plpgsql security definer set search_path = public as $$
+declare k text;
+begin
+  if public.kiv_role() <> 'admin' then raise exception 'Réservé à l''administrateur.'; end if;
+  if nouvelle then
+    k := replace(gen_random_uuid()::text || gen_random_uuid()::text, '-', '');
+    insert into public.kiv_secrets (id, valeur) values ('n8n', k) on conflict (id) do update set valeur = excluded.valeur, created_at = now();
+    return k;
+  end if;
+  return (select valeur from public.kiv_secrets where id = 'n8n');
+end;
+$$;
+create or replace function public.kiv_retards_n8n(cle text)
+returns table (membre text, nom text, classe text, email text, livre text, titre text, emprunte_le date, a_rendre_le date, jours_retard int, amende int)
+language plpgsql stable security definer set search_path = public as $$
+declare k text := (select valeur from public.kiv_secrets where id = 'n8n'); p jsonb := coalesce((select data from public.reglages where id = 'params'), '{}');
+begin
+  if k is null or cle is null or cle <> k then raise exception 'Clé invalide.'; end if;
+  return query
+  with e as (
+    select x.data ->> 'membre' as m, x.data ->> 'livre' as l, (x.data ->> 'date')::date as d,
+           coalesce(nullif(x.data ->> 'prevu', '')::date, (x.data ->> 'date')::date + coalesce((p ->> 'duree')::int, 14)) as prevu
+    from public.emprunts x where (x.data ->> 'retour') is null
+  )
+  select e.m, mb.data ->> 'nom', mb.data ->> 'classe',
+         coalesce((select pr.email from public.profiles pr where pr.membre_id = e.m), nullif(mb.data ->> 'email', '')),
+         e.l, lv.data ->> 'titre', e.d, e.prevu, (current_date - e.prevu)::int, ((current_date - e.prevu) * coalesce((p ->> 'amende')::int, 0))::int
+  from e left join public.membres mb on mb.id = e.m left join public.livres lv on lv.id = e.l
+  where e.prevu < current_date
+  order by mb.data ->> 'classe', mb.data ->> 'nom';
+end;
+$$;
+revoke execute on function public.kiv_cle_n8n(boolean), public.kiv_retards_n8n(text) from public;
+grant execute on function public.kiv_cle_n8n(boolean) to authenticated;
+grant execute on function public.kiv_retards_n8n(text) to anon, authenticated;
+
+-- ---------------------------------------------------------------- assistant bibliothécaire IA
+-- nombre de questions par personne et par jour (10 par défaut, réglable dans Réglages)
+create table if not exists public.assistant_log (
+  uid  uuid not null,
+  jour date not null default current_date,
+  nb   int  not null default 0,
+  primary key (uid, jour)
+);
+alter table public.assistant_log enable row level security;
+revoke all on public.assistant_log from anon, authenticated;
+create or replace function public.kiv_assistant_quota()
+returns int language plpgsql security definer set search_path = public as $$
+declare lim int := coalesce((select (data ->> 'assistantMax')::int from public.reglages where id = 'params'), 10); n int;
+begin
+  if public.kiv_role() not in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve') then raise exception 'Connectez-vous d''abord.'; end if;
+  insert into public.assistant_log as a (uid, jour, nb) values (auth.uid(), current_date, 1)
+  on conflict (uid, jour) do update set nb = a.nb + 1 returning nb into n;
+  if n > lim then raise exception 'Tu as posé tes % questions du jour. Reviens demain !', lim; end if;
+  return lim - n;
+end;
+$$;
+-- ce que l'assistant sait du lecteur : ses lectures et ses genres préférés
+create or replace function public.kiv_assistant_profil()
+returns jsonb language sql stable security definer set search_path = public as $$
+  select jsonb_build_object(
+    'prenom', split_part((select nom from public.profiles where id = auth.uid()), ' ', 1),
+    'classe', public.kiv_ma_classe(),
+    'genres', (select genres from public.profiles where id = auth.uid()),
+    'lus', coalesce((select jsonb_agg(distinct e.data ->> 'livre') from public.emprunts e where e.data ->> 'membre' = public.kiv_membre()), '[]'::jsonb));
+$$;
+revoke execute on function public.kiv_assistant_quota(), public.kiv_assistant_profil() from public, anon;
+grant execute on function public.kiv_assistant_quota(), public.kiv_assistant_profil() to authenticated;
 
 -- ---------------------------------------------------------------- borne publique (sans compte)
 -- Seulement le catalogue et le nombre d'exemplaires disponibles : aucun nom, aucun emprunt.

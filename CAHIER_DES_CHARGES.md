@@ -77,7 +77,18 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
    - « Donner un livre à la classe » : un livre, une consigne (« à lire et à présenter le … ») et une date. Chaque élève la voit en haut de son espace, avec l'étiquette « Nouveau » ; l'enseignant voit combien d'élèves l'ont vue et ont emprunté le livre. Kivuthèque prévient s'il n'y a pas assez d'exemplaires.
    - Objectif de lecture propre à chaque classe ; bilan de classe et diplômes en PDF.
    - Borne publique : adresse du site suivie de `?borne`. Catalogue en plein écran, recherche, genres, livres disponibles et rayon, sans compte et sans aucun nom. Retour à l'accueil après 90 secondes sans activité.
-5. Rappels de retard, état des livres, bon de commande.
+5. ✅ Rappels de retard, état des livres, bon de commande.
+   - Rappels **par e-mail, à l'élève** (adresse de son compte), sans les parents : un clic ouvre Gmail avec le message déjà écrit ; date du dernier rappel sur l'emprunt. Envoi automatique possible avec un agent n8n (clé secrète dans Réglages).
+   - Au retour : bon état, abîmé (frais proposés : un quart du prix) ou perdu (prix de remplacement ; un exemplaire est retiré). Prix de remplacement sur la fiche du livre.
+   - Bon de commande PDF par fournisseur, articles sous le seuil cochés d'office, quantité proposée modifiable.
+
+## Ajouts après l'étape 5
+
+- **Assistant bibliothécaire IA** (API Claude, programme dans Supabase) : l'élève pose une question, l'assistant propose 1 à 4 livres du catalogue uniquement, avec disponibilité et rayon. Limite de questions par jour.
+- **Import des élèves depuis Excel ou CSV** : création et mise à jour des fiches ; acceptation automatique des élèves de la liste (même adresse e-mail).
+- **Tableau de bord de la direction** : élèves lecteurs, livres lus, lecture par classe et par mois, achats conseillés, livres jamais empruntés, export Excel.
+- **Avis écrits** : après avoir rendu un livre, l'élève écrit son avis ; la bibliothèque le valide (et peut corriger une faute) ; il apparaît sur la fiche du livre et dans « Les élèves en parlent ».
+- **Clubs de lecture** : créés par un enseignant ou la bibliothèque (toute l'école, une classe ou sur invitation) ; livre du moment, rendez-vous, question de la semaine (réponses validées), vote pour le prochain livre, « j'ai fini ma lecture », badge « Club de lecture ».
 
 ## Esthétique et expérience (ajouté)
 
@@ -98,13 +109,13 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 
 Ces idées ont été proposées et retenues, mais **pas encore choisies** pour un ordre de réalisation. À reprendre après les modifications d'esthétique et les étapes 4 et 5.
 
-1. **Assistant bibliothécaire IA** : un élève demande « un livre d'aventure court pour mon âge », et l'assistant répond avec des livres du catalogue (possible avec un agent N8N).
+1. ~~Assistant bibliothécaire IA~~ : fait.
 2. **Notifications par e-mail** : « Ton livre t'attend », « Rappel : à rendre demain ».
 3. **Application installable** sur téléphone et tablette : icône sur l'écran d'accueil, ouverture plein écran, consultation hors connexion.
-4. **Import des élèves depuis Excel** : la liste de chaque classe en une fois.
-5. **Tableau de bord de la direction** : taux de lecture par classe et par mois, livres jamais empruntés, achats conseillés.
+4. ~~Import des élèves depuis Excel~~ : fait.
+5. ~~Tableau de bord de la direction~~ : fait.
 6. **Journal des actions** : qui a prêté, modifié ou supprimé quoi, et quand.
-7. **Clubs de lecture et avis écrits** : de courts commentaires d'élèves, validés par la bibliothécaire.
+7. ~~Clubs de lecture et avis écrits~~ : fait.
 
 
 Made by Alexandre et Declaire

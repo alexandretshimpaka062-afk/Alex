@@ -152,7 +152,7 @@ function createWindow() {
   if (SMOKE) return smokeTest();
   win.once("ready-to-show", () => win.show());
   // les liens externes s'ouvrent dans le navigateur
-  win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/.test(url)) shell.openExternal(url); return { action: "deny" }; });
+  win.webContents.setWindowOpenHandler(({ url }) => { if (/^(https?|mailto):/.test(url)) shell.openExternal(url); return { action: "deny" }; });
   win.webContents.on("will-navigate", (e, url) => { if (!url.startsWith("file:")) { e.preventDefault(); if (/^https?:/.test(url)) shell.openExternal(url); } });
   // les fichiers exportés : boîte de dialogue « Enregistrer sous »
   win.webContents.session.on("will-download", (e, item) => {

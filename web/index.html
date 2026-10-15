@@ -286,6 +286,7 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 
 /* actions rapides */
 .quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.quick>.q:last-child:nth-child(odd){grid-column:span 2}
 .q{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border-radius:16px;background:var(--glass-strong);border:1px solid var(--line);text-align:left;font-weight:620;font-size:13.5px;transition:transform .3s var(--spring),border-color .2s}
 .q:hover{transform:translateY(-3px);border-color:var(--line-2)}
 .q span.ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--tone-soft);color:var(--tone)}
@@ -401,6 +402,41 @@ body.locked{overflow:hidden}
 .auth-msg.err{background:var(--danger-soft);color:var(--danger)}
 .auth-msg.ok{background:var(--green-soft);color:var(--green)}
 .auth-foot{font-size:11.5px;color:var(--ink-3)}
+.rcode{font:800 30px/1 var(--mono);letter-spacing:.08em;text-align:center;padding:20px 12px;border-radius:18px;background:var(--accent-soft,rgba(0,174,239,.12));color:var(--accent);border:1.5px dashed var(--accent);user-select:all}
+.user-chip .me{all:unset;cursor:pointer;min-width:0;flex:1;display:block}
+.user-chip .me:focus-visible{outline:2px solid var(--accent);border-radius:8px}
+.lookup{border:1px solid var(--line-2);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(135deg,rgba(0,174,239,.07),rgba(46,177,74,.06))}
+.lookup-h{display:flex;align-items:center;gap:8px;font-weight:650;font-size:13.5px}
+.lookup-h .ic{width:18px;height:18px;flex:none;color:var(--accent)}
+.lk-msg .ic{width:15px;height:15px;vertical-align:-3px;color:var(--green)}
+.lookup-bar .btn{flex:none}
+.lookup-h small{font-weight:500;color:var(--ink-3);margin-left:auto}
+.lookup-bar{display:flex;gap:8px}
+.lookup-bar .field-search{flex:1;min-width:0}
+.lk-results{display:flex;flex-direction:column;gap:6px;max-height:330px;overflow-y:auto}
+.lk-results:empty{display:none}
+.lk{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;padding:8px;border-radius:14px;border:1px solid var(--line);background:var(--glass-strong);cursor:pointer;color:inherit;font:inherit;width:100%}
+.lk:hover,.lk:focus-visible{border-color:var(--accent);outline:none}
+.lk img,.lk .ph{width:44px;height:62px;border-radius:4px 7px 7px 4px;object-fit:cover;background:var(--line);box-shadow:0 4px 10px -5px rgba(0,0,0,.4)}
+.lk .t{font-weight:650;font-size:14px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.lk .s{font-size:12.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lk-msg{font-size:13px;color:var(--ink-3);padding:4px 2px}
+.cover-pick{display:flex;gap:12px;align-items:center}
+.cover-pick img{width:54px;height:78px;object-fit:cover;border-radius:4px 8px 8px 4px;box-shadow:0 6px 14px -6px rgba(0,0,0,.45)}
+.cover .cv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+img.mini-cover{object-fit:cover}
+.scan{position:fixed;inset:0;z-index:120;background:rgba(3,10,18,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px 16px;color:#fff;animation:scanIn .25s both}
+.scan-box{position:relative;width:min(560px,100%);aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:#000;box-shadow:0 30px 80px -20px rgba(0,0,0,.8)}
+.scan-box video{width:100%;height:100%;object-fit:cover}
+.scan-frame{position:absolute;left:12%;right:12%;top:30%;bottom:30%;border:3px solid rgba(255,255,255,.9);border-radius:16px;box-shadow:0 0 0 2000px rgba(0,0,0,.35)}
+.scan-frame::after{content:"";position:absolute;left:4%;right:4%;top:50%;height:2px;background:#FF3B30;box-shadow:0 0 12px #FF3B30;animation:laser 1.6s ease-in-out infinite alternate}
+@keyframes laser{from{transform:translateY(-30px)}to{transform:translateY(30px)}}
+.scan-box.hit .scan-frame{border-color:#34C759;box-shadow:0 0 0 2000px rgba(0,0,0,.35),0 0 30px #34C759}
+.scan p{margin:0;text-align:center;max-width:520px;font-size:14.5px;opacity:.9}
+.scan-manual{display:flex;gap:8px;width:min(420px,100%)}
+.scan-manual input{flex:1;min-width:0;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;padding:0 12px;font:inherit}
+.scan .btn.ghost{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.08)}
+@keyframes scanIn{from{opacity:0}to{opacity:1}}
 .auth code{font:600 12.5px var(--mono);background:var(--line);padding:1px 6px;border-radius:6px}
 /* rapports */
 .report-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
@@ -552,6 +588,7 @@ body.locked{overflow:hidden}
 
 <script src="vendor/jspdf.umd.min.js"></script>
 <script src="vendor/jspdf.plugin.autotable.min.js"></script>
+<script src="vendor/zxing.min.js"></script>
 <script src="vendor/supabase.js"></script>
 <script src="config.js"></script>
 <script>
@@ -612,6 +649,9 @@ const P = {
   trend: '<path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
   key: '<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14.5 8.5l2 2"/>',
   logout: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/>',
+  lock: '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  scan: '<path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M8 8v8M11 8v8M14 8v8M17 8v8"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/>',
   coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5V8M12 16v1.5"/>',
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -702,10 +742,21 @@ const store = { mode: "loading", db: null, loaded: new Set(), ready: false };
 
 const DESKTOP = window.desktop || null;
 function lsRead() { if (DESKTOP) { try { return DESKTOP.load(); } catch { return null; } } try { return JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch { return null; } }
-function lsWrite() { if (store.mode !== "local") return; if (DESKTOP) { DESKTOP.save(JSON.stringify(S)); return; } try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
+function lsWrite() {
+  if (store.mode !== "local") return;
+  if (DESKTOP) {
+    Promise.resolve(DESKTOP.save(JSON.stringify(S))).then(r => {
+      if (!r || r.ok !== false) return;
+      toast(r.error || "La modification n'a pas été enregistrée.", true);
+      const d = lsRead(); if (!d) return location.reload();
+      COLS.forEach(c => S[c] = d[c] || []); S.params = d.params || null; onData(true);
+    });
+    return;
+  } try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
 
 async function initStore() {
   if (CLOUD) return cloudBoot();
+  if (LOCAL_AUTH) return localBoot();
   let db = null;
   if (window.claude && typeof window.claude.use === "function") { try { db = await window.claude.use("db"); } catch { db = null; } }
   if (db) {
@@ -796,7 +847,7 @@ const ROLES = {
 const auth = { sb: null, user: null, profile: null, accounts: [], channel: null };
 const roleOf = () => (auth.profile && auth.profile.role) || "";
 function can(area) {
-  if (store.mode !== "cloud") return true;
+  if (store.mode !== "cloud" && !store.localAuth) return true;
   const r = roleOf();
   if (r === "admin") return true;
   if (area === "biblio") return r === "bibliothecaire";
@@ -972,7 +1023,12 @@ function buildAccountNav() {
   }
   if (!can("admin") && exists) exists.remove();
   const foot = $("#userChip");
-  if (foot && auth.profile) { foot.hidden = false; foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom || auth.user.email })}<div style="min-width:0"><b>${esc(auth.profile.nom || auth.user.email)}</b><small>${esc(ROLES[roleOf()][0])}</small></div><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
+  if (foot && auth.profile && store.localAuth) {
+    foot.hidden = false;
+    foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom })}<button class="me" type="button" id="meBtn" title="Mon compte · changer de mot de passe"><b>${esc(auth.profile.nom)}</b><small>${esc(ROLES[roleOf()][0])}</small></button>
+      <button class="act" type="button" id="lockBtn" title="Verrouiller" aria-label="Verrouiller">${ic("lock")}</button><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
+    $("#meBtn").onclick = myAccountSheet; $("#lockBtn").onclick = () => localLock(true); $("#logoutBtn").onclick = () => localLock(false);
+  } else if (foot && auth.profile) { foot.hidden = false; foot.innerHTML = `${avatar({ id: auth.user.id, nom: auth.profile.nom || auth.user.email })}<div style="min-width:0"><b>${esc(auth.profile.nom || auth.user.email)}</b><small>${esc(ROLES[roleOf()][0])}</small></div><button class="act" type="button" id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">${ic("logout")}</button>`;
     $("#logoutBtn").onclick = signOut; }
   syncNav();
 }
@@ -996,6 +1052,203 @@ async function setRole(id, role) {
   const { error } = await auth.sb.rpc("kiv_set_role", { target: id, new_role: role });
   if (error) { toast(cloudError(error), true); return loadAccounts(); }
   const p = auth.accounts.find(x => x.id === id); toast(`${p ? p.nom || p.email : "Compte"} : ${ROLES[role][0]}`); loadAccounts();
+}
+
+/* ============================================================ logiciel de bureau : comptes et mots de passe
+   Les comptes sont gérés par le logiciel (fichier comptes.json, mots de passe chiffrés) :
+   l'interface ne voit jamais les mots de passe, et chaque enregistrement est vérifié selon le rôle. */
+const LOCAL_AUTH = !!(DESKTOP && DESKTOP.auth);
+const LOCK_KEY = "kiv-lock";
+async function localBoot() {
+  store.localAuth = true;
+  const st = await DESKTOP.auth.status();
+  if (st.ok && st.current) return localEnter(st.current);
+  if (st.ok && !st.hasUsers) return localSetup();
+  localLogin();
+}
+function pwField(id, label, auto) {
+  return `<div class="f"><label for="${id}">${label}</label><input id="${id}" type="password" autocomplete="${auto}" minlength="6" required></div>`;
+}
+function localSetup() {
+  const el = authShell(`<h2>Bienvenue ! Créons le compte administrateur</h2>
+    <p class="auth-p">L'administrateur gère tout, y compris les comptes de l'équipe : bibliothécaire, gestion des fournitures, consultation. Vous les créerez ensuite dans <b>Comptes</b>.</p>
+    <form id="aForm" class="auth-form" novalidate>
+      <div class="f"><label for="as-nom">Prénom et nom</label><input id="as-nom" autocomplete="name" placeholder="Ex. : Direction KIS" required></div>
+      <div class="f"><label for="as-login">Identifiant de connexion</label><input id="as-login" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="Ex. : direction" required></div>
+      ${pwField("as-pass", "Mot de passe (6 caractères minimum)", "new-password")}${pwField("as-pass2", "Confirmer le mot de passe", "new-password")}
+      <button class="btn primary" type="submit" id="asSubmit">${ic("check")}Créer le compte administrateur</button>
+      <div class="auth-msg" hidden></div>
+    </form>`);
+  $("#aForm", el).onsubmit = async e => {
+    e.preventDefault(); authMsg(el, "");
+    const nom = $("#as-nom", el).value.trim(), login = $("#as-login", el).value.trim(), password = $("#as-pass", el).value;
+    if (!nom || !login) return authMsg(el, "Indiquez votre nom et un identifiant.");
+    if (password.length < 6) return authMsg(el, "Le mot de passe doit contenir au moins 6 caractères.");
+    if (password !== $("#as-pass2", el).value) return authMsg(el, "Les deux mots de passe sont différents.");
+    $("#asSubmit", el).disabled = true;
+    const r = await DESKTOP.auth.setup({ nom, login, password });
+    $("#asSubmit", el).disabled = false;
+    if (!r.ok) return authMsg(el, r.error);
+    showRecoveryCode(r.recoveryCode, r.user);
+  };
+  setTimeout(() => $("#as-nom", el).focus(), 50);
+}
+function showRecoveryCode(code, user) {
+  const el = authShell(`<h2>Votre code de secours</h2>
+    <p class="auth-p">Notez ce code sur papier et gardez-le en lieu sûr. En cas d'oubli du mot de passe administrateur, il permet d'en choisir un nouveau.
+    <b>Il ne sera plus affiché.</b></p>
+    <div class="rcode" id="asCode">${esc(code)}</div>
+    <div class="auth-actions"><button class="btn ghost" type="button" id="asCopy">${ic("check")}Copier le code</button></div>
+    <button class="btn primary" type="button" id="asContinue">${ic("arrow")}J'ai noté le code, continuer</button>`);
+  $("#asCopy", el).onclick = async () => { try { await navigator.clipboard.writeText(code); toast("Code copié"); } catch { toast("Copie impossible : recopiez le code à la main", true); } };
+  $("#asContinue", el).onclick = () => localEnter(user);
+}
+function localLogin(info) {
+  let locked = ""; try { locked = sessionStorage.getItem(LOCK_KEY) || ""; sessionStorage.removeItem(LOCK_KEY); } catch {}
+  const el = authShell(`<h2>${locked ? "Session verrouillée" : "Connexion"}</h2>
+    ${locked ? '<p class="auth-p">Kivuthèque a été verrouillée. Saisissez de nouveau votre mot de passe.</p>' : ""}
+    <form id="aForm" class="auth-form" novalidate>
+      <div class="f"><label for="al-login">Identifiant</label><input id="al-login" autocomplete="username" autocapitalize="none" spellcheck="false" value="${esc(locked)}" required></div>
+      ${pwField("al-pass", "Mot de passe", "current-password")}
+      <button class="btn primary" type="submit" id="alSubmit">${ic("arrow")}Se connecter</button>
+      <div class="auth-msg" hidden></div>
+      <button type="button" class="link auth-link" id="alForgot">Mot de passe oublié ?</button>
+    </form>`);
+  if (info) authMsg(el, info, true);
+  $("#alForgot", el).onclick = localForgot;
+  $("#aForm", el).onsubmit = async e => {
+    e.preventDefault(); authMsg(el, ""); $("#alSubmit", el).disabled = true;
+    const r = await DESKTOP.auth.login({ login: $("#al-login", el).value, password: $("#al-pass", el).value });
+    $("#alSubmit", el).disabled = false;
+    if (!r.ok) { $("#al-pass", el).value = ""; $("#al-pass", el).focus(); return authMsg(el, r.error); }
+    localEnter(r.user);
+  };
+  setTimeout(() => (locked ? $("#al-pass", el) : $("#al-login", el)).focus(), 50);
+}
+function localForgot() {
+  const el = authShell(`<h2>Mot de passe oublié</h2>
+    <p class="auth-p"><b>Bibliothécaire, fournitures ou consultation</b> : demandez à l'administrateur de vous attribuer un nouveau mot de passe, dans <b>Comptes</b>.</p>
+    <p class="auth-p"><b>Administrateur</b> : utilisez le code de secours noté lors de l'installation.</p>
+    <form id="aForm" class="auth-form" novalidate>
+      <div class="f"><label for="ar-code">Code de secours</label><input id="ar-code" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" required></div>
+      <div class="f"><label for="ar-login">Identifiant de l'administrateur</label><input id="ar-login" autocapitalize="none" spellcheck="false" required></div>
+      ${pwField("ar-pass", "Nouveau mot de passe", "new-password")}${pwField("ar-pass2", "Confirmer", "new-password")}
+      <button class="btn primary" type="submit" id="arSubmit">${ic("check")}Changer le mot de passe</button>
+      <div class="auth-msg" hidden></div>
+      <button type="button" class="link auth-link" id="arBack">Retour à la connexion</button>
+    </form>`);
+  $("#arBack", el).onclick = () => localLogin();
+  $("#aForm", el).onsubmit = async e => {
+    e.preventDefault(); authMsg(el, "");
+    const password = $("#ar-pass", el).value;
+    if (password !== $("#ar-pass2", el).value) return authMsg(el, "Les deux mots de passe sont différents.");
+    const r = await DESKTOP.auth.recover({ code: $("#ar-code", el).value, login: $("#ar-login", el).value, password });
+    if (!r.ok) return authMsg(el, r.error);
+    showRecoveryCode(r.recoveryCode, r.user);
+  };
+}
+function localEnter(user) {
+  auth.profile = user; auth.user = { id: user.id, email: user.login };
+  COLS.forEach(c => S[c] = []); S.params = null;
+  store.mode = "local"; const saved = lsRead(); if (saved) Object.assign(S, saved);
+  store.loaded = new Set([...COLS, "params"]);
+  hideAuth(); applyPerms(); buildAccountNav(); ui.animate = true; onData(true);
+  if (can("admin")) loadLocalAccounts();
+  idle.last = Date.now();
+}
+async function localLock(keepLogin) {
+  await DESKTOP.auth.logout();
+  if (keepLogin) try { sessionStorage.setItem(LOCK_KEY, auth.profile.login); } catch {}
+  location.hash = ""; location.reload();
+}
+/* verrouillage automatique après une période sans activité */
+const idle = { last: Date.now() };
+["pointerdown", "keydown", "wheel", "touchstart"].forEach(t => addEventListener(t, () => idle.last = Date.now(), { passive: true, capture: true }));
+addEventListener("pointermove", () => idle.last = Date.now(), { passive: true });
+setInterval(() => {
+  if (!store.localAuth || !auth.profile || document.body.classList.contains("locked") || $(".scan")) return;
+  const min = +(params().verrou ?? 15); if (!min) return;
+  if (Date.now() - idle.last > min * 60000) localLock(true);
+}, 15000);
+
+async function loadLocalAccounts() {
+  const r = await DESKTOP.auth.list();
+  if (r.ok) { auth.accounts = r.users; if (ui.view === "comptes") render(); }
+}
+function localAccountsView() {
+  const list = auth.accounts.slice().sort((a, b) => (b.role === "admin") - (a.role === "admin") || a.nom.localeCompare(b.nom, "fr"));
+  const opts = cur => ["admin", "bibliothecaire", "fournitures", "consultation"].map(k => `<option value="${k}" ${k === cur ? "selected" : ""}>${ROLES[k][0]}</option>`).join("");
+  return `<div class="card"><div class="card-h"><h3>Comptes de cet ordinateur</h3><span class="sub">${list.length} personne${list.length > 1 ? "s" : ""}</span>
+      <button class="btn sm primary" type="button" id="newAcc" style="margin-left:auto">${ic("plus")}Nouveau compte</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Personne</th><th>Rôle</th><th>Accès</th><th></th></tr></thead><tbody>
+      ${list.map(p => `<tr><td><div style="display:flex;gap:12px;align-items:center">${avatar({ id: p.id, nom: p.nom })}<div><div class="t">${esc(p.nom)}${p.id === auth.user.id ? ' <span class="pill info">vous</span>' : ""}</div><div class="s">Identifiant : <span class="code">${esc(p.login)}</span></div></div></div></td>
+        <td><select class="flat" data-lrole="${p.id}" aria-label="Rôle de ${esc(p.nom)}">${opts(p.role)}</select><div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div></td>
+        <td>${p.active ? pill("Actif", "ok") : pill("Désactivé", "bad")}</td>
+        <td style="white-space:nowrap;text-align:right"><button class="btn sm ghost" type="button" data-lreset="${p.id}">${ic("key")}Mot de passe</button>
+          ${p.id === auth.user.id ? "" : `<button class="btn sm ghost" type="button" data-lactive="${p.id}">${p.active ? "Désactiver" : "Réactiver"}</button>`}</td></tr>`).join("")}
+      </tbody></table></div></div>
+    <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "consultation"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
+      <p class="form-note" style="margin-top:12px">Chaque personne se connecte avec son identifiant et son mot de passe. Les mots de passe sont chiffrés et ne sont jamais visibles, même par l'administrateur.
+      Le logiciel vérifie le rôle à chaque enregistrement. La session se verrouille automatiquement après ${+(params().verrou ?? 15) ? (params().verrou ?? 15) + " minutes" : "— (désactivé)"} sans activité (modifiable dans Réglages).</p></div>`;
+}
+function bindLocalAccounts(v) {
+  const done = (r, msg) => { if (!r.ok) toast(r.error, true); else if (msg) toast(msg); loadLocalAccounts(); };
+  $$("[data-lrole]", v).forEach(sel => sel.addEventListener("change", async () => {
+    const r = await DESKTOP.auth.update({ id: sel.dataset.lrole, role: sel.value });
+    done(r, r.ok && `${r.user.nom} : ${ROLES[r.user.role][0]}`);
+    if (r.ok && r.user.id === auth.user.id) { auth.profile = r.user; applyPerms(); buildAccountNav(); render(); }
+  }));
+  $$("[data-lactive]", v).forEach(b => b.addEventListener("click", async () => {
+    const u = auth.accounts.find(x => x.id === b.dataset.lactive);
+    const r = await DESKTOP.auth.update({ id: u.id, active: !u.active }); done(r, r.ok && `${u.nom} : ${r.user.active ? "accès rétabli" : "accès désactivé"}`);
+  }));
+  $$("[data-lreset]", v).forEach(b => b.addEventListener("click", () => {
+    const u = auth.accounts.find(x => x.id === b.dataset.lreset);
+    if (u.id === auth.user.id) return myAccountSheet();
+    openSheet("Nouveau mot de passe · " + u.nom, `<p class="form-note" style="margin:0">Choisissez un nouveau mot de passe pour <b>${esc(u.nom)}</b>, puis communiquez-le-lui de vive voix.</p>${pwField("rp-pass", "Nouveau mot de passe (6 caractères minimum)", "new-password")}`,
+      `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="rpOk">${ic("check")}Enregistrer</button>`, el => {
+        $("[data-close2]", el).onclick = () => closeSheet();
+        $("#rpOk", el).onclick = async () => { const r = await DESKTOP.auth.reset({ id: u.id, password: $("#rp-pass", el).value }); if (!r.ok) return fieldErr(el, "rp-pass", r.error); closeSheet(); toast("Mot de passe de " + u.nom + " modifié"); };
+      });
+  }));
+  const nb = $("#newAcc", v); if (nb) nb.onclick = newAccountSheet;
+}
+function newAccountSheet() {
+  let role = "bibliothecaire";
+  openSheet("Nouveau compte", `
+    <div class="f"><label for="na-nom">${req("Prénom et nom")}</label><input id="na-nom" autocomplete="off"></div>
+    <div class="f"><label for="na-login">${req("Identifiant de connexion")}</label><input id="na-login" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Ex. : marie.k"></div>
+    ${pwField("na-pass", req("Mot de passe (6 caractères minimum)"), "new-password")}
+    <div class="f"><label>Rôle</label><div class="rows" id="naRoles">${["bibliothecaire", "fournitures", "consultation", "admin"].map(r => `<button type="button" class="pick" data-nr="${r}" aria-pressed="${r === role}"><div style="min-width:0"><div class="t">${ROLES[r][0]}</div><div class="s">${ROLES[r][1]}</div></div></button>`).join("")}</div></div>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="naOk">${ic("check")}Créer le compte</button>`, el => {
+      const paint = () => $$("[data-nr]", el).forEach(b => { b.setAttribute("aria-pressed", b.dataset.nr === role); b.style.borderColor = b.dataset.nr === role ? "var(--accent)" : ""; b.style.background = b.dataset.nr === role ? "var(--accent-soft)" : ""; });
+      $$("[data-nr]", el).forEach(b => b.onclick = () => { role = b.dataset.nr; paint(); }); paint();
+      $("#na-nom", el).addEventListener("input", () => { const l = $("#na-login", el); if (!l.dataset.touched) l.value = norm($("#na-nom", el).value).replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "").slice(0, 30); });
+      $("#na-login", el).addEventListener("input", e => e.target.dataset.touched = 1);
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#naOk", el).onclick = async () => {
+        clearErr(el);
+        const r = await DESKTOP.auth.create({ nom: $("#na-nom", el).value, login: $("#na-login", el).value, password: $("#na-pass", el).value, role });
+        if (!r.ok) return fieldErr(el, /mot de passe/i.test(r.error) ? "na-pass" : /identifiant/i.test(r.error) ? "na-login" : "na-nom", r.error);
+        closeSheet(); toast(`Compte créé : ${r.user.nom} (${ROLES[r.user.role][0]})`); loadLocalAccounts();
+      };
+    });
+}
+function myAccountSheet() {
+  const me = auth.profile;
+  openSheet("Mon compte", `<div style="display:flex;gap:14px;align-items:center">${avatar({ id: me.id, nom: me.nom })}<div><div style="font-weight:650">${esc(me.nom)}</div><div class="s" style="color:var(--ink-3)">${esc(ROLES[me.role][0])} · identifiant <span class="code">${esc(me.login)}</span></div></div></div>
+    <h3 style="font-size:15px;margin:6px 0 0">Changer de mot de passe</h3>
+    ${pwField("mp-old", "Mot de passe actuel", "current-password")}${pwField("mp-new", "Nouveau mot de passe", "new-password")}${pwField("mp-new2", "Confirmer", "new-password")}`,
+    `<button class="btn ghost" type="button" data-close2>Fermer</button><button class="btn primary" type="button" id="mpOk">${ic("check")}Changer le mot de passe</button>`, el => {
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#mpOk", el).onclick = async () => {
+        clearErr(el);
+        if ($("#mp-new", el).value !== $("#mp-new2", el).value) return fieldErr(el, "mp-new2", "Les deux mots de passe sont différents.");
+        const r = await DESKTOP.auth.change({ old: $("#mp-old", el).value, password: $("#mp-new", el).value });
+        if (!r.ok) return fieldErr(el, /actuel/i.test(r.error) ? "mp-old" : "mp-new", r.error);
+        closeSheet(); toast("Mot de passe modifié");
+      };
+    });
 }
 
 /* ============================================================ calculs */
@@ -1033,7 +1286,8 @@ const bookAvail = b => b.dispo <= 0 ? ["Indisponible", "bad"] : (b.dispo === 1 &
 const etatPill = f => f.etat === "rupture" ? pill("Rupture", "bad") : f.etat === "faible" ? pill("Stock faible", "warn") : pill("En stock", "ok");
 const avatar = m => `<span class="avatar" style="background:linear-gradient(135deg,var(--c${hash(m.id) % 9 + 1}),var(--c${(hash(m.id) + 3) % 9 + 1}))">${esc(initials(m.nom))}</span>`;
 const coverVars = b => { const c = catColor(b.categorie); const v = hash(b.id) % 3; return `--cv1:${c};--cv2:${["var(--c2)", "#0B2235", "var(--c9)"][v]}`; };
-const miniCover = b => b ? `<span class="mini-cover" style="background:linear-gradient(155deg,${catColor(b.categorie)},#0B2235)"></span>` : `<span class="mini-cover" style="background:var(--line)"></span>`;
+const cvImg = b => b && b.cover ? `<img class="cv-img" src="${esc(b.cover)}" alt="" loading="lazy" onerror="this.remove()">` : "";
+const miniCover = b => b && b.cover ? `<img class="mini-cover" src="${esc(b.cover)}" alt="" loading="lazy">` : b ? `<span class="mini-cover" style="background:linear-gradient(155deg,${catColor(b.categorie)},#0B2235)"></span>` : `<span class="mini-cover" style="background:var(--line)"></span>`;
 
 /* ============================================================ navigation */
 const VIEWS = [
@@ -1093,15 +1347,15 @@ function render() {
   const view = $("#view");
   if (!store.ready) { view.className = ""; view.innerHTML = `<div class="grid kpis">${'<div class="skeleton"></div>'.repeat(4)}</div><div class="skeleton" style="height:300px"></div>`; return; }
   const empty = !S.params && COLS.every(c => !S[c].length);
-  if (empty && store.mode === "cloud" && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
+  if (empty && (store.mode === "cloud" || store.localAuth) && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
   if (empty) { view.className = "enter"; view.innerHTML = welcomeView(); bindWelcome(); return; }
   derive();
   const [eyebrow, title, action] = HEAD[ui.view]();
   $("#eyebrow").textContent = eyebrow; $("#viewTitle").textContent = title;
   const pb = $("#primaryBtn");
   if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
-  if ((ui.view === "comptes" && !(store.mode === "cloud" && can("admin"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: accountsView }[ui.view]();
+  if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("admin"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -1190,8 +1444,8 @@ function dashView() {
     <div class="card">
       <div class="card-h"><h3>Actions rapides</h3></div>
       <div class="quick">
-        ${[["Nouvel emprunt", "plus", "accent", "loan"], ["Enregistrer un retour", "ret", "green", "return"], ["Ajouter un livre", "book", "accent", "book"], ["Ajouter un membre", "users", "green", "member"], ["Mouvement de stock", "box", "warn", "move"], ["Rapport du mois", "report", "accent", "report"]]
-          .map(([l, i, t, a]) => `<button class="q" type="button" data-quick="${a}" data-perm="${a === "move" ? "fourn" : a === "report" ? "" : "biblio"}" style="--tone:var(--${t});--tone-soft:var(--${t}-soft)"><span class="ic">${ic(i)}</span>${l}</button>`).join("")}
+        ${[["Nouvel emprunt", "plus", "accent", "loan"], ["Enregistrer un retour", "ret", "green", "return"], ["Ajouter un livre", "book", "accent", "book"], ["Ajouter un membre", "users", "green", "member"], ["Mouvement de stock", "box", "warn", "move"], ["Scanner un livre", "scan", "green", "scan"], ["Rapport du mois", "report", "accent", "report"]]
+          .map(([l, i, t, a]) => `<button class="q" type="button" data-quick="${a}" data-perm="${a === "move" ? "fourn" : a === "report" || a === "scan" ? "" : "biblio"}" style="--tone:var(--${t});--tone-soft:var(--${t}-soft)"><span class="ic">${ic(i)}</span>${l}</button>`).join("")}
       </div>
     </div>
   </div>
@@ -1280,6 +1534,7 @@ function booksView() {
   return `<div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qLivres" type="search" placeholder="Titre, auteur, ISBN, rayon…" value="${esc(ui.q.livres || "")}"></label>
       <div class="seg" role="group" aria-label="Filtre">${[["tous", "Tous"], ["dispo", "Disponibles"], ["sortis", "Empruntés"]].map(([k, l]) => `<button type="button" data-f="livres:${k}" aria-pressed="${ui.filter.livres === k}">${l}<span class="n">${counts[k]}</span></button>`).join("")}</div>
+      <button class="btn sm ghost" type="button" id="scanBook" title="Scanner un code-barres ISBN : ouvre le livre, ou propose de l'ajouter">${ic("scan")}Scanner</button>
       <select class="flat" id="catLivres" aria-label="Catégorie"><option value="">Toutes les catégories</option>${params().categories.map(c => `<option ${ui.q.cat === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select>
       <div class="seg" style="margin-left:auto" role="group" aria-label="Affichage"><button type="button" data-layout="covers" aria-pressed="${ui.layout === "covers"}" aria-label="Couvertures">${ic("grid")}</button><button type="button" data-layout="table" aria-pressed="${ui.layout === "table"}" aria-label="Liste">${ic("list")}</button></div>
     </div>
@@ -1292,7 +1547,7 @@ function booksList() {
   arr.sort((a, b) => a.titre.localeCompare(b.titre, "fr"));
   if (!arr.length) return `<div class="card empty">Aucun livre ne correspond. <button class="more" data-new-book style="display:inline-flex">Ajouter un livre ${ic("arrow")}</button></div>`;
   if (ui.layout === "covers") return `<div class="covers">${arr.map((b, i) => { const [l, t] = bookAvail(b); return `<button class="book" type="button" data-book="${esc(b.id)}" style="animation:rise .6s var(--ease) both;animation-delay:${Math.min(i, 24) * 25}ms">
-      <div class="cover" style="${coverVars(b)}"><span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div></div>
+      <div class="cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div></div>
       <div class="b-meta"><span class="b-title">${esc(b.titre)}</span><span class="avail ${t}">${b.dispo}/${b.ex}</span></div></button>`; }).join("")}</div>`;
   return `<div class="card"><div class="table-wrap"><table><thead><tr><th>Titre</th><th>Catégorie</th><th>Rayon</th><th class="c">Exemplaires</th><th class="c">Disponibles</th><th>Statut</th><th></th></tr></thead><tbody>
     ${arr.map(b => { const [l, t] = bookAvail(b); return `<tr data-book="${esc(b.id)}" style="cursor:pointer"><td><div style="display:flex;gap:12px;align-items:center">${miniCover(b)}<div><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)} · <span class="code">${esc(b.id)}</span></div></div></div></td><td>${esc(b.categorie)}</td><td>${esc(b.rayon || "—")}</td><td class="c">${b.ex}</td><td class="c"><b>${b.dispo}</b></td><td>${pill(l, t)}</td><td><div class="row-actions" data-perm="biblio"><button class="act" type="button" data-edit-book="${esc(b.id)}" title="Modifier">${ic("edit")}</button></div></td></tr>`; }).join("")}
@@ -1555,6 +1810,7 @@ function settingsView() {
         <div class="f"><label for="p-duree">Durée d'un prêt (jours)</label><input id="p-duree" type="number" min="1" value="${p.duree}"></div></div>
         <div class="f2"><div class="f"><label for="p-amende">Amende par jour de retard (FC)</label><input id="p-amende" type="number" min="0" step="50" value="${p.amende}"></div>
         <div class="f"><label for="p-max">Prêts simultanés par membre</label><input id="p-max" type="number" min="1" value="${p.max}"></div></div>
+        ${store.localAuth ? `<div class="f"><label for="p-verrou">Verrouillage automatique sans activité</label><select id="p-verrou">${[[5, "Après 5 minutes"], [15, "Après 15 minutes"], [30, "Après 30 minutes"], [60, "Après 1 heure"], [0, "Jamais"]].map(([k, l]) => `<option value="${k}" ${+(p.verrou ?? 15) === k ? "selected" : ""}>${l}</option>`).join("")}</select></div>` : ""}
         <button class="btn primary" type="submit" style="align-self:flex-start">${ic("check")}Enregistrer</button>
       </div></form>
     <div class="card"><div class="card-h"><h3>Données</h3></div>
@@ -1589,8 +1845,9 @@ function bindView() {
   const pb_ = $("#pdfBtn", v); if (pb_) pb_.addEventListener("click", downloadReport);
   const pr_ = $("#printBtn", v); if (pr_) pr_.addEventListener("click", printReport);
   $$("[data-role-of]", v).forEach(sel => sel.addEventListener("change", () => setRole(sel.dataset.roleOf, sel.value)));
+  if (store.localAuth && ui.view === "comptes") bindLocalAccounts(v);
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
-    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3) });
+    saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });
     toast("Réglages enregistrés"); });
   $$("form[data-add]", v).forEach(f => f.addEventListener("submit", e => { e.preventDefault(); const key = f.dataset.add, inp = $("input", f), val = inp.value.trim(); if (!val) return;
     const p = params(); if (p[key].includes(val)) return toast("« " + val + " » existe déjà", true); saveParams({ ...p, [key]: [...p[key], val] }); }));
@@ -1610,6 +1867,7 @@ document.addEventListener("click", e => {
   if (d.goLink) return go(d.goLink);
   if (d.goCard) return go(d.goCard);
   if (t.id === "tabMore") return moreSheet();
+  if (t.id === "scanBook") return scanAndOpen();
   if (d.filterLate !== undefined) { ui.filter.emprunts = "retard"; return go("emprunts"); }
   if (d.f) { const [k, val] = d.f.split(":"); ui.filter[k] = val; $$(`[data-f^="${k}:"]`).forEach(b => b.setAttribute("aria-pressed", b.dataset.f === d.f)); $("#list").innerHTML = k === "livres" ? booksList() : loansList(); return; }
   if (d.layout) { ui.layout = d.layout; $$("[data-layout]").forEach(b => b.setAttribute("aria-pressed", b.dataset.layout === ui.layout)); $("#list").innerHTML = booksList(); return; }
@@ -1621,7 +1879,7 @@ document.addEventListener("click", e => {
   if (d.loanFor) { e.stopPropagation(); return loanSheet({ membre: d.loanFor }); }
   if (d.step) { const [id, type] = d.step.split(":"); const f = D.fmap.get(id); if (type === "sortie" && f.stock <= 0) return toast("Stock déjà à zéro", true);
     put("mouvements", { id: nextId(S.mouvements, "MVT-", 4), date: todayISO(), article: id, type, qte: 1, tiers: type === "entree" ? f.fournisseur || "" : "Bibliothèque", note: "Ajustement rapide" }); return; }
-  if (d.quick) return ({ loan: () => loanSheet(), return: () => returnPicker(), book: () => bookSheet(), member: () => memberSheet(), move: () => moveSheet(), report: () => go("rapport") })[d.quick]();
+  if (d.quick) return ({ loan: () => loanSheet(), return: () => returnPicker(), book: () => bookSheet(), member: () => memberSheet(), move: () => moveSheet(), report: () => go("rapport"), scan: scanAndOpen })[d.quick]();
   if (d.export) return exportData(d.export);
   if (d.rm) { const [key, i] = d.rm.split(":"); const p = params(); saveParams({ ...p, [key]: p[key].filter((_, j) => j !== +i) }); return; }
   if (d.newBook !== undefined) return bookSheet();
@@ -1704,11 +1962,202 @@ function showAdded(view, id) {
   if (ui.view !== view) go(view); else render();
 }
 
-function bookSheet(b) {
+/* ============================================================ ISBN, recherche sur Internet et scan */
+const isbnDigits = s => String(s || "").toUpperCase().replace(/[^0-9X]/g, "");
+/* renvoie l'ISBN-13 valide (978/979…) ou "" ; accepte un ISBN-10 */
+function cleanIsbn(s) {
+  const d = isbnDigits(s);
+  if (/^97[89]\d{10}$/.test(d)) { const sum = [...d.slice(0, 12)].reduce((a, c, i) => a + c * (i % 2 ? 3 : 1), 0); return (10 - sum % 10) % 10 === +d[12] ? d : ""; }
+  if (/^\d{9}[\dX]$/.test(d)) {
+    const sum = [...d].reduce((a, c, i) => a + (c === "X" ? 10 : +c) * (10 - i), 0); if (sum % 11) return "";
+    const b = "978" + d.slice(0, 9); const s13 = [...b].reduce((a, c, i) => a + c * (i % 2 ? 3 : 1), 0); return b + (10 - s13 % 10) % 10;
+  }
+  return "";
+}
+const sameIsbn = (a, b) => { const x = cleanIsbn(a) || isbnDigits(a), y = cleanIsbn(b) || isbnDigits(b); return !!x && x === y; };
+const bookByIsbn = isbn => S.livres.find(b => b.isbn && sameIsbn(b.isbn, isbn));
+const NET_OK = () => store.mode !== "db" && !!(DESKTOP ? DESKTOP.net : window.fetch);
+
+async function netJSON(url) {
+  if (DESKTOP && DESKTOP.net) { const r = await DESKTOP.net.json(url); if (!r.ok) throw new Error(r.error); return r.data; }
+  const r = await fetch(url); if (!r.ok) throw new Error("Service indisponible (" + r.status + ")"); return r.json();
+}
+/* couverture : copiée dans le fichier sur ordinateur (fonctionne hors connexion), sinon simple lien */
+async function coverFor(url) {
+  if (!url) return "";
+  url = url.replace(/^http:/, "https:").replace("&edge=curl", "");
+  if (DESKTOP && DESKTOP.net) { const r = await DESKTOP.net.image(url); return r.ok && r.data ? r.data : ""; }
+  return url;
+}
+/* catégorie de l'école la plus proche des sujets trouvés */
+const CAT_HINTS = [
+  [/afric|congo|camara|kourouma|senghor|achebe|ngugi|ba,? mariama|oyono|beti|mabanckou/, ["Littérature africaine"]],
+  [/juvenile|jeunesse|children|enfant|conte|fairy|album|bande dessin|comic/, ["Jeunesse"]],
+  [/math|algebr|g[ée]om[ée]tr|arithm|calcul|statisti/, ["Mathématiques"]],
+  [/comput|informati|programm|internet|logiciel|software|code\b|python|java/, ["Informatique"]],
+  [/histor|g[ée]ograph|geograph|world war|guerre|civilisation|atlas/, ["Histoire-Géo"]],
+  [/dictionar|dictionn|encyclop|reference|r[ée]f[ée]rence|grammaire|grammar/, ["Référence", "Langues"]],
+  [/language|langue|english|anglais|fran[cç]ais|swahili|lingala|linguisti|vocabula/, ["Langues"]],
+  [/scien|biolog|chimi|chemis|physi|nature|m[ée]decin|medic|astronom|ecolog|environnement/, ["Sciences"]],
+  [/fiction|roman|novel|po[ée]s|poetry|th[ée][aâ]tre|drama|litt[ée]rature|literature/, ["Roman"]],
+];
+function guessCategory(r) {
+  const cats = params().categories, txt = norm([...(r.cats || []), r.titre, r.auteur].join(" "));
+  for (const [re, names] of CAT_HINTS) if (re.test(txt)) { const c = names.find(n => cats.includes(n)); if (c) return c; }
+  return "";
+}
+async function searchBooks(q) {
+  const isbn = cleanIsbn(q);
+  const enc = encodeURIComponent;
+  const [g, o] = await Promise.allSettled([
+    netJSON(`https://www.googleapis.com/books/v1/volumes?q=${isbn ? "isbn:" + isbn : enc(q)}&maxResults=12&printType=books`),
+    netJSON(`https://openlibrary.org/search.json?${isbn ? "isbn=" + isbn : "q=" + enc(q)}&limit=10&fields=key,title,subtitle,author_name,first_publish_year,publisher,isbn,cover_i,subject,number_of_pages_median`),
+  ]);
+  if (g.status === "rejected" && o.status === "rejected") throw g.reason;
+  const out = [];
+  ((g.value && g.value.items) || []).forEach(it => {
+    const v = it.volumeInfo || {}; const ids = v.industryIdentifiers || [];
+    const i13 = (ids.find(x => x.type === "ISBN_13") || {}).identifier, i10 = (ids.find(x => x.type === "ISBN_10") || {}).identifier;
+    if (!v.title) return;
+    out.push({ titre: v.title + (v.subtitle && v.title.length < 40 ? " : " + v.subtitle : ""), auteur: (v.authors || []).slice(0, 3).join(", "), editeur: v.publisher || "",
+      annee: (v.publishedDate || "").slice(0, 4), isbn: cleanIsbn(i13 || i10 || "") || (isbn || ""), img: (v.imageLinks && (v.imageLinks.thumbnail || v.imageLinks.smallThumbnail)) || "",
+      cats: v.categories || [], resume: (v.description || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim(), pages: v.pageCount || "", src: "Google Livres" });
+  });
+  ((o.value && o.value.docs) || []).forEach(d => {
+    if (!d.title) return;
+    const i = isbn || (d.isbn || []).map(cleanIsbn).find(Boolean) || "";
+    out.push({ titre: d.title + (d.subtitle && d.title.length < 40 ? " : " + d.subtitle : ""), auteur: (d.author_name || []).slice(0, 3).join(", "), editeur: (d.publisher || [])[0] || "",
+      annee: d.first_publish_year ? String(d.first_publish_year) : "", isbn: i, img: d.cover_i ? `https://covers.openlibrary.org/b/id/${d.cover_i}-M.jpg` : "",
+      cats: (d.subject || []).slice(0, 12), resume: "", pages: d.number_of_pages_median || "", src: "Open Library" });
+  });
+  /* fusion des doublons : on complète la fiche Google avec Open Library */
+  const seen = new Map(), res = [];
+  out.forEach(r => {
+    const k = r.isbn || norm(r.titre + "|" + r.auteur.split(",")[0]); const prev = seen.get(k);
+    if (prev) { ["auteur", "editeur", "annee", "img", "resume", "pages"].forEach(f => { if (!prev[f] && r[f]) prev[f] = r[f]; }); prev.cats = prev.cats.concat(r.cats); return; }
+    seen.set(k, r); res.push(r);
+  });
+  return res.slice(0, 16);
+}
+
+/* panneau « Rechercher sur Internet » du formulaire de livre */
+function lookupPanel() {
+  if (!NET_OK()) return "";
+  return `<div class="lookup" id="lookup"><div class="lookup-h">${ic("globe")}Remplir automatiquement depuis Internet<small>Google Livres · Open Library</small></div>
+    <div class="lookup-bar"><label class="field-search">${ic("search")}<input id="lk-q" type="search" placeholder="Titre, auteur ou ISBN…" autocomplete="off"></label>
+      <button class="btn sm ghost" type="button" id="lkGo">Rechercher</button><button class="btn sm ghost" type="button" id="lkScan" title="Scanner le code-barres ISBN avec la caméra">${ic("scan")}Scanner</button></div>
+    <div class="lk-results" id="lkRes"></div></div>`;
+}
+function wireLookup(el, apply) {
+  const box = $("#lkRes", el); if (!box) return { byIsbn: () => {} };
+  let seq = 0, results = [];
+  const run = async (q, auto) => {
+    q = q.trim(); if (q.length < 2) return; const my = ++seq;
+    box.innerHTML = `<div class="lk-msg">Recherche de « ${esc(q)} »…</div>`;
+    try {
+      results = await searchBooks(q); if (my !== seq) return;
+      if (auto && results.length && cleanIsbn(q)) { results[0].isbn = cleanIsbn(q); pick(0); return; }
+      box.innerHTML = results.length ? results.map((r, i) => `<button type="button" class="lk" data-lk="${i}">${r.img ? `<img src="${esc(r.img.replace(/^http:/, "https:"))}" alt="" loading="lazy" onerror="this.outerHTML='<span class=ph></span>'">` : '<span class="ph"></span>'}
+          <div style="min-width:0"><div class="t">${esc(r.titre)}</div><div class="s">${esc([r.auteur, r.annee, r.editeur].filter(Boolean).join(" · "))}</div><div class="s">${r.isbn ? "ISBN " + esc(r.isbn) + " · " : ""}${esc(r.src)}</div></div>
+          <span class="btn sm primary" aria-hidden="true">Utiliser</span></button>`).join("")
+        : `<div class="lk-msg">Aucun livre trouvé${cleanIsbn(q) ? " pour cet ISBN" : ""}. Essayez avec le titre et l'auteur, ou remplissez le formulaire à la main.</div>`;
+      $$("[data-lk]", box).forEach(b => b.onclick = () => pick(+b.dataset.lk));
+    } catch (e) { if (my === seq) box.innerHTML = `<div class="lk-msg" style="color:var(--danger)">Recherche impossible : vérifiez la connexion Internet. (${esc(e.message || e)})</div>`; }
+  };
+  const pick = async i => {
+    const r = results[i]; box.innerHTML = `<div class="lk-msg">${ic("check")} Fiche trouvée : <b>${esc(r.titre)}</b>${r.img ? " — récupération de la couverture…" : ""}</div>`;
+    apply(r, "");
+    const cover = r.img ? await coverFor(r.img).catch(() => "") : "";
+    if (cover) apply(r, cover);
+    box.innerHTML = `<div class="lk-msg">${ic("check")} Formulaire rempli avec <b>${esc(r.titre)}</b> (${esc(r.src)}). Vérifiez puis enregistrez.</div>`;
+  };
+  const q = $("#lk-q", el);
+  $("#lkGo", el).onclick = () => run(q.value);
+  q.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); run(q.value); } });
+  $("#lkScan", el).onclick = async () => { const isbn = await scanISBN(); if (isbn) { q.value = isbn; run(isbn, true); return isbn; } };
+  return { byIsbn: isbn => { q.value = isbn; run(isbn, true); } };
+}
+
+/* ---------- scan du code-barres avec la caméra ---------- */
+let scanning = null;
+function beep() {
+  try { const A = window.AudioContext || window.webkitAudioContext; const a = new A(), o = a.createOscillator(), g = a.createGain();
+    o.frequency.value = 1450; g.gain.setValueAtTime(.18, a.currentTime); g.gain.exponentialRampToValueAtTime(.001, a.currentTime + .14);
+    o.connect(g).connect(a.destination); o.start(); o.stop(a.currentTime + .15); setTimeout(() => a.close(), 400); } catch {}
+}
+async function scanISBN(title = "Scanner un ISBN") {
+  if (scanning) return null;
+  const ov = document.createElement("div"); ov.className = "scan"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-label", title);
+  ov.innerHTML = `<h2 style="margin:0;font-size:20px">${esc(title)}</h2><div class="scan-box"><video playsinline muted></video><div class="scan-frame"></div></div>
+    <p id="scanMsg">Placez le code-barres du livre (au dos, sous « ISBN ») dans le cadre.</p>
+    <form class="scan-manual"><input id="scanIn" inputmode="numeric" placeholder="Ou tapez l'ISBN ici (13 chiffres)" autocomplete="off"><button class="btn primary" type="submit">OK</button></form>
+    <button class="btn ghost" type="button" id="scanX">${ic("x")}Fermer</button>`;
+  document.body.appendChild(ov);
+  const msg = t => $("#scanMsg", ov).textContent = t;
+  let reader = null;
+  const result = await new Promise(async resolve => {
+    scanning = resolve;
+    $("#scanX", ov).onclick = () => resolve(null);
+    ov.addEventListener("keydown", e => { if (e.key === "Escape") { e.stopPropagation(); resolve(null); } });
+    $("form", ov).onsubmit = e => { e.preventDefault(); const i = cleanIsbn($("#scanIn", ov).value); if (i) resolve(i); else msg("Cet ISBN n'est pas valide : vérifiez les chiffres (10 ou 13)."); };
+    setTimeout(() => $("#scanIn", ov).focus(), 50);
+    if (!window.ZXing) return msg("Le module de scan n'est pas disponible ici. Tapez l'ISBN ci-dessous.");
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return msg("La caméra n'est pas accessible sur cette page. Tapez l'ISBN ci-dessous.");
+    if (DESKTOP && DESKTOP.askCamera) { const r = await DESKTOP.askCamera(); if (r.ok && !r.granted) return msg("Accès à la caméra refusé. Sur Mac : Réglages Système › Confidentialité et sécurité › Caméra › activez Kivuthèque. Vous pouvez aussi taper l'ISBN."); }
+    try {
+      const Z = window.ZXing, hints = new Map();
+      hints.set(Z.DecodeHintType.POSSIBLE_FORMATS, [Z.BarcodeFormat.EAN_13, Z.BarcodeFormat.EAN_8, Z.BarcodeFormat.UPC_A]);
+      hints.set(Z.DecodeHintType.TRY_HARDER, true);
+      reader = new Z.BrowserMultiFormatReader(hints, 200);
+      let lastBad = "";
+      await reader.decodeFromConstraints({ audio: false, video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } }, $("video", ov), res => {
+        if (!res) return; const txt = res.getText(), i = cleanIsbn(txt);
+        if (i) { $(".scan-box", ov).classList.add("hit"); beep(); setTimeout(() => resolve(i), 250); }
+        else if (txt !== lastBad) { lastBad = txt; msg(`Code « ${txt} » lu, mais ce n'est pas un ISBN de livre (il commence par 978 ou 979).`); }
+      });
+    } catch (e) {
+      const n = e && e.name;
+      msg(n === "NotAllowedError" ? "Accès à la caméra refusé. Autorisez la caméra pour Kivuthèque, ou tapez l'ISBN ci-dessous."
+        : n === "NotFoundError" || n === "OverconstrainedError" ? "Aucune caméra détectée. Branchez une webcam, utilisez une douchette USB, ou tapez l'ISBN ci-dessous."
+        : n === "NotReadableError" ? "La caméra est déjà utilisée par une autre application. Fermez-la puis réessayez."
+        : "Caméra indisponible (" + (e && e.message || e) + "). Tapez l'ISBN ci-dessous.");
+    }
+  });
+  scanning = null;
+  try { reader && reader.reset(); } catch {}
+  const v = $("video", ov); try { v.srcObject && v.srcObject.getTracks().forEach(t => t.stop()); } catch {}
+  ov.remove();
+  return result;
+}
+/* un ISBN lu (caméra ou douchette) en dehors d'un formulaire : on ouvre la fiche, ou on propose l'ajout */
+function handleIsbn(isbn) {
+  if (sheetEl && sheetEl.onIsbn) return sheetEl.onIsbn(isbn);
+  if (!D) derive();
+  const b = bookByIsbn(isbn);
+  if (b) { beep(); return bookDetail(b.id); }
+  if (!can("biblio")) return toast("Aucun livre du catalogue avec l'ISBN " + isbn, true);
+  bookSheet(null, { isbn });
+}
+async function scanAndOpen() { const i = await scanISBN("Scanner un livre"); if (i) handleIsbn(i); }
+/* douchette USB : elle « tape » les chiffres très vite puis Entrée */
+const wedge = { buf: "", last: 0 };
+document.addEventListener("keydown", e => {
+  if (scanning || document.body.classList.contains("locked")) return;
+  const a = document.activeElement, inField = a && /INPUT|TEXTAREA|SELECT/.test(a.tagName);
+  const now = performance.now(); if (now - wedge.last > 60) wedge.buf = ""; wedge.last = now;
+  if (/^[0-9Xx]$/.test(e.key)) { wedge.buf += e.key; return; }
+  if (e.key !== "Enter" || wedge.buf.length < 10) return;
+  const typed = wedge.buf, isbn = cleanIsbn(typed); wedge.buf = ""; if (!isbn) return;
+  if (inField && (a.id === "b-isbn" || a.id === "lk-q")) return;   // ces champs gèrent eux-mêmes l'ISBN
+  if (inField && a.value.endsWith(typed)) { a.value = a.value.slice(0, -typed.length); a.dispatchEvent(new Event("input", { bubbles: true })); }
+  e.preventDefault(); e.stopPropagation(); handleIsbn(isbn);
+}, true);
+
+function bookSheet(b, pre = {}) {
   if (!guard("biblio")) return;
-  const p = params(), isNew = !b; b = b || { ex: 1, categorie: p.categories[0] };
+  const p = params(), isNew = !b; b = b || { ex: 1, categorie: p.categories[0], isbn: pre.isbn || "" };
   const rayonFor = c => "Rayon " + "ABCDEFGHIJKLMNOP"[Math.max(0, p.categories.indexOf(c))] + "1";
-  openSheet(isNew ? "Nouveau livre" : "Modifier le livre", `
+  openSheet(isNew ? "Nouveau livre" : "Modifier le livre", `${lookupPanel()}
     <div class="f"><label for="b-titre">${req("Titre")}</label><input id="b-titre" value="${esc(b.titre)}" autocomplete="off" placeholder="Ex. : Le Petit Prince"></div>
     <div id="dupBox"></div>
     <div class="f"><label for="b-auteur">Auteur</label><input id="b-auteur" value="${esc(b.auteur)}" list="dlAut" autocomplete="off" placeholder="Ex. : Antoine de Saint-Exupéry">${dlist("dlAut", S.livres.map(x => x.auteur))}</div>
@@ -1718,11 +2167,31 @@ function bookSheet(b) {
       <div class="f"><label for="b-isbn">ISBN</label><input id="b-isbn" value="${esc(b.isbn)}" inputmode="numeric" placeholder="978-…"></div></div>
     <div class="f2"><div class="f"><label for="b-editeur">Éditeur</label><input id="b-editeur" value="${esc(b.editeur)}" list="dlEd" autocomplete="off">${dlist("dlEd", S.livres.map(x => x.editeur))}</div>
       <div class="f"><label for="b-annee">Année</label><input id="b-annee" type="number" inputmode="numeric" value="${esc(b.annee)}"></div></div>
+    <div class="f" id="bCoverF"><label>Couverture</label><div class="cover-pick" id="bCover"></div></div>
     <p class="form-note">${isNew ? "Le code du livre est attribué automatiquement" : "Code : <span class=\"code\">" + esc(b.id) + "</span>"} · <span class="req">*</span> champ obligatoire</p>`,
     formFoot(isNew),
     el => {
-      let rayonTouched = !isNew;
+      let rayonTouched = !isNew, cover = b.cover || "", resume = b.resume || "";
       $("#b-rayon", el).addEventListener("input", () => rayonTouched = true);
+      const drawCover = () => { $("#bCover", el).innerHTML = cover ? `<img src="${esc(cover)}" alt="Couverture"><button type="button" class="btn sm ghost" id="bCoverX">${ic("trash")}Retirer</button>` : `<span class="form-note" style="margin:0">${NET_OK() ? "Ajoutée automatiquement lorsque vous choisissez un livre trouvé sur Internet." : "Aucune couverture."}</span>`;
+        const x = $("#bCoverX", el); if (x) x.onclick = () => { cover = ""; drawCover(); }; };
+      drawCover();
+      const setV = (id, v) => { if (v !== undefined && v !== null && v !== "") $("#" + id, el).value = v; };
+      const look = wireLookup(el, (r, cv) => {
+        if (cv) { cover = cv; drawCover(); return; }
+        setV("b-titre", r.titre); setV("b-auteur", r.auteur); setV("b-editeur", r.editeur); setV("b-annee", r.annee); setV("b-isbn", r.isbn);
+        if (r.resume) resume = r.resume.slice(0, 700);
+        const c = guessCategory(r); if (c) { $("#b-cat", el).value = c; if (!rayonTouched) $("#b-rayon", el).value = rayonFor(c); }
+        dupCheck(); clearErr(el);
+      });
+      const isbnIn = $("#b-isbn", el);
+      const tryIsbn = () => { const i = cleanIsbn(isbnIn.value); if (!i) return false;
+        const d = isNew && bookByIsbn(i); if (d) { $("#dupBox", el).innerHTML = `<div class="warn-box">${ic("alert")}<div>L'ISBN ${esc(i)} correspond déjà à <b>« ${esc(d.titre)} »</b>.<br><button type="button" class="link" id="openDup">Ouvrir ce livre</button></div></div>`; $("#openDup", el).onclick = () => bookDetail(d.id); return true; }
+        if (!$("#b-titre", el).value.trim()) look.byIsbn(i); return true; };
+      isbnIn.addEventListener("keydown", e => { if (e.key === "Enter" && tryIsbn()) { e.preventDefault(); e.stopPropagation(); } });
+      isbnIn.addEventListener("change", tryIsbn);
+      el.onIsbn = i => { isbnIn.value = i; tryIsbn(); };
+      if (pre.isbn) setTimeout(tryIsbn, 0);
       $("#b-cat", el).addEventListener("change", () => { if (!rayonTouched) $("#b-rayon", el).value = rayonFor($("#b-cat", el).value); });
       const dupCheck = () => { if (!isNew) return; const t = norm($("#b-titre", el).value); const d = t.length > 2 && S.livres.find(x => norm(x.titre) === t);
         $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div><b>« ${esc(d.titre)} »</b> est déjà au catalogue (${d.ex} exemplaire${d.ex > 1 ? "s" : ""}).<br><button type="button" class="link" id="addCopies">Ajouter plutôt des exemplaires à ce livre</button></div></div>` : "";
@@ -1733,8 +2202,9 @@ function bookSheet(b) {
           const ex = +val("b-ex"); if (!(ex >= 0)) return fieldErr(el, "b-ex", "Nombre d'exemplaires invalide.");
           if (!isNew) { const sortis = S.emprunts.filter(x => x.livre === b.id && !x.retour).length; if (ex < sortis) return fieldErr(el, "b-ex", `${sortis} exemplaire${sortis > 1 ? "s sont" : " est"} actuellement sorti${sortis > 1 ? "s" : ""}.`); }
           const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex, isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "" };
+          if (cover) obj.cover = cover; else delete obj.cover; if (resume) obj.resume = resume; else delete obj.resume;
           put("livres", obj); toast(isNew ? "« " + titre + " » ajouté au catalogue" : "Livre modifié"); return obj.id; },
-        reset: () => { ["b-titre", "b-auteur", "b-isbn", "b-annee"].forEach(i => $("#" + i, el).value = ""); $("#b-ex", el).value = 1; $("#dupBox", el).innerHTML = ""; $("#b-titre", el).focus(); },
+        reset: () => { ["b-titre", "b-auteur", "b-isbn", "b-annee", "b-editeur"].forEach(i => $("#" + i, el).value = ""); $("#b-ex", el).value = 1; $("#dupBox", el).innerHTML = ""; cover = ""; resume = ""; drawCover(); const lr = $("#lkRes", el); if (lr) lr.innerHTML = ""; const lq = $("#lk-q", el); (lq || $("#b-titre", el)).focus(); if (lq) lq.value = ""; },
         onDelete: () => { if (S.emprunts.some(x => x.livre === b.id && !x.retour)) return toast("Ce livre a des exemplaires sortis : enregistrez d'abord les retours.", true);
           confirmSheet("Supprimer « " + b.titre + " » ?", "Le livre sera retiré du catalogue. L'historique des emprunts est conservé.", "Supprimer", () => { del("livres", b.id); toast("Livre supprimé"); }); } });
     });
@@ -1743,9 +2213,10 @@ function bookDetail(id) {
   const b = D.livres.get(id); if (!b) return; const [l, t] = bookAvail(b);
   const hist = D.emprunts.filter(e => e.livre === id).slice(0, 8);
   openSheet(b.titre, `<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start">
-      <div class="cover" style="${coverVars(b)};width:120px"><span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:14px">${esc(b.titre)}</div></div></div>
+      <div class="cover" style="${coverVars(b)};width:120px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:14px">${esc(b.titre)}</div></div></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><div style="color:var(--ink-2)">${esc(b.auteur)}</div>${pill(l, t)}
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div><div>Emprunté <b>${b.total}</b> fois</div></div></div></div>
+    ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
     <h3 style="font-size:15px;margin-top:6px">Historique</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
     can("biblio") ? `<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
     el => { if (!$("#editB", el)) return; $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
@@ -1798,7 +2269,7 @@ function loanSheet(pre = {}) {
   openSheet("Nouvel emprunt", `
     <div class="steps"><span id="st1">1 · Membre</span><span id="st2">2 · Livre(s)</span><span id="st3">3 · Confirmer</span></div>
     <div class="f"><label for="l-m">${req("Qui emprunte ?")}</label><div id="mChosen"></div><input id="l-m" type="search" placeholder="Rechercher un élève ou un enseignant…" autocomplete="off"><div class="picker" id="mPick"></div></div>
-    <div class="f"><label for="l-b">${req("Quel(s) livre(s) ?")}</label><div id="bChosen" class="chosen-list"></div><input id="l-b" type="search" placeholder="Rechercher un titre, un auteur, un code…" autocomplete="off"><div class="picker" id="bPick"></div></div>
+    <div class="f"><label for="l-b">${req("Quel(s) livre(s) ?")}</label><div id="bChosen" class="chosen-list"></div><div class="lookup-bar"><input id="l-b" type="search" placeholder="Rechercher un titre, un auteur, un code…" autocomplete="off" style="flex:1;min-width:0"><button class="btn sm ghost" type="button" id="lScan" title="Scanner le code-barres ISBN">${ic("scan")}Scanner</button></div><div class="picker" id="bPick"></div></div>
     <div class="f2"><div class="f"><label for="l-d">Date de sortie</label><input id="l-d" type="date" value="${todayISO()}"></div>
       <div class="f"><label>À rendre le</label><input id="l-due" disabled></div></div>
     <div class="recap" id="lRecap"></div>`,
@@ -1822,10 +2293,18 @@ function loanSheet(pre = {}) {
         .map(m => `<button class="pick" type="button" data-pm="${esc(m.id)}">${avatar(m)}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}${m.retard ? " · en retard" : ""}</div></div></button>`).join("") || '<div class="empty">Aucun membre. <button type="button" class="link" id="newMem">Inscrire un nouveau membre</button></div>';
         $$("[data-pm]", el).forEach(x => x.onclick = () => { st.membre = x.dataset.pm; draw(); $("#l-b", el).focus(); });
         const nm = $("#newMem", el); if (nm) nm.onclick = () => memberSheet(); };
-      const listB = () => { const q = norm($("#l-b", el).value); $("#bPick", el).innerHTML = [...D.livres.values()].filter(b => !st.livres.includes(b.id) && (!q || norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn).includes(q))).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, 30)
+      const listB = () => { const q = norm($("#l-b", el).value); $("#bPick", el).innerHTML = [...D.livres.values()].filter(b => !st.livres.includes(b.id) && (!q || norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn + " " + isbnDigits(b.isbn)).includes(q))).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, 30)
         .map(b => `<button class="pick" type="button" data-pb="${esc(b.id)}" ${b.dispo <= 0 ? "disabled" : ""}>${miniCover(b)}<div style="min-width:0;flex:1"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)}${b.dispo <= 0 ? " · aucun exemplaire disponible" : ""}</div></div><span class="avail ${b.dispo > 0 ? "ok" : "bad"}">${b.dispo}/${b.ex}</span></button>`).join("") || '<div class="empty">Aucun livre.</div>';
         $$("[data-pb]", el).forEach(x => x.onclick = () => { st.livres.push(x.dataset.pb); $("#l-b", el).value = ""; draw(); }); };
       $("#l-m", el).addEventListener("input", listM); $("#l-b", el).addEventListener("input", listB); $("#l-d", el).addEventListener("change", draw);
+      const addIsbn = isbn => { const b = bookByIsbn(isbn); const db = b && D.livres.get(b.id);
+        if (!db) return toast("Aucun livre du catalogue avec l'ISBN " + isbn, true);
+        if (st.livres.includes(db.id)) return toast("« " + db.titre + " » est déjà dans cet emprunt");
+        if (db.dispo <= 0) return toast("« " + db.titre + " » : aucun exemplaire disponible", true);
+        beep(); st.livres.push(db.id); $("#l-b", el).value = ""; draw(); };
+      el.onIsbn = addIsbn;
+      $("#lScan", el).onclick = async () => { const i = await scanISBN("Scanner le livre prêté"); if (i) addIsbn(i); };
+      $("#l-b", el).addEventListener("keydown", e => { if (e.key !== "Enter") return; const i = cleanIsbn(e.target.value); if (i) { e.preventDefault(); addIsbn(i); } });
       wireForm(el, { view: "emprunts",
         save: () => {
           if (!st.membre) return fieldErr(el, "l-m", "Choisissez le membre qui emprunte.");

@@ -13,7 +13,8 @@ buf = io.BytesIO(); im.save(buf, "PNG", optimize=True)
 logo = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 page = src.replace("__LOGO__", logo)
 CDN_PDF = ('<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>\n'
-           '<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>')
+           '<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>\n'
+           '<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>')
 VENDOR = ROOT.parent / "web" / "vendor"
 page = page.replace("<!--VENDOR-->", CDN_PDF)
 
@@ -52,9 +53,9 @@ if not font_css_file.exists():
 font_css = font_css_file.read_text(encoding="utf-8")
 desk = re.sub(r'<link rel="preconnect"[^>]*>\n?', "", standalone)
 desk = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^"]*">', "<style>" + font_css + "</style>", desk)
-desk = desk.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="default-src \'self\' data: blob:; style-src \'self\' \'unsafe-inline\' data:; script-src \'self\' \'unsafe-inline\'; img-src \'self\' data: blob:; font-src data:">')
+desk = desk.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="default-src \'self\' data: blob:; style-src \'self\' \'unsafe-inline\' data:; script-src \'self\' \'unsafe-inline\'; img-src \'self\' data: blob: https://books.google.com https://books.googleusercontent.com https://covers.openlibrary.org https://archive.org https://*.archive.org; media-src \'self\' blob: mediastream:; font-src data:">')
 inline = "".join("<script>" + (VENDOR / f).read_text(encoding="utf-8").replace("</script", "<\\/script") + "</script>\n"
-                 for f in ("jspdf.umd.min.js", "jspdf.plugin.autotable.min.js"))
+                 for f in ("jspdf.umd.min.js", "jspdf.plugin.autotable.min.js", "zxing.min.js"))
 assert CDN_PDF in desk
 desk = desk.replace(CDN_PDF, inline)
 (DESK / "index.html").write_text(desk, encoding="utf-8")
@@ -77,7 +78,7 @@ print("Bureau OK", len(desk))
 # ---------------------------------------------------------------- version en ligne (Netlify + Supabase)
 WEB = ROOT.parent / "web"
 local = ('<script src="vendor/jspdf.umd.min.js"></script>\n<script src="vendor/jspdf.plugin.autotable.min.js"></script>\n'
-         '<script src="vendor/supabase.js"></script>\n<script src="config.js"></script>')
+         '<script src="vendor/zxing.min.js"></script>\n<script src="vendor/supabase.js"></script>\n<script src="config.js"></script>')
 web = standalone.replace(CDN_PDF, local)
 web = web.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="robots" content="noindex">\n<meta name="theme-color" content="#00AEEF">\n<link rel="icon" type="image/png" href="icon.png">\n<link rel="manifest" href="manifest.webmanifest">')
 (WEB / "index.html").write_text(web, encoding="utf-8")

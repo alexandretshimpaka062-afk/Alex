@@ -1,7 +1,7 @@
 {
   "name": "bibliotheque-kis",
   "productName": "Kivutheque",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Kivuthèque — gestion de la bibliothèque et des fournitures de Kivu International School",
   "author": "Alexandre Declaire",
   "license": "UNLICENSED",
@@ -48,7 +48,8 @@
       "hardenedRuntime": false,
       "minimumSystemVersion": "11.0",
       "extendInfo": {
-        "CFBundleDisplayName": "Kivuthèque"
+        "CFBundleDisplayName": "Kivuthèque",
+        "NSCameraUsageDescription": "Kivuthèque utilise la caméra pour scanner le code-barres ISBN des livres."
       }
     },
     "dmg": {

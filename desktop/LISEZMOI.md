@@ -1,30 +1,46 @@
-# Bibliothèque KIS — logiciel de bureau
+# Kivuthèque — logiciel de bureau
 
-Version installable de l'application, pour Mac et Windows. Elle fonctionne **sans internet**.
+Téléchargement : https://github.com/alexandretshimpaka062-afk/Alex/releases/latest
 
-## Installer
+Logiciel de gestion de la bibliothèque et des fournitures de **Kivu International School**. Il fonctionne **sans internet** : les données restent sur l'ordinateur.
 
-Téléchargement : https://github.com/alexandretshimpaka062-afk/Alex/releases/tag/bureau-v1.0.0
+Chaque fichier ci-dessous a été installé et lancé automatiquement sur un vrai Mac et un vrai PC Windows avant d'être publié.
 
+## Quel fichier télécharger ?
 
-**Windows** : lancez `Bibliotheque-KIS-1.0.0-win-x64.exe` et suivez l'assistant.
-Windows affiche « Windows a protégé votre ordinateur » (le logiciel n'est pas signé) :
-cliquez sur **Informations complémentaires**, puis **Exécuter quand même**.
-`Bibliotheque-KIS-1.0.0-portable.exe` se lance sans installation (clé USB, par exemple).
+| Ordinateur | Fichier |
+|---|---|
+| **Mac** (puce Apple M1/M2/M3/M4 ou Intel, macOS 11 ou plus récent) | `Kivutheque-…-mac-universal.dmg` |
+| **Windows 10 / 11** (installation) | `Kivutheque-…-win-x64.exe` |
+| **Windows**, sans installation (clé USB) | `Kivutheque-…-windows-portable.exe` |
 
-**Mac** : ouvrez `Bibliotheque-KIS-1.0.0-mac-universal.dmg` (fonctionne sur les Mac à puce Apple et les Mac Intel),
-glissez **Bibliothèque KIS** dans le dossier **Applications**.
-Au premier lancement, macOS indique que le développeur ne peut pas être vérifié :
-ouvrez **Réglages Système › Confidentialité et sécurité**, puis cliquez sur **Ouvrir quand même**
-(sur les versions plus anciennes : clic droit sur l'application › **Ouvrir**).
+## Installer sur Mac
 
-## Où sont les données ?
+1. Ouvrez le fichier `.dmg` et glissez **Kivuthèque** sur le dossier **Applications**.
+2. Ouvrez **Kivuthèque** depuis le dossier Applications. macOS affiche « Apple n'a pas pu vérifier… » : cliquez sur **OK**.
+3. Ouvrez **Réglages Système › Confidentialité et sécurité**, descendez en bas de la page, puis cliquez sur **Ouvrir quand même** et confirmez.
+   Cette étape n'est demandée qu'une seule fois.
 
-Dans **Documents › Bibliothèque KIS** :
-- `donnees.json` : toutes les données de la bibliothèque ;
-- `Sauvegardes automatiques` : une copie par jour, les 30 derniers jours.
+Si macOS indique que l'application est « endommagée », ouvrez l'application **Terminal**, collez la ligne ci-dessous, appuyez sur Entrée, puis relancez Kivuthèque :
 
-Pour changer d'ordinateur, copiez ce dossier sur le nouvel ordinateur au même endroit.
+```
+xattr -cr /Applications/Kivuthèque.app
+```
+
+## Installer sur Windows
+
+1. Lancez `Kivutheque-…-win-x64.exe`.
+2. Si Windows affiche « Windows a protégé votre ordinateur », cliquez sur **Informations complémentaires**, puis sur **Exécuter quand même**.
+3. Suivez l'assistant. Une icône Kivuthèque est créée sur le bureau.
+
+## Vos données
+
+Elles sont dans **Documents › Kivuthèque** :
+- `donnees.json` contient toute la bibliothèque ;
+- `Sauvegardes automatiques` contient une copie par jour, pour les 30 derniers jours.
+
+Pour changer d'ordinateur, copiez ce dossier au même endroit sur le nouvel ordinateur.
+
 
 ## Refaire les installateurs
 
@@ -34,6 +50,6 @@ cd desktop && npm install
 npm run dist:win              # Windows (sous Linux, nécessite wine)
 npm run dist:mac              # Mac (sur un Mac)
 ```
-L'action GitHub « Logiciel de bureau » fabrique aussi les installateurs Mac (.dmg) et Windows (.exe) à chaque modification.
+L'action GitHub « Logiciel de bureau » fabrique, vérifie (installation et lancement automatiques) et publie les installateurs à chaque modification.
 
 Made by Alexandre et Declaire

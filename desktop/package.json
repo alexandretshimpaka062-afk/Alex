@@ -1,8 +1,8 @@
 {
   "name": "bibliotheque-kis",
-  "productName": "Bibliothèque KIS",
-  "version": "1.0.0",
-  "description": "Logiciel de gestion de la bibliothèque de Kivu International School",
+  "productName": "Kivuthèque",
+  "version": "1.1.0",
+  "description": "Kivuthèque — gestion de la bibliothèque et des fournitures de Kivu International School",
   "author": "Alexandre Declaire",
   "license": "UNLICENSED",
   "private": true,
@@ -19,9 +19,9 @@
     "electron-builder": "25.1.8"
   },
   "build": {
-    "appId": "school.kivu.bibliotheque",
-    "productName": "Bibliothèque KIS",
-    "copyright": "Kivu International School — Made by Alexandre Declaire",
+    "appId": "school.kivu.kivutheque",
+    "productName": "Kivuthèque",
+    "copyright": "Kivu International School — Made by Alexandre et Declaire",
     "directories": {
       "output": "dist",
       "buildResources": "build"
@@ -32,7 +32,7 @@
       "index.html",
       "package.json"
     ],
-    "artifactName": "Bibliotheque-KIS-${version}-${os}-${arch}.${ext}",
+    "artifactName": "Kivutheque-${version}-${os}-${arch}.${ext}",
     "mac": {
       "category": "public.app-category.education",
       "icon": "build/icon.png",
@@ -45,10 +45,27 @@
         }
       ],
       "identity": null,
-      "hardenedRuntime": false
+      "hardenedRuntime": false,
+      "minimumSystemVersion": "11.0"
     },
     "dmg": {
-      "title": "Bibliothèque KIS"
+      "title": "Kivuthèque",
+      "contents": [
+        {
+          "x": 150,
+          "y": 190
+        },
+        {
+          "x": 410,
+          "y": 190,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 560,
+        "height": 380
+      }
     },
     "win": {
       "icon": "build/icon.png",
@@ -67,11 +84,11 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Bibliothèque KIS",
+      "shortcutName": "Kivuthèque",
       "language": "1036"
     },
     "portable": {
-      "artifactName": "Bibliotheque-KIS-${version}-portable.${ext}"
+      "artifactName": "Kivutheque-${version}-windows-portable.${ext}"
     },
     "publish": null,
     "afterPack": "build/adhoc-sign.js"

@@ -7,20 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-latest
-            cmd: npx electron-builder --mac dmg zip --universal
-            files: |
-              desktop/dist/*.dmg
-              desktop/dist/*.zip
-          - os: windows-latest
-            cmd: npx electron-builder --win nsis portable --x64
-            files: desktop/dist/*.exe
-    runs-on: ${{ matrix.os }}
+  mac:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -31,42 +19,100 @@ jobs:
       - run: python app/build.py
       - run: npm install --no-audit --no-fund
         working-directory: desktop
-      - run: ${{ matrix.cmd }}
+      - name: Fabrication (.dmg et .zip universels)
+        run: npx electron-builder --mac dmg zip --universal
         working-directory: desktop
         env: { CSC_IDENTITY_AUTO_DISCOVERY: "false" }
+      - name: Vérification — installation depuis le .dmg et lancement
+        working-directory: desktop
+        run: |
+          set -euo pipefail
+          DMG=$(ls dist/*.dmg)
+          hdiutil attach "$DMG" -nobrowse -readonly -mountpoint /tmp/kivdmg
+          ls -la /tmp/kivdmg
+          APP=$(ls -d /tmp/kivdmg/*.app)
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          ditto "$APP" "$RUNNER_TEMP/Kivutheque.app"
+          hdiutil detach /tmp/kivdmg
+          EXE=$(find "$RUNNER_TEMP/Kivutheque.app/Contents/MacOS" -maxdepth 1 -type f | head -1)
+          lipo -archs "$EXE"
+          echo "— puce Apple (arm64)"
+          KIV_DATA_DIR="$RUNNER_TEMP/data-arm" "$EXE" --smoke-test
+          if /usr/bin/pgrep -q oahd || arch -x86_64 /usr/bin/true 2>/dev/null; then
+            echo "— Mac Intel (x86_64, via Rosetta)"
+            KIV_DATA_DIR="$RUNNER_TEMP/data-x64" arch -x86_64 "$EXE" --smoke-test
+          else
+            echo "Rosetta absent sur cette machine : test Intel ignoré"
+          fi
+          spctl --assess --type execute -vv "$RUNNER_TEMP/Kivutheque.app" || echo "(normal : application non notariée par Apple)"
       - uses: actions/upload-artifact@v4
         with:
-          name: Bibliotheque-KIS-${{ runner.os }}
-          path: ${{ matrix.files }}
+          name: Kivutheque-macOS
+          path: |
+            desktop/dist/*.dmg
+            desktop/dist/*.zip
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: pip install pillow
+      - run: python app/build.py
+      - run: npm install --no-audit --no-fund
+        working-directory: desktop
+      - name: Fabrication (installateur et version portable)
+        run: npx electron-builder --win nsis portable --x64
+        working-directory: desktop
+      - name: Vérification — installation silencieuse et lancement
+        shell: pwsh
+        working-directory: desktop
+        run: |
+          $ErrorActionPreference = "Stop"
+          function Smoke($exe, $data) {
+            $env:KIV_DATA_DIR = $data
+            $p = Start-Process -FilePath $exe -ArgumentList "--smoke-test" -Wait -PassThru
+            Write-Host "$exe -> code $($p.ExitCode)"
+            if ($p.ExitCode -ne 0) { throw "Le lancement a échoué : $exe" }
+            if (-not (Test-Path (Join-Path $data "donnees.json"))) { throw "Données non enregistrées : $exe" }
+          }
+          $setup = Get-ChildItem dist -Filter "Kivutheque-*-win-x64.exe" | Select-Object -First 1
+          Start-Process -FilePath $setup.FullName -ArgumentList "/S" -Wait
+          $installed = Get-ChildItem "$env:LOCALAPPDATA\Programs" -Recurse -Filter "Kivuth*.exe" | Where-Object { $_.Name -notlike "Uninstall*" } | Select-Object -First 1
+          if (-not $installed) { throw "Installation introuvable" }
+          Write-Host "Installé : $($installed.FullName)"
+          Smoke $installed.FullName "$env:RUNNER_TEMP\data-installe"
+          $portable = Get-ChildItem dist -Filter "*portable.exe" | Select-Object -First 1
+          Smoke $portable.FullName "$env:RUNNER_TEMP\data-portable"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Kivutheque-Windows
+          path: |
+            desktop/dist/Kivutheque-*-win-x64.exe
+            desktop/dist/*portable.exe
           if-no-files-found: error
 
   release:
-    needs: build
+    needs: [mac, windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+      - id: v
+        run: echo "version=$(node -p "require('./desktop/package.json').version")" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v4
         with: { path: out, merge-multiple: true }
       - run: ls -la out
       - uses: softprops/action-gh-release@v2
         with:
-          tag_name: bureau-v1.0.0
-          name: Bibliothèque KIS 1.0.0 — Mac et Windows
+          tag_name: kivutheque-v${{ steps.v.outputs.version }}
+          name: Kivuthèque ${{ steps.v.outputs.version }} — Mac et Windows
           target_commitish: ${{ github.sha }}
-          prerelease: false
           make_latest: true
-          body: |
-            Logiciel de bureau de la bibliothèque de Kivu International School.
-
-            **Windows** : `Bibliotheque-KIS-1.0.0-win-x64.exe` (installateur) ou `…-portable.exe` (sans installation).
-            Si Windows affiche « Windows a protégé votre ordinateur » : Informations complémentaires › Exécuter quand même.
-
-            **Mac** : `Bibliotheque-KIS-1.0.0-mac-universal.dmg` (Mac à puce Apple et Mac Intel).
-            Ouvrez le .dmg, glissez l'application dans Applications. Au premier lancement :
-            Réglages Système › Confidentialité et sécurité › Ouvrir quand même.
-
-            Les données sont enregistrées dans Documents › Bibliothèque KIS (sauvegarde automatique chaque jour).
-
-            Made by Alexandre et Declaire
+          body_path: desktop/RELEASE.md
           files: out/*

@@ -318,6 +318,7 @@ select.flat{height:40px;border-radius:12px;background:var(--glass-strong);border
 /* formulaires */
 .req{color:var(--danger);font-weight:700}
 .form-note{margin:0;font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.form-note.block{display:block;line-height:1.55}
 .f.err input,.f.err select,.f.err .num-in{border-color:var(--danger)!important;box-shadow:0 0 0 4px var(--danger-soft)!important}
 .f .msg{font-size:12.5px;font-weight:600;color:var(--danger)}
 .num-in{display:flex;align-items:center;height:44px;border-radius:12px;border:1px solid var(--line-2);background:var(--solid);overflow:hidden;transition:border-color .2s,box-shadow .2s}
@@ -445,6 +446,33 @@ body.locked{overflow:hidden}
 .rcode{font:800 30px/1 var(--mono);letter-spacing:.08em;text-align:center;padding:20px 12px;border-radius:18px;background:var(--accent-soft,rgba(0,174,239,.12));color:var(--accent);border:1.5px dashed var(--accent);user-select:all}
 .user-chip .me{all:unset;cursor:pointer;min-width:0;flex:1;display:block}
 .user-chip .me:focus-visible{outline:2px solid var(--accent);border-radius:8px}
+.lib-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.lib-act{display:flex;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:18px;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--accent-soft),var(--green-soft));color:inherit;font:inherit;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
+.lib-act:hover{transform:translateY(-2px);border-color:var(--accent)}
+.lib-act .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--glass-strong);color:var(--accent);flex:none}
+.lib-act .ic svg{width:20px;height:20px}
+.lib-act b{display:block;font-size:14.5px}
+.lib-act small{display:block;font-size:12.5px;color:var(--ink-3)}
+.ni-item{display:flex;flex-direction:column;gap:8px}
+.ni-form{padding:12px;border-radius:14px;border:1px dashed var(--accent);display:flex;flex-direction:column;gap:10px}
+.ni-btns{display:flex;gap:8px;flex-wrap:wrap}
+.lk.lk-done{border-color:var(--green);background:var(--green-soft)}
+.lk.lk-done .btn{background:var(--green)}
+.cover-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cp-head{display:flex;gap:12px;align-items:center}
+.cp-head .t{font-weight:650}
+.cp-head .s{font-size:12.5px;color:var(--ink-3)}
+.cp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px;min-height:60px}
+.cp-item{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;border-radius:10px;padding:6px;transition:background .2s,transform .2s}
+.cp-item:hover,.cp-item:focus-visible{background:var(--accent-soft);transform:translateY(-2px)}
+.cp-item img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px 8px 8px 4px;box-shadow:0 8px 18px -8px rgba(0,0,0,.5);background:var(--line)}
+.cp-item span{font-size:11px;color:var(--ink-3)}
+.cp-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.cv-stats div{padding:12px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}
+.cv-stats b{display:block;font:800 24px var(--display)}
+.cv-stats span{font-size:12px;color:var(--ink-3)}
+.ok-box{background:var(--green-soft);color:var(--green)}
 .lookup{border:1px solid var(--line-2);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(135deg,rgba(0,174,239,.07),rgba(46,177,74,.06))}
 .lookup-h{display:flex;align-items:center;gap:8px;font-weight:650;font-size:13.5px}
 .lookup-h .ic{width:18px;height:18px;flex:none;color:var(--accent)}
@@ -1201,7 +1229,7 @@ function accountsView() {
         <td style="text-align:right">${p.avatar && p.id !== auth.user.id ? `<button class="btn sm ghost" type="button" data-unphoto="${p.id}" title="Retirer une photo inappropriée">Retirer la photo</button>` : ""}</td></tr>`).join("")}
       </tbody></table></div></div>
     <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "direction", "enseignant", "eleve"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
-      <p class="form-note" style="margin-top:12px">Pour rejoindre Kivuthèque, chacun ouvre l'adresse du site et clique sur « Créer un compte », avec son adresse Gmail ou le bouton Google. ${admin ? "L'administrateur attribue tous les rôles." : "Vous validez les élèves et les enseignants ; le personnel est validé par l'administrateur."}</p></div>`;
+      <p class="form-note block" style="margin-top:12px">Pour rejoindre Kivuthèque, chacun ouvre l'adresse du site et clique sur « Créer un compte », avec son adresse Gmail ou le bouton Google. ${admin ? "L'administrateur attribue tous les rôles." : "Vous validez les élèves et les enseignants ; le personnel est validé par l'administrateur."}</p></div>`;
 }
 async function acceptAccount(id, role) {
   const p = auth.accounts.find(x => x.id === id); if (!p) return;
@@ -1240,7 +1268,7 @@ function profileSheet() {
     <div class="prof-head"><div id="pfPrev">${personAvatar({ ...P, id: auth.user.id }, "avatar xl")}</div>
       <div class="prof-actions"><label class="btn sm ghost" style="cursor:pointer">${ic("up")}${photo ? "Changer de photo" : "Ajouter une photo"}<input type="file" id="pfFile" accept="image/*" hidden></label>
         <button class="btn sm ghost" type="button" id="pfRm" ${photo ? "" : "hidden"}>${ic("trash")}Retirer</button>
-        <p class="form-note" style="margin:0">Ta photo s'affiche sur ta carte de membre et dans les classements. Jamais sur la borne publique.</p></div></div>
+        <p class="form-note block" style="margin:0">Ta photo s'affiche sur ta carte de membre et dans les classements. Jamais sur la borne publique.</p></div></div>
     <div id="pfCrop" class="crop-box" hidden><canvas id="pfCanvas" width="520" height="520" aria-label="Recadrage de la photo"></canvas>
       <div class="crop-zoom">${ic("minus")}<input type="range" id="pfZoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom">${ic("plus")}</div><p class="form-note" style="margin:0;text-align:center">Fais glisser la photo pour la centrer dans le cercle.</p></div>
     <div class="f"><label for="pf-nom">Nom affiché</label><input id="pf-nom" value="${esc(P.nom || "")}" maxlength="80"></div>
@@ -1450,7 +1478,7 @@ function localAccountsView() {
           ${p.id === auth.user.id ? "" : `<button class="btn sm ghost" type="button" data-lactive="${p.id}">${p.active ? "Désactiver" : "Réactiver"}</button>`}</td></tr>`).join("")}
       </tbody></table></div></div>
     <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "consultation"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
-      <p class="form-note" style="margin-top:12px">Chaque personne se connecte avec son identifiant et son mot de passe. Les mots de passe sont chiffrés et ne sont jamais visibles, même par l'administrateur.
+      <p class="form-note block" style="margin-top:12px">Chaque personne se connecte avec son identifiant et son mot de passe. Les mots de passe sont chiffrés et ne sont jamais visibles, même par l'administrateur.
       Le logiciel vérifie le rôle à chaque enregistrement. La session se verrouille automatiquement après ${+(params().verrou ?? 15) ? (params().verrou ?? 15) + " minutes" : "— (désactivé)"} sans activité (modifiable dans Réglages).</p></div>`;
 }
 function bindLocalAccounts(v) {
@@ -1467,7 +1495,7 @@ function bindLocalAccounts(v) {
   $$("[data-lreset]", v).forEach(b => b.addEventListener("click", () => {
     const u = auth.accounts.find(x => x.id === b.dataset.lreset);
     if (u.id === auth.user.id) return myAccountSheet();
-    openSheet("Nouveau mot de passe · " + u.nom, `<p class="form-note" style="margin:0">Choisissez un nouveau mot de passe pour <b>${esc(u.nom)}</b>, puis communiquez-le-lui de vive voix.</p>${pwField("rp-pass", "Nouveau mot de passe (6 caractères minimum)", "new-password")}`,
+    openSheet("Nouveau mot de passe · " + u.nom, `<p class="form-note block" style="margin:0">Choisissez un nouveau mot de passe pour <b>${esc(u.nom)}</b>, puis communiquez-le-lui de vive voix.</p>${pwField("rp-pass", "Nouveau mot de passe (6 caractères minimum)", "new-password")}`,
       `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="rpOk">${ic("check")}Enregistrer</button>`, el => {
         $("[data-close2]", el).onclick = () => closeSheet();
         $("#rpOk", el).onclick = async () => { const r = await DESKTOP.auth.reset({ id: u.id, password: $("#rp-pass", el).value }); if (!r.ok) return fieldErr(el, "rp-pass", r.error); closeSheet(); toast("Mot de passe de " + u.nom + " modifié"); };
@@ -1813,7 +1841,11 @@ function bindCharts(root) {
 function booksView() {
   const counts = { tous: D.livres.size, dispo: 0, sortis: 0 };
   D.livres.forEach(b => { if (b.dispo > 0) counts.dispo++; if (b.sortis > 0) counts.sortis++; });
-  return `<div class="toolbar">
+  const noCover = S.livres.filter(b => !b.cover).length;
+  return `${can("biblio") && !isReader() && NET_OK() ? `<div class="lib-actions" data-perm="biblio">
+      <button class="lib-act" type="button" id="netAdd"><span class="ic">${ic("globe")}</span><span><b>Ajouter depuis Internet</b><small>Titre, auteur ou ISBN · avec la couverture</small></span></button>
+      <button class="lib-act" type="button" id="syncCovers"><span class="ic">${ic("spark")}</span><span><b>Couvertures du catalogue</b><small>${noCover ? `${nf(noCover)} livre${noCover > 1 ? "s" : ""} sans couverture` : "Toutes les couvertures sont là"}</small></span></button></div>` : ""}
+    <div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qLivres" type="search" placeholder="Titre, auteur, ISBN, rayon…" value="${esc(ui.q.livres || "")}"></label>
       <div class="seg" role="group" aria-label="Filtre">${[["tous", "Tous"], ["dispo", "Disponibles"], ["sortis", "Empruntés"]].map(([k, l]) => `<button type="button" data-f="livres:${k}" aria-pressed="${ui.filter.livres === k}">${l}<span class="n">${counts[k]}</span></button>`).join("")}</div>
       <button class="btn sm ghost" type="button" id="scanBook" title="Scanner un code-barres ISBN : ouvre le livre, ou propose de l'ajouter">${ic("scan")}Scanner</button>
@@ -2150,6 +2182,8 @@ document.addEventListener("click", e => {
   if (d.goCard) return go(d.goCard);
   if (t.id === "tabMore") return moreSheet();
   if (t.id === "scanBook") return scanAndOpen();
+  if (t.id === "netAdd") return netAddSheet();
+  if (t.id === "syncCovers") return coversSheet();
   if (d.filterLate !== undefined) { ui.filter.emprunts = "retard"; return go("emprunts"); }
   if (d.f) { const [k, val] = d.f.split(":"); ui.filter[k] = val; $$(`[data-f^="${k}:"]`).forEach(b => b.setAttribute("aria-pressed", b.dataset.f === d.f)); $("#list").innerHTML = k === "livres" ? booksList() : loansList(); return; }
   if (d.layout) { ui.layout = d.layout; $$("[data-layout]").forEach(b => b.setAttribute("aria-pressed", b.dataset.layout === ui.layout)); $("#list").innerHTML = booksList(); return; }
@@ -2265,12 +2299,203 @@ async function netJSON(url) {
   const r = await fetch(url); if (!r.ok) throw new Error("Service indisponible (" + r.status + ")"); return r.json();
 }
 /* couverture : copiée dans le fichier sur ordinateur (fonctionne hors connexion), sinon simple lien */
+/* ---------- couvertures : copie durable ----------
+   En ligne : copie réduite (≈ 15 Ko) dans le stockage Supabase « couvertures ».
+   Logiciel de bureau : image enregistrée dans le fichier de données.
+   Navigateur seul (sans serveur) : simple lien, pour ne pas saturer la mémoire du navigateur. */
+const COVER_W = 200;
+const coverSrc = url => { url = String(url || "").replace(/^http:/, "https:").replace("&edge=curl", "");
+  if (/covers\.openlibrary\.org/.test(url) && !/default=false/.test(url)) url += (url.includes("?") ? "&" : "?") + "default=false"; return url; };
+const isOurCover = url => /^data:image\//.test(url || "") || /\/storage\/v1\/object\/public\/couvertures\//.test(url || "");
+async function fetchImage(url) {
+  /* certaines images refusent d'être lues par une page web : on passe alors par un relais public (wsrv.nl) */
+  const tries = [url, "https://wsrv.nl/?url=" + encodeURIComponent(url.replace(/^https?:\/\//, "")) + "&w=400&output=jpg"];
+  for (const u of tries) {
+    try { const r = await fetch(u, { mode: "cors", credentials: "omit" }); if (!r.ok) continue; const b = await r.blob(); if (b.size > 600 && /^image\//.test(b.type)) return b; } catch {}
+  }
+  throw new Error("Couverture inaccessible");
+}
+async function shrinkImage(blob) {
+  const img = await new Promise((res, rej) => { const i = new Image(), u = URL.createObjectURL(blob); i.onload = () => { URL.revokeObjectURL(u); res(i); }; i.onerror = () => { URL.revokeObjectURL(u); rej(new Error("Image illisible")); }; i.src = u; });
+  if (img.naturalWidth < 40 || img.naturalHeight < 50) throw new Error("Image trop petite");
+  const w = Math.min(COVER_W, img.naturalWidth), h = Math.round(img.naturalHeight * w / img.naturalWidth);
+  const c = document.createElement("canvas"); c.width = w; c.height = h; const x = c.getContext("2d");
+  x.fillStyle = "#fff"; x.fillRect(0, 0, w, h); x.imageSmoothingQuality = "high"; x.drawImage(img, 0, 0, w, h);
+  return new Promise(res => c.toBlob(res, "image/jpeg", .8));
+}
+const blobToDataURL = b => new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(b); });
+async function storeCoverBlob(blob) {
+  if (store.mode === "cloud") {
+    const path = `livres/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}.jpg`;
+    const st = auth.sb.storage.from("couvertures");
+    const { error } = await st.upload(path, blob, { contentType: "image/jpeg", cacheControl: "31536000", upsert: false });
+    if (error) throw error;
+    return st.getPublicUrl(path).data.publicUrl;
+  }
+  return blobToDataURL(blob);
+}
+/* couverture trouvée sur Internet → ce qu'on enregistre dans la fiche du livre */
 async function coverFor(url) {
   if (!url) return "";
-  url = url.replace(/^http:/, "https:").replace("&edge=curl", "");
+  url = coverSrc(url);
   if (DESKTOP && DESKTOP.net) { const r = await DESKTOP.net.image(url); return r.ok && r.data ? r.data : ""; }
-  return url;
+  if (store.mode !== "cloud") return url;
+  try { return await storeCoverBlob(await shrinkImage(await fetchImage(url))); }
+  catch { return url; }   // copie impossible : on garde au moins le lien (l'outil « Couvertures » réessaiera)
 }
+/* photo envoyée par la bibliothécaire (manuels locaux, éditions introuvables en ligne) */
+async function coverFromFile(file) {
+  if (!file || !/^image\//.test(file.type)) throw new Error("Choisissez une image (photo JPEG ou PNG).");
+  return storeCoverBlob(await shrinkImage(file));
+}
+/* ancienne copie dans le stockage : on la supprime quand on la remplace */
+function dropOldCover(url) {
+  if (store.mode !== "cloud" || !/\/storage\/v1\/object\/public\/couvertures\//.test(url || "")) return;
+  const path = decodeURIComponent(url.split("/storage/v1/object/public/couvertures/")[1] || "").split("?")[0];
+  if (path) auth.sb.storage.from("couvertures").remove([path]).catch(() => {});
+}
+async function setBookCover(b, cover) {
+  const cur = S.livres.find(x => x.id === b.id) || b; const old = cur.cover;
+  const obj = { ...cur }; if (cover) obj.cover = cover; else delete obj.cover;
+  await put("livres", obj); if (old && old !== cover) dropOldCover(old);
+}
+
+/* choix d'une couverture : propositions d'Internet, photo, ou aucune */
+function coverPicker(box, b, { onPick, onSkip, skipLabel = "Passer" }) {
+  const q0 = cleanIsbn(b.isbn) || [b.titre, b.auteur && b.auteur !== "Inconnu" ? b.auteur : ""].filter(Boolean).join(" ");
+  box.innerHTML = `<div class="cp-head">${miniCover(b)}<div style="min-width:0"><div class="t">${esc(b.titre)}</div><div class="s">${esc([b.auteur, b.editeur, b.annee].filter(Boolean).join(" · "))}${b.isbn ? " · ISBN " + esc(b.isbn) : ""}</div></div></div>
+    <div class="lookup-bar"><label class="field-search">${ic("search")}<input class="cp-q" type="search" value="${esc(q0)}" aria-label="Rechercher une couverture"></label><button class="btn sm ghost cp-go" type="button">Rechercher</button></div>
+    <div class="cp-grid"><div class="lk-msg">Recherche…</div></div>
+    <div class="cp-actions"><label class="btn sm ghost" style="cursor:pointer">${ic("up")}Envoyer une photo<input type="file" accept="image/*" class="cp-file" hidden></label>
+      ${onSkip ? `<button class="btn sm ghost cp-skip" type="button">${esc(skipLabel)}</button>` : ""}</div>`;
+  const grid = $(".cp-grid", box); let busy = false, seq = 0;
+  const done = async fn => { if (busy) return; busy = true; grid.style.opacity = .5; try { const c = await fn(); if (c) await onPick(c); else toast("Couverture introuvable, essayez une autre proposition.", true); } catch (e) { toast(e.message || "Couverture impossible à enregistrer.", true); } busy = false; grid.style.opacity = ""; };
+  const search = async q => {
+    const my = ++seq; grid.innerHTML = `<div class="lk-msg">Recherche de « ${esc(q)} »…</div>`;
+    try {
+      const res = (await searchBooks(q)).filter(r => r.img); if (my !== seq) return;
+      grid.innerHTML = res.length ? res.slice(0, 12).map((r, i) => `<button type="button" class="cp-item" data-cp="${i}" title="${esc(r.titre + " — " + r.auteur + " (" + r.src + ")")}"><img src="${esc(coverSrc(r.img))}" alt="" loading="lazy" onerror="this.parentNode.remove()"><span>${esc(r.annee || r.src)}</span></button>`).join("")
+        : `<div class="lk-msg">Aucune couverture trouvée. Modifiez la recherche, ou envoyez une photo de la couverture.</div>`;
+      $$("[data-cp]", grid).forEach(x => x.onclick = () => done(() => coverFor(res[+x.dataset.cp].img)));
+    } catch (e) { if (my === seq) grid.innerHTML = `<div class="lk-msg" style="color:var(--danger)">Recherche impossible : vérifiez la connexion Internet.</div>`; }
+  };
+  const qi = $(".cp-q", box);
+  $(".cp-go", box).onclick = () => search(qi.value);
+  qi.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); search(qi.value); } });
+  $(".cp-file", box).onchange = e => done(() => coverFromFile(e.target.files[0]));
+  const sk = $(".cp-skip", box); if (sk) sk.onclick = onSkip;
+  search(q0);
+}
+function coverSheet(id) {
+  if (!guard("biblio")) return; const b = S.livres.find(x => x.id === id); if (!b) return;
+  openSheet("Couverture · " + b.titre, `<div id="cpBox"></div>`,
+    `${b.cover ? `<button class="btn danger" type="button" id="cpRm" style="margin-right:auto">${ic("trash")}Retirer la couverture</button>` : ""}<button class="btn ghost" type="button" data-close2>Fermer</button>`, el => {
+      $("[data-close2]", el).onclick = () => closeSheet();
+      const rm = $("#cpRm", el); if (rm) rm.onclick = async () => { await setBookCover(b, ""); closeSheet(); toast("Couverture retirée"); };
+      coverPicker($("#cpBox", el), b, { onPick: async c => { await setBookCover(b, c); closeSheet(); toast("Couverture enregistrée"); } });
+    });
+}
+
+/* ---------- synchroniser les couvertures de tout le catalogue ---------- */
+function coversSheet() {
+  if (!guard("biblio")) return;
+  if (!NET_OK()) return toast("La recherche sur Internet n'est pas disponible ici.", true);
+  const missing = S.livres.filter(b => !b.cover), withIsbn = missing.filter(b => cleanIsbn(b.isbn));
+  const links = store.mode === "cloud" ? S.livres.filter(b => b.cover && !isOurCover(b.cover)) : [];
+  const st = { stop: false, ok: 0, review: [] };
+  openSheet("Couvertures du catalogue", `
+    <div class="cv-stats"><div><b>${nf(S.livres.length - missing.length)}</b><span>avec couverture</span></div><div><b>${nf(missing.length)}</b><span>sans couverture</span></div><div><b>${nf(withIsbn.length)}</b><span>dont avec ISBN</span></div>${links.length ? `<div><b>${nf(links.length)}</b><span>à copier dans la base</span></div>` : ""}</div>
+    <p class="form-note block" style="margin:0">1. Pour les livres avec un <b>ISBN</b>, Kivuthèque trouve et enregistre la couverture automatiquement.<br>2. Pour les autres, elle vous propose des couvertures à <b>valider une par une</b> ; vous pouvez aussi envoyer une photo.${links.length ? "<br>3. Les couvertures enregistrées comme simple lien sont copiées dans la base, pour ne jamais disparaître." : ""}</p>
+    <div id="cvRun" hidden><div class="progress"><b id="cvBar"></b></div><div id="cvTxt" class="lk-msg"></div></div>
+    <div id="cvReview"></div>`,
+    `<button class="btn ghost" type="button" data-close2>Fermer</button><button class="btn primary" type="button" id="cvGo" ${missing.length + links.length ? "" : "disabled"}>${ic("spark")}${missing.length + links.length ? "Lancer la synchronisation" : "Tout est à jour"}</button>`, el => {
+      $("[data-close2]", el).onclick = () => { st.stop = true; closeSheet(); };
+      const bar = (k, n, t) => { $("#cvBar", el).style.width = Math.round(k / Math.max(1, n) * 100) + "%"; if (t !== undefined) $("#cvTxt", el).innerHTML = t; };
+      const review = i => {
+        const box = $("#cvReview", el);
+        if (st.stop || !box) return;
+        if (i >= st.review.length) { box.innerHTML = `<div class="warn-box ok-box">${ic("check")}<div><b>Synchronisation terminée.</b> ${st.ok} couverture${st.ok > 1 ? "s" : ""} enregistrée${st.ok > 1 ? "s" : ""}.</div></div>`; return; }
+        $("#cvTxt", el).innerHTML = `À valider : livre <b>${i + 1}</b> sur <b>${st.review.length}</b>. Cliquez sur la bonne couverture.`;
+        bar(i, st.review.length);
+        const b = st.review[i];
+        coverPicker(box, b, { skipLabel: "Pas de couverture, livre suivant", onSkip: () => review(i + 1),
+          onPick: async c => { await setBookCover(b, c); st.ok++; toast("« " + b.titre + " » : couverture enregistrée"); review(i + 1); } });
+      };
+      $("#cvGo", el).onclick = async () => {
+        const go = $("#cvGo", el); go.disabled = true; go.textContent = "En cours…"; $("#cvRun", el).hidden = false;
+        let k = 0; const n = links.length + missing.length;
+        for (const b of links) {           // 1. copier les liens dans la base
+          if (st.stop) return; bar(k++, n, `Copie dans la base : <b>${esc(b.titre)}</b>`);
+          const c = await coverFor(b.cover); if (c && isOurCover(c)) { await setBookCover(b, c); st.ok++; }
+        }
+        for (const b of missing) {         // 2. ISBN : automatique ; sinon à valider
+          if (st.stop) return; bar(k++, n, `Recherche : <b>${esc(b.titre)}</b>`);
+          const i = cleanIsbn(b.isbn); let c = "";
+          if (i) { try { const r = (await searchBooks(i)).find(x => x.img); if (r) c = await coverFor(r.img); } catch {} }
+          if (c) { await setBookCover(b, c); st.ok++; } else st.review.push(b);
+          await new Promise(r => setTimeout(r, 250));   // reste poli avec les services gratuits
+        }
+        go.hidden = true; review(0);
+      };
+    });
+}
+
+/* ---------- ajouter un livre directement depuis Internet ---------- */
+function netAddSheet() {
+  if (!guard("biblio")) return;
+  if (!NET_OK()) return toast("La recherche sur Internet n'est pas disponible ici.", true);
+  const p = params(); let results = [], seq = 0, added = 0;
+  const rayonFor = c => "Rayon " + "ABCDEFGHIJKLMNOP"[Math.max(0, p.categories.indexOf(c))] + "1";
+  openSheet("Ajouter depuis Internet", `
+    <div class="lookup-bar"><label class="field-search">${ic("search")}<input id="ni-q" type="search" placeholder="Titre, auteur ou ISBN…" autocomplete="off"></label>
+      <button class="btn sm primary" type="button" id="niGo">Rechercher</button><button class="btn sm ghost" type="button" id="niScan">${ic("scan")}Scanner</button></div>
+    <p class="form-note block" style="margin:0">Cliquez sur le bon livre : il est ajouté au catalogue avec sa couverture. Vous pouvez en ajouter plusieurs à la suite.</p>
+    <div class="lk-results" id="niRes"></div>`, null, el => {
+    const box = $("#niRes", el), q = $("#ni-q", el);
+    const run = async query => {
+      query = query.trim(); if (query.length < 2) return; const my = ++seq;
+      box.innerHTML = `<div class="lk-msg">Recherche de « ${esc(query)} »…</div>`;
+      try {
+        results = await searchBooks(query); if (my !== seq) return;
+        if (cleanIsbn(query) && results[0]) results[0].isbn = cleanIsbn(query);
+        box.innerHTML = results.length ? results.map((r, i) => `<div class="ni-item" data-ni="${i}">${lkRow(r, i, "Ajouter")}<div class="ni-form" hidden></div></div>`).join("")
+          : `<div class="lk-msg">Aucun livre trouvé. Essayez avec le titre et l'auteur, ou ajoutez le livre à la main.</div>`;
+        $$("[data-lk]", box).forEach(b => b.onclick = () => open(+b.dataset.lk));
+      } catch (e) { if (my === seq) box.innerHTML = `<div class="lk-msg" style="color:var(--danger)">Recherche impossible : vérifiez la connexion Internet.</div>`; }
+    };
+    const open = i => {
+      $$(".ni-form", box).forEach(f => { f.hidden = true; f.innerHTML = ""; });
+      const r = results[i], f = $(`[data-ni="${i}"] .ni-form`, box), cat = guessCategory(r) || p.categories[0];
+      const dup = S.livres.find(b => (r.isbn && b.isbn && sameIsbn(b.isbn, r.isbn)) || norm(b.titre) === norm(r.titre));
+      f.hidden = false;
+      f.innerHTML = `${dup ? `<div class="warn-box">${ic("alert")}<div><b>« ${esc(dup.titre)} »</b> est déjà au catalogue (${dup.ex} exemplaire${dup.ex > 1 ? "s" : ""}). Vous pouvez lui ajouter des exemplaires.</div></div>` : ""}
+        <div class="f2">${dup ? "" : `<div class="f"><label for="ni-cat">Catégorie</label><select id="ni-cat">${opt(p.categories, cat)}</select></div>`}${numField("ni-ex", dup ? "Exemplaires à ajouter" : "Exemplaires", 1, 1)}</div>
+        <div class="ni-btns">${dup ? `<button class="btn primary" type="button" id="niCopies">${ic("plus")}Ajouter les exemplaires</button>` : `<button class="btn primary" type="button" id="niAdd">${ic("check")}Ajouter au catalogue</button><button class="btn ghost" type="button" id="niEdit">${ic("edit")}Modifier avant d'ajouter</button>`}</div>`;
+      f.addEventListener("click", e => { const b = e.target.closest("[data-inc],[data-dec]"); if (!b) return; const inp = $("#ni-ex", f); inp.value = Math.max(1, (+inp.value || 1) + (b.dataset.inc ? 1 : -1)); });
+      const nb = () => Math.max(1, +$("#ni-ex", f).value || 1);
+      const mark = t => { const row = $(`[data-ni="${i}"] .lk`, box); row.classList.add("lk-done"); $(".btn", row).textContent = t; f.hidden = true; added++; $(".panel-h h2", el).textContent = `Ajouter depuis Internet · ${added} ajouté${added > 1 ? "s" : ""}`; };
+      if (dup) $("#niCopies", f).onclick = () => { const n = nb(); put("livres", { ...dup, ex: (+dup.ex || 0) + n }); toast(`${n} exemplaire${n > 1 ? "s" : ""} ajouté${n > 1 ? "s" : ""} à « ${dup.titre} »`); mark("Exemplaires ajoutés ✓"); };
+      else {
+        $("#niEdit", f).onclick = () => bookSheet(null, { result: r });
+        $("#niAdd", f).onclick = async () => {
+          const btn = $("#niAdd", f); btn.disabled = true; btn.innerHTML = "Ajout et copie de la couverture…";
+          const c = $("#ni-cat", f).value, cover = r.img ? await coverFor(r.img).catch(() => "") : "";
+          const obj = { id: nextId(S.livres, "LIV-", 3), titre: r.titre, auteur: r.auteur || "Inconnu", categorie: c, ex: nb(), isbn: r.isbn || "", rayon: rayonFor(c), editeur: r.editeur || "", annee: +r.annee || "" };
+          if (cover) obj.cover = cover; if (r.resume) obj.resume = r.resume.slice(0, 700);
+          await put("livres", obj); toast(`« ${r.titre} » ajouté au catalogue${cover ? " avec sa couverture" : ""}`); mark("Ajouté ✓");
+        };
+      }
+    };
+    $("#niGo", el).onclick = () => run(q.value);
+    q.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); run(q.value); } });
+    $("#niScan", el).onclick = async () => { const i = await scanISBN(); if (i) { q.value = i; run(i); } };
+    el.onIsbn = i => { q.value = i; run(i); };
+  });
+}
+/* ligne de résultat de recherche (partagée) */
+const lkRow = (r, i, label) => `<button type="button" class="lk" data-lk="${i}">${r.img ? `<img src="${esc(coverSrc(r.img))}" alt="" loading="lazy" onerror="this.outerHTML='<span class=ph></span>'">` : '<span class="ph"></span>'}
+  <div style="min-width:0"><div class="t">${esc(r.titre)}</div><div class="s">${esc([r.auteur, r.annee, r.editeur].filter(Boolean).join(" · "))}</div><div class="s">${r.isbn ? "ISBN " + esc(r.isbn) + " · " : ""}${esc(r.src)}</div></div>
+  <span class="btn sm primary" aria-hidden="true">${esc(label)}</span></button>`;
 /* catégorie de l'école la plus proche des sujets trouvés */
 const CAT_HINTS = [
   [/afric|congo|camara|kourouma|senghor|achebe|ngugi|ba,? mariama|oyono|beti|mabanckou/, ["Littérature africaine"]],
@@ -2339,9 +2564,7 @@ function wireLookup(el, apply) {
     try {
       results = await searchBooks(q); if (my !== seq) return;
       if (auto && results.length && cleanIsbn(q)) { results[0].isbn = cleanIsbn(q); pick(0); return; }
-      box.innerHTML = results.length ? results.map((r, i) => `<button type="button" class="lk" data-lk="${i}">${r.img ? `<img src="${esc(r.img.replace(/^http:/, "https:"))}" alt="" loading="lazy" onerror="this.outerHTML='<span class=ph></span>'">` : '<span class="ph"></span>'}
-          <div style="min-width:0"><div class="t">${esc(r.titre)}</div><div class="s">${esc([r.auteur, r.annee, r.editeur].filter(Boolean).join(" · "))}</div><div class="s">${r.isbn ? "ISBN " + esc(r.isbn) + " · " : ""}${esc(r.src)}</div></div>
-          <span class="btn sm primary" aria-hidden="true">Utiliser</span></button>`).join("")
+      box.innerHTML = results.length ? results.map((r, i) => lkRow(r, i, "Utiliser")).join("")
         : `<div class="lk-msg">Aucun livre trouvé${cleanIsbn(q) ? " pour cet ISBN" : ""}. Essayez avec le titre et l'auteur, ou remplissez le formulaire à la main.</div>`;
       $$("[data-lk]", box).forEach(b => b.onclick = () => pick(+b.dataset.lk));
     } catch (e) { if (my === seq) box.innerHTML = `<div class="lk-msg" style="color:var(--danger)">Recherche impossible : vérifiez la connexion Internet. (${esc(e.message || e)})</div>`; }
@@ -2455,17 +2678,22 @@ function bookSheet(b, pre = {}) {
     el => {
       let rayonTouched = !isNew, cover = b.cover || "", resume = b.resume || "";
       $("#b-rayon", el).addEventListener("input", () => rayonTouched = true);
-      const drawCover = () => { $("#bCover", el).innerHTML = cover ? `<img src="${esc(cover)}" alt="Couverture"><button type="button" class="btn sm ghost" id="bCoverX">${ic("trash")}Retirer</button>` : `<span class="form-note" style="margin:0">${NET_OK() ? "Ajoutée automatiquement lorsque vous choisissez un livre trouvé sur Internet." : "Aucune couverture."}</span>`;
-        const x = $("#bCoverX", el); if (x) x.onclick = () => { cover = ""; drawCover(); }; };
+      const drawCover = () => { $("#bCover", el).innerHTML = `${cover ? `<img src="${esc(cover)}" alt="Couverture">` : ""}<div class="cover-btns">
+          <label class="btn sm ghost" style="cursor:pointer">${ic("up")}Envoyer une photo<input type="file" accept="image/*" id="bCoverF" hidden></label>
+          ${cover ? `<button type="button" class="btn sm ghost" id="bCoverX">${ic("trash")}Retirer</button>` : ""}
+          ${!cover ? `<span class="form-note" style="margin:0">${NET_OK() ? "Ajoutée automatiquement quand vous choisissez un livre trouvé sur Internet." : ""}</span>` : ""}</div>`;
+        const x = $("#bCoverX", el); if (x) x.onclick = () => { cover = ""; drawCover(); };
+        $("#bCoverF", el).onchange = async e => { try { $("#bCover", el).style.opacity = .5; cover = await coverFromFile(e.target.files[0]); } catch (err) { toast(err.message || "Photo impossible à enregistrer.", true); } $("#bCover", el).style.opacity = ""; drawCover(); }; };
       drawCover();
       const setV = (id, v) => { if (v !== undefined && v !== null && v !== "") $("#" + id, el).value = v; };
-      const look = wireLookup(el, (r, cv) => {
+      const applyR = (r, cv) => {
         if (cv) { cover = cv; drawCover(); return; }
         setV("b-titre", r.titre); setV("b-auteur", r.auteur); setV("b-editeur", r.editeur); setV("b-annee", r.annee); setV("b-isbn", r.isbn);
         if (r.resume) resume = r.resume.slice(0, 700);
         const c = guessCategory(r); if (c) { $("#b-cat", el).value = c; if (!rayonTouched) $("#b-rayon", el).value = rayonFor(c); }
         dupCheck(); clearErr(el);
-      });
+      };
+      const look = wireLookup(el, applyR);
       const isbnIn = $("#b-isbn", el);
       const tryIsbn = () => { const i = cleanIsbn(isbnIn.value); if (!i) return false;
         const d = isNew && bookByIsbn(i); if (d) { $("#dupBox", el).innerHTML = `<div class="warn-box">${ic("alert")}<div>L'ISBN ${esc(i)} correspond déjà à <b>« ${esc(d.titre)} »</b>.<br><button type="button" class="link" id="openDup">Ouvrir ce livre</button></div></div>`; $("#openDup", el).onclick = () => bookDetail(d.id); return true; }
@@ -2474,6 +2702,7 @@ function bookSheet(b, pre = {}) {
       isbnIn.addEventListener("change", tryIsbn);
       el.onIsbn = i => { isbnIn.value = i; tryIsbn(); };
       if (pre.isbn) setTimeout(tryIsbn, 0);
+      if (pre.result) { const r = pre.result; applyR(r, ""); if (r.img) coverFor(r.img).then(c => c && applyR(r, c)).catch(() => {}); }
       $("#b-cat", el).addEventListener("change", () => { if (!rayonTouched) $("#b-rayon", el).value = rayonFor($("#b-cat", el).value); });
       const dupCheck = () => { if (!isNew) return; const t = norm($("#b-titre", el).value); const d = t.length > 2 && S.livres.find(x => norm(x.titre) === t);
         $("#dupBox", el).innerHTML = d ? `<div class="warn-box">${ic("alert")}<div><b>« ${esc(d.titre)} »</b> est déjà au catalogue (${d.ex} exemplaire${d.ex > 1 ? "s" : ""}).<br><button type="button" class="link" id="addCopies">Ajouter plutôt des exemplaires à ce livre</button></div></div>` : "";
@@ -2500,8 +2729,8 @@ function bookDetail(id) {
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div>${isReader() ? "" : `<div>Emprunté <b>${b.total}</b> fois</div>`}</div></div></div>
     ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
     <h3 style="font-size:15px;margin-top:6px">${isReader() ? "Tes emprunts de ce livre" : "Historique"}</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
-    can("biblio") ? `<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
-    el => { if (!$("#editB", el)) return; $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
+    can("biblio") ? `${NET_OK() || store.mode === "local" ? `<button class="btn ghost" type="button" id="coverB" style="margin-right:auto">${ic("spark")}Couverture</button>` : ""}<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
+    el => { if (!$("#editB", el)) return; const cb = $("#coverB", el); if (cb) cb.onclick = () => coverSheet(id); $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
   if (!guard("biblio")) return;

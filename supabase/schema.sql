@@ -292,6 +292,23 @@ $$;
 revoke execute on function public.kiv_dispo() from public, anon;
 grant execute on function public.kiv_dispo() to authenticated;
 
+-- ---------------------------------------------------------------- couvertures des livres
+-- Copie réduite (environ 15 Ko) de chaque couverture, gardée dans Supabase :
+-- elle reste affichée même si Google Livres ou Open Library la retire.
+-- Lecture publique (comme le catalogue), ajout et suppression par l'administrateur et la bibliothécaire.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('couvertures', 'couvertures', true, 400000, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do update set public = excluded.public, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+drop policy if exists "couvertures : ajout" on storage.objects;
+create policy "couvertures : ajout" on storage.objects for insert to authenticated
+  with check (bucket_id = 'couvertures' and public.kiv_role() in ('admin', 'bibliothecaire'));
+drop policy if exists "couvertures : lecture" on storage.objects;
+create policy "couvertures : lecture" on storage.objects for select to authenticated
+  using (bucket_id = 'couvertures' and public.kiv_role() in ('admin', 'bibliothecaire'));
+drop policy if exists "couvertures : suppression" on storage.objects;
+create policy "couvertures : suppression" on storage.objects for delete to authenticated
+  using (bucket_id = 'couvertures' and public.kiv_role() in ('admin', 'bibliothecaire'));
+
 -- ---------------------------------------------------------------- temps réel
 -- Les écrans de tous les utilisateurs se mettent à jour instantanément.
 do $$

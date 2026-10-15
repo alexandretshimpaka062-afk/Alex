@@ -38,6 +38,13 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 9. **Espace élève**, à la manière de Netflix : livres en cours avec compte à rebours, « Pour toi », livres du mois, réservations, badges, historique, liste « à lire plus tard », carte de membre.
 10. **Espace enseignant** : classes attribuées par l'administrateur ; élèves, lectures et retards de ses classes ; objectifs ; lectures recommandées ; diplômes.
 
+## Catalogue et couvertures (ajouté)
+
+- **Ajouter depuis Internet** (page Livres) : recherche par titre, auteur ou ISBN dans Google Livres et Open Library. Un clic ajoute le livre avec sa couverture, la catégorie devinée et le nombre d'exemplaires. Si le livre existe déjà, on propose d'ajouter des exemplaires.
+- **Couvertures du catalogue** : synchronisation de tout le catalogue. Avec un ISBN, la couverture est trouvée automatiquement ; sans ISBN, la bibliothécaire valide chaque couverture proposée. Elle peut aussi envoyer une photo.
+- **Changer la couverture** sur la fiche d'un livre : choisir parmi les propositions, envoyer une photo ou retirer la couverture.
+- **Copie durable** : chaque couverture est copiée, réduite (environ 6 à 15 Ko), dans le stockage Supabase « couvertures ». Elle ne dépend plus de Google ni d'Open Library.
+
 ## Sécurité
 
 - Un élève ne lit que sa fiche, ses emprunts et ses réservations.

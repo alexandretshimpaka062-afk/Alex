@@ -1,6 +1,7 @@
-// Connexion au projet Supabase (Supabase › Project Settings › API).
-// La clé « anon / publishable » est publique par conception : la sécurité est assurée par les règles de la base.
+// Connexion au projet Supabase « kivutheque » (Supabase › Project Settings › API).
+// La clé « publishable » est publique par conception : la sécurité est assurée par les règles de la base (supabase/schema.sql).
+// Ne jamais mettre ici la clé « secret » ou « service_role ».
 window.KIV_CONFIG = {
-  supabaseUrl: "https://VOTRE-PROJET.supabase.co",
-  supabaseKey: "VOTRE-CLE-PUBLIQUE"
+  supabaseUrl: "https://ildiewejaphkeqgcamdh.supabase.co",
+  supabaseKey: "sb_publishable_0hStn-8a9oHxMEw9OLZe-g_elj7wCok"
 };

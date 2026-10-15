@@ -74,4 +74,17 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 4. Espace enseignant, borne publique.
 5. Rappels de retard, état des livres, bon de commande.
 
+## Idées gardées pour plus tard
+
+Ces idées ont été proposées et retenues, mais **pas encore choisies** pour un ordre de réalisation. À reprendre après les modifications d'esthétique et les étapes 4 et 5.
+
+1. **Assistant bibliothécaire IA** : un élève demande « un livre d'aventure court pour mon âge », et l'assistant répond avec des livres du catalogue (possible avec un agent N8N).
+2. **Notifications par e-mail** : « Ton livre t'attend », « Rappel : à rendre demain ».
+3. **Application installable** sur téléphone et tablette : icône sur l'écran d'accueil, ouverture plein écran, consultation hors connexion.
+4. **Import des élèves depuis Excel** : la liste de chaque classe en une fois.
+5. **Tableau de bord de la direction** : taux de lecture par classe et par mois, livres jamais empruntés, achats conseillés.
+6. **Journal des actions** : qui a prêté, modifié ou supprimé quoi, et quand.
+7. **Clubs de lecture et avis écrits** : de courts commentaires d'élèves, validés par la bibliothécaire.
+
+
 Made by Alexandre et Declaire

@@ -20,7 +20,7 @@ Chaque fichier ci-dessous a été installé et lancé automatiquement sur un vra
 Si macOS indique que l'application est « endommagée », ouvrez l'application **Terminal**, collez la ligne ci-dessous, appuyez sur Entrée, puis relancez Kivuthèque :
 
 ```
-xattr -cr /Applications/Kivuthèque.app
+xattr -cr /Applications/Kivutheque.app
 ```
 
 ## Installer sur Windows

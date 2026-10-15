@@ -82,8 +82,8 @@ svg{display:block}
 .rail{position:sticky;top:env(safe-area-inset-top,0px);height:calc(100vh - 32px);margin:16px 0 16px 16px;padding:18px 14px;display:flex;flex-direction:column;gap:6px;
   background:var(--glass);backdrop-filter:blur(30px) saturate(1.6);-webkit-backdrop-filter:blur(30px) saturate(1.6);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
 .brand{display:flex;align-items:center;gap:12px;padding:4px 6px 16px}
-.logo-tile{width:52px;height:52px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 6px 18px -6px rgba(0,150,214,.55);flex:none;overflow:hidden}
-.logo-tile img{width:40px;height:auto}
+.logo-tile{width:52px;height:60px;display:grid;place-items:center;flex:none}
+.logo-tile img{height:60px;width:auto;filter:drop-shadow(0 4px 10px rgba(0,150,214,.25))}
 .brand b{display:block;font-family:var(--display);font-size:17px;letter-spacing:-.01em}
 .brand small{display:block;color:var(--ink-3);font-size:12px}
 .nav-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:10px 12px 4px}
@@ -407,8 +407,8 @@ img.avatar{object-fit:cover;background:var(--line)}
 .mc-top{display:flex;align-items:center;gap:10px}
 .mc-top b{display:block;font:800 16px var(--display);letter-spacing:-.01em}
 .mc-top small{display:block;font-size:11px;opacity:.8}
-.mc-logo{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
-.mc-logo img{width:28px}
+.mc-logo{height:44px;display:grid;place-items:center;flex:none}
+.mc-logo img{height:44px;width:auto;filter:brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,.25))}
 .mc-year{margin-left:auto;font:700 11px var(--mono);padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.16)}
 .mc-mid{display:flex;align-items:center;gap:14px;position:relative}
 .mc-ph{width:64px;height:64px;border-radius:50%;font-size:22px;border:3px solid rgba(255,255,255,.75);flex:none}
@@ -426,8 +426,8 @@ body.locked{overflow:hidden}
   background:radial-gradient(60vw 60vw at 10% 0%,var(--orb-1),transparent 60%),radial-gradient(50vw 50vw at 100% 80%,var(--orb-2),transparent 60%),radial-gradient(40vw 40vw at 50% 110%,var(--orb-3),transparent 60%),var(--bg)}
 .auth-card{width:min(440px,100%);padding:30px 28px;border-radius:28px;background:var(--glass-strong);border:1px solid var(--line-2);box-shadow:var(--shadow-lg);backdrop-filter:blur(40px) saturate(1.6);-webkit-backdrop-filter:blur(40px) saturate(1.6);display:flex;flex-direction:column;gap:18px;animation:pop .6s var(--spring) both}
 .auth-brand{display:flex;align-items:center;gap:14px}
-.auth-brand .logo-tile{width:64px;height:64px;border-radius:20px}
-.auth-brand .logo-tile img{width:48px}
+.auth-brand .logo-tile{width:72px;height:84px}
+.auth-brand .logo-tile img{height:84px}
 .auth-brand h1{font-size:30px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--accent),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
 .auth-brand p{margin:2px 0 0;color:var(--ink-3);font-size:13px}
 .auth h2{font-size:21px}
@@ -1129,7 +1129,7 @@ function authShell(inner) {
   let el = $("#authScreen");
   if (!el) { el = document.createElement("div"); el.id = "authScreen"; el.className = "auth"; document.body.appendChild(el); }
   el.hidden = false; document.body.classList.add("locked");
-  el.innerHTML = `<div class="auth-card"><div class="auth-brand"><div class="logo-tile"><img src="${LOGO}" alt="Logo Kivu International School"></div>
+  el.innerHTML = `<div class="auth-card"><div class="auth-brand"><div class="logo-tile"><img src="${LOGO_HD}" alt="Logo Kivu International School"></div>
     <div><h1>Kivuthèque</h1><p>Bibliothèque et fournitures · Kivu International School</p></div></div>${inner}</div>
     <div class="auth-foot">Made by Alexandre et Declaire</div>`;
   return el;
@@ -3621,7 +3621,7 @@ function importBackup(file) {
 
 /* ============================================================ accueil vide, progression, toasts, thème */
 function welcomeView() {
-  return `<div class="welcome"><div class="card"><div class="logo-tile" style="width:84px;height:84px;border-radius:26px"><img src="${LOGO}" alt="" style="width:64px"></div>
+  return `<div class="welcome"><div class="card"><div class="logo-tile" style="width:auto;height:110px"><img src="${LOGO_HD}" alt="" style="height:110px"></div>
     <h2>Bienvenue dans Kivuthèque</h2>
     <p>Livres, membres, emprunts, retards et fournitures, au même endroit. Commencez avec des données d'exemple pour découvrir l'application, ou partez d'une bibliothèque vide.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="btn primary" type="button" id="wSample">${ic("spark")}Découvrir avec des exemples</button><button class="btn ghost" type="button" id="wEmpty">Commencer vide</button></div>

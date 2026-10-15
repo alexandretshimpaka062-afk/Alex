@@ -11,7 +11,13 @@ im = im.crop(im.split()[3].point(lambda v: 255 if v > 20 else 0).getbbox())
 im.thumbnail((130, 160), Image.LANCZOS)
 buf = io.BytesIO(); im.save(buf, "PNG", optimize=True)
 logo = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
-page = src.replace("__LOGO__", logo)
+# version nette du logo (sans fond) pour l'animation d'ouverture
+hd = Image.open(ROOT.parent / "assets" / "logo_source.png").convert("RGBA")
+hd = hd.crop(hd.split()[3].point(lambda v: 255 if v > 20 else 0).getbbox())
+hd.thumbnail((360, 440), Image.LANCZOS)
+buf = io.BytesIO(); hd.quantize(64, method=Image.FASTOCTREE).save(buf, "PNG", optimize=True)   # ≈ 12 Ko
+logo_hd = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
+page = src.replace("__LOGO_HD__", logo_hd).replace("__LOGO__", logo)
 CDN_PDF = ('<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>\n'
            '<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>\n'
            '<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>')

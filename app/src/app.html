@@ -510,11 +510,11 @@ body.locked{overflow:hidden}
 .intro{position:fixed;inset:0;z-index:300;background:radial-gradient(120% 90% at 50% 45%,#0B1622 0%,#03070C 70%);color:#fff;display:grid;place-items:center;overflow:hidden;font-family:var(--display)}
 .in-stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;transform-origin:50% 40%}
 .in-line{position:absolute;top:50%;left:50%;width:70vw;height:2px;margin-left:-35vw;background:linear-gradient(90deg,transparent,#00AEEF,#39B54A,transparent);transform:scaleX(0);opacity:0}
-.in-rays{position:absolute;top:62px;left:50%;width:0;height:0}
+.in-rays{position:absolute;top:80px;left:calc(50% - 14px);width:0;height:0}
 .in-rays i{position:absolute;left:-2px;top:0;width:4px;height:46vmax;border-radius:4px;background:linear-gradient(var(--c),transparent 70%);transform-origin:50% 0;transform:rotate(var(--a)) scaleY(0);opacity:0;filter:blur(.5px)}
-.in-ring{position:absolute;top:62px;left:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:2px solid rgba(0,174,239,.8);box-shadow:0 0 40px rgba(0,174,239,.6),inset 0 0 30px rgba(57,181,74,.4);transform:scale(.2);opacity:0}
-.in-logo{position:relative;width:124px;height:124px;border-radius:34px;background:#fff;display:grid;place-items:center;transform:scale(.4);opacity:0;box-shadow:0 0 0 rgba(0,174,239,0)}
-.in-logo img{width:94px}
+.in-ring{position:absolute;top:80px;left:calc(50% - 14px);width:180px;height:180px;margin:-90px 0 0 -90px;border-radius:50%;border:2px solid rgba(0,174,239,.8);box-shadow:0 0 40px rgba(0,174,239,.6),inset 0 0 30px rgba(57,181,74,.4);transform:scale(.2);opacity:0}
+.in-logo{position:relative;height:210px;display:grid;place-items:center;transform:scale(.4);opacity:0}
+.in-logo img{height:210px;width:auto;display:block}
 .in-word{display:flex;font:800 clamp(40px,8vw,78px)/1 var(--display);letter-spacing:-.03em;overflow:hidden;padding:.05em .1em .12em}
 .in-word span{display:inline-block;transform:translateY(110%);opacity:0;background:linear-gradient(180deg,#fff 30%,#9BE3FF 75%,#39B54A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .in-sub{font:600 12px var(--body);letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.6);opacity:0;transform:translateY(8px)}
@@ -531,7 +531,7 @@ body.locked{overflow:hidden}
 @keyframes inLine{0%{transform:scaleX(0);opacity:0}40%{opacity:1}100%{transform:scaleX(1);opacity:0}}
 @keyframes inRay{0%{transform:rotate(var(--a)) scaleY(0);opacity:0}35%{opacity:.9}100%{transform:rotate(var(--a)) scaleY(1);opacity:0}}
 @keyframes inRing{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(2.6);opacity:0}}
-@keyframes inLogo{0%{transform:scale(.4) rotate(-12deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1;box-shadow:0 0 60px rgba(0,174,239,.45),0 0 120px rgba(57,181,74,.25)}}
+@keyframes inLogo{0%{transform:scale(.4) rotate(-12deg);opacity:0;filter:drop-shadow(0 0 0 rgba(0,174,239,0))}100%{transform:scale(1) rotate(0);opacity:1;filter:drop-shadow(0 0 28px rgba(0,174,239,.55)) drop-shadow(0 0 60px rgba(57,181,74,.25))}}
 @keyframes inLetter{0%{transform:translateY(110%);opacity:0}100%{transform:translateY(0);opacity:1}}
 @keyframes inSub{to{opacity:1;transform:none}}
 @keyframes inZoom{0%{transform:scale(1);opacity:1;filter:blur(0)}100%{transform:scale(7);opacity:0;filter:blur(8px)}}
@@ -814,6 +814,7 @@ img.mini-cover{object-fit:cover}
 <script>
 "use strict";
 const LOGO = "__LOGO__";
+const LOGO_HD = "__LOGO_HD__";   // logo sans fond, en grand (ouverture animée)
 /* ============================================================ utilitaires */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -1332,9 +1333,8 @@ function playIntro() {
       <div class="in-line"></div>
       <div class="in-rays">${Array.from({ length: 16 }, (_, i) => `<i style="--a:${i * 22.5}deg;--d:${(i % 5) * 45}ms;--c:${["#00AEEF", "#39B54A", "#7FD7F7", "#2E9E45"][i % 4]}"></i>`).join("")}</div>
       <div class="in-ring"></div>
-      <div class="in-logo"><img src="${LOGO}" alt=""></div>
+      <div class="in-logo"><img src="${LOGO_HD}" alt=""></div>
       <div class="in-word">${[...word].map((ch, i) => `<span style="--i:${i}">${ch}</span>`).join("")}</div>
-      <div class="in-sub">Kivu International School</div>
     </div>
     <div class="in-stripes" aria-hidden="true">${Array.from({ length: 28 }, (_, i) => `<i style="--i:${i};--o:${Math.abs(i - 14)};--c:${["#00AEEF", "#0A6FA8", "#39B54A", "#9BE3FF", "#1E7F3A", "#06263D"][i % 6]}"></i>`).join("")}</div>
     <div class="in-profiles" hidden>

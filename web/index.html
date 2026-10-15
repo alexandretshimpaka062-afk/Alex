@@ -550,6 +550,14 @@ body.locked{overflow:hidden}
 @keyframes inSub{to{opacity:1;transform:none}}
 @keyframes inZoom{0%{transform:scale(1);opacity:1;filter:blur(0)}100%{transform:scale(7);opacity:0;filter:blur(8px)}}
 @keyframes inStripe{0%{transform:scaleY(0)}45%{transform:scaleY(1)}100%{transform:scaleY(1) translateY(-120%)}}
+.in-sound{position:absolute;left:24px;bottom:24px;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;cursor:pointer}
+.in-sound .ic{width:20px;height:20px}
+.intro.choose .in-sound{display:none}
+.in-tap{all:unset;position:absolute;inset:0;z-index:3;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;color:rgba(255,255,255,.75);font:600 15px var(--body);letter-spacing:.08em}
+.in-tap img{height:150px;opacity:.9;filter:drop-shadow(0 0 24px rgba(0,174,239,.35));animation:tapPulse 2.2s ease-in-out infinite}
+.in-tap span{animation:inFade 1s ease .3s both}
+.intro.waiting .in-stage,.intro.waiting .in-skip{visibility:hidden}
+@keyframes tapPulse{50%{transform:scale(1.04);filter:drop-shadow(0 0 40px rgba(0,174,239,.6))}}
 .in-skip{position:absolute;right:24px;bottom:24px;padding:10px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font:600 14px var(--body);cursor:pointer;backdrop-filter:blur(10px)}
 .in-skip:hover{background:rgba(255,255,255,.18)}
 .intro.choose .in-stage,.intro.choose .in-stripes{display:none}
@@ -893,6 +901,8 @@ const P = {
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/>',
   trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M16 5h3v2a3 3 0 0 1-3 3M8 5H5v2a3 3 0 0 0 3 3M12 13v4M8 20h8M9.5 17h5"/>',
   star: '<path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/>',
+  sound: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+  mute: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
   coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5V8M12 16v1.5"/>',
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -1232,7 +1242,7 @@ function showAuth(mode, info) {
     const { error } = await auth.sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin + location.pathname } });
     if (error) authMsg(el, /provider is not enabled|Unsupported provider/i.test(error.message) ? "La connexion avec Google n'est pas encore activée. Utilise ton adresse e-mail, ou demande à l'administrateur de l'activer (INSTALLATION.md, étape 6)." : cloudError(error)); };
   $("#aForm", el).onsubmit = async e => {
-    e.preventDefault(); const btn = $("#aSubmit", el); btn.disabled = true; authMsg(el, "");
+    e.preventDefault(); unlockAudio(); const btn = $("#aSubmit", el); btn.disabled = true; authMsg(el, "");
     const email = $("#a-email", el).value.trim(), pass = $("#a-pass", el) ? $("#a-pass", el).value : "";
     try {
       if (!/^\S+@\S+\.\S+$/.test(email)) throw { message: "Adresse e-mail invalide." };
@@ -1338,6 +1348,61 @@ async function loadReservations() {
 setInterval(() => { if (isReader() && !document.hidden) Promise.all([loadDispo(), loadMesRes()]).then(() => { if (["livres", "espace"].includes(ui.view)) onData(); }); }, 60000);
 async function cloudResync(t) { try { const rows = await cloudFetch(t); S[t] = rows.map(r => ({ ...r.data, id: r.id })); onData(); } catch {} }
 
+/* ---------- le son de l'ouverture (« ta-dum » composé ici, sans fichier) ---------- */
+const soundOn = () => { try { return localStorage.getItem("kiv-son") !== "0"; } catch { return true; } };
+let introAC = null;
+/* à appeler pendant un clic : les navigateurs n'autorisent le son qu'après un geste */
+function unlockAudio() {
+  if (!soundOn()) return;
+  try { const A = window.AudioContext || window.webkitAudioContext; if (!A) return; introAC = introAC || new A(); if (introAC.state !== "running") introAC.resume(); } catch {}
+}
+function introSound(ac, out, t0) {
+  const noise = sec => { const b = ac.createBuffer(1, Math.ceil(ac.sampleRate * sec), ac.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; };
+  /* réverbération douce : une queue de bruit qui s'éteint */
+  const verb = ac.createConvolver(), ir = ac.createBuffer(2, ac.sampleRate * 2.6, ac.sampleRate);
+  for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 2.6); }
+  verb.buffer = ir; const wet = ac.createGain(); wet.gain.value = .32; verb.connect(wet).connect(out);
+  const bus = ac.createGain(); bus.connect(out); bus.connect(verb);
+  const env = (g, t, a, peak, d, end = 0.0001) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(end, t + a + d); };
+  /* coup grave : sinus qui plonge, avec un peu de bruit pour l'attaque */
+  const hit = (t, f0, f1, peak, dur) => {
+    const o = ac.createOscillator(), g = ac.createGain(); o.type = "sine"; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur * .6);
+    env(g, t, .006, peak, dur); o.connect(g).connect(bus); o.start(t); o.stop(t + dur + .05);
+    const n = ac.createBufferSource(), nf = ac.createBiquadFilter(), ng = ac.createGain(); n.buffer = noise(.2); nf.type = "lowpass"; nf.frequency.value = 900;
+    env(ng, t, .002, peak * .35, .12); n.connect(nf).connect(ng).connect(bus); n.start(t);
+  };
+  hit(t0 + .42, 140, 70, .55, .32);           // « ta »
+  hit(t0 + .62, 120, 42, 1, 1.1);              // « dum »
+  /* accord qui s'ouvre (do majeur 9) : dents de scie légèrement désaccordées, filtre qui s'ouvre */
+  const lp = ac.createBiquadFilter(), cg = ac.createGain(); lp.type = "lowpass"; lp.Q.value = 3;
+  lp.frequency.setValueAtTime(220, t0 + .6); lp.frequency.exponentialRampToValueAtTime(2600, t0 + 1.7); lp.frequency.exponentialRampToValueAtTime(700, t0 + 3.4);
+  cg.gain.setValueAtTime(0.0001, t0 + .6); cg.gain.exponentialRampToValueAtTime(.16, t0 + .85); cg.gain.setValueAtTime(.16, t0 + 2.2); cg.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.6);
+  lp.connect(cg).connect(bus);
+  [65.41, 130.81, 196, 261.63, 329.63, 392, 587.33].forEach((f, i) => [-6, 6].forEach(cents => {
+    const o = ac.createOscillator(); o.type = i < 2 ? "triangle" : "sawtooth"; o.frequency.value = f; o.detune.value = cents;
+    const g = ac.createGain(); g.gain.value = i < 2 ? .5 : .22; o.connect(g).connect(lp); o.start(t0 + .6); o.stop(t0 + 3.7);
+  }));
+  /* petites notes cristallines pendant que les lettres montent */
+  [1046.5, 1318.5, 1568, 2093, 1568, 2637, 2093, 3136, 2637, 3520].forEach((f, i) => {
+    const t = t0 + 1.08 + i * .055, o = ac.createOscillator(), g = ac.createGain(); o.type = "sine"; o.frequency.value = f;
+    env(g, t, .004, .05, .5); o.connect(g).connect(bus); o.start(t); o.stop(t + .6);
+  });
+  /* souffle du zoom final */
+  const w = ac.createBufferSource(), bp = ac.createBiquadFilter(), wg = ac.createGain(); w.buffer = noise(1.1); bp.type = "bandpass"; bp.Q.value = 1.2;
+  bp.frequency.setValueAtTime(300, t0 + 2.55); bp.frequency.exponentialRampToValueAtTime(5000, t0 + 3.4);
+  wg.gain.setValueAtTime(0.0001, t0 + 2.55); wg.gain.exponentialRampToValueAtTime(.4, t0 + 3.2); wg.gain.exponentialRampToValueAtTime(0.0001, t0 + 3.55);
+  w.connect(bp).connect(wg).connect(bus); w.start(t0 + 2.55);
+  hit(t0 + 3.3, 90, 40, .45, .6);              // petit impact quand les bandes arrivent
+}
+/* joue le son en direct ; renvoie une fonction pour couper */
+function playIntroSound() {
+  if (!soundOn() || !introAC || introAC.state !== "running") return () => {};
+  const master = introAC.createGain(), comp = introAC.createDynamicsCompressor(); master.gain.value = .7;
+  master.connect(comp).connect(introAC.destination);
+  try { introSound(introAC, master, introAC.currentTime + .05); } catch {}
+  return () => { try { master.gain.setTargetAtTime(0, introAC.currentTime, .08); } catch {} };
+}
+
 /* ============================================================ ouverture animée (motion design) et choix du profil
    Une fois par visite : le logo s'anime comme à l'ouverture de Netflix, puis « Qui lit aujourd'hui ? ». */
 function shouldIntro() { try { return !sessionStorage.getItem("kiv-intro"); } catch { return false; } }
@@ -1364,7 +1429,9 @@ function playIntro() {
       <p class="in-hint">Clique sur ton profil pour accéder à ta bibliothèque</p>
       <button class="in-manage" type="button" id="inManage">Gérer mon profil</button>
     </div>
-    <button class="in-skip" type="button" id="inSkip">Passer ›</button>`;
+    <button class="in-skip" type="button" id="inSkip">Passer ›</button>
+    <button class="in-sound" type="button" id="inSound" aria-label="Son" title="Activer ou couper le son">${ic(soundOn() ? "sound" : "mute")}</button>
+    <button class="in-tap" type="button" id="inTap" hidden><img src="${LOGO_HD}" alt=""><span>Touche l'écran pour entrer</span></button>`;
   document.body.appendChild(el);
   return new Promise(resolve => {
     const timers = [], showProfiles = () => {
@@ -1383,9 +1450,20 @@ function playIntro() {
     $("#inManage", el).onclick = () => enter(() => setTimeout(profileSheet, 100));
     $("#inOut", el).onclick = () => { el.remove(); try { sessionStorage.removeItem("kiv-intro"); } catch {} signOut(); };
     el.addEventListener("keydown", e => { if (e.key === "Escape") { e.stopPropagation(); el.classList.contains("choose") ? enter() : showProfiles(); } });
-    if (reduced) return showProfiles();
-    requestAnimationFrame(() => el.classList.add("play"));
-    timers.push(setTimeout(() => el.classList.add("zoom"), 2700), setTimeout(showProfiles, 3500));
+    let stopSound = () => {};
+    const start = () => {
+      $("#inTap", el).hidden = true; stopSound = playIntroSound();
+      if (reduced) return showProfiles();
+      requestAnimationFrame(() => el.classList.add("play"));
+      timers.push(setTimeout(() => el.classList.add("zoom"), 2700), setTimeout(showProfiles, 3500));
+    };
+    const snd = $("#inSound", el); snd.onclick = () => { const on = !soundOn(); try { localStorage.setItem("kiv-son", on ? "1" : "0"); } catch {} snd.innerHTML = ic(on ? "sound" : "mute"); if (!on) stopSound(); };
+    const oldSkip = showProfiles; $("#inSkip", el).onclick = () => { stopSound(); oldSkip(); };
+    /* le navigateur bloque le son tant qu'on n'a pas cliqué : on propose alors de toucher l'écran, comme sur une télévision */
+    if (soundOn() && !reduced && (!introAC || introAC.state !== "running")) {
+      const tap = $("#inTap", el); tap.hidden = false; el.classList.add("waiting"); tap.focus();
+      tap.onclick = () => { el.classList.remove("waiting"); unlockAudio(); setTimeout(start, 60); };
+    } else start();
   });
 }
 

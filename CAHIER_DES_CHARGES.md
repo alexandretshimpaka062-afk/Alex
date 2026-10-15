@@ -53,8 +53,13 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 
 ## Étapes
 
-1. Sécurité de la base, nouveaux rôles, inscription avec liste d'attente, bouton Google, numéros A001, carte de membre numérique, photo de profil.
-2. Espace élève, réservations.
+1. ✅ Sécurité de la base, nouveaux rôles, inscription avec liste d'attente, bouton Google, numéros A001, carte de membre numérique, photo de profil.
+2. ✅ Espace élève, réservations.
+   - Espace façon Netflix : alertes (« ton livre t'attend », retards), livre du mois en grand, carte de membre, rangées (en cours avec compte à rebours, mes réservations, livres du mois, « Pour toi » selon les genres préférés, les plus lus à l'école, nouveautés, ma liste, déjà lus).
+   - Choix des genres préférés à la première visite ; liste « à lire plus tard ».
+   - Réservation d'un livre dont tous les exemplaires sont sortis ; 3 au maximum ; rang dans la file.
+   - Au retour du livre, la bibliothécaire est alertée et le met de côté (3 jours) ; l'élève est prévenu ; « Prêter » termine la réservation ; un délai dépassé libère l'exemplaire.
+   - La bibliothécaire choisit les « livres du mois » depuis la fiche d'un livre.
 3. Défis, classements, recommandations.
 4. Espace enseignant, borne publique.
 5. Rappels de retard, état des livres, bon de commande.

@@ -456,6 +456,65 @@ body.locked{overflow:hidden}
 .rcode{font:800 30px/1 var(--mono);letter-spacing:.08em;text-align:center;padding:20px 12px;border-radius:18px;background:var(--accent-soft,rgba(0,174,239,.12));color:var(--accent);border:1.5px dashed var(--accent);user-select:all}
 .user-chip .me{all:unset;cursor:pointer;min-width:0;flex:1;display:block}
 .user-chip .me:focus-visible{outline:2px solid var(--accent);border-radius:8px}
+/* espace lecteur façon Netflix */
+.nf-row{display:flex;flex-direction:column;gap:12px;min-width:0}
+.nf-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nf-h h3{font-size:19px;letter-spacing:-.01em;margin:0}
+.nf-h .sub{color:var(--ink-3);font-size:13px}
+.nf-h .more{display:inline-flex;align-items:center;gap:6px;font-size:13.5px}
+.nf-h .more .ic{width:14px;height:14px}
+.nf-hero .pill{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.nf-hero .pill::before{background:#7CF29A}
+.nf-arrow{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-2);background:var(--glass-strong);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.nf-arrow[data-scroll$=":-1"] svg{transform:rotate(180deg)}
+.nf-arrow .ic{width:16px;height:16px}
+@media(max-width:700px){.nf-arrow{display:none}}
+.nf-track{display:grid;grid-auto-flow:column;grid-auto-columns:150px;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;scrollbar-width:thin;overscroll-behavior-x:contain}
+@media(max-width:700px){.nf-track{grid-auto-columns:124px;gap:12px}}
+.nf-card{all:unset;cursor:pointer;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;min-width:0}
+.nf-card .cover{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.nf-card:hover .cover,.nf-card:focus-visible .cover{transform:translateY(-6px) scale(1.03);box-shadow:0 24px 40px -18px rgba(0,0,0,.6)}
+.nf-card:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:12px}
+.nf-meta{display:flex;flex-direction:column;gap:4px;min-width:0}
+.nf-meta .b-title{font-weight:650;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nf-b{font-size:11.5px;font-weight:650;color:var(--ink-3)}
+.nf-b.ok{color:var(--green)}.nf-b.warn{color:var(--warn)}.nf-b.bad{color:var(--danger)}
+.cv-star{position:absolute;top:8px;right:8px;z-index:2;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#FFC83D;color:#5A3B00;font-size:13px;box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
+.espace-side{display:flex;flex-direction:column;gap:14px}
+.espace-side .hello-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:14px 16px}
+.espace-side .hello-stats b{font-size:22px}
+.nf-hero{position:relative;overflow:hidden;border-radius:26px;min-height:280px;padding:26px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center;cursor:pointer;color:#fff;
+  background:linear-gradient(120deg,var(--cv1),var(--cv2));box-shadow:0 30px 60px -30px rgba(0,0,0,.55);animation:rise .7s var(--ease) both}
+.nf-hero-bg{position:absolute;inset:0;opacity:.35;filter:blur(30px) saturate(1.4);transform:scale(1.3)}
+.nf-hero-bg img{width:100%;height:100%;object-fit:cover}
+.nf-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,18,28,.15),rgba(4,18,28,.55))}
+.nf-hero-cover{position:relative;z-index:1;width:150px;transform:rotate(-3deg);box-shadow:0 30px 50px -20px rgba(0,0,0,.7)}
+.nf-hero-txt{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.nf-kicker{font:800 11.5px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#FFD45C}
+.nf-hero h2{margin:0;font-size:clamp(24px,3.2vw,36px);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.nf-by{margin:0;opacity:.85}
+.nf-resume{margin:0;opacity:.85;font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nf-hero-act{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px}
+@media(max-width:640px){.nf-hero{grid-template-columns:1fr;text-align:left}.nf-hero-cover{width:110px}}
+.nf-alert{display:flex;gap:12px;align-items:center;padding:14px 18px;border-radius:18px;border:1px solid var(--line-2);background:var(--glass-strong)}
+.nf-alert .ic{width:26px;height:26px;flex:none}
+.nf-alert b{display:block}
+.nf-alert span{font-size:13.5px;color:var(--ink-2)}
+.nf-alert.ok{border-color:var(--green);background:var(--green-soft);cursor:pointer}.nf-alert.ok .ic{color:var(--green)}
+.nf-alert.bad{border-color:var(--danger);background:var(--danger-soft)}.nf-alert.bad .ic{color:var(--danger)}
+.genre-grid{display:flex;flex-wrap:wrap;gap:10px}
+.genre{all:unset;cursor:pointer;padding:12px 18px;border-radius:16px;border:1.5px solid var(--line-2);font-weight:650;transition:all .2s var(--ease)}
+.genre[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#fff;transform:scale(1.04)}
+.rd-head{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;align-items:start}
+.rd-resume{margin:0;color:var(--ink-2);font-size:14px;line-height:1.6}
+.nf-status{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line-2);font-size:14px}
+.nf-status .ic{width:18px;height:18px;flex:none}
+.nf-status.ok{border-color:var(--green);color:var(--green);background:var(--green-soft)}
+.nf-status.warn{border-color:var(--warn);background:var(--warn-soft)}
+.nf-status.bad{color:var(--danger);background:var(--danger-soft);border-color:transparent}
+.res-row{grid-template-columns:auto minmax(0,1fr) auto!important}
+.res-alert{display:flex;gap:14px;align-items:flex-start;line-height:1.55}
+.btn.on{border-color:#FFC83D;color:#B57900}
 .lib-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .lib-act{display:flex;gap:12px;align-items:center;text-align:left;padding:12px 14px;border-radius:18px;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--accent-soft),var(--green-soft));color:inherit;font:inherit;cursor:pointer;transition:transform .2s var(--ease),border-color .2s}
 .lib-act:hover{transform:translateY(-2px);border-color:var(--accent)}
@@ -813,7 +872,7 @@ function makeSample() {
 /* ============================================================ stockage */
 const COLS = ["livres", "membres", "emprunts", "fournitures", "mouvements"];
 const LS_KEY = "kis-bibliotheque-v1";
-const S = { livres: [], membres: [], emprunts: [], fournitures: [], mouvements: [], params: null };
+const S = { livres: [], membres: [], emprunts: [], fournitures: [], mouvements: [], params: null, reservations: [] };
 const store = { mode: "loading", db: null, loaded: new Set(), ready: false };
 
 const DESKTOP = window.desktop || null;
@@ -1132,7 +1191,7 @@ async function cloudLoad() {
       else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
     }));
   } catch (e) { toast(cloudError(e), true); }
-  if (isReader()) await loadDispo();
+  if (isReader()) await Promise.all([loadDispo(), loadMesRes()]); else await loadReservations();
   onData();
   if (can("comptes")) loadAccounts();
   auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
@@ -1143,6 +1202,7 @@ async function cloudLoad() {
       onData();
       if (t === "emprunts" && isReader()) loadDispo().then(() => onData());
     } else if (t === "reglages" && row && row.id === "params") { S.params = row.data; onData(); }
+    else if (t === "reservations") { (isReader() ? Promise.all([loadMesRes(), loadDispo()]) : loadReservations()).then(() => onData()); }
     else if (t === "profiles") {
       if (row && row.id === auth.user.id) {
         const changed = row.role !== roleOf(); auth.profile = { ...auth.profile, ...row };
@@ -1156,9 +1216,19 @@ async function cloudLoad() {
 /* nombre d'exemplaires sortis par livre (un lecteur ne voit pas les emprunts des autres) */
 async function loadDispo() {
   const { data, error } = await auth.sb.rpc("kiv_dispo");
-  if (!error && data) store.dispo = new Map(data.map(r => [r.livre, r.sortis]));
+  if (!error && data) store.dispo = new Map(data.map(r => [r.livre, typeof r === "object" && "sortis" in r ? r : { sortis: +r.sortis || 0 }]));
 }
-setInterval(() => { if (isReader() && !document.hidden) loadDispo().then(() => { if (ui.view === "livres") onData(); }); }, 60000);
+/* réservations : le lecteur reçoit les siennes (avec sa place dans la file), le personnel voit toutes celles en cours */
+async function loadMesRes() {
+  const { data, error } = await auth.sb.rpc("kiv_mes_reservations");
+  if (!error && data) store.mesRes = data;
+}
+async function loadReservations() {
+  if (store.mode !== "cloud" || !["admin", "bibliothecaire", "direction"].includes(roleOf())) return;
+  const { data, error } = await auth.sb.from("reservations").select("*").in("statut", ["attente", "prete"]).order("created_at");
+  if (!error && data) S.reservations = data;
+}
+setInterval(() => { if (isReader() && !document.hidden) Promise.all([loadDispo(), loadMesRes()]).then(() => { if (["livres", "espace"].includes(ui.view)) onData(); }); }, 60000);
 async function cloudResync(t) { try { const rows = await cloudFetch(t); S[t] = rows.map(r => ({ ...r.data, id: r.id })); onData(); } catch {} }
 
 /* ---------- photos de profil ---------- */
@@ -1343,24 +1413,148 @@ function memberCard(m, photo) {
     <span class="mc-glow"></span></div>`;
 }
 
-/* ---------- mon espace (élève, enseignant) ---------- */
+/* ---------- mon espace (élève, enseignant) : à la manière de Netflix ---------- */
+const fmtDay = iso => { try { return new Date(iso + "T12:00:00").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }); } catch { return fmtD(iso); } };
+const ordinal = n => n === 1 ? "1re" : n + "e";
+function nfCard(b, badge = "") {
+  return `<button class="nf-card" type="button" data-book="${esc(b.id)}"><div class="cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div>${b.vedette ? '<span class="cv-star" title="Livre du mois">★</span>' : ""}</div>
+    <div class="nf-meta"><span class="b-title">${esc(b.titre)}</span>${badge}</div></button>`;
+}
+function shelfRow(id, title, books, { sub = "", badge, action = "", empty = "" } = {}) {
+  if (!books.length && !empty) return "";
+  return `<section class="nf-row" aria-label="${esc(title)}"><div class="nf-h"><h3>${title}</h3>${sub ? `<span class="sub">${sub}</span>` : ""}<span style="margin-left:auto"></span>${action}
+      ${books.length > 4 ? `<button class="nf-arrow" type="button" data-scroll="${id}:-1" aria-label="Précédents">${ic("arrow")}</button><button class="nf-arrow" type="button" data-scroll="${id}:1" aria-label="Suivants">${ic("arrow")}</button>` : ""}</div>
+    ${books.length ? `<div class="nf-track" id="${id}">${books.map(b => nfCard(b, badge ? badge(b) : "")).join("")}</div>` : `<div class="empty">${empty}</div>`}</section>`;
+}
+const availBadge = b => b.dispo > 0 ? `<span class="nf-b ok">Disponible</span>` : `<span class="nf-b">Emprunté${b.attente ? ` · ${b.attente} en attente` : ""}</span>`;
 function espaceView() {
   const P = auth.profile, m = D.membres.get(P.membre_id);
   if (!m) return `<div class="card empty">Ta fiche de membre n'est pas encore disponible. Actualise la page dans un instant.</div>`;
-  const mine = D.emprunts.filter(e => e.membre === m.id);
+  const all = [...D.livres.values()], mine = D.emprunts.filter(e => e.membre === m.id);
   const cours = mine.filter(e => !e.retour).sort((a, b) => a.prevu < b.prevu ? -1 : 1), lus = mine.filter(e => e.retour);
-  const prenom = esc(String(P.nom || m.nom).split(" ")[0]);
-  const due = e => { const d = diffDays(e.prevu, D.T); return d < 0 ? pill(`En retard de ${-d} jour${d < -1 ? "s" : ""}`, "bad") : d === 0 ? pill("À rendre aujourd'hui", "warn") : pill(`À rendre dans ${d} jour${d > 1 ? "s" : ""}`, d <= 2 ? "warn" : "ok"); };
-  return `<div class="espace-top">
-      <div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2>
-        <p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture dans le catalogue."}${lus.length ? ` Tu as déjà lu <b>${lus.length} livre${lus.length > 1 ? "s" : ""}</b>.` : ""}</p>
-        <div class="hello-stats"><div><b data-count="${cours.length}">${cours.length}</b><span>en cours</span></div><div><b data-count="${lus.length}">${lus.length}</b><span>lus</span></div><div><b data-count="${mine.filter(e => e.statut === "retard").length}">0</b><span>en retard</span></div></div>
-        <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>
-      ${memberCard(m)}</div>
-    <div class="card"><div class="card-h"><h3>Mes livres en cours</h3><span class="sub">${cours.length}</span></div>
-      <div class="rows">${cours.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto" data-book="${esc(e.livre)}" role="button" tabindex="0">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s">Emprunté le ${fmtD(e.date)} · à rendre le ${fmtD(e.prevu)}${e.amende ? " · amende " + fc(e.amende) : ""}</div></div>${due(e)}</div>`).join("") || '<div class="empty">Rien pour l\'instant. Passe à la bibliothèque !</div>'}</div></div>
-    <div class="card"><div class="card-h"><h3>Déjà lus</h3><span class="sub">${lus.length}</span></div>
-      ${lus.length ? `<div class="shelf">${lus.slice(0, 18).map(e => e.b ? `<button class="book" type="button" data-book="${esc(e.b.id)}"><div class="cover" style="${coverVars(e.b)}">${cvImg(e.b)}<span class="cv-deco"></span><span class="cv-cat">${esc(e.b.categorie)}</span><div><div class="cv-title">${esc(e.b.titre)}</div><div class="cv-author">${esc(e.b.auteur)}</div></div></div><div class="b-meta"><span class="b-title">${esc(e.b.titre)}</span></div></button>` : "").join("")}</div>` : '<div class="empty">Tes lectures terminées apparaîtront ici.</div>'}</div>`;
+  const readIds = new Set(mine.map(e => e.livre)), mesRes = (store.mesRes || []).filter(r => D.livres.get(r.livre));
+  const prenom = esc(String(P.nom || m.nom).split(" ")[0]), genres = P.genres || [];
+  const retard = cours.filter(e => e.statut === "retard"), pretes = mesRes.filter(r => r.statut === "prete");
+  const vedettes = all.filter(b => b.vedette).sort((a, b) => a.titre.localeCompare(b.titre, "fr"));
+  const hero = vedettes.length ? vedettes[Math.floor(Date.now() / 864e5) % vedettes.length] : null;
+  const pop = all.filter(b => b.total > 0).sort((a, b) => b.total - a.total || a.titre.localeCompare(b.titre, "fr"));
+  const pourToi = all.filter(b => !readIds.has(b.id)).map(b => [b, (genres.includes(b.categorie) ? 100 : 0) + (b.total || 0) * 3 + (b.dispo > 0 ? 6 : 0) + (b.vedette ? 8 : 0) + (hash(b.id + P.id) % 5)])
+    .sort((a, b) => b[1] - a[1]).slice(0, 16).map(x => x[0]);
+  const nouveaux = all.slice().sort((a, b) => String(b.ajoute || "").localeCompare(String(a.ajoute || "")) || (+(String(b.id).match(/\d+/) || [0])[0]) - (+(String(a.id).match(/\d+/) || [0])[0])).slice(0, 14);
+  const maListe = (P.a_lire || []).slice().reverse().map(id => D.livres.get(id)).filter(Boolean);
+  const due = e => { const d = diffDays(e.prevu, D.T); return d < 0 ? `<span class="nf-b bad">En retard de ${-d} j</span>` : d === 0 ? `<span class="nf-b warn">À rendre aujourd'hui</span>` : `<span class="nf-b ${d <= 2 ? "warn" : "ok"}">Encore ${d} jour${d > 1 ? "s" : ""}</span>`; };
+  const resBadge = b => { const r = mesRes.find(x => x.livre === b.id); return !r ? "" : r.statut === "prete" ? `<span class="nf-b ok">T'attend · ${fmtD(r.expire_le)}</span>` : r.statut === "expiree" ? `<span class="nf-b bad">Expirée</span>` : `<span class="nf-b">${ordinal(r.rang || 1)} dans la file</span>`; };
+  return `${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
+    ${retard.length ? `<div class="nf-alert bad">${ic("clock")}<div><b>${retard.length > 1 ? retard.length + " livres sont" : "Un livre est"} en retard</b><span>${retard.map(e => "« " + esc(e.b ? e.b.titre : e.livre) + " »").join(", ")} : rapporte${retard.length > 1 ? "-les" : "-le"} vite à la bibliothèque.</span></div></div>` : ""}
+    <div class="espace-top">
+      ${hero ? `<div class="nf-hero" data-book="${esc(hero.id)}" role="button" tabindex="0" style="${coverVars(hero)}">
+          <div class="nf-hero-bg">${hero.cover ? `<img src="${esc(hero.cover)}" alt="">` : ""}</div>
+          <div class="nf-hero-cover cover" style="${coverVars(hero)}">${cvImg(hero)}<span class="cv-deco"></span><span class="cv-cat">${esc(hero.categorie)}</span><div><div class="cv-title">${esc(hero.titre)}</div></div></div>
+          <div class="nf-hero-txt"><span class="nf-kicker">★ Livre du mois</span><h2>${esc(hero.titre)}</h2><p class="nf-by">${esc(hero.auteur)}${hero.annee ? " · " + esc(hero.annee) : ""}</p>
+            ${hero.resume ? `<p class="nf-resume">${esc(hero.resume)}</p>` : ""}
+            <div class="nf-hero-act">${hero.dispo > 0 ? `<span class="pill ok">Disponible · ${esc(hero.rayon || "à la bibliothèque")}</span>` : `<span class="pill warn">Emprunté pour l'instant</span>`}<span class="btn sm primary">${ic("book")}Voir le livre</span></div></div></div>`
+      : `<div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2><p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture ci-dessous."}</p>
+        <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>`}
+      <div class="espace-side">${memberCard(m)}
+        <div class="hello-stats card"><div><b>${cours.length}</b><span>en cours</span></div><div><b>${lus.length}</b><span>lus</span></div><div><b>${mesRes.length}</b><span>réservé${mesRes.length > 1 ? "s" : ""}</span></div><div><b>${maListe.length}</b><span>dans ma liste</span></div></div></div>
+    </div>
+    ${shelfRow("rowCours", "Mes livres en cours", cours.map(e => e.b).filter(Boolean), { badge: b => due(cours.find(e => e.livre === b.id)) })}
+    ${shelfRow("rowRes", "Mes réservations", mesRes.map(r => D.livres.get(r.livre)), { badge: resBadge, sub: "3 au maximum" })}
+    ${shelfRow("rowMois", "Les livres du mois", vedettes, { badge: availBadge, sub: "choisis par la bibliothèque" })}
+    ${shelfRow("rowPourToi", genres.length ? "Pour toi" : "À découvrir", pourToi, { badge: availBadge, sub: genres.length ? "d'après tes goûts : " + esc(genres.slice(0, 3).join(", ")) : "", action: `<button class="more" type="button" id="editGenres">${genres.length ? "Modifier mes goûts" : "Choisir mes genres préférés"} ${ic("arrow")}</button>` })}
+    ${shelfRow("rowPop", "Les plus lus à l'école", pop.slice(0, 14), { badge: availBadge })}
+    ${shelfRow("rowNew", "Nouveautés", nouveaux, { badge: availBadge })}
+    ${shelfRow("rowListe", "Ma liste", maListe, { badge: availBadge, empty: "Ajoute des livres à lire plus tard depuis leur fiche (bouton « Ma liste »)." })}
+    ${shelfRow("rowLus", "Déjà lus", lus.map(e => e.b).filter((b, i, a) => b && a.indexOf(b) === i), { badge: b => { const e = lus.find(x => x.livre === b.id); return `<span class="nf-b">Lu en ${esc(new Date(e.retour + "T12:00:00").toLocaleDateString("fr-FR", { month: "short", year: "numeric" }))}</span>`; } })}`;
+}
+function bindEspace(v) {
+  const g = $("#editGenres", v); if (g) g.onclick = () => genresSheet();
+  if (!ui.genresAsked && !(auth.profile.genres || []).length) { ui.genresAsked = true; let skip = false; try { skip = !!localStorage.getItem("kiv-genres-" + auth.user.id); } catch {} if (!skip) setTimeout(() => { if (ui.view === "espace" && !sheetEl) genresSheet(true); }, 700); }
+}
+function genresSheet(first) {
+  let pick = new Set(auth.profile.genres || []);
+  openSheet(first ? "Qu'aimes-tu lire ?" : "Mes genres préférés", `<p class="form-note block" style="margin:0">Choisis un ou plusieurs genres : Kivuthèque te proposera des livres qui te ressemblent dans « Pour toi ».</p>
+    <div class="genre-grid">${params().categories.map((c, i) => `<button type="button" class="genre" data-g="${esc(c)}" aria-pressed="${pick.has(c)}" style="--g:var(--c${i % 9 + 1})">${esc(c)}</button>`).join("")}</div>`,
+    `<button class="btn ghost" type="button" id="gLater">${first ? "Plus tard" : "Annuler"}</button><button class="btn primary" type="button" id="gOk">${ic("check")}C'est parti</button>`, el => {
+      $$("[data-g]", el).forEach(b => b.onclick = () => { const g = b.dataset.g; pick.has(g) ? pick.delete(g) : pick.add(g); b.setAttribute("aria-pressed", pick.has(g)); });
+      $("#gLater", el).onclick = () => { if (first) try { localStorage.setItem("kiv-genres-" + auth.user.id, "1"); } catch {} closeSheet(); };
+      $("#gOk", el).onclick = async () => {
+        const genres = [...pick]; const { error } = await auth.sb.rpc("kiv_mes_genres", { genres });
+        if (error) return toast(cloudError(error), true);
+        auth.profile.genres = genres; closeSheet(); toast(genres.length ? "C'est noté ! Regarde « Pour toi »." : "Préférences effacées"); render();
+      };
+    });
+}
+/* fiche d'un livre vue par un élève ou un enseignant */
+function readerBookDetail(id) {
+  const b = D.livres.get(id); if (!b) return;
+  const P = auth.profile, mine = D.emprunts.filter(e => e.livre === id), cur = mine.find(e => !e.retour), lu = mine.find(e => e.retour);
+  const r = (store.mesRes || []).find(x => x.livre === id), inList = (P.a_lire || []).includes(id);
+  const status = cur ? `<div class="nf-status warn">${ic("book")}<span>Tu as ce livre · à rendre le <b>${fmtD(cur.prevu)}</b></span></div>`
+    : r && r.statut === "prete" ? `<div class="nf-status ok">${ic("spark")}<span>Il t'attend à la bibliothèque jusqu'au <b>${esc(fmtDay(r.expire_le))}</b></span></div>`
+    : r ? `<div class="nf-status">${ic("clock")}<span>Réservé : tu es <b>${ordinal(r.rang || 1)}</b> dans la file d'attente</span></div>`
+    : b.dispo > 0 ? `<div class="nf-status ok">${ic("check")}<span>Disponible · ${b.dispo} exemplaire${b.dispo > 1 ? "s" : ""} · <b>${esc(b.rayon || "à la bibliothèque")}</b></span></div>`
+    : `<div class="nf-status bad">${ic("clock")}<span>Tous les exemplaires sont empruntés${b.attente ? ` · ${b.attente} personne${b.attente > 1 ? "s attendent" : " attend"}` : ""}</span></div>`;
+  openSheet(b.titre, `<div class="rd-head"><div class="cover" style="${coverVars(b)};width:140px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:15px">${esc(b.titre)}</div></div></div>
+      <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><div style="font-weight:650;font-size:17px">${esc(b.auteur)}</div><div class="s" style="color:var(--ink-3)">${esc([b.categorie, b.editeur, b.annee].filter(Boolean).join(" · "))}</div>
+        ${b.total ? `<div class="s" style="color:var(--ink-3)">Emprunté ${b.total} fois à l'école</div>` : ""}${lu ? `<div class="s" style="color:var(--green)">${ic("check")} Tu l'as lu (rendu le ${fmtD(lu.retour)})</div>` : ""}</div></div>
+    ${status}${b.resume ? `<p class="rd-resume">${esc(b.resume)}</p>` : ""}`,
+    `<button class="btn ghost" type="button" id="rdList">${ic(inList ? "check" : "plus")}${inList ? "Dans ma liste" : "Ma liste"}</button>
+     ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}`, el => {
+      $("#rdList", el).onclick = async () => {
+        const { error } = await auth.sb.rpc("kiv_a_lire", { livre: id, garder: !inList }); if (error) return toast(cloudError(error), true);
+        P.a_lire = inList ? (P.a_lire || []).filter(x => x !== id) : [...(P.a_lire || []).filter(x => x !== id), id];
+        toast(inList ? "Retiré de ta liste" : "Ajouté à ta liste"); render(); readerBookDetail(id); };
+      const rs = $("#rdRes", el); if (rs) rs.onclick = async () => { rs.disabled = true;
+        const { error } = await auth.sb.rpc("kiv_reserver", { livre: id }); if (error) { rs.disabled = false; return toast(cloudError(error), true); }
+        await Promise.all([loadMesRes(), loadDispo()]); const mr = (store.mesRes || []).find(x => x.livre === id);
+        toast(`Réservé ! Tu es ${ordinal(mr && mr.rang || 1)} dans la file. On te garde le livre dès qu'il revient.`); render(); readerBookDetail(id); };
+      const cn = $("#rdCancel", el); if (cn) cn.onclick = () => confirmSheet("Annuler ta réservation ?", `Tu perdras ta place dans la file d'attente pour « ${b.titre} ».`, "Annuler la réservation", async () => {
+        const { error } = await auth.sb.rpc("kiv_annuler_reservation", { rid: r.id }); if (error) return toast(cloudError(error), true);
+        await Promise.all([loadMesRes(), loadDispo()]); toast("Réservation annulée"); render(); });
+    });
+}
+
+/* ---------- réservations côté bibliothèque ---------- */
+async function setReservation(r, patch, msg) {
+  const { error } = await auth.sb.from("reservations").update(patch).eq("id", r.id);
+  if (error) return toast(cloudError(error), true);
+  await loadReservations(); onData(true); if (msg) toast(msg);
+}
+const setAside = r => setReservation(r, { statut: "prete", prete_le: new Date().toISOString(), expire_le: addDays(todayISO(), 3) }, `Mis de côté pour ${r.m ? r.m.nom : r.membre} jusqu'au ${fmtD(addDays(todayISO(), 3))}`);
+function reservationsCard() {
+  if (store.mode !== "cloud" || !D.res.length) return "";
+  const byBook = new Map(); D.res.filter(r => r.statut === "attente").sort((a, b) => a.created_at < b.created_at ? -1 : 1).forEach(r => { if (!byBook.has(r.livre)) byBook.set(r.livre, []); byBook.get(r.livre).push(r); });
+  const toSet = [...byBook.values()].filter(q => q[0].b.dispo > 0).map(q => q[0]);
+  const ready = D.res.filter(r => r.statut === "prete"), waiting = [...byBook.values()].filter(q => !(q[0].b.dispo > 0));
+  const who = r => `${esc(r.m ? r.m.nom : r.membre)} <span class="code">${esc(r.membre)}</span>${r.m && r.m.classe && r.m.classe !== "Personnel" ? " · " + esc(r.m.classe) : ""}`;
+  const can_ = can("biblio");
+  return `<div class="card res-card"><div class="card-h"><h3>Réservations</h3><span class="sub">${toSet.length ? `<b style="color:var(--warn)">${toSet.length} à mettre de côté</b> · ` : ""}${ready.length} mise${ready.length > 1 ? "s" : ""} de côté · ${D.res.filter(r => r.statut === "attente").length} en attente</span></div>
+    <div class="rows">
+      ${toSet.map(r => `<div class="row res-row">${miniCover(r.b)}<div style="min-width:0"><div class="t">${esc(r.b.titre)}</div><div class="s">Un exemplaire est en rayon · à garder pour ${who(r)}</div></div>
+        ${can_ ? `<button class="btn sm primary" type="button" data-res-aside="${r.id}">${ic("check")}Mis de côté</button>` : pill("À mettre de côté", "warn")}</div>`).join("")}
+      ${ready.map(r => `<div class="row res-row">${miniCover(r.b)}<div style="min-width:0"><div class="t">${esc(r.b.titre)}</div><div class="s">Gardé pour ${who(r)} · ${r.expiree ? `<b style="color:var(--danger)">délai dépassé (${fmtD(r.expire_le)})</b>` : "jusqu'au " + fmtD(r.expire_le)}</div></div>
+        ${can_ ? `<div class="row-actions" style="opacity:1">${r.expiree ? `<button class="btn sm ghost" type="button" data-res-expire="${r.id}">Libérer</button>` : ""}<button class="btn sm primary" type="button" data-res-lend="${r.id}">${ic("plus")}Prêter</button></div>` : pill(r.expiree ? "Expirée" : "Mise de côté", r.expiree ? "bad" : "ok")}</div>`).join("")}
+      ${waiting.map(q => `<div class="row res-row">${miniCover(q[0].b)}<div style="min-width:0"><div class="t">${esc(q[0].b.titre)}</div><div class="s">${q.length} en attente : ${q.slice(0, 3).map(who).join(", ")}${q.length > 3 ? "…" : ""}</div></div>${pill("Tous sortis", "info")}</div>`).join("")}
+    </div></div>`;
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-res-aside],[data-res-lend],[data-res-expire],[data-res-cancel],[data-scroll]"); if (!b) return;
+  if (b.dataset.scroll) { const [id, dir] = b.dataset.scroll.split(":"); const t = $("#" + id); if (t) t.scrollBy({ left: +dir * t.clientWidth * .85, behavior: reduced ? "auto" : "smooth" }); return; }
+  const r = D && D.res.find(x => x.id === (b.dataset.resAside || b.dataset.resLend || b.dataset.resExpire || b.dataset.resCancel)); if (!r) return;
+  if (b.dataset.resAside) return setAside(r);
+  if (b.dataset.resLend) return loanSheet({ membre: r.membre, livre: r.livre });
+  if (b.dataset.resExpire) return setReservation(r, { statut: "expiree" }, "Réservation libérée : l'exemplaire est de nouveau disponible");
+  if (b.dataset.resCancel) return confirmSheet("Annuler cette réservation ?", `${r.m ? r.m.nom : r.membre} perdra sa place pour « ${r.b.titre} ».`, "Annuler la réservation", () => setReservation(r, { statut: "annulee" }, "Réservation annulée"));
+});
+/* après un retour : si quelqu'un attend ce livre, on propose de le mettre de côté */
+function reservedAlert(livre) {
+  if (store.mode !== "cloud") return; derive();
+  const q = D.res.filter(r => r.livre === livre && r.statut === "attente").sort((a, b) => a.created_at < b.created_at ? -1 : 1); if (!q.length) return;
+  const r = q[0];
+  openSheet("Ce livre est réservé", `<div class="res-alert">${miniCover(r.b)}<div><b>« ${esc(r.b.titre)} »</b> est attendu par <b>${esc(r.m ? r.m.nom : r.membre)}</b> (${esc(r.membre)}${r.m && r.m.classe ? " · " + esc(r.m.classe) : ""}).<br>Mettez cet exemplaire de côté : il lui sera gardé 3 jours et ${r.m ? esc(r.m.nom.split(" ")[0]) : "le membre"} le verra dans son espace.</div></div>${q.length > 1 ? `<p class="form-note block" style="margin:0">${q.length - 1} autre${q.length > 2 ? "s personnes attendent" : " personne attend"} ensuite.</p>` : ""}`,
+    `<button class="btn ghost" type="button" data-close2>Plus tard</button><button class="btn primary" type="button" id="raOk">${ic("check")}Mis de côté</button>`,
+    el => { $("[data-close2]", el).onclick = () => closeSheet(); $("#raOk", el).onclick = () => { closeSheet(); setAside(r); }; });
 }
 
 /* ============================================================ logiciel de bureau : comptes et mots de passe
@@ -1578,14 +1772,18 @@ function derive() {
     if (m) { if (!e.retour) m.cours++; if (statut === "retard") m.retard++; if (!e.paye) m.dues += amende; }
     return { ...e, prevu, jours, statut, amende, b, m };
   }).sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : (a.id < b.id ? 1 : -1));
-  if (isReader() && store.dispo) livres.forEach(b => { b.sortis = store.dispo.get(b.id) || 0; });
-  livres.forEach(b => { b.dispo = (Number(b.ex) || 0) - b.sortis; });
+  /* exemplaires mis de côté pour une réservation : ils ne sont plus disponibles pour les autres */
+  const res = (S.reservations || []).filter(r => r.statut === "attente" || r.statut === "prete").map(r => ({ ...r, expiree: r.statut === "prete" && r.expire_le < T, b: livres.get(r.livre), m: membres.get(r.membre) })).filter(r => r.b);
+  livres.forEach(b => { b.reserves = 0; b.attente = 0; });
+  res.forEach(r => { if (r.statut === "attente") r.b.attente++; else if (!r.expiree) r.b.reserves++; });
+  if (isReader() && store.dispo) livres.forEach(b => { const d = store.dispo.get(b.id) || {}; b.sortis = d.sortis || 0; b.reserves = d.reserves || 0; b.attente = d.attente || 0; b.total = d.total || 0; });
+  livres.forEach(b => { b.dispo = (Number(b.ex) || 0) - b.sortis - b.reserves; });
   const fournitures = S.fournitures.map(f => {
     let ent = 0, sor = 0; S.mouvements.forEach(m => { if (m.article === f.id) { if (m.type === "entree") ent += +m.qte || 0; else sor += +m.qte || 0; } });
     const stock = (+f.initial || 0) + ent - sor;
     return { ...f, ent, sor, stock, valeur: stock * (+f.prix || 0), etat: stock <= 0 ? "rupture" : stock <= (+f.seuil || 0) ? "faible" : "ok" };
   }).sort((a, b) => a.article.localeCompare(b.article, "fr"));
-  D = { T, p, livres, membres, emprunts, fournitures, fmap: new Map(fournitures.map(f => [f.id, f])) };
+  D = { T, p, livres, membres, emprunts, fournitures, res, fmap: new Map(fournitures.map(f => [f.id, f])) };
   return D;
 }
 function params() { return { ...DEFAULT_PARAMS, ...(S.params || {}) }; }
@@ -1629,7 +1827,7 @@ try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h ===
 
 function buildNav() {
   $$("#nav [data-go]").forEach(b => b.remove());
-  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : ""}</button>`).join(""));
+  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : ""}</button>`).join(""));
   const tabs = isReader() ? ["espace", "livres"] : ["accueil", "livres", "emprunts", "membres"];
   $("#tabbar").innerHTML = tabs.map(id => { const v = navViews().find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
@@ -1705,7 +1903,8 @@ function syncChrome() {
 }
 function sideSummary() {
   if (!D) return; const T = D.T;
-  $("#todayCard").hidden = isReader(); if (isReader()) return;
+  $("#todayCard").hidden = isReader();
+  if (isReader()) { const n = (store.mesRes || []).filter(r => r.statut === "prete").length, b = $("#navRes"); if (b) { b.hidden = !n; b.textContent = n; } return; }
   const late = D.emprunts.filter(e => e.statut === "retard").length;
   const nl = $("#navLate"); if (nl) { nl.hidden = !late; nl.textContent = late; }
   $("#todayCard").innerHTML = `<h4>Aujourd'hui</h4>
@@ -1892,7 +2091,7 @@ function booksList() {
 function loansView() {
   const c = { actifs: 0, retard: 0, rendus: 0, amendes: 0 };
   D.emprunts.forEach(e => { if (!e.retour) c.actifs++; if (e.statut === "retard") c.retard++; if (e.retour) c.rendus++; if (e.amende && !e.paye) c.amendes++; });
-  return `<div class="toolbar">
+  return `${reservationsCard()}<div class="toolbar">
       <label class="field-search">${ic("search")}<input id="qEmprunts" type="search" placeholder="Livre, membre, classe…" value="${esc(ui.q.emprunts || "")}"></label>
       <div class="seg" role="group" aria-label="Filtre">${[["actifs", "En cours"], ["retard", "En retard"], ["amendes", "Amendes dues"], ["rendus", "Rendus"], ["tous", "Tous"]].map(([k, l]) => `<button type="button" data-f="emprunts:${k}" aria-pressed="${ui.filter.emprunts === k}">${l}${k !== "tous" ? `<span class="n">${c[k]}</span>` : ""}</button>`).join("")}</div>
     </div><div id="list">${loansList()}</div>`;
@@ -2180,6 +2379,7 @@ function bindView() {
   const pr_ = $("#printBtn", v); if (pr_) pr_.addEventListener("click", printReport);
   $$("[data-role-of]", v).forEach(sel => sel.addEventListener("change", () => setRole(sel.dataset.roleOf, sel.value)));
   if (store.localAuth && ui.view === "comptes") bindLocalAccounts(v);
+  if (ui.view === "espace") bindEspace(v);
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
     saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });
     toast("Réglages enregistrés"); });
@@ -2501,7 +2701,7 @@ function netAddSheet() {
           const btn = $("#niAdd", f); btn.disabled = true; btn.innerHTML = "Ajout et copie de la couverture…";
           const c = $("#ni-cat", f).value, cover = r.img ? await coverFor(r.img).catch(() => "") : "";
           const obj = { id: nextId(S.livres, "LIV-", 3), titre: r.titre, auteur: r.auteur || "Inconnu", categorie: c, ex: nb(), isbn: r.isbn || "", rayon: rayonFor(c), editeur: r.editeur || "", annee: +r.annee || "" };
-          if (cover) obj.cover = cover; if (r.resume) obj.resume = r.resume.slice(0, 700);
+          if (cover) obj.cover = cover; if (r.resume) obj.resume = r.resume.slice(0, 700); obj.ajoute = todayISO();
           await put("livres", obj); toast(`« ${r.titre} » ajouté au catalogue${cover ? " avec sa couverture" : ""}`); mark("Ajouté ✓");
         };
       }
@@ -2734,6 +2934,7 @@ function bookSheet(b, pre = {}) {
           if (!isNew) { const sortis = S.emprunts.filter(x => x.livre === b.id && !x.retour).length; if (ex < sortis) return fieldErr(el, "b-ex", `${sortis} exemplaire${sortis > 1 ? "s sont" : " est"} actuellement sorti${sortis > 1 ? "s" : ""}.`); }
           const obj = { ...b, id: b.id || nextId(S.livres, "LIV-", 3), titre, auteur: val("b-auteur") || "Inconnu", categorie: val("b-cat"), ex, isbn: val("b-isbn"), rayon: val("b-rayon"), editeur: val("b-editeur"), annee: +val("b-annee") || "" };
           if (cover) obj.cover = cover; else delete obj.cover; if (resume) obj.resume = resume; else delete obj.resume;
+          if (isNew) obj.ajoute = todayISO();
           put("livres", obj); toast(isNew ? "« " + titre + " » ajouté au catalogue" : "Livre modifié"); return obj.id; },
         reset: () => { ["b-titre", "b-auteur", "b-isbn", "b-annee", "b-editeur"].forEach(i => $("#" + i, el).value = ""); $("#b-ex", el).value = 1; $("#dupBox", el).innerHTML = ""; cover = ""; resume = ""; drawCover(); const lr = $("#lkRes", el); if (lr) lr.innerHTML = ""; const lq = $("#lk-q", el); (lq || $("#b-titre", el)).focus(); if (lq) lq.value = ""; },
         onDelete: () => { if (S.emprunts.some(x => x.livre === b.id && !x.retour)) return toast("Ce livre a des exemplaires sortis : enregistrez d'abord les retours.", true);
@@ -2741,16 +2942,21 @@ function bookSheet(b, pre = {}) {
     });
 }
 function bookDetail(id) {
+  if (isReader()) return readerBookDetail(id);
   const b = D.livres.get(id); if (!b) return; const [l, t] = bookAvail(b);
+  const queue = (D.res || []).filter(r => r.livre === id).sort((a, x) => a.statut === x.statut ? (a.created_at < x.created_at ? -1 : 1) : a.statut === "prete" ? -1 : 1);
   const hist = D.emprunts.filter(e => e.livre === id).slice(0, 8);
   openSheet(b.titre, `<div style="display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:start">
       <div class="cover" style="${coverVars(b)};width:120px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:14px">${esc(b.titre)}</div></div></div>
       <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><div style="color:var(--ink-2)">${esc(b.auteur)}</div>${pill(l, t)}
         <div class="recap" style="border-style:solid"><div>Disponibles : <b>${b.dispo} / ${b.ex}</b></div><div>Rayon : <b>${esc(b.rayon || "—")}</b></div><div>ISBN : <b>${esc(b.isbn || "—")}</b></div>${isReader() ? "" : `<div>Emprunté <b>${b.total}</b> fois</div>`}</div></div></div>
     ${b.resume ? `<p style="margin:0;color:var(--ink-2);font-size:13.5px;line-height:1.55">${esc(b.resume)}</p>` : ""}
+    ${queue.length ? `<div class="recap" style="border-style:solid"><div><b>Réservations</b></div>${queue.map((r, i) => `<div>${r.statut === "prete" ? (r.expiree ? "⏱ délai dépassé · " : "✓ mis de côté · ") : (i + 1 - queue.filter(x => x.statut === "prete").length) + ". "}${esc(r.m ? r.m.nom : r.membre)} <span class="code">${esc(r.membre)}</span></div>`).join("")}</div>` : ""}
+    ${can("biblio") && store.mode !== "db" ? `<button class="btn sm ghost${b.vedette ? " on" : ""}" type="button" id="vedB" style="align-self:flex-start">${b.vedette ? "★ Livre du mois · retirer" : "☆ Mettre en avant dans les « livres du mois »"}</button>` : ""}
     <h3 style="font-size:15px;margin-top:6px">${isReader() ? "Tes emprunts de ce livre" : "Historique"}</h3><div class="rows">${hist.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${e.m ? avatar(e.m) : ""}<div style="min-width:0"><div class="t">${esc(e.m ? e.m.nom : e.membre)}</div><div class="s">${fmtD(e.date)}${e.retour ? " → " + fmtD(e.retour) : ""}</div></div>${pill(...STAT[e.statut])}</div>`).join("") || '<div class="empty">Jamais emprunté.</div>'}</div>`,
     can("biblio") ? `${NET_OK() || store.mode === "local" ? `<button class="btn ghost" type="button" id="coverB" style="margin-right:auto">${ic("spark")}Couverture</button>` : ""}<button class="btn ghost" type="button" id="editB">${ic("edit")}Modifier</button><button class="btn primary" type="button" id="lendB" ${b.dispo <= 0 ? "disabled" : ""}>${ic("plus")}Prêter ce livre</button>` : null,
-    el => { if (!$("#editB", el)) return; const cb = $("#coverB", el); if (cb) cb.onclick = () => coverSheet(id); $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
+    el => { const vb = $("#vedB", el); if (vb) vb.onclick = async () => { const cur = S.livres.find(x => x.id === id); await put("livres", { ...cur, vedette: !cur.vedette }); toast(cur.vedette ? "Retiré des livres du mois" : "« " + cur.titre + " » est un livre du mois"); bookDetail(id); };
+      if (!$("#editB", el)) return; const cb = $("#coverB", el); if (cb) cb.onclick = () => coverSheet(id); $("#editB", el).onclick = () => bookSheet(S.livres.find(x => x.id === id)); $("#lendB", el).onclick = () => loanSheet({ livre: id }); });
 }
 function memberSheet(m) {
   if (!guard("biblio")) return;
@@ -2830,14 +3036,16 @@ function loanSheet(pre = {}) {
         .map(m => `<button class="pick" type="button" data-pm="${esc(m.id)}">${avatar(m)}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${esc(m.classe)}${m.retard ? " · en retard" : ""}</div></div></button>`).join("") || '<div class="empty">Aucun membre. <button type="button" class="link" id="newMem">Inscrire un nouveau membre</button></div>';
         $$("[data-pm]", el).forEach(x => x.onclick = () => { st.membre = x.dataset.pm; draw(); $("#l-b", el).focus(); });
         const nm = $("#newMem", el); if (nm) nm.onclick = () => memberSheet(); };
+      const heldFor = b => (S.reservations || []).some(r => r.livre === b.id && r.membre === st.membre && r.statut === "prete") ? 1 : 0;
+      const free = b => b.dispo + heldFor(b);
       const listB = () => { const q = norm($("#l-b", el).value); $("#bPick", el).innerHTML = [...D.livres.values()].filter(b => !st.livres.includes(b.id) && (!q || norm(b.titre + " " + b.auteur + " " + b.id + " " + b.isbn + " " + isbnDigits(b.isbn)).includes(q))).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, 30)
-        .map(b => `<button class="pick" type="button" data-pb="${esc(b.id)}" ${b.dispo <= 0 ? "disabled" : ""}>${miniCover(b)}<div style="min-width:0;flex:1"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)}${b.dispo <= 0 ? " · aucun exemplaire disponible" : ""}</div></div><span class="avail ${b.dispo > 0 ? "ok" : "bad"}">${b.dispo}/${b.ex}</span></button>`).join("") || '<div class="empty">Aucun livre.</div>';
+        .map(b => `<button class="pick" type="button" data-pb="${esc(b.id)}" ${free(b) <= 0 ? "disabled" : ""}>${miniCover(b)}<div style="min-width:0;flex:1"><div class="t">${esc(b.titre)}</div><div class="s">${esc(b.auteur)}${heldFor(b) ? " · mis de côté pour ce membre" : free(b) <= 0 ? (b.reserves ? " · exemplaire réservé pour quelqu'un d'autre" : " · aucun exemplaire disponible") : ""}</div></div><span class="avail ${free(b) > 0 ? "ok" : "bad"}">${free(b)}/${b.ex}</span></button>`).join("") || '<div class="empty">Aucun livre.</div>';
         $$("[data-pb]", el).forEach(x => x.onclick = () => { st.livres.push(x.dataset.pb); $("#l-b", el).value = ""; draw(); }); };
       $("#l-m", el).addEventListener("input", listM); $("#l-b", el).addEventListener("input", listB); $("#l-d", el).addEventListener("change", draw);
       const addIsbn = isbn => { const b = bookByIsbn(isbn); const db = b && D.livres.get(b.id);
         if (!db) return toast("Aucun livre du catalogue avec l'ISBN " + isbn, true);
         if (st.livres.includes(db.id)) return toast("« " + db.titre + " » est déjà dans cet emprunt");
-        if (db.dispo <= 0) return toast("« " + db.titre + " » : aucun exemplaire disponible", true);
+        if (free(db) <= 0) return toast("« " + db.titre + " » : aucun exemplaire disponible", true);
         beep(); st.livres.push(db.id); $("#l-b", el).value = ""; draw(); };
       el.onIsbn = addIsbn;
       $("#lScan", el).onclick = async () => { const i = await scanISBN("Scanner le livre prêté"); if (i) addIsbn(i); };
@@ -2847,7 +3055,9 @@ function loanSheet(pre = {}) {
           if (!st.membre) return fieldErr(el, "l-m", "Choisissez le membre qui emprunte.");
           if (!st.livres.length) return fieldErr(el, "l-b", "Ajoutez au moins un livre.");
           const date = $("#l-d", el).value || todayISO(); let n = nextId(S.emprunts, "EMP-", 4).match(/\d+$/)[0] * 1, first = null;
-          st.livres.forEach(lid => { const id = "EMP-" + pad(n++, 4); first = first || id; put("emprunts", { id, date, membre: st.membre, livre: lid, prevu: addDays(date, p.duree), retour: null, paye: false }); });
+          st.livres.forEach(lid => { const id = "EMP-" + pad(n++, 4); first = first || id; put("emprunts", { id, date, membre: st.membre, livre: lid, prevu: addDays(date, p.duree), retour: null, paye: false });
+            const r = (S.reservations || []).find(x => x.livre === lid && x.membre === st.membre && (x.statut === "prete" || x.statut === "attente"));
+            if (r && store.mode === "cloud") auth.sb.from("reservations").update({ statut: "servie" }).eq("id", r.id).then(() => loadReservations().then(() => onData())); });
           toast(`${st.livres.length > 1 ? st.livres.length + " emprunts enregistrés" : "Emprunt enregistré"} · retour le ${fmtD(addDays(date, p.duree))}`); return first; },
         reset: () => { st.membre = null; st.livres = []; $("#l-m", el).value = ""; $("#l-b", el).value = ""; draw(); $("#l-m", el).focus(); } });
       draw();
@@ -2868,7 +3078,8 @@ function doReturn(id) {
   const fromPicker = ui.returning && sheetEl;
   const p = params(); const prevu = e.prevu || addDays(e.date, p.duree); const jours = Math.max(0, diffDays(todayISO(), prevu));
   const finish = paye => { put("emprunts", { ...e, retour: todayISO(), paye }); toast(jours ? `Retour enregistré · ${jours} j de retard` : "Retour enregistré · merci !");
-    if (fromPicker) returnPicker(); else closeSheet(); };
+    const waiting = (S.reservations || []).some(r => r.livre === e.livre && r.statut === "attente");
+    if (waiting) { closeSheet(true); setTimeout(() => reservedAlert(e.livre), 120); } else if (fromPicker) returnPicker(); else closeSheet(); };
   if (!jours) return finish(false);
   const b = S.livres.find(x => x.id === e.livre), m = S.membres.find(x => x.id === e.membre);
   openSheet("Retour en retard", `<div class="recap" style="border-style:solid"><div><b>${esc(b ? b.titre : e.livre)}</b> rendu par <b>${esc(m ? m.nom : e.membre)}</b></div><div>${jours} jour${jours > 1 ? "s" : ""} de retard · amende de <b>${fc(jours * p.amende)}</b></div></div><p style="margin:0;color:var(--ink-2)">L'amende est-elle payée maintenant ?</p>`,

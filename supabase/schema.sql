@@ -26,6 +26,8 @@ alter table public.profiles add column if not exists classe    text;            
 alter table public.profiles add column if not exists membre_id text;            -- fiche de membre reliée (A001…)
 alter table public.profiles add column if not exists avatar    text;            -- photo de profil (petite image JPEG)
 alter table public.profiles add column if not exists classes   text[] not null default '{}';  -- classes d'un enseignant
+alter table public.profiles add column if not exists genres    text[] not null default '{}';  -- genres préférés (espace lecteur)
+alter table public.profiles add column if not exists a_lire    text[] not null default '{}';  -- « à lire plus tard » (codes de livres)
 
 -- l'ancien rôle « consultation » s'appelle désormais « direction »
 alter table public.profiles drop constraint if exists profiles_role_check;
@@ -282,17 +284,128 @@ begin
   end loop;
 end $$;
 
--- ---------------------------------------------------------------- disponibilité des livres
--- un élève ne voit pas les emprunts des autres : on lui donne seulement le nombre d'exemplaires sortis
-create or replace function public.kiv_dispo()
-returns table (livre text, sortis int) language sql stable security definer set search_path = public as $$
-  select data ->> 'livre', count(*)::int from public.emprunts
-  where (data ->> 'retour') is null
-    and public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve')
-  group by 1;
+-- ---------------------------------------------------------------- réservations
+-- statut : attente (file d'attente) → prete (mis de côté, gardé 3 jours) → servie (emprunté)
+--          ou annulee / expiree
+create table if not exists public.reservations (
+  id         uuid primary key default gen_random_uuid(),
+  livre      text not null,
+  membre     text not null,
+  statut     text not null default 'attente' check (statut in ('attente', 'prete', 'servie', 'annulee', 'expiree')),
+  created_at timestamptz not null default now(),
+  prete_le   timestamptz,
+  expire_le  date,
+  updated_by uuid default auth.uid()
+);
+create index if not exists reservations_livre on public.reservations (livre, statut);
+create index if not exists reservations_membre on public.reservations (membre, statut);
+alter table public.reservations enable row level security;
+revoke all on public.reservations from anon;
+revoke insert, delete on public.reservations from authenticated;
+grant select, update on public.reservations to authenticated;
+drop policy if exists "reservations : lecture" on public.reservations;
+create policy "reservations : lecture" on public.reservations for select to authenticated
+  using (public.kiv_role() in ('admin', 'bibliothecaire', 'direction') or membre = public.kiv_membre());
+drop policy if exists "reservations : gestion" on public.reservations;
+create policy "reservations : gestion" on public.reservations for update to authenticated
+  using (public.kiv_role() in ('admin', 'bibliothecaire')) with check (public.kiv_role() in ('admin', 'bibliothecaire'));
+
+-- exemplaires d'un livre : total, sortis, mis de côté (réservation prête et pas encore expirée)
+create or replace function public.kiv_stock_livre(l text)
+returns table (ex int, sortis int, reserves int) language sql stable security definer set search_path = public as $$
+  select coalesce((select (data ->> 'ex')::int from public.livres where id = l), 0),
+         (select count(*)::int from public.emprunts where data ->> 'livre' = l and (data ->> 'retour') is null),
+         (select count(*)::int from public.reservations where livre = l and statut = 'prete' and expire_le >= current_date);
 $$;
-revoke execute on function public.kiv_dispo() from public, anon;
-grant execute on function public.kiv_dispo() to authenticated;
+revoke execute on function public.kiv_stock_livre(text) from public, anon, authenticated;
+
+-- réserver un livre (élève, enseignant ; la bibliothécaire peut réserver pour un membre)
+create or replace function public.kiv_reserver(livre text, pour text default null)
+returns uuid language plpgsql security definer set search_path = public as $$
+declare
+  me  text := public.kiv_role();
+  m   text;
+  st  record;
+  nid uuid;
+begin
+  if me in ('admin', 'bibliothecaire') and pour is not null then m := pour;
+  elsif me in ('eleve', 'enseignant', 'admin', 'bibliothecaire') then m := public.kiv_membre();
+  else raise exception 'Votre rôle ne permet pas de réserver.'; end if;
+  if m is null then raise exception 'Ton compte n''est pas encore relié à une fiche de membre.'; end if;
+  if not exists (select 1 from public.livres where id = kiv_reserver.livre) then raise exception 'Livre introuvable.'; end if;
+  if exists (select 1 from public.reservations r where r.livre = kiv_reserver.livre and r.membre = m and r.statut in ('attente', 'prete')) then
+    raise exception 'Tu as déjà réservé ce livre.'; end if;
+  if exists (select 1 from public.emprunts e where e.data ->> 'livre' = kiv_reserver.livre and e.data ->> 'membre' = m and (e.data ->> 'retour') is null) then
+    raise exception 'Tu as déjà ce livre en ce moment.'; end if;
+  if (select count(*) from public.reservations r where r.membre = m and r.statut in ('attente', 'prete')) >= 3 then
+    raise exception 'Tu as déjà 3 réservations : c''est le maximum.'; end if;
+  select * into st from public.kiv_stock_livre(kiv_reserver.livre);
+  if me in ('eleve', 'enseignant') and st.ex - st.sortis - st.reserves
+       - (select count(*) from public.reservations r where r.livre = kiv_reserver.livre and r.statut = 'attente') > 0 then
+    raise exception 'Ce livre est disponible : passe le chercher à la bibliothèque !'; end if;
+  insert into public.reservations (livre, membre) values (kiv_reserver.livre, m) returning id into nid;
+  return nid;
+end;
+$$;
+-- annuler (l'élève : les siennes ; la bibliothécaire : toutes)
+create or replace function public.kiv_annuler_reservation(rid uuid)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  update public.reservations set statut = 'annulee', updated_by = auth.uid()
+  where id = rid and statut in ('attente', 'prete')
+    and (public.kiv_role() in ('admin', 'bibliothecaire') or membre = public.kiv_membre());
+  if not found then raise exception 'Réservation introuvable ou déjà terminée.'; end if;
+end;
+$$;
+-- mes réservations, avec ma place dans la file d'attente
+create or replace function public.kiv_mes_reservations()
+returns table (id uuid, livre text, statut text, created_at timestamptz, expire_le date, rang int)
+language sql stable security definer set search_path = public as $$
+  select r.id, r.livre,
+         case when r.statut = 'prete' and r.expire_le < current_date then 'expiree' else r.statut end,
+         r.created_at, r.expire_le,
+         case when r.statut = 'attente' then 1 + (select count(*)::int from public.reservations o
+           where o.livre = r.livre and o.statut = 'attente' and o.created_at < r.created_at) end
+  from public.reservations r
+  where r.membre = public.kiv_membre() and r.statut in ('attente', 'prete')
+  order by r.created_at;
+$$;
+
+-- ---------------------------------------------------------------- disponibilité des livres
+-- un lecteur ne voit pas les emprunts des autres : on lui donne seulement des nombres
+drop function if exists public.kiv_dispo();
+create or replace function public.kiv_dispo()
+returns table (livre text, sortis int, reserves int, attente int, total int)
+language sql stable security definer set search_path = public as $$
+  with e as (
+    select data ->> 'livre' as livre, count(*) filter (where (data ->> 'retour') is null)::int as sortis, count(*)::int as total
+    from public.emprunts group by 1
+  ), r as (
+    select livre, count(*) filter (where statut = 'prete' and expire_le >= current_date)::int as reserves,
+           count(*) filter (where statut = 'attente')::int as attente
+    from public.reservations where statut in ('attente', 'prete') group by 1
+  )
+  select coalesce(e.livre, r.livre), coalesce(e.sortis, 0), coalesce(r.reserves, 0), coalesce(r.attente, 0), coalesce(e.total, 0)
+  from e full join r on r.livre = e.livre
+  where public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve');
+$$;
+
+-- préférences du lecteur : genres préférés et liste « à lire plus tard »
+create or replace function public.kiv_mes_genres(genres text[])
+returns void language sql security definer set search_path = public as $$
+  update public.profiles set genres = coalesce(kiv_mes_genres.genres[1:20], '{}') where id = auth.uid();
+$$;
+create or replace function public.kiv_a_lire(livre text, garder boolean)
+returns void language sql security definer set search_path = public as $$
+  update public.profiles set a_lire = case
+    when garder then (array_remove(a_lire, kiv_a_lire.livre) || kiv_a_lire.livre)[greatest(1, cardinality(array_remove(a_lire, kiv_a_lire.livre)) - 98):]
+    else array_remove(a_lire, kiv_a_lire.livre) end
+  where id = auth.uid();
+$$;
+revoke execute on function public.kiv_dispo(), public.kiv_reserver(text, text), public.kiv_annuler_reservation(uuid), public.kiv_mes_reservations(),
+  public.kiv_mes_genres(text[]), public.kiv_a_lire(text, boolean) from public, anon;
+grant execute on function public.kiv_dispo(), public.kiv_reserver(text, text), public.kiv_annuler_reservation(uuid), public.kiv_mes_reservations(),
+  public.kiv_mes_genres(text[]), public.kiv_a_lire(text, boolean) to authenticated;
 
 -- ---------------------------------------------------------------- couvertures des livres
 -- Copie réduite (environ 15 Ko) de chaque couverture, gardée dans Supabase :
@@ -316,7 +429,7 @@ create policy "couvertures : suppression" on storage.objects for delete to authe
 do $$
 declare t text;
 begin
-  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles'] loop
+  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles', 'reservations'] loop
     begin
       execute format('alter publication supabase_realtime add table public.%I', t);
     exception when duplicate_object then null;

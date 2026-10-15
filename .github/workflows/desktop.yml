@@ -92,6 +92,16 @@ jobs:
       - name: Fabrication (installateur et version portable)
         run: npx electron-builder --win nsis portable --x64
         working-directory: desktop
+      - name: Diagnostic — installateur 1.1.0 publié, sur la même machine
+        shell: pwsh
+        continue-on-error: true
+        run: |
+          Invoke-WebRequest "https://github.com/alexandretshimpaka062-afk/Alex/releases/download/kivutheque-v1.1.0/Kivutheque-1.1.0-win-x64.exe" -OutFile "$env:RUNNER_TEMP\old.exe"
+          $p = Start-Process -FilePath "$env:RUNNER_TEMP\old.exe" -ArgumentList "/S", "/D=$env:RUNNER_TEMP\OldInstall" -Wait -PassThru
+          Write-Host "1.1.0 : code $($p.ExitCode)"
+          Start-Sleep -Seconds 20
+          Get-ChildItem "$env:RUNNER_TEMP\OldInstall" -ErrorAction SilentlyContinue | Select-Object -First 5 | Out-String | Write-Host
+          Get-WinEvent -LogName Application -MaxEvents 15 -ErrorAction SilentlyContinue | Where-Object { $_.LevelDisplayName -eq "Error" } | Format-List TimeCreated, ProviderName, Message | Out-String -Width 300 | Write-Host
       - name: Vérification — installation silencieuse et lancement
         shell: pwsh
         working-directory: desktop
@@ -119,6 +129,7 @@ jobs:
             Write-Host "--- contenu de $dest"; Get-ChildItem $dest -Recurse -Depth 1 -ErrorAction SilentlyContinue | Select-Object FullName, Length | Format-Table -AutoSize | Out-String -Width 300 | Write-Host
             Write-Host "--- programmes utilisateur"; Get-ChildItem "$env:LOCALAPPDATA\Programs" -ErrorAction SilentlyContinue | Out-String | Write-Host
             Write-Host "--- processus"; Get-Process | Where-Object { $_.Name -like "*Kivu*" -or $_.Name -like "*setup*" -or $_.Name -like "*nsis*" } | Out-String | Write-Host
+            Get-WinEvent -LogName Application -MaxEvents 15 -ErrorAction SilentlyContinue | Where-Object { $_.LevelDisplayName -eq "Error" } | Format-List TimeCreated, ProviderName, Message | Out-String -Width 300 | Write-Host
             throw "Installation introuvable"
           }
           Start-Sleep -Seconds 5

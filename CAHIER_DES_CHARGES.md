@@ -74,6 +74,21 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 4. Espace enseignant, borne publique.
 5. Rappels de retard, état des livres, bon de commande.
 
+## Esthétique et expérience (ajouté)
+
+- Ouverture animée façon Netflix : le logo KIS sans fond, avec halo et rayons ; les lettres de « Kivuthèque » montent ; zoom final et bandes de couleur. Un son « ta-dum » composé dans le navigateur ; un bouton pour couper le son ; un écran « Touche l'écran pour entrer » quand le navigateur bloque le son.
+- Écran « Qui lit aujourd'hui ? » avec la photo ou l'avatar de l'élève.
+- Logo sans fond blanc partout sur le site.
+- Espace élève :
+  - aperçu au survol ;
+  - « Top 10 de l'école cette semaine » avec de grands chiffres ;
+  - bandeau du haut qui tourne tout seul ;
+  - fiche de livre en grand ;
+  - 24 avatars illustrés ;
+  - série de lecture (semaines d'affilée) ;
+  - objectif personnel de l'année ;
+  - « Mon année de lecture » : récapitulatif animé, avec une image à télécharger.
+
 ## Idées gardées pour plus tard
 
 Ces idées ont été proposées et retenues, mais **pas encore choisies** pour un ordre de réalisation. À reprendre après les modifications d'esthétique et les étapes 4 et 5.

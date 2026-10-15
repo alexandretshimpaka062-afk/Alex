@@ -581,6 +581,131 @@ body.locked{overflow:hidden}
 @keyframes inOut{to{opacity:0;visibility:hidden}}
 @keyframes inFade{from{opacity:0}to{opacity:1}}
 @keyframes inPop{from{opacity:0;transform:scale(.8) translateY(20px)}to{opacity:1;transform:none}}
+/* fiche de livre en grand */
+.sheet-wrap.big .panel{top:50%;left:50%;right:auto;bottom:auto;width:min(860px,calc(100% - 32px));max-height:calc(100% - 48px);transform:translate(-50%,-50%);animation:bigIn .45s var(--spring) both;overflow:hidden}
+.sheet-wrap.big.closing .panel{animation:bigOut .25s ease both}
+@keyframes bigIn{from{opacity:0;transform:translate(-50%,-46%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes bigOut{to{opacity:0;transform:translate(-50%,-48%) scale(.96)}}
+.sheet-wrap.big .panel-h{position:absolute;top:0;right:0;z-index:3;padding:14px}
+.sheet-wrap.big .panel-h h2{display:none}
+.sheet-wrap.big .panel-h .icon-btn{background:rgba(0,0,0,.45);color:#fff;border-color:rgba(255,255,255,.3)}
+.sheet-wrap.big .panel-b{padding:0 0 22px;gap:16px}
+.sheet-wrap.big .panel-b>:not(.bd-hero){margin:0 26px}
+@media(max-width:700px){.sheet-wrap.big .panel{top:auto;left:0;bottom:0;width:100%;max-height:94%;transform:none;border-radius:26px 26px 0 0;animation:sheetUp .4s var(--ease) both}}
+.bd-hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--cv1),var(--cv2));padding:34px 28px 26px}
+.bd-bg{position:absolute;inset:-20%;width:140%;height:140%;object-fit:cover;filter:blur(36px) saturate(1.5);opacity:.55}
+.bd-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,12,20,.15),rgba(3,12,20,.72))}
+.bd-in{position:relative;z-index:1;display:grid;grid-template-columns:170px minmax(0,1fr);gap:26px;align-items:end}
+.bd-cover{width:170px;box-shadow:0 30px 50px -20px rgba(0,0,0,.7);transform:rotate(-2deg)}
+.bd-txt{display:flex;flex-direction:column;gap:8px;min-width:0}
+.bd-txt h2{margin:0;font-size:clamp(24px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.bd-by{margin:0;opacity:.85}
+.bd-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;opacity:.9}.bd-meta .ok{color:#8CF0A6}.bd-meta .ic{width:14px;height:14px;vertical-align:-2px}
+.bd-meta .stars{font-size:14px}
+.bd-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.bd-act .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
+@media(max-width:560px){.bd-in{grid-template-columns:110px minmax(0,1fr);gap:16px}.bd-cover{width:110px}}
+/* bandeau qui tourne */
+.nf-car{position:relative;min-height:300px;border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.nf-car .nf-hero{position:absolute;inset:0;box-shadow:none;border-radius:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;animation:none}
+.nf-car .nf-hero.on{opacity:1;visibility:visible}
+.nf-car .nf-hero.on .nf-hero-bg img{animation:kenburns 9s ease-out both}
+.nf-car .nf-hero.on .nf-hero-cover{animation:heroCover .9s var(--spring) both}
+.nf-car .nf-hero.on .nf-hero-txt>*{animation:rise .7s var(--ease) both}
+.nf-car .nf-hero.on .nf-hero-txt>:nth-child(2){animation-delay:.08s}.nf-car .nf-hero.on .nf-hero-txt>:nth-child(3){animation-delay:.14s}.nf-car .nf-hero.on .nf-hero-txt>:nth-child(4){animation-delay:.2s}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.18) translate(-2%,-2%)}}
+@keyframes heroCover{from{opacity:0;transform:rotate(-10deg) translateY(30px) scale(.9)}to{opacity:1;transform:rotate(-3deg)}}
+.nf-dots{position:absolute;right:20px;bottom:16px;z-index:3;display:flex;gap:6px}
+.nf-dots button{all:unset;cursor:pointer;width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.45);transition:width .3s var(--ease),background .3s}
+.nf-dots button.on{width:26px;background:#fff}
+@media(max-width:640px){.nf-car{min-height:420px}}
+/* top 10 */
+.t10-badge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:34px;height:34px;margin-right:10px;border-radius:6px;background:#E50914;color:#fff;font:800 8px/1 var(--body);letter-spacing:.06em;vertical-align:middle}
+.t10-badge b{font-size:15px;letter-spacing:-.02em}
+.nf-track.t10{grid-auto-columns:220px;gap:6px}
+.t10-card{all:unset;cursor:pointer;scroll-snap-align:start;display:grid;grid-template-columns:96px 124px;align-items:end}
+.t10-n{font:900 170px/.78 var(--display);letter-spacing:-.08em;color:var(--bg,#fff);-webkit-text-stroke:4px var(--ink-3);text-align:right;margin-right:-14px;user-select:none;transition:-webkit-text-stroke-color .3s}
+.t10-card .cover{width:124px;position:relative;z-index:1;transition:transform .35s var(--ease)}
+.t10-card .cover .cv-title{font-size:12.5px}
+.t10-card:hover .cover,.t10-card:focus-visible .cover{transform:translateY(-6px) scale(1.04)}
+.t10-card:hover .t10-n{-webkit-text-stroke-color:var(--accent)}
+@media(max-width:700px){.nf-track.t10{grid-auto-columns:176px}.t10-card{grid-template-columns:76px 100px}.t10-card .cover{width:100px}.t10-n{font-size:132px}}
+/* aperçu au survol */
+.hov{position:fixed;z-index:80;width:300px;border-radius:16px;overflow:hidden;background:var(--glass-strong);border:1px solid var(--line-2);box-shadow:0 30px 70px -20px rgba(0,0,0,.6);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);animation:hovIn .28s var(--ease) both;cursor:pointer}
+.hov.out{animation:hovOut .18s ease both}
+@keyframes hovIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes hovOut{to{opacity:0;transform:scale(.85)}}
+.hov-top{position:relative;height:150px;overflow:hidden;background:linear-gradient(120deg,var(--cv1),var(--cv2));display:grid;place-items:center}
+.hov-bg{position:absolute;inset:-20%;width:140%;height:140%;object-fit:cover;filter:blur(20px);opacity:.6}
+.hov-cover{width:82px;position:relative;box-shadow:0 14px 30px -10px rgba(0,0,0,.6)}.hov-cover .cv-title{font-size:10px}.hov-cover .cv-cat{font-size:7px}
+.hov-b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px}
+.hov-btns{display:flex;gap:8px;align-items:center}
+.hov-btn{all:unset;cursor:pointer;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line-2);color:var(--ink)}
+.hov-btn.main{background:var(--ink);color:var(--bg,#fff);border-color:var(--ink)}
+.hov-btn:hover{border-color:var(--accent)}.hov-btn .ic{width:16px;height:16px}
+.hov-av{margin-left:auto;font-size:12px;font-weight:700;color:var(--warn)}.hov-av.ok{color:var(--green)}
+.hov-t{font-size:15px;line-height:1.2}.hov-m{font-size:12px;color:var(--ink-3)}
+.hov-r{margin:2px 0 0;font-size:12.5px;line-height:1.45;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+/* avatars illustrés */
+.ava-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:14px}
+.ava-pick{all:unset;cursor:pointer;border-radius:22px;transition:transform .2s var(--ease)}
+.ava-pick:hover,.ava-pick:focus-visible{transform:scale(1.08)}.ava-pick:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.ava{display:grid;place-items:center;aspect-ratio:1;border-radius:22px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5)}
+.ava span{font-size:46px;line-height:1;filter:drop-shadow(0 4px 6px rgba(0,0,0,.2))}
+/* série, objectif, année */
+.perso{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.perso>*{border-radius:16px;padding:12px;background:var(--glass-strong);border:1px solid var(--line)}
+.perso b{display:block;font-size:14.5px}.perso small{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.streak{display:flex;gap:10px;align-items:center}
+.flame{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--line);color:var(--ink-3);flex:none}
+.streak.hot .flame{background:linear-gradient(160deg,#FFB443,#FF5A1F);color:#fff;box-shadow:0 8px 20px -8px #FF5A1F;animation:flicker 1.8s ease-in-out infinite}
+.flame .ic{width:20px;height:20px}
+@keyframes flicker{50%{transform:scale(1.08) rotate(-3deg)}}
+.goal{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.goal .meter{margin-bottom:4px}.goal .ic{width:14px;height:14px;vertical-align:-2px;display:inline-block}
+.goal:hover,.wrap-btn:hover{border-color:var(--accent)}
+.wrap-btn{all:unset;box-sizing:border-box;cursor:pointer;grid-column:1/-1;display:flex;gap:12px;align-items:center;background:linear-gradient(120deg,#03263D,#0A6FA8 55%,#1E8E3E)!important;color:#fff;border:0!important}
+.wrap-btn>span{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center}.wrap-btn .ic{width:20px;height:20px}
+.wrap-btn small{color:rgba(255,255,255,.75)!important}
+.goal-pick{display:flex;flex-wrap:wrap;gap:10px}
+/* « Mon année de lecture » */
+.wr{position:fixed;inset:0;z-index:250;background:#03070C;color:#fff;overflow:hidden;animation:inFade .35s ease both}
+.wr.out{animation:fadeOut .3s ease both}
+.wr-bars-top{position:absolute;top:14px;left:16px;right:64px;z-index:5;display:flex;gap:6px}
+.wr-bars-top i{flex:1;height:4px;border-radius:9px;background:rgba(255,255,255,.25);overflow:hidden}
+.wr-bars-top i b{display:block;height:100%;width:0;background:#fff}
+.wr-bars-top i.done b{width:100%}.wr-bars-top i.run b{animation:wrBar 5.5s linear both}
+@keyframes wrBar{to{width:100%}}
+.wr-x{position:absolute;top:24px;right:16px;z-index:6;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;cursor:pointer}
+.wr-x .ic{width:18px;height:18px}
+.wr-prev,.wr-next{position:absolute;top:60px;bottom:0;z-index:4;border:0;background:transparent;cursor:pointer}
+.wr-prev{left:0;width:30%}.wr-next{right:0;width:70%}
+.wr-s{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:70px 24px 40px;text-align:center;opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.wr-s.on{opacity:1;visibility:visible}
+.wr-s.on>*{animation:wrIn .8s var(--spring) both}.wr-s.on>:nth-child(2){animation-delay:.12s}.wr-s.on>:nth-child(3){animation-delay:.24s}.wr-s.on>:nth-child(4){animation-delay:.36s}
+@keyframes wrIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+.wr-s h1{margin:0;font:800 clamp(34px,6vw,64px)/1.05 var(--display);letter-spacing:-.03em;max-width:820px;text-wrap:balance}
+.wr-s h2{margin:0;font:700 clamp(22px,3.4vw,34px) var(--display)}.wr-s h2 .ic{width:28px;height:28px;vertical-align:-4px;color:#FF8A3D}
+.wr-s p{margin:0;font-size:18px;opacity:.85;max-width:560px}
+.wr-k{font:700 13px var(--body);letter-spacing:.24em;text-transform:uppercase;color:#9BE3FF}
+.wr-big{font:900 clamp(110px,22vw,220px)/.9 var(--display);letter-spacing:-.06em;background:linear-gradient(180deg,#fff,#9BE3FF 60%,#39B54A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wr-s.c1{background:radial-gradient(80% 60% at 50% 40%,#0A6FA8,#03070C)}.wr-s.c2{background:linear-gradient(160deg,#03263D,#0A6FA8)}
+.wr-s.c3{background:linear-gradient(160deg,#0B3D1E,#1E8E3E)}.wr-s.c4{background:linear-gradient(160deg,#3A1155,#8E3BB5)}
+.wr-s.c5{background:linear-gradient(160deg,#4A2508,#D97A1E)}.wr-s.c6{background:linear-gradient(160deg,#4A0A0A,#C2361F)}
+.wr-s.c7{background:linear-gradient(160deg,#5A3B00,#F2A900)}.wr-s.c8{background:radial-gradient(90% 70% at 50% 30%,#0A6FA8,#03263D)}
+.wr-av .in-img{width:140px;height:140px;border-radius:50%;border:5px solid rgba(255,255,255,.85);display:grid;place-items:center;font:800 54px var(--display);object-fit:cover}
+.wr-covers{display:flex;justify-content:center;margin-top:10px}
+.wr-covers .cover{width:110px;margin:0 -12px;transform:rotate(var(--r));box-shadow:0 20px 40px -14px rgba(0,0,0,.7)}.wr-covers .cv-title{font-size:11px}
+.wr-bars{display:flex;align-items:flex-end;gap:8px;height:160px;margin-top:10px}
+.wr-bars div{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.wr-bars i{width:22px;height:var(--h);min-height:3px;border-radius:6px 6px 2px 2px;background:linear-gradient(#FFD45C,#F2A900);animation:barUp 1s var(--ease) .3s both}
+.wr-bars span{font-size:11px;opacity:.7}
+@keyframes barUp{from{height:0}}
+.wr-card{width:min(360px,86vw);padding:26px;border-radius:26px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;gap:6px}
+.wr-logo{height:70px;margin-bottom:6px}.wr-card>b{font:800 22px var(--display)}.wr-card>span{font-size:13px;opacity:.75}
+.wr-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin-top:12px}
+.wr-stats div{padding:12px;border-radius:16px;background:rgba(255,255,255,.1)}.wr-stats b{display:block;font:800 22px var(--display)}.wr-stats span{font-size:11.5px;opacity:.75}
+.wr-s .btn{position:relative;z-index:6}
 /* défis, badges, notes */
 .defi-top{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px}
 @media(max-width:900px){.defi-top{grid-template-columns:1fr}}
@@ -897,6 +1022,7 @@ const P = {
   star: '<path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/>',
   sound: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
   mute: '<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/>',
+  flame: '<path d="M12 21c4 0 7-2.6 7-6.6 0-3.4-2.2-5.6-3.6-7.4-.4 2-1.4 3.2-2.6 3.8.3-3.2-1-6.3-3.8-7.8.3 3-1.5 5-3 6.8C4.8 11.3 5 12.8 5 14.4 5 18.4 8 21 12 21Z"/><path d="M12 21c-1.7 0-3-1.2-3-3 0-1.7 1.4-2.7 2.3-3.9.3 1 .9 1.6 1.6 1.9.1-1 .7-1.8 1.4-2.3.4 1.2 1.7 2.3 1.7 4.2 0 1.8-1.4 3.1-4 3.1Z"/>',
   coin: '<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5V8M12 16v1.5"/>',
 };
 const ic = (n, cls = "ic") => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n] || ""}</svg>`;
@@ -1587,6 +1713,7 @@ function profileSheet() {
   openSheet("Mon profil", `
     <div class="prof-head"><div id="pfPrev">${personAvatar({ ...P, id: auth.user.id }, "avatar xl")}</div>
       <div class="prof-actions"><label class="btn sm ghost" style="cursor:pointer">${ic("up")}${photo ? "Changer de photo" : "Ajouter une photo"}<input type="file" id="pfFile" accept="image/*" hidden></label>
+        <button class="btn sm ghost" type="button" id="pfAva">${ic("spark")}Choisir un avatar</button>
         <button class="btn sm ghost" type="button" id="pfRm" ${photo ? "" : "hidden"}>${ic("trash")}Retirer</button>
         <p class="form-note block" style="margin:0">Ta photo s'affiche sur ta carte de membre et dans les classements. Jamais sur la borne publique.</p></div></div>
     <div id="pfCrop" class="crop-box" hidden><canvas id="pfCanvas" width="520" height="520" aria-label="Recadrage de la photo"></canvas>
@@ -1616,6 +1743,7 @@ function profileSheet() {
       cv.addEventListener("pointerup", () => { if (drag) { drag = null; preview(); } });
       $("#pfRm", el).onclick = () => { photo = ""; changed = true; img = null; $("#pfCrop", el).hidden = true; $("#pfRm", el).hidden = true; $("#pfPrev", el).innerHTML = personAvatar({ ...P, avatar: "", id: auth.user.id }, "avatar xl"); };
       $("[data-close2]", el).onclick = () => closeSheet();
+      $("#pfAva", el).onclick = () => avatarPicker(setAvatar);
       $("#pfSave", el).onclick = async () => {
         clearErr(el);
         const p1 = $("#pf-p1", el).value, nom = $("#pf-nom", el).value.trim();
@@ -1666,7 +1794,7 @@ function espaceView() {
   const prenom = esc(String(P.nom || m.nom).split(" ")[0]), genres = P.genres || [];
   const retard = cours.filter(e => e.statut === "retard"), pretes = mesRes.filter(r => r.statut === "prete");
   const vedettes = all.filter(b => b.vedette).sort((a, b) => a.titre.localeCompare(b.titre, "fr"));
-  const hero = vedettes.length ? vedettes[Math.floor(Date.now() / 864e5) % vedettes.length] : null;
+  const heroes = (vedettes.length ? vedettes : all.filter(b => b.total > 0).sort((a, b) => b.total - a.total).slice(0, 5)).slice(0, 8);
   const pop = all.filter(b => b.total > 0).sort((a, b) => b.total - a.total || a.titre.localeCompare(b.titre, "fr"));
   const pm = store.pourMoi || new Map(), nt = id => (noteOf(id) || {}).moyenne || 0;
   const pourToi = all.filter(b => !readIds.has(b.id)).map(b => [b, (genres.includes(b.categorie) ? 100 : 0) + (pm.get(b.id) || 0) * 12 + (b.total || 0) * 3 + nt(b.id) * 4 + (b.dispo > 0 ? 6 : 0) + (b.vedette ? 8 : 0) + (hash(b.id + P.id) % 5)])
@@ -1678,20 +1806,16 @@ function espaceView() {
   return `${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
     ${retard.length ? `<div class="nf-alert bad">${ic("clock")}<div><b>${retard.length > 1 ? retard.length + " livres sont" : "Un livre est"} en retard</b><span>${retard.map(e => "« " + esc(e.b ? e.b.titre : e.livre) + " »").join(", ")} : rapporte${retard.length > 1 ? "-les" : "-le"} vite à la bibliothèque.</span></div></div>` : ""}
     <div class="espace-top">
-      ${hero ? `<div class="nf-hero" data-book="${esc(hero.id)}" role="button" tabindex="0" style="${coverVars(hero)}">
-          <div class="nf-hero-bg">${hero.cover ? `<img src="${esc(hero.cover)}" alt="">` : ""}</div>
-          <div class="nf-hero-cover cover" style="${coverVars(hero)}">${cvImg(hero)}<span class="cv-deco"></span><span class="cv-cat">${esc(hero.categorie)}</span><div><div class="cv-title">${esc(hero.titre)}</div></div></div>
-          <div class="nf-hero-txt"><span class="nf-kicker">★ Livre du mois</span><h2>${esc(hero.titre)}</h2><p class="nf-by">${esc(hero.auteur)}${hero.annee ? " · " + esc(hero.annee) : ""}</p>
-            ${hero.resume ? `<p class="nf-resume">${esc(hero.resume)}</p>` : ""}
-            <div class="nf-hero-act">${hero.dispo > 0 ? `<span class="pill ok">Disponible · ${esc(hero.rayon || "à la bibliothèque")}</span>` : `<span class="pill warn">Emprunté pour l'instant</span>`}<span class="btn sm primary">${ic("book")}Voir le livre</span></div></div></div>`
+      ${heroes.length ? heroCarousel(heroes)
       : `<div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2><p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture ci-dessous."}</p>
         <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>`}
       <div class="espace-side">${memberCard(m)}
         ${(() => { const t = trimCourant(), g = objectif(), n = lus.filter(e => e.retour >= t.debut && e.retour <= t.fin).length; return `<button class="card defi-mini" type="button" data-go="defis"><span class="badge-ic">${ic("trophy")}</span><div style="min-width:0;flex:1"><b>Défi du ${esc(t.nom)} : ${Math.min(n, g)} / ${g}</b><div class="meter"><b style="width:${Math.round(Math.min(1, n / g) * 100)}%"></b></div><small>${n >= g ? "Réussi ! Ton diplôme t'attend." : `Encore ${g - n} livre${g - n > 1 ? "s" : ""} à lire`}</small></div>${ic("arrow")}</button>`; })()}
-        <div class="hello-stats card"><div><b>${cours.length}</b><span>en cours</span></div><div><b>${lus.length}</b><span>lus</span></div><div><b>${mesRes.length}</b><span>réservé${mesRes.length > 1 ? "s" : ""}</span></div><div><b>${maListe.length}</b><span>dans ma liste</span></div></div></div>
+        ${personalCard(lus)}</div>
     </div>
     ${shelfRow("rowCours", "Mes livres en cours", cours.map(e => e.b).filter(Boolean), { badge: b => due(cours.find(e => e.livre === b.id)) })}
     ${shelfRow("rowRes", "Mes réservations", mesRes.map(r => D.livres.get(r.livre)), { badge: resBadge, sub: "3 au maximum" })}
+    ${top10Row(store.top7 || [])}
     ${shelfRow("rowMois", "Les livres du mois", vedettes, { badge: availBadge, sub: "choisis par la bibliothèque" })}
     ${shelfRow("rowPourToi", genres.length ? "Pour toi" : "À découvrir", pourToi, { badge: availBadge, sub: genres.length ? "d'après tes goûts : " + esc(genres.slice(0, 3).join(", ")) : "", action: `<button class="more" type="button" id="editGenres">${genres.length ? "Modifier mes goûts" : "Choisir mes genres préférés"} ${ic("arrow")}</button>` })}
     ${shelfRow("rowPop", "Les plus lus à l'école", pop.slice(0, 14), { badge: availBadge })}
@@ -1702,6 +1826,9 @@ function espaceView() {
 }
 function bindEspace(v) {
   const g = $("#editGenres", v); if (g) g.onclick = () => genresSheet();
+  bindHero(v);
+  const mg = $("#myGoal", v); if (mg) mg.onclick = objectifSheet;
+  const my = $("#myYear", v); if (my) my.onclick = () => wrapped();
   if (!ui.genresAsked && !(auth.profile.genres || []).length) { ui.genresAsked = true; let skip = false; try { skip = !!localStorage.getItem("kiv-genres-" + auth.user.id); } catch {} if (!skip) setTimeout(() => { if (ui.view === "espace" && !sheetEl) genresSheet(true); }, 700); }
 }
 function genresSheet(first) {
@@ -1728,15 +1855,17 @@ function readerBookDetail(id) {
     : r ? `<div class="nf-status">${ic("clock")}<span>Réservé : tu es <b>${ordinal(r.rang || 1)}</b> dans la file d'attente</span></div>`
     : b.dispo > 0 ? `<div class="nf-status ok">${ic("check")}<span>Disponible · ${b.dispo} exemplaire${b.dispo > 1 ? "s" : ""} · <b>${esc(b.rayon || "à la bibliothèque")}</b></span></div>`
     : `<div class="nf-status bad">${ic("clock")}<span>Tous les exemplaires sont empruntés${b.attente ? ` · ${b.attente} personne${b.attente > 1 ? "s attendent" : " attend"}` : ""}</span></div>`;
-  openSheet(b.titre, `<div class="rd-head"><div class="cover" style="${coverVars(b)};width:140px">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title" style="font-size:15px">${esc(b.titre)}</div></div></div>
-      <div style="display:flex;flex-direction:column;gap:6px;min-width:0"><div style="font-weight:650;font-size:17px">${esc(b.auteur)}</div><div class="s" style="color:var(--ink-3)">${esc([b.categorie, b.editeur, b.annee].filter(Boolean).join(" · "))}</div>
-        ${b.total ? `<div class="s" style="color:var(--ink-3)">Emprunté ${b.total} fois à l'école</div>` : ""}${lu ? `<div class="s" style="color:var(--green)">${ic("check")} Tu l'as lu (rendu le ${fmtD(lu.retour)})</div>` : ""}</div></div>
+  const acts = `<button class="btn ghost" type="button" id="rdList">${ic(inList ? "check" : "plus")}${inList ? "Dans ma liste" : "Ma liste"}</button>
+     ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}`;
+  openSheet(b.titre, `<div class="bd-hero" style="${coverVars(b)}">${b.cover ? `<img class="bd-bg" src="${esc(b.cover)}" alt="">` : ""}
+      <div class="bd-in"><div class="cover bd-cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div></div>
+        <div class="bd-txt"><span class="nf-kicker">${esc(b.categorie)}${b.vedette ? " · ★ Livre du mois" : ""}</span><h2>${esc(b.titre)}</h2>
+          <p class="bd-by">${esc([b.auteur, b.annee, b.editeur].filter(Boolean).join(" · "))}</p>
+          <div class="bd-meta">${noteOf(id) ? `<span>${starsHTML(noteOf(id).moyenne)} <b>${String(noteOf(id).moyenne).replace(".", ",")}</b> · ${noteOf(id).nb} avis</span>` : ""}${b.total ? `<span>Emprunté ${b.total} fois à l'école</span>` : ""}${lu ? `<span class="ok">${ic("check")} Tu l'as lu</span>` : ""}</div>
+          <div class="bd-act">${acts}</div></div></div></div>
     ${status}${b.resume ? `<p class="rd-resume">${esc(b.resume)}</p>` : ""}
-    <div class="rd-rate">${noteOf(id) ? `<div>${starsHTML(noteOf(id).moyenne)} <b>${String(noteOf(id).moyenne).replace(".", ",")}</b> <span class="s">· ${noteOf(id).nb} avis</span></div>` : '<div class="s">Pas encore noté</div>'}
-      ${mine.length ? `<div class="my-rate"><span class="s">Ta note :</span>${[1, 2, 3, 4, 5].map(i => `<button type="button" class="star-btn${(store.mesNotes && store.mesNotes.get(id) || 0) >= i ? " on" : ""}" data-rate="${i}" aria-label="${i} étoile${i > 1 ? "s" : ""}">★</button>`).join("")}</div>` : ""}</div>
-    <div id="aussiLu"></div>`,
-    `<button class="btn ghost" type="button" id="rdList">${ic(inList ? "check" : "plus")}${inList ? "Dans ma liste" : "Ma liste"}</button>
-     ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}`, el => {
+    ${mine.length ? `<div class="rd-rate"><span class="s">Qu'en as-tu pensé ?</span><div class="my-rate">${[1, 2, 3, 4, 5].map(i => `<button type="button" class="star-btn${(store.mesNotes && store.mesNotes.get(id) || 0) >= i ? " on" : ""}" data-rate="${i}" aria-label="${i} étoile${i > 1 ? "s" : ""}">★</button>`).join("")}</div></div>` : ""}
+    <div id="aussiLu"></div>`, null, el => {
       fillAussiLu(el, id);
       $$("[data-rate]", el).forEach(x => x.onclick = async () => { const n = +x.dataset.rate, cur = store.mesNotes && store.mesNotes.get(id), note = cur === n ? 0 : n;
         const { error } = await auth.sb.rpc("kiv_noter", { livre: id, note }); if (error) return toast(cloudError(error), true);
@@ -1752,7 +1881,7 @@ function readerBookDetail(id) {
       const cn = $("#rdCancel", el); if (cn) cn.onclick = () => confirmSheet("Annuler ta réservation ?", `Tu perdras ta place dans la file d'attente pour « ${b.titre} ».`, "Annuler la réservation", async () => {
         const { error } = await auth.sb.rpc("kiv_annuler_reservation", { rid: r.id }); if (error) return toast(cloudError(error), true);
         await Promise.all([loadMesRes(), loadDispo()]); toast("Réservation annulée"); render(); });
-    });
+    }, { big: true });
 }
 
 /* ============================================================ défis de lecture, badges, notes, recommandations */
@@ -1798,7 +1927,8 @@ async function loadClassement(t) {
   store.classement = { t: t.n, rows: error ? [] : data };
 }
 async function loadReaderExtras() {
-  const [n, a, pm] = await Promise.all([auth.sb.rpc("kiv_notes"), auth.sb.from("avis").select("*"), auth.sb.rpc("kiv_pour_moi")]);
+  const [n, a, pm, tp] = await Promise.all([auth.sb.rpc("kiv_notes"), auth.sb.from("avis").select("*"), auth.sb.rpc("kiv_pour_moi"), auth.sb.rpc("kiv_top_semaine")]);
+  store.top7 = (tp && tp.data) || [];
   store.notes = new Map(((n && n.data) || []).map(r => [r.livre, r]));
   store.mesNotes = new Map(((a && a.data) || []).filter(r => r.membre === auth.profile.membre_id).map(r => [r.livre, r.note]));
   store.pourMoi = new Map(((pm && pm.data) || []).map(r => [r.livre, r.score]));
@@ -1840,7 +1970,7 @@ function defisView() {
     const myClass = rows.filter(r => r.classe === (m && m.classe)).sort((a, b) => a.rang_classe - b.rang_classe);
     const badges = badgesFor(mine, store.mesNotes ? store.mesNotes.size : 0), got = badges.filter(b => b.got).length;
     const left = Math.max(0, diffDays(t.fin, todayISO()));
-    return `<div class="toolbar">${sel}</div>
+    return `<div class="toolbar">${sel}<button class="btn sm primary" type="button" id="defYear" style="margin-left:auto">${ic("spark")}Mon année de lecture</button></div>
       <div class="defi-top">
         <div class="card defi-goal"><div class="ring" style="--p:${pct}"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" pathLength="100" style="stroke-dasharray:${Math.round(pct * 100)} 100"/></svg><div><b>${lusT}</b><span>/ ${goal}</span></div></div>
           <div style="display:flex;flex-direction:column;gap:8px;min-width:0"><span class="nf-kicker" style="color:var(--accent)">Défi du ${esc(t.nom)}</span><h2 style="margin:0">${lusT >= goal ? "Défi réussi, bravo !" : `Lis ${goal} livre${goal > 1 ? "s" : ""} ce trimestre`}</h2>
@@ -1869,6 +1999,7 @@ function defisView() {
 }
 function bindDefis(v) {
   $$("[data-trim]", v).forEach(b => b.onclick = () => { ui.trim = +b.dataset.trim; store.classement = null; render(); });
+  const dy = $("#defYear", v); if (dy) dy.onclick = () => wrapped();
   const dc = $("#defiClasse", v); if (dc) dc.onchange = () => { ui.defiClasse = dc.value; render(); };
   const t = trimestres().find(x => x.n === ui.trim) || trimCourant(), goal = objectif();
   const md = $("#myDiploma", v); if (md) md.onclick = () => { const m = D.membres.get(auth.profile.membre_id); const lus = D.emprunts.filter(e => e.membre === m.id && e.retour && e.retour >= t.debut && e.retour <= t.fin).length; diplomasPDF([{ nom: m.nom, classe: m.classe, lus }], t); };
@@ -1910,6 +2041,211 @@ function diplomasPDF(list, t) {
   const name = list.length === 1 ? `Diplome-lecture-${slug(list[0].nom)}.pdf` : `Diplomes-lecture-${slug(list[0].classe || "classe")}-T${t.n}.pdf`;
   if (store.mode === "db") return saveFile(name, doc.output("blob"), "application/pdf");
   doc.save(name); toast(list.length > 1 ? `${list.length} diplômes enregistrés dans ${name}` : "Diplôme enregistré : " + name);
+}
+
+/* ============================================================ espace lecteur : touches « Netflix » et personnelles */
+/* ---------- série de lecture : semaines d'affilée avec un livre en main ---------- */
+const weekStart = iso => { const d = parse(iso); const k = (d.getDay() + 6) % 7; return addDays(iso, -k); };
+function readingWeeks(loans) {
+  const T = todayISO(), weeks = new Set();
+  loans.forEach(e => { let w = weekStart(e.date); const end = e.retour || T; while (w <= end) { weeks.add(w); w = addDays(w, 7); } });
+  return weeks;
+}
+function streakOf(loans) {
+  const weeks = readingWeeks(loans), cur = weekStart(todayISO());
+  let w = weeks.has(cur) ? cur : addDays(cur, -7), n = 0;
+  while (weeks.has(w)) { n++; w = addDays(w, -7); }
+  const sorted = [...weeks].sort(); let best = 0, run = 0, prev = null;
+  sorted.forEach(x => { run = prev && addDays(prev, 7) === x ? run + 1 : 1; best = Math.max(best, run); prev = x; });
+  return { current: n, best };
+}
+/* année scolaire : 1er septembre → 31 juillet */
+function anneeScolaire() { const ts = trimestres(); return { debut: ts[0].debut, fin: ts[2].fin, nom: params().annee }; }
+
+/* ---------- Top 10 de la semaine ---------- */
+function top10Row(top) {
+  const books = top.map(x => D.livres.get(x.livre)).filter(Boolean).slice(0, 10);
+  if (books.length < 3) return "";
+  return `<section class="nf-row" aria-label="Top 10 de l'école cette semaine"><div class="nf-h"><h3><span class="t10-badge">TOP<b>10</b></span>Top 10 de l'école cette semaine</h3><span style="margin-left:auto"></span>
+      <button class="nf-arrow" type="button" data-scroll="rowTop10:-1" aria-label="Précédents">${ic("arrow")}</button><button class="nf-arrow" type="button" data-scroll="rowTop10:1" aria-label="Suivants">${ic("arrow")}</button></div>
+    <div class="nf-track t10" id="rowTop10">${books.map((b, i) => `<button class="t10-card" type="button" data-book="${esc(b.id)}" aria-label="${i + 1}. ${esc(b.titre)}"><span class="t10-n" aria-hidden="true">${i + 1}</span>
+      <div class="cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div></div></div></button>`).join("")}</div></section>`;
+}
+
+/* ---------- bandeau qui tourne tout seul ---------- */
+function heroCarousel(list) {
+  if (!list.length) return "";
+  return `<div class="nf-car" id="heroCar" aria-roledescription="carrousel">${list.map((h, i) => `<div class="nf-hero${i ? "" : " on"}" data-book="${esc(h.id)}" role="button" tabindex="${i ? -1 : 0}" style="${coverVars(h)}" aria-hidden="${!!i}">
+      <div class="nf-hero-bg">${h.cover ? `<img src="${esc(h.cover)}" alt="">` : ""}</div>
+      <div class="nf-hero-cover cover" style="${coverVars(h)}">${cvImg(h)}<span class="cv-deco"></span><span class="cv-cat">${esc(h.categorie)}</span><div><div class="cv-title">${esc(h.titre)}</div></div></div>
+      <div class="nf-hero-txt"><span class="nf-kicker">${h.vedette ? "★ Livre du mois" : "Populaire à l'école"}</span><h2>${esc(h.titre)}</h2><p class="nf-by">${esc(h.auteur)}${h.annee ? " · " + esc(h.annee) : ""}</p>
+        ${h.resume ? `<p class="nf-resume">${esc(h.resume)}</p>` : ""}
+        <div class="nf-hero-act">${h.dispo > 0 ? `<span class="pill ok">Disponible · ${esc(h.rayon || "à la bibliothèque")}</span>` : `<span class="pill warn">Emprunté pour l'instant</span>`}<span class="btn sm primary">${ic("book")}Voir le livre</span></div></div></div>`).join("")}
+    ${list.length > 1 ? `<div class="nf-dots">${list.map((h, i) => `<button type="button" class="${i ? "" : "on"}" data-dot="${i}" aria-label="${esc(h.titre)}"></button>`).join("")}</div>` : ""}</div>`;
+}
+let heroTimer = null;
+function bindHero(v) {
+  clearInterval(heroTimer); const car = $("#heroCar", v); if (!car) return;
+  const slides = $$(".nf-hero", car), dots = $$("[data-dot]", car); if (slides.length < 2) return;
+  let k = 0, paused = false;
+  const show = n => { k = (n + slides.length) % slides.length; slides.forEach((s, i) => { s.classList.toggle("on", i === k); s.setAttribute("aria-hidden", i !== k); s.tabIndex = i === k ? 0 : -1; }); dots.forEach((d, i) => d.classList.toggle("on", i === k)); };
+  dots.forEach(d => d.onclick = e => { e.stopPropagation(); show(+d.dataset.dot); });
+  car.onmouseenter = () => paused = true; car.onmouseleave = () => paused = false;
+  if (!reduced) heroTimer = setInterval(() => { if (!document.body.contains(car)) return clearInterval(heroTimer); if (!paused && !document.hidden) show(k + 1); }, 8000);
+}
+
+/* ---------- aperçu au survol (comme Netflix) ---------- */
+let hov = null, hovT = null, hovOut = null;
+function hideHover() { clearTimeout(hovT); if (hov) { const h = hov; hov = null; h.classList.add("out"); setTimeout(() => h.remove(), 180); } }
+function showHover(card) {
+  const b = D && D.livres.get(card.dataset.book); if (!b) return;
+  hideHover();
+  const r = card.getBoundingClientRect(), W = 300, note = noteOf(b.id), res = (store.mesRes || []).find(x => x.livre === b.id);
+  const inList = (auth.profile.a_lire || []).includes(b.id), mine = D.emprunts.find(e => e.livre === b.id && e.membre === auth.profile.membre_id && !e.retour);
+  const el = document.createElement("div"); el.className = "hov"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", b.titre);
+  el.innerHTML = `<div class="hov-top" style="${coverVars(b)}">${b.cover ? `<img class="hov-bg" src="${esc(b.cover)}" alt="">` : ""}<div class="cover hov-cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div></div></div></div>
+    <div class="hov-b"><div class="hov-btns">
+        <button type="button" class="hov-btn main" data-hov="voir" title="Voir le livre">${ic("arrow")}</button>
+        <button type="button" class="hov-btn" data-hov="liste" title="${inList ? "Retirer de ma liste" : "Ajouter à ma liste"}">${ic(inList ? "check" : "plus")}</button>
+        ${!mine && !res && b.dispo <= 0 ? `<button type="button" class="hov-btn" data-hov="reserver" title="Réserver">${ic("clock")}</button>` : ""}
+        <span class="hov-av ${b.dispo > 0 ? "ok" : ""}">${mine ? "Tu l'as" : res ? (res.statut === "prete" ? "T'attend !" : "Réservé") : b.dispo > 0 ? "Disponible" : "Emprunté"}</span></div>
+      <b class="hov-t">${esc(b.titre)}</b><div class="hov-m">${esc([b.auteur, b.annee, b.categorie].filter(Boolean).join(" · "))}</div>
+      ${note ? `<div class="hov-m">${starsHTML(note.moyenne, "sm")} ${String(note.moyenne).replace(".", ",")} · ${note.nb} avis</div>` : ""}
+      ${b.resume ? `<p class="hov-r">${esc(b.resume)}</p>` : ""}</div>`;
+  document.body.appendChild(el); hov = el;
+  const h = el.offsetHeight, left = Math.max(12, Math.min(innerWidth - W - 12, r.left + r.width / 2 - W / 2)), top = Math.max(12, Math.min(innerHeight - h - 12, r.top + r.height / 2 - h / 2));
+  el.style.left = left + "px"; el.style.top = top + "px"; el.style.transformOrigin = `${r.left + r.width / 2 - left}px ${r.top + r.height / 2 - top}px`;
+  el.onmouseleave = () => { hovOut = setTimeout(hideHover, 120); }; el.onmouseenter = () => clearTimeout(hovOut);
+  el.onclick = async e => {
+    const a = e.target.closest("[data-hov]"); const act = a ? a.dataset.hov : "voir";
+    if (act === "voir") { hideHover(); return bookDetail(b.id); }
+    if (act === "liste") { const { error } = await auth.sb.rpc("kiv_a_lire", { livre: b.id, garder: !inList }); if (error) return toast(cloudError(error), true);
+      auth.profile.a_lire = inList ? auth.profile.a_lire.filter(x => x !== b.id) : [...(auth.profile.a_lire || []), b.id]; toast(inList ? "Retiré de ta liste" : "Ajouté à ta liste"); hideHover(); render(); }
+    if (act === "reserver") { const { error } = await auth.sb.rpc("kiv_reserver", { livre: b.id }); if (error) return toast(cloudError(error), true);
+      await Promise.all([loadMesRes(), loadDispo()]); toast("Réservé ! On te garde le livre dès qu'il revient."); hideHover(); render(); }
+  };
+}
+const canHover = () => matchMedia("(hover:hover) and (pointer:fine)").matches;
+document.addEventListener("mouseover", e => {
+  if (!isReader() || !canHover()) return;
+  const c = e.target.closest(".nf-card[data-book],.t10-card[data-book],.covers .book[data-book]"); if (!c) return;
+  clearTimeout(hovOut); if (hov && hov.dataset.for === c.dataset.book) return;
+  clearTimeout(hovT); hovT = setTimeout(() => { showHover(c); if (hov) hov.dataset.for = c.dataset.book; }, 450);
+  c.addEventListener("mouseleave", () => { clearTimeout(hovT); hovOut = setTimeout(hideHover, 160); }, { once: true });
+});
+addEventListener("scroll", () => hideHover(), { passive: true });
+
+/* ---------- avatars illustrés ---------- */
+const AVATARS = [["🦁", 1, 4], ["🐼", 2, 9], ["🦊", 5, 1], ["🦉", 8, 3], ["🐯", 4, 5], ["🐨", 9, 2], ["🐸", 3, 8], ["🐵", 6, 4], ["🐧", 2, 7], ["🦒", 5, 3],
+  ["🐘", 7, 9], ["🦓", 9, 6], ["🦋", 7, 1], ["🐢", 3, 2], ["🚀", 2, 8], ["📚", 1, 3], ["🌍", 3, 1], ["⚽", 8, 3], ["🎨", 6, 2], ["🎵", 7, 5], ["🦄", 6, 7], ["🐬", 1, 8], ["🌟", 4, 6], ["🦖", 3, 9]];
+const avatarSVG = ([e, a, b]) => `<span class="ava" style="background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 45%),linear-gradient(135deg,var(--c${a}),var(--c${b}))"><span>${e}</span></span>`;
+function avatarPNG([e, a, b]) {
+  const css = getComputedStyle(document.documentElement), c = document.createElement("canvas"); c.width = c.height = 192; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 192, 192); g.addColorStop(0, css.getPropertyValue("--c" + a).trim() || "#00AEEF"); g.addColorStop(1, css.getPropertyValue("--c" + b).trim() || "#39B54A");
+  x.fillStyle = g; x.fillRect(0, 0, 192, 192);
+  const sh = x.createRadialGradient(58, 48, 4, 58, 48, 90); sh.addColorStop(0, "rgba(255,255,255,.35)"); sh.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = sh; x.fillRect(0, 0, 192, 192);
+  x.font = '118px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(e, 96, 104);
+  return c.toDataURL("image/png");
+}
+function avatarPicker(onPick) {
+  openSheet("Choisis ton avatar", `<p class="form-note block" style="margin:0">Un personnage pour te représenter sur ta carte de membre, dans les classements et sur l'écran « Qui lit aujourd'hui ? ».</p>
+    <div class="ava-grid">${AVATARS.map((a, i) => `<button type="button" class="ava-pick" data-ava="${i}" aria-label="Avatar ${i + 1}">${avatarSVG(a)}</button>`).join("")}</div>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button>`, el => {
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $$("[data-ava]", el).forEach(b => b.onclick = () => onPick(avatarPNG(AVATARS[+b.dataset.ava])));
+    });
+}
+async function setAvatar(png) {
+  const { error } = await auth.sb.rpc("kiv_mon_profil", { nom: null, avatar: png }); if (error) return toast(cloudError(error), true);
+  auth.profile.avatar = png; closeSheet(); toast("Nouvel avatar enregistré"); buildAccountNav(); render();
+}
+
+/* ---------- objectif personnel de l'année ---------- */
+function objectifSheet() {
+  const cur = auth.profile.objectif_perso || 0;
+  openSheet("Mon objectif de l'année", `<p class="form-note block" style="margin:0">Combien de livres veux-tu lire cette année scolaire (${esc(params().annee)}) ? C'est ton défi à toi, en plus de celui de ta classe.</p>
+    <div class="goal-pick">${[5, 10, 15, 20, 30, 50].map(n => `<button type="button" class="genre" data-goal="${n}" aria-pressed="${n === cur}" style="--g:var(--c${n % 9 + 1})">${n} livres</button>`).join("")}</div>
+    <div class="f" style="max-width:220px"><label for="goal-n">Autre nombre</label><input id="goal-n" type="number" min="1" max="200" value="${cur || ""}" placeholder="Ex. : 12"></div>`,
+    `${cur ? `<button class="btn ghost" type="button" id="goalRm" style="margin-right:auto">Retirer</button>` : ""}<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="goalOk">${ic("check")}C'est mon objectif</button>`, el => {
+      $$("[data-goal]", el).forEach(b => b.onclick = () => { $("#goal-n", el).value = b.dataset.goal; $$("[data-goal]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); });
+      $("[data-close2]", el).onclick = () => closeSheet();
+      const save = async n => { const { error } = await auth.sb.rpc("kiv_mon_objectif", { n }); if (error) return toast(cloudError(error), true);
+        auth.profile.objectif_perso = n || null; closeSheet(); toast(n ? `Objectif : ${n} livres cette année. Tu vas y arriver !` : "Objectif retiré"); render(); };
+      $("#goalOk", el).onclick = () => { const n = Math.round(+$("#goal-n", el).value); if (!(n >= 1 && n <= 200)) return fieldErr(el, "goal-n", "Choisis un nombre entre 1 et 200."); save(n); };
+      const rm = $("#goalRm", el); if (rm) rm.onclick = () => save(0);
+    });
+}
+function personalCard(lus) {
+  const a = anneeScolaire(), n = lus.filter(e => e.retour >= a.debut && e.retour <= a.fin).length, goal = auth.profile.objectif_perso;
+  const st = streakOf(D.emprunts.filter(e => e.membre === auth.profile.membre_id));
+  return `<div class="card perso">
+      <div class="streak${st.current ? " hot" : ""}"><span class="flame">${ic("flame")}</span><div><b>${st.current} semaine${st.current > 1 ? "s" : ""}</b><small>${st.current ? "de lecture d'affilée" : "Emprunte un livre pour allumer ta série"}${st.best > st.current ? ` · record ${st.best}` : ""}</small></div></div>
+      <button class="goal" type="button" id="myGoal">${goal ? `<div class="meter"><b style="width:${Math.round(Math.min(1, n / goal) * 100)}%"></b></div><b>${n} / ${goal} livres</b><small>${n >= goal ? "Objectif atteint, bravo !" : "mon objectif de l'année"}</small>` : `<b>${ic("plus")} Mon objectif</b><small>Fixe-toi un défi pour l'année</small>`}</button>
+      <button class="wrap-btn" type="button" id="myYear"><span>${ic("spark")}</span><div><b>Mon année de lecture</b><small>Ton récap en ${new Date().getFullYear()}</small></div></button></div>`;
+}
+
+/* ---------- « Mon année de lecture » (récapitulatif animé, façon Wrapped) ---------- */
+async function wrapped() {
+  const a = anneeScolaire(), P = auth.profile, m = D.membres.get(P.membre_id); if (!m) return;
+  const loans = D.emprunts.filter(e => e.membre === m.id), lus = loans.filter(e => e.retour && e.retour >= a.debut && e.retour <= a.fin && e.b);
+  const cnt = (arr, f) => { const c = {}; arr.forEach(x => { const k = f(x); if (k) c[k] = (c[k] || 0) + 1; }); return Object.entries(c).sort((x, y) => y[1] - x[1]); };
+  const genres = cnt(lus, e => e.b.categorie), auteurs = cnt(lus, e => e.b.auteur && e.b.auteur !== "Inconnu" && e.b.auteur !== "Collectif" ? e.b.auteur : null);
+  const mois = cnt(lus, e => e.retour.slice(0, 7)), st = streakOf(loans);
+  const MOISN = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  let rank = null; try { const { data } = await auth.sb.rpc("kiv_classement", { debut: a.debut, fin: a.fin }); rank = (data || []).find(r => r.moi); if (rank) rank.total = data.length; } catch {}
+  const best = [...(store.mesNotes || new Map())].filter(([id]) => D.livres.get(id)).sort((x, y) => y[1] - x[1])[0];
+  const covers = list => `<div class="wr-covers">${list.slice(0, 5).map((b, i) => `<div class="cover" style="${coverVars(b)};--r:${(i - 2) * 6}deg">${cvImg(b)}<span class="cv-deco"></span><div><div class="cv-title">${esc(b.titre)}</div></div></div>`).join("")}</div>`;
+  const prenom = esc(String(P.nom || m.nom).split(" ")[0]);
+  const slides = !lus.length ? [
+    ["c1", `<span class="wr-k">${esc(a.nom)}</span><h1>${prenom}, ton aventure commence ici</h1><p>Tu n'as pas encore rendu de livre cette année. Emprunte ton premier livre : ton récap se remplira au fil de tes lectures.</p>`],
+  ] : [
+    ["c1", `<div class="wr-av">${personAvatar({ ...P, id: auth.user.id }, "in-img")}</div><span class="wr-k">${esc(a.nom)}</span><h1>${prenom}, voici ton année de lecture</h1><p>Prêt·e ? Touche l'écran pour avancer.</p>`],
+    ["c2", `<span class="wr-k">Cette année, tu as lu</span><div class="wr-big" data-n="${lus.length}">${lus.length}</div><h2>livre${lus.length > 1 ? "s" : ""}</h2>${covers(lus.map(e => e.b))}`],
+    genres[0] && ["c3", `<span class="wr-k">Ton genre préféré</span><h1>${esc(genres[0][0])}</h1><p>${genres[0][1]} livre${genres[0][1] > 1 ? "s" : ""} lu${genres[0][1] > 1 ? "s" : ""}${genres[1] ? `, devant ${esc(genres[1][0])}` : ""}.</p>${covers(lus.filter(e => e.b.categorie === genres[0][0]).map(e => e.b))}`],
+    auteurs[0] && auteurs[0][1] > 1 && ["c4", `<span class="wr-k">Ton auteur fétiche</span><h1>${esc(auteurs[0][0])}</h1><p>Tu as lu ${auteurs[0][1]} de ses livres.</p>`],
+    mois[0] && ["c5", `<span class="wr-k">Ton mois le plus lecteur</span><h1>${MOISN[+mois[0][0].slice(5) - 1]}</h1><p>${mois[0][1]} livre${mois[0][1] > 1 ? "s" : ""} rendu${mois[0][1] > 1 ? "s" : ""} en un mois !</p>
+      <div class="wr-bars">${Array.from({ length: 11 }, (_, i) => { const d = addDays(a.debut, 0).slice(0, 4); const y = +d + (i >= 4 ? 1 : 0), mo = (8 + i) % 12; const k = `${y}-${pad(mo + 1, 2)}`; const n = (mois.find(x => x[0] === k) || [0, 0])[1];
+        return `<div><i style="--h:${Math.round(n / mois[0][1] * 100)}%"></i><span>${MOISN[mo].slice(0, 3)}</span></div>`; }).join("")}</div>`],
+    ["c6", `<span class="wr-k">Ta plus longue série</span><div class="wr-big">${st.best}</div><h2>semaine${st.best > 1 ? "s" : ""} de lecture d'affilée ${ic("flame")}</h2>${best ? `<p>Ton coup de cœur : <b>« ${esc(D.livres.get(best[0]).titre)} »</b> (${"★".repeat(best[1])})</p>` : ""}`],
+    rank && rank.lus ? ["c7", `<span class="wr-k">Ta place</span><h1>${ordinal(rank.rang_classe).replace("1re", "1er")} de ta classe</h1><p>et ${ordinal(rank.rang_ecole).replace("1re", "1er")} de toute l'école, sur ${rank.total} élèves.</p>`] : null,
+    ["c8", `<span class="wr-k">Ton année en un coup d'œil</span>
+      <div class="wr-card" id="wrCard"><img src="${LOGO_HD}" alt="" class="wr-logo"><b>${esc(m.nom)}</b><span>${esc(m.classe || "")} · ${esc(a.nom)}</span>
+        <div class="wr-stats"><div><b>${lus.length}</b><span>livres lus</span></div><div><b>${genres[0] ? esc(genres[0][0]) : "—"}</b><span>genre préféré</span></div><div><b>${st.best}</b><span>semaines de série</span></div><div><b>${rank && rank.lus ? ordinal(rank.rang_classe).replace("1re", "1er") : "—"}</b><span>dans la classe</span></div></div></div>
+      <button class="btn primary" type="button" id="wrSave">${ic("down")}Télécharger mon image</button>`],
+  ].filter(Boolean);
+  const el = document.createElement("div"); el.className = "wr"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Mon année de lecture");
+  el.innerHTML = `<div class="wr-bars-top">${slides.map(() => "<i><b></b></i>").join("")}</div><button class="wr-x" type="button" aria-label="Fermer">${ic("x")}</button>
+    ${slides.map(([c, h], i) => `<section class="wr-s ${c}" data-i="${i}">${h}</section>`).join("")}<button class="wr-prev" type="button" aria-label="Précédent"></button><button class="wr-next" type="button" aria-label="Suivant"></button>`;
+  document.body.appendChild(el);
+  let k = -1, t = null; const DUR = 5500;
+  const go = n => {
+    if (n >= slides.length) return; if (n < 0) n = 0; k = n;
+    $$(".wr-s", el).forEach((s, i) => s.classList.toggle("on", i === k));
+    $$(".wr-bars-top i", el).forEach((b, i) => { b.className = i < k ? "done" : i === k ? "run" : ""; });
+    clearTimeout(t); if (k < slides.length - 1) t = setTimeout(() => go(k + 1), DUR);
+    const big = $(".wr-s.on .wr-big", el); if (big && !reduced) { const end = +big.textContent; let v = 0; const step = () => { v = Math.min(end, v + Math.max(1, Math.ceil(end / 20))); big.textContent = v; if (v < end) setTimeout(step, 40); }; big.textContent = 0; step(); }
+  };
+  const close = () => { clearTimeout(t); el.classList.add("out"); setTimeout(() => el.remove(), 300); };
+  $(".wr-x", el).onclick = close; $(".wr-next", el).onclick = () => go(k + 1); $(".wr-prev", el).onclick = () => go(k - 1);
+  el.tabIndex = -1; el.focus();
+  el.addEventListener("keydown", e => { if (e.key === "Escape") { e.stopPropagation(); close(); } if (e.key === "ArrowRight") go(k + 1); if (e.key === "ArrowLeft") go(k - 1); });
+  const sv = $("#wrSave", el); if (sv) sv.onclick = e => { e.stopPropagation(); wrappedImage({ nom: m.nom, classe: m.classe, annee: a.nom, lus: lus.length, genre: genres[0] ? genres[0][0] : "—", serie: st.best, rang: rank && rank.lus ? ordinal(rank.rang_classe).replace("1re", "1er") : "—", avatar: P.avatar }); };
+  go(0);
+}
+/* image à partager (format « story » 1080 × 1920) */
+async function wrappedImage(d) {
+  const c = document.createElement("canvas"); c.width = 1080; c.height = 1920; const x = c.getContext("2d");
+  const g = x.createLinearGradient(0, 0, 1080, 1920); g.addColorStop(0, "#03263D"); g.addColorStop(.55, "#0A6FA8"); g.addColorStop(1, "#1E8E3E"); x.fillStyle = g; x.fillRect(0, 0, 1080, 1920);
+  const load = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
+  const logo = await load(LOGO_HD); if (logo) { const h = 260, w = logo.width * h / logo.height; x.drawImage(logo, 540 - w / 2, 120, w, h); }
+  x.fillStyle = "#fff"; x.textAlign = "center";
+  x.font = "800 58px Bricolage Grotesque, system-ui, sans-serif"; x.fillText("Mon année de lecture", 540, 500);
+  x.font = "500 40px system-ui, sans-serif"; x.globalAlpha = .8; x.fillText(`${d.nom} · ${d.classe || ""} · ${d.annee}`, 540, 570); x.globalAlpha = 1;
+  if (d.avatar) { const av = await load(d.avatar); if (av) { x.save(); x.beginPath(); x.arc(540, 760, 130, 0, Math.PI * 2); x.clip(); x.drawImage(av, 410, 630, 260, 260); x.restore(); x.lineWidth = 10; x.strokeStyle = "rgba(255,255,255,.85)"; x.beginPath(); x.arc(540, 760, 132, 0, Math.PI * 2); x.stroke(); } }
+  const box = (y, big, lab) => { x.fillStyle = "rgba(255,255,255,.12)"; x.beginPath(); x.roundRect(140, y, 800, 190, 40); x.fill(); x.fillStyle = "#fff"; x.font = "800 84px Bricolage Grotesque, system-ui, sans-serif"; x.fillText(big, 540, y + 100); x.font = "500 34px system-ui, sans-serif"; x.globalAlpha = .8; x.fillText(lab, 540, y + 155); x.globalAlpha = 1; };
+  box(960, String(d.lus), d.lus > 1 ? "livres lus" : "livre lu"); box(1180, d.genre, "mon genre préféré"); box(1400, `${d.serie} sem.`, "ma plus longue série de lecture"); box(1620, d.rang, "dans ma classe");
+  x.font = "500 28px system-ui, sans-serif"; x.globalAlpha = .6; x.fillText("Kivuthèque · Kivu International School", 540, 1870);
+  c.toBlob(b => saveFile(`Mon-annee-de-lecture-${d.annee}.png`, b, "image/png"), "image/png");
 }
 
 /* ---------- réservations côté bibliothèque ---------- */
@@ -2835,9 +3171,9 @@ document.addEventListener("keydown", e => {
 
 /* ============================================================ feuilles (panneaux) */
 let sheetEl = null;
-function openSheet(title, body, foot, onMount) {
-  closeSheet(true);
-  sheetEl = document.createElement("div"); sheetEl.className = "sheet-wrap";
+function openSheet(title, body, foot, onMount, opts = {}) {
+  closeSheet(true); hideHover();
+  sheetEl = document.createElement("div"); sheetEl.className = "sheet-wrap" + (opts.big ? " big" : "");
   sheetEl.innerHTML = `<div class="backdrop" style="opacity:1"></div><div class="panel" role="dialog" aria-modal="true" aria-label="${esc(title)}">
     <div class="panel-h"><h2>${esc(title)}</h2><button class="icon-btn" type="button" data-close aria-label="Fermer">${ic("x")}</button></div>
     <div class="panel-b">${body}</div>${foot ? `<div class="panel-f">${foot}</div>` : ""}</div>`;

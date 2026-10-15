@@ -28,6 +28,7 @@ alter table public.profiles add column if not exists avatar    text;            
 alter table public.profiles add column if not exists classes   text[] not null default '{}';  -- classes d'un enseignant
 alter table public.profiles add column if not exists genres    text[] not null default '{}';  -- genres préférés (espace lecteur)
 alter table public.profiles add column if not exists a_lire    text[] not null default '{}';  -- « à lire plus tard » (codes de livres)
+alter table public.profiles add column if not exists objectif_perso int;                       -- objectif personnel de l'année (livres)
 
 -- l'ancien rôle « consultation » s'appelle désormais « direction »
 alter table public.profiles drop constraint if exists profiles_role_check;
@@ -468,6 +469,21 @@ returns table (livre text, score int) language sql stable security definer set s
   where e.data ->> 'livre' not in (select l from mine)
   group by 1 order by 2 desc, 1 limit 24;
 $$;
+
+-- ---------------------------------------------------------------- top 10 de la semaine et objectif personnel
+create or replace function public.kiv_top_semaine()
+returns table (livre text, nb int) language sql stable security definer set search_path = public as $$
+  select data ->> 'livre', count(*)::int from public.emprunts
+  where (data ->> 'date')::date >= current_date - 7
+    and public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve')
+  group by 1 order by 2 desc, 1 limit 10;
+$$;
+create or replace function public.kiv_mon_objectif(n int)
+returns void language sql security definer set search_path = public as $$
+  update public.profiles set objectif_perso = case when n between 1 and 200 then n end where id = auth.uid();
+$$;
+revoke execute on function public.kiv_top_semaine(), public.kiv_mon_objectif(int) from public, anon;
+grant execute on function public.kiv_top_semaine(), public.kiv_mon_objectif(int) to authenticated;
 
 -- ---------------------------------------------------------------- défis de lecture : classements
 -- livres rendus entre deux dates, par élève. Noms affichés « Prénom N. » ; photo seulement pour les premiers.

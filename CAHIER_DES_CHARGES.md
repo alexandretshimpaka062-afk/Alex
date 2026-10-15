@@ -71,7 +71,12 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
    - Notes de 1 à 5 étoiles sur les livres empruntés ; rangée « Les mieux notés ».
    - « Les lecteurs de ce livre ont aussi lu » sur chaque fiche. « Pour toi » combine les lectures des élèves proches, les genres préférés, les notes et la popularité.
    - Badges visibles aussi sur la fiche d'un membre (personnel).
-4. Espace enseignant, borne publique.
+4. ✅ Espace enseignant, borne publique.
+   - À l'inscription, l'enseignant choisit ses classes ; l'administrateur les valide (ou les modifie) dans « Comptes ». L'enseignant peut redemander d'autres classes plus tard.
+   - Page « Mes classes » : un onglet par classe ; élèves, livres lus ce trimestre, objectif atteint, retards ; fiche de chaque élève (en cours, déjà lus, badges).
+   - « Donner un livre à la classe » : un livre, une consigne (« à lire et à présenter le … ») et une date. Chaque élève la voit en haut de son espace, avec l'étiquette « Nouveau » ; l'enseignant voit combien d'élèves l'ont vue et ont emprunté le livre. Kivuthèque prévient s'il n'y a pas assez d'exemplaires.
+   - Objectif de lecture propre à chaque classe ; bilan de classe et diplômes en PDF.
+   - Borne publique : adresse du site suivie de `?borne`. Catalogue en plein écran, recherche, genres, livres disponibles et rayon, sans compte et sans aucun nom. Retour à l'accueil après 90 secondes sans activité.
 5. Rappels de retard, état des livres, bon de commande.
 
 ## Esthétique et expérience (ajouté)

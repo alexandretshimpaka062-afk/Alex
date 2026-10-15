@@ -29,6 +29,7 @@ alter table public.profiles add column if not exists classes   text[] not null d
 alter table public.profiles add column if not exists genres    text[] not null default '{}';  -- genres préférés (espace lecteur)
 alter table public.profiles add column if not exists a_lire    text[] not null default '{}';  -- « à lire plus tard » (codes de livres)
 alter table public.profiles add column if not exists objectif_perso int;                       -- objectif personnel de l'année (livres)
+alter table public.profiles add column if not exists classes_demande text[] not null default '{}';  -- classes demandées par un enseignant (à valider par l'administrateur)
 
 -- l'ancien rôle « consultation » s'appelle désormais « direction »
 alter table public.profiles drop constraint if exists profiles_role_check;
@@ -55,20 +56,28 @@ returns text[] language sql stable security definer set search_path = public as 
   select coalesce((select classes from public.profiles where id = auth.uid() and role = 'enseignant'), '{}');
 $$;
 
+-- liste de classes propre (sans vide ni doublon, 12 au maximum)
+create or replace function public.kiv_liste_classes(j jsonb)
+returns text[] language sql immutable as $$
+  select coalesce(array(select distinct left(trim(x), 60) from jsonb_array_elements_text(case when jsonb_typeof(j) = 'array' then j else '[]'::jsonb end) x
+                        where trim(x) <> '' limit 12), '{}');
+$$;
+
 -- chaque inscription crée un profil ; la toute première personne devient administrateur
 create or replace function public.kiv_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 declare m jsonb := coalesce(new.raw_user_meta_data, '{}');
 begin
   perform pg_advisory_xact_lock(4242);
-  insert into public.profiles (id, email, nom, role, profil, classe)
+  insert into public.profiles (id, email, nom, role, profil, classe, classes_demande)
   values (
     new.id,
     new.email,
     left(coalesce(nullif(trim(m ->> 'nom'), ''), nullif(trim(m ->> 'full_name'), ''), nullif(trim(m ->> 'name'), ''), split_part(new.email, '@', 1)), 80),
     case when exists (select 1 from public.profiles where role = 'admin') then 'en_attente' else 'admin' end,
     case when m ->> 'profil' in ('eleve', 'enseignant', 'personnel') then m ->> 'profil' end,
-    left(nullif(trim(m ->> 'classe'), ''), 60)
+    left(nullif(trim(m ->> 'classe'), ''), 60),
+    case when m ->> 'profil' = 'enseignant' then public.kiv_liste_classes(m -> 'classes') else '{}' end
   )
   on conflict (id) do nothing;
   return new;
@@ -133,8 +142,9 @@ begin
   where id = auth.uid();
 end;
 $$;
--- compléter sa demande (inscription avec Google : profil et classe)
-create or replace function public.kiv_ma_demande(profil text, classe text, nom text default null)
+-- compléter sa demande (inscription avec Google : profil, classe, classes d'un enseignant)
+drop function if exists public.kiv_ma_demande(text, text, text);
+create or replace function public.kiv_ma_demande(profil text, classe text, nom text default null, classes text[] default null)
 returns void language plpgsql security definer set search_path = public as $$
 begin
   if public.kiv_role() <> 'en_attente' then raise exception 'Votre compte est déjà validé.'; end if;
@@ -142,8 +152,26 @@ begin
   update public.profiles set
     profil = kiv_ma_demande.profil,
     classe = left(nullif(trim(kiv_ma_demande.classe), ''), 60),
-    nom    = coalesce(left(nullif(trim(kiv_ma_demande.nom), ''), 80), profiles.nom)
+    nom    = coalesce(left(nullif(trim(kiv_ma_demande.nom), ''), 80), profiles.nom),
+    classes_demande = case when kiv_ma_demande.profil = 'enseignant' then public.kiv_liste_classes(to_jsonb(coalesce(kiv_ma_demande.classes, '{}'))) else '{}' end
   where id = auth.uid();
+end;
+$$;
+-- un enseignant demande ses classes (l'administrateur valide ensuite)
+create or replace function public.kiv_mes_classes(classes text[])
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if public.kiv_role() not in ('enseignant', 'en_attente') then raise exception 'Réservé aux enseignants.'; end if;
+  update public.profiles set classes_demande = public.kiv_liste_classes(to_jsonb(coalesce(kiv_mes_classes.classes, '{}'))) where id = auth.uid();
+end;
+$$;
+-- l'administrateur valide (ou modifie) les classes d'un enseignant
+create or replace function public.kiv_classes_valider(target uuid, classes text[])
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if public.kiv_role() <> 'admin' then raise exception 'Seul l''administrateur valide les classes des enseignants.'; end if;
+  update public.profiles set classes = public.kiv_liste_classes(to_jsonb(coalesce(kiv_classes_valider.classes, '{}'))), classes_demande = '{}' where id = target;
+  if not found then raise exception 'Compte introuvable.'; end if;
 end;
 $$;
 -- modération : retirer la photo de quelqu'un
@@ -164,9 +192,10 @@ revoke all on public.profiles from anon;
 revoke insert, update, delete on public.profiles from authenticated;
 grant select on public.profiles to authenticated;   -- les règles ci-dessus filtrent les lignes
 revoke execute on function public.kiv_valider(uuid, text, text), public.kiv_set_role(uuid, text), public.kiv_mon_profil(text, text),
-  public.kiv_ma_demande(text, text, text), public.kiv_retirer_photo(uuid) from public, anon;
+  public.kiv_ma_demande(text, text, text, text[]), public.kiv_retirer_photo(uuid), public.kiv_mes_classes(text[]), public.kiv_classes_valider(uuid, text[]) from public, anon;
 grant execute on function public.kiv_valider(uuid, text, text), public.kiv_set_role(uuid, text), public.kiv_mon_profil(text, text),
-  public.kiv_ma_demande(text, text, text), public.kiv_retirer_photo(uuid), public.kiv_role(), public.kiv_membre(), public.kiv_classes() to authenticated;
+  public.kiv_ma_demande(text, text, text, text[]), public.kiv_retirer_photo(uuid), public.kiv_mes_classes(text[]), public.kiv_classes_valider(uuid, text[]),
+  public.kiv_role(), public.kiv_membre(), public.kiv_classes() to authenticated;
 
 -- ---------------------------------------------------------------- données
 -- Chaque enregistrement est un document JSON (même format que l'application).
@@ -512,6 +541,129 @@ $$;
 revoke execute on function public.kiv_noter(text, int), public.kiv_notes(), public.kiv_aussi_lu(text), public.kiv_pour_moi(), public.kiv_classement(date, date) from public, anon;
 grant execute on function public.kiv_noter(text, int), public.kiv_notes(), public.kiv_aussi_lu(text), public.kiv_pour_moi(), public.kiv_classement(date, date) to authenticated;
 
+-- ---------------------------------------------------------------- espace enseignant
+-- classe de l'élève connecté (d'après sa fiche de membre)
+create or replace function public.kiv_ma_classe()
+returns text language sql stable security definer set search_path = public as $$
+  select data ->> 'classe' from public.membres where id = public.kiv_membre();
+$$;
+-- lectures données par un enseignant à toute une classe (« à lire et à présenter pour le … »)
+create table if not exists public.consignes (
+  id         uuid primary key default gen_random_uuid(),
+  classe     text not null,
+  livre      text not null,
+  message    text not null default '' check (length(message) <= 600),
+  echeance   date,
+  auteur     uuid default auth.uid(),
+  auteur_nom text,
+  created_at timestamptz not null default now()
+);
+create index if not exists consignes_classe on public.consignes (classe, created_at);
+-- qui a vu la consigne (l'enseignant voit « vue par 18 élèves sur 25 »)
+create table if not exists public.consigne_vues (
+  consigne uuid not null references public.consignes (id) on delete cascade,
+  membre   text not null,
+  vu_le    timestamptz not null default now(),
+  primary key (consigne, membre)
+);
+alter table public.consignes enable row level security;
+alter table public.consigne_vues enable row level security;
+revoke all on public.consignes, public.consigne_vues from anon;
+revoke insert, update, delete on public.consignes, public.consigne_vues from authenticated;
+grant select on public.consignes, public.consigne_vues to authenticated;
+drop policy if exists "consignes : lecture" on public.consignes;
+create policy "consignes : lecture" on public.consignes for select to authenticated
+  using (public.kiv_role() in ('admin', 'bibliothecaire', 'direction')
+         or (public.kiv_role() = 'enseignant' and classe = any (public.kiv_classes()))
+         or (public.kiv_role() = 'eleve' and classe = public.kiv_ma_classe()));
+drop policy if exists "consignes vues : lecture" on public.consigne_vues;
+create policy "consignes vues : lecture" on public.consigne_vues for select to authenticated
+  using (membre = public.kiv_membre() or public.kiv_role() in ('admin', 'bibliothecaire', 'direction')
+         or (public.kiv_role() = 'enseignant' and exists (select 1 from public.consignes c where c.id = consigne and c.classe = any (public.kiv_classes()))));
+-- donner un livre à une ou plusieurs classes (l'enseignant : ses classes ; l'administrateur et la bibliothécaire : toutes)
+create or replace function public.kiv_consigne(classes text[], livre text, message text, echeance date default null)
+returns int language plpgsql security definer set search_path = public as $$
+declare
+  me text := public.kiv_role();
+  c  text;
+  n  int := 0;
+begin
+  if me not in ('enseignant', 'admin', 'bibliothecaire') then raise exception 'Réservé aux enseignants.'; end if;
+  if not exists (select 1 from public.livres where id = kiv_consigne.livre) then raise exception 'Livre introuvable.'; end if;
+  if kiv_consigne.echeance is not null and kiv_consigne.echeance < current_date then raise exception 'La date est déjà passée.'; end if;
+  foreach c in array coalesce(kiv_consigne.classes, '{}') loop
+    if me = 'enseignant' and not (c = any (public.kiv_classes())) then raise exception 'La classe % n''est pas une de vos classes.', c; end if;
+    insert into public.consignes (classe, livre, message, echeance, auteur_nom)
+    values (c, kiv_consigne.livre, left(coalesce(kiv_consigne.message, ''), 600), kiv_consigne.echeance, (select nom from public.profiles where id = auth.uid()));
+    n := n + 1;
+  end loop;
+  if n = 0 then raise exception 'Choisissez au moins une classe.'; end if;
+  return n;
+end;
+$$;
+create or replace function public.kiv_consigne_retirer(cid uuid)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  delete from public.consignes c where c.id = cid
+    and (public.kiv_role() in ('admin', 'bibliothecaire') or (public.kiv_role() = 'enseignant' and c.classe = any (public.kiv_classes())));
+  if not found then raise exception 'Consigne introuvable.'; end if;
+end;
+$$;
+-- l'élève a vu la consigne
+create or replace function public.kiv_consigne_vue(cid uuid)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if public.kiv_membre() is null then return; end if;
+  if not exists (select 1 from public.consignes c where c.id = cid and c.classe = public.kiv_ma_classe()) then return; end if;
+  insert into public.consigne_vues (consigne, membre) values (cid, public.kiv_membre()) on conflict do nothing;
+end;
+$$;
+-- objectif de lecture propre à une classe (sinon : celui des Réglages)
+create table if not exists public.objectifs_classe (
+  classe     text primary key,
+  objectif   int not null check (objectif between 1 and 50),
+  updated_at timestamptz not null default now(),
+  updated_by uuid default auth.uid()
+);
+alter table public.objectifs_classe enable row level security;
+revoke all on public.objectifs_classe from anon;
+revoke insert, update, delete on public.objectifs_classe from authenticated;
+grant select on public.objectifs_classe to authenticated;
+drop policy if exists "objectifs : lecture" on public.objectifs_classe;
+create policy "objectifs : lecture" on public.objectifs_classe for select to authenticated
+  using (public.kiv_role() in ('admin', 'bibliothecaire', 'fournitures', 'direction', 'enseignant', 'eleve'));
+create or replace function public.kiv_objectif_classe(classe text, n int)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if not (public.kiv_role() in ('admin', 'bibliothecaire') or (public.kiv_role() = 'enseignant' and kiv_objectif_classe.classe = any (public.kiv_classes()))) then
+    raise exception 'Vous ne pouvez régler que l''objectif de vos classes.'; end if;
+  if coalesce(n, 0) = 0 then delete from public.objectifs_classe o where o.classe = kiv_objectif_classe.classe; return; end if;
+  if n not between 1 and 50 then raise exception 'L''objectif va de 1 à 50 livres.'; end if;
+  insert into public.objectifs_classe as o (classe, objectif) values (kiv_objectif_classe.classe, n)
+  on conflict on constraint objectifs_classe_pkey do update set objectif = excluded.objectif, updated_at = now(), updated_by = auth.uid();
+end;
+$$;
+revoke execute on function public.kiv_ma_classe(), public.kiv_consigne(text[], text, text, date), public.kiv_consigne_retirer(uuid), public.kiv_consigne_vue(uuid),
+  public.kiv_objectif_classe(text, int) from public, anon;
+grant execute on function public.kiv_ma_classe(), public.kiv_consigne(text[], text, text, date), public.kiv_consigne_retirer(uuid), public.kiv_consigne_vue(uuid),
+  public.kiv_objectif_classe(text, int) to authenticated;
+
+-- ---------------------------------------------------------------- borne publique (sans compte)
+-- Seulement le catalogue et le nombre d'exemplaires disponibles : aucun nom, aucun emprunt.
+create or replace function public.kiv_catalogue_public()
+returns table (id text, titre text, auteur text, categorie text, rayon text, annee text, resume text, cover text, ex int, dispo int)
+language sql stable security definer set search_path = public as $$
+  select l.id, l.data ->> 'titre', l.data ->> 'auteur', l.data ->> 'categorie', l.data ->> 'rayon', l.data ->> 'annee',
+         left(l.data ->> 'resume', 400), l.data ->> 'cover', coalesce((l.data ->> 'ex')::int, 0),
+         greatest(0, coalesce((l.data ->> 'ex')::int, 0)
+           - (select count(*)::int from public.emprunts e where e.data ->> 'livre' = l.id and (e.data ->> 'retour') is null)
+           - (select count(*)::int from public.reservations r where r.livre = l.id and r.statut = 'prete' and r.expire_le >= current_date))
+  from public.livres l
+  order by l.data ->> 'titre';
+$$;
+revoke execute on function public.kiv_catalogue_public() from public;
+grant execute on function public.kiv_catalogue_public() to anon, authenticated;
+
 -- ---------------------------------------------------------------- couvertures des livres
 -- Copie réduite (environ 15 Ko) de chaque couverture, gardée dans Supabase :
 -- elle reste affichée même si Google Livres ou Open Library la retire.
@@ -534,7 +686,7 @@ create policy "couvertures : suppression" on storage.objects for delete to authe
 do $$
 declare t text;
 begin
-  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles', 'reservations', 'avis'] loop
+  foreach t in array array['livres', 'membres', 'emprunts', 'fournitures', 'mouvements', 'reglages', 'profiles', 'reservations', 'avis', 'consignes', 'consigne_vues', 'objectifs_classe'] loop
     begin
       execute format('alter publication supabase_realtime add table public.%I', t);
     exception when duplicate_object then null;

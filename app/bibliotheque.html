@@ -657,6 +657,82 @@ body.locked{overflow:hidden}
 .wrap-btn{all:unset;box-sizing:border-box;cursor:pointer;grid-column:1/-1;border-radius:16px;padding:12px 14px;overflow:hidden;box-shadow:0 8px 22px -12px rgba(3,38,61,.6);display:flex;gap:12px;align-items:center;background:linear-gradient(120deg,#03263D,#0A6FA8 55%,#1E8E3E)!important;color:#fff;border:0!important}
 .wrap-btn>span{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center}.wrap-btn .ic{width:20px;height:20px}
 .wrap-btn small{color:rgba(255,255,255,.75)!important}
+.kiosk{position:fixed;inset:0;z-index:200;overflow:auto;padding:22px clamp(16px,3vw,40px) 30px;background:radial-gradient(1200px 600px at 10% -10%,#0A6FA8 0%,transparent 60%),radial-gradient(900px 500px at 100% 0%,#1E8E3E55 0%,transparent 60%),#04192A;color:#fff;-webkit-tap-highlight-color:transparent}
+body.kiosk-on{overflow:hidden}
+.k-head{display:flex;align-items:center;gap:16px}.k-head img{height:64px;width:auto;filter:drop-shadow(0 6px 16px rgba(0,0,0,.4))}
+.k-head h1{margin:0;font:800 clamp(26px,3vw,38px) var(--display);letter-spacing:-.02em}.k-head p{margin:2px 0 0;color:rgba(255,255,255,.75);font-size:16px}
+.k-clock{margin-left:auto;text-align:right;display:flex;flex-direction:column}.k-clock b{font:800 30px var(--display)}.k-clock span{font-size:13px;color:rgba(255,255,255,.7);text-transform:capitalize}
+.k-full{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.1);color:#fff}
+.k-search{position:sticky;top:-22px;z-index:3;margin:20px 0 14px;display:flex;align-items:center;gap:12px;padding:0 18px;height:66px;border-radius:20px;background:#fff;color:#0B2235;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.k-search .ic{width:26px;height:26px;color:#0A6FA8;flex:none}.k-search input{flex:1;min-width:0;border:0;outline:0;background:none;font:600 22px var(--body);color:#0B2235;height:100%}
+.k-search button{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#EEF3F7;color:#0B2235}
+.k-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.k-cats{display:flex;gap:8px;overflow-x:auto;flex:1;min-width:0;padding-bottom:4px;scrollbar-width:none}
+.k-cats button,.k-toggle{flex:none;height:46px;padding:0 18px;border-radius:14px;background:rgba(255,255,255,.1);color:#fff;font:650 15px var(--body);border:1px solid rgba(255,255,255,.14)}
+.k-cats button[aria-pressed=true]{background:#fff;color:#0B2235}
+.k-toggle{display:inline-flex;align-items:center;gap:8px}.k-toggle .ic{width:18px;height:18px;opacity:0}.k-toggle[aria-pressed=true]{background:#1E8E3E;border-color:#1E8E3E}.k-toggle[aria-pressed=true] .ic{opacity:1}
+.k-count{margin:18px 0 12px;font-size:16px;color:rgba(255,255,255,.8)}.k-count b{color:#fff;font-size:20px}
+.k-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:22px 18px}
+.k-card{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0;transition:transform .25s var(--spring)}
+.k-card:active{transform:scale(.97)}.k-card .cover{width:100%;box-shadow:0 18px 30px -16px rgba(0,0,0,.8)}
+.k-t{font-size:15.5px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.k-a{font-size:13px;color:rgba(255,255,255,.65);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k-ok,.k-no{font-size:13px;font-weight:700}.k-ok{color:#7EE29A}.k-no{color:#FFB4A8}
+.k-empty{grid-column:1/-1;padding:60px 20px;text-align:center;font-size:18px;color:rgba(255,255,255,.75)}
+.k-foot{margin-top:34px;text-align:center;font-size:13px;color:rgba(255,255,255,.55)}
+.k-detail{position:fixed;inset:0;z-index:5;background:rgba(2,12,20,.72);backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px;animation:kFade .25s ease both}
+@keyframes kFade{from{opacity:0}}@keyframes kIn{from{opacity:0;transform:scale(.94)}}
+.k-d-in{position:relative;width:min(860px,100%);max-height:calc(100vh - 40px);overflow:auto;display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;padding:30px;border-radius:26px;background:linear-gradient(160deg,#0B2E47,#06192A);border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 80px -30px #000;animation:kIn .4s var(--spring) both}
+.k-d-cover{width:100%}.k-d-txt{display:flex;flex-direction:column;gap:12px;min-width:0}.k-d-txt h2{margin:0;font:800 clamp(26px,3vw,36px)/1.1 var(--display)}
+.k-d-by{margin:0;color:rgba(255,255,255,.7);font-size:16px}
+.k-d-st{display:flex;gap:14px;align-items:center;padding:16px;border-radius:18px;font-size:15px}.k-d-st .ic{width:28px;height:28px;flex:none}.k-d-st b{display:block;font-size:17px}.k-d-st span{color:rgba(255,255,255,.85)}
+.k-d-st span b{display:inline;font-size:inherit}
+.empty>.ic{width:18px;height:18px;display:inline-block;vertical-align:-3px}
+.k-d-st.ok{background:rgba(30,142,62,.25);border:1px solid #2EAF55}.k-d-st.no{background:rgba(200,60,40,.2);border:1px solid #D9654F}
+.k-d-res{margin:0;font-size:16px;line-height:1.55;color:rgba(255,255,255,.88)}.k-d-help{margin:0;font-size:14px;color:rgba(255,255,255,.6)}
+.k-close{position:absolute;top:14px;right:14px;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.12);color:#fff;z-index:2}
+@media (max-width:700px){.k-d-in{grid-template-columns:1fr;padding:22px}.k-d-cover{width:160px}.k-clock{display:none}.k-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.k-search input{font-size:18px}}
+.genre.sm{padding:8px 14px;border-radius:12px;font-size:13.5px}
+.cls-add{display:flex;gap:8px;margin-top:10px}.cls-add input{flex:1;min-width:0}
+/* espace enseignant */
+.cls-title{margin:0;font-size:22px;letter-spacing:-.02em}
+.cls-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:40px 22px}
+.cls-empty h2{margin:0}.cls-empty p{margin:0;max-width:480px;color:var(--ink-2)}
+.cons-list{display:flex;flex-direction:column;gap:10px}
+.cons-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:12px 14px;border-radius:16px;border:1px solid var(--line);background:var(--glass-strong)}
+.cons-row .mini-cover{width:42px;height:60px}
+.cons-row.done{opacity:.65}
+.cons-main{min-width:0;display:flex;flex-direction:column;gap:4px}.cons-main .t{font-weight:650}
+.cons-msg{font-size:13.5px;color:var(--ink-2)}
+.cons-meta{display:flex;gap:12px;flex-wrap:wrap}.cons-meta .ic{width:13px;height:13px;vertical-align:-2px;display:inline-block}
+.cons-stats{display:flex;gap:16px}.cons-stats div{display:flex;flex-direction:column;align-items:flex-end}.cons-stats b{font:800 20px var(--display)}.cons-stats span{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.cons-act{display:flex;gap:6px;align-items:center}
+.icon-btn.sm{width:34px;height:34px;border-radius:11px}.icon-btn.sm .ic{width:16px;height:16px}
+.cons-old{margin-top:12px}.cons-old summary{cursor:pointer;color:var(--ink-2);font-weight:600;font-size:13.5px;margin-bottom:10px}
+.cs-res{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow:auto;margin-top:6px}
+.cs-item{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:var(--glass-strong)}
+.cs-item:hover{border-color:var(--accent)}.cs-item.on{cursor:default;border-color:var(--accent);background:var(--accent-soft)}
+.cs-item span{flex:1;min-width:0}.cs-item b{display:block;font-size:14px}.cs-item small{display:block;font-size:12px;color:var(--ink-3)}
+.cs-item .link{margin:0}
+.cs-prev{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.stu-head{display:flex;gap:16px;align-items:center}.stu-head h2{margin:0 0 4px}
+.stu-h{font-size:15px;margin:6px 0 0}
+.stu-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stu-stats>div{padding:12px 14px;border-radius:14px;background:var(--glass-strong);border:1px solid var(--line)}
+.stu-stats b{display:block;font:800 26px var(--display)}.stu-stats b small{font-size:14px;color:var(--ink-3)}.stu-stats span{font-size:12px;color:var(--ink-3)}
+.toolbar>.seg{max-width:100%;overflow-x:auto;scrollbar-width:none}.toolbar>.seg button{white-space:nowrap;flex:none}
+/* lecture donnée par l'enseignant (espace élève) */
+.task-alert{display:flex;gap:14px;align-items:center;padding:14px 18px;border-radius:18px;cursor:pointer;color:#fff;background:linear-gradient(120deg,#03263D,#0A6FA8 60%,#1A7F86);box-shadow:0 14px 30px -18px rgba(3,38,61,.8);transition:transform .25s var(--spring)}
+.task-alert:hover{transform:translateY(-2px)}
+.task-alert.soon{background:linear-gradient(120deg,#5A2A00,#B35C00 60%,#D98A00)}
+.task-alert>.ic{width:18px;height:18px;flex:none;opacity:.8}
+.ta-cover .mini-cover{width:48px;height:68px}
+.ta-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.ta-txt b{font-size:17px}.ta-txt p{margin:0;font-size:14px;color:rgba(255,255,255,.88)}
+.ta-kick{font:750 11.5px var(--body);letter-spacing:.08em;text-transform:uppercase;color:#FFD45C;display:flex;align-items:center;gap:6px}.ta-kick .ic{width:14px;height:14px}
+.ta-new{background:#E50914;color:#fff;border-radius:6px;padding:2px 7px;font-size:10.5px;letter-spacing:.06em;animation:taPulse 1.6s ease-in-out infinite}
+.ta-meta{display:flex;gap:14px;flex-wrap:wrap}.ta-meta .nf-b{color:rgba(255,255,255,.85)}.ta-meta .nf-b.ok{color:#8EF0A6}.ta-meta .nf-b.warn{color:#FFD45C}
+.ta-meta .ic{width:13px;height:13px;vertical-align:-2px;display:inline-block}
+@keyframes taPulse{50%{opacity:.6}}
+@media (max-width:700px){.hide-sm{display:none}.cons-row{grid-template-columns:auto minmax(0,1fr)}.cons-stats,.cons-act{grid-column:1/-1}.cons-stats div{align-items:flex-start}.task-alert{padding:12px 14px}}
 .goal-pick{display:flex;flex-wrap:wrap;gap:10px}
 /* « Mon année de lecture » */
 .wr{position:fixed;inset:0;z-index:250;background:#03070C;color:#fff;overflow:hidden;animation:inFade .35s ease both}
@@ -1116,6 +1192,7 @@ function lsWrite() {
   } try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch { toast("Impossible d'enregistrer dans ce navigateur", true); } }
 
 async function initStore() {
+  if (KIOSK) return kioskBoot();
   if (CLOUD) return cloudBoot();
   if (LOCAL_AUTH) return localBoot();
   let db = null;
@@ -1268,17 +1345,21 @@ function demandeFields(P) {
   const prof = P.profil || "eleve";
   return `<div class="f"><label for="a-nom">Prénom et nom</label><input id="a-nom" autocomplete="name" value="${esc(P.nom || "")}" required></div>
     <div class="f"><label>Je suis</label><div class="seg auth-tabs" id="aProfil" style="grid-template-columns:repeat(3,1fr)">${Object.entries({ eleve: "Élève", enseignant: "Enseignant", personnel: "Personnel" }).map(([k, l]) => `<button type="button" data-pf="${k}" aria-pressed="${k === prof}">${l}</button>`).join("")}</div></div>
-    <div class="f" id="aClasseF"><label for="a-classe">Ma classe</label><input id="a-classe" list="aClasses" autocomplete="off" placeholder="Ex. : 7ème EB" value="${esc(P.classe || "")}"><datalist id="aClasses">${CLASSES.filter(c => c !== "Personnel").map(c => `<option value="${esc(c)}">`).join("")}</datalist></div>`;
+    <div class="f" id="aClasseF"><label for="a-classe">Ma classe</label><input id="a-classe" list="aClasses" autocomplete="off" placeholder="Ex. : 7ème EB" value="${esc(P.classe || "")}"><datalist id="aClasses">${CLASSES.filter(c => c !== "Personnel").map(c => `<option value="${esc(c)}">`).join("")}</datalist></div>
+    <div class="f" id="aClsF" hidden><label>Mes classes <small class="s">· l'administrateur les validera</small></label>${classPickHTML(P.classes_demande || [], "aCls")}</div>`;
 }
 function wireDemande(el) {
-  const sync = () => { const p = $("[data-pf][aria-pressed=true]", el).dataset.pf; $("#aClasseF", el).hidden = p === "personnel"; $("label[for=a-classe]", el).textContent = p === "enseignant" ? "Classe principale (facultatif)" : "Ma classe"; };
+  const sync = () => { const p = $("[data-pf][aria-pressed=true]", el).dataset.pf; $("#aClasseF", el).hidden = p !== "eleve"; $("#aClsF", el).hidden = p !== "enseignant"; };
+  wireClassPick(el, "aCls");
   $$("[data-pf]", el).forEach(b => b.onclick = () => { $$("[data-pf]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); sync(); }); sync();
 }
 function readDemande(el) {
-  const nom = $("#a-nom", el).value.trim(), profil = $("[data-pf][aria-pressed=true]", el).dataset.pf, classe = profil === "personnel" ? "" : $("#a-classe", el).value.trim();
+  const nom = $("#a-nom", el).value.trim(), profil = $("[data-pf][aria-pressed=true]", el).dataset.pf, classe = profil === "eleve" ? $("#a-classe", el).value.trim() : "";
+  const classes = profil === "enseignant" ? pickedClasses(el, "aCls") : [];
   if (nom.split(/\s+/).length < 2) return { error: "Indique ton prénom et ton nom." };
   if (profil === "eleve" && !classe) return { error: "Indique ta classe." };
-  return { nom, profil, classe };
+  if (profil === "enseignant" && !classes.length) return { error: "Choisis au moins une des classes où tu enseignes." };
+  return { nom, profil, classe, classes };
 }
 let googleCheck = null;
 function googleEnabled() {
@@ -1305,12 +1386,12 @@ function showAuth(mode, info) {
       wireDemande(el);
       $("#aOut", el).onclick = signOut;
       $("#aForm", el).onsubmit = async e => { e.preventDefault(); const d = readDemande(el); if (d.error) return authMsg(el, d.error);
-        const { error } = await auth.sb.rpc("kiv_ma_demande", { profil: d.profil, classe: d.classe, nom: d.nom });
+        const { error } = await auth.sb.rpc("kiv_ma_demande", { profil: d.profil, classe: d.classe, nom: d.nom, classes: d.classes });
         if (error) return authMsg(el, cloudError(error)); await afterLogin(auth.user); };
       return;
     }
     const el = authShell(`<div class="pending-ic">${ic(r === "desactive" ? "lock" : "clock")}</div><h2>${r === "desactive" ? "Accès non autorisé" : "Demande envoyée"}</h2>
-      <p class="auth-p">${r === "desactive" ? "Ta demande a été refusée ou ton accès a été retiré. Adresse-toi à la bibliothèque de l'école." : `Merci ${esc((P.nom || "").split(" ")[0])} ! Ta demande d'accès (<b>${esc(PROFILS[P.profil] || "")}${P.classe ? " · " + esc(P.classe) : ""}</b>) est entre les mains de la bibliothèque. Dès qu'elle est acceptée, cette page s'ouvre toute seule sur ton espace.`}</p>
+      <p class="auth-p">${r === "desactive" ? "Ta demande a été refusée ou ton accès a été retiré. Adresse-toi à la bibliothèque de l'école." : `Merci ${esc((P.nom || "").split(" ")[0])} ! Ta demande d'accès (<b>${esc(PROFILS[P.profil] || "")}${P.classe ? " · " + esc(P.classe) : ""}${(P.classes_demande || []).length ? " · " + P.classes_demande.map(esc).join(", ") : ""}</b>) est entre les mains de la bibliothèque. Dès qu'elle est acceptée, cette page s'ouvre toute seule sur ton espace.`}</p>
       <p class="auth-p small">Compte : ${esc(auth.user.email)}</p>
       <div class="auth-actions"><button class="btn primary" type="button" id="aRefresh">${ic("ret")}Vérifier maintenant</button><button class="btn ghost" type="button" id="aOut">Se déconnecter</button></div>
       <div class="auth-msg" hidden></div>`);
@@ -1362,7 +1443,7 @@ function showAuth(mode, info) {
       } else if (tab === "signup") {
         const d = readDemande(el); if (d.error) throw { message: d.error };
         if (pass.length < 6) throw { message: "Le mot de passe doit contenir au moins 6 caractères." };
-        const { data, error } = await auth.sb.auth.signUp({ email, password: pass, options: { data: { nom: d.nom, profil: d.profil, classe: d.classe }, emailRedirectTo: location.origin + location.pathname } });
+        const { data, error } = await auth.sb.auth.signUp({ email, password: pass, options: { data: { nom: d.nom, profil: d.profil, classe: d.classe, classes: d.classes }, emailRedirectTo: location.origin + location.pathname } });
         if (error) throw error;
         if (data.session) await afterLogin(data.user);
         else showAuth("login", "Demande enregistrée. Ouvre l'e-mail de confirmation que tu viens de recevoir, puis connecte-toi.");
@@ -1398,7 +1479,7 @@ async function afterLogin(user) {
   if (roleOf() === "consultation") auth.profile.role = "direction";
   if (shouldIntro() && !store.cloudLoaded) playIntro();   // pendant l'animation, les données se chargent
   hideAuth(); store.mode = "cloud"; applyPerms(); buildNav(); buildAccountNav();
-  if (isReader() && !READER_IDS.includes(ui.view)) ui.view = "espace";
+  if (isReader() && !navViews().some(v => v.id === ui.view)) ui.view = readerHome();
   if (!store.cloudLoaded) { store.cloudLoaded = true; await cloudLoad(); } else render();
 }
 async function cloudFetch(t) {
@@ -1418,7 +1499,7 @@ async function cloudLoad() {
       else { S[t] = rows.map(r => ({ ...r.data, id: r.id })); store.loaded.add(t); }
     }));
   } catch (e) { toast(cloudError(e), true); }
-  if (isReader()) await Promise.all([loadDispo(), loadMesRes(), loadReaderExtras()]); else await Promise.all([loadReservations(), loadNotes()]);
+  if (isReader()) await Promise.all([loadDispo(), loadMesRes(), loadReaderExtras(), loadClassData()]); else await Promise.all([loadReservations(), loadNotes(), loadClassData()]);
   onData();
   if (can("comptes")) loadAccounts();
   auth.channel = auth.sb.channel("kivutheque").on("postgres_changes", { event: "*", schema: "public" }, payload => {
@@ -1430,9 +1511,13 @@ async function cloudLoad() {
       if (t === "emprunts" && isReader()) loadDispo().then(() => onData());
     } else if (t === "reglages" && row && row.id === "params") { S.params = row.data; onData(); }
     else if (t === "reservations") { (isReader() ? Promise.all([loadMesRes(), loadDispo()]) : loadReservations()).then(() => onData()); }
+    else if (["consignes", "consigne_vues", "objectifs_classe"].includes(t)) {
+      const fresh = t === "consignes" && payload.eventType === "INSERT" && roleOf() === "eleve" && row && !(store.consignes || []).some(c => c.id === row.id);
+      loadClassData().then(() => { onData(); if (fresh && mesConsignes().some(c => c.id === row.id)) { const b = D.livres.get(row.livre); toast(`Nouvelle lecture donnée par ${row.auteur_nom || "ton enseignant"} : « ${b ? b.titre : ""} »`); } }); }
     else if (t === "profiles") {
       if (row && row.id === auth.user.id) {
-        const changed = row.role !== roleOf(); auth.profile = { ...auth.profile, ...row };
+        const changed = row.role !== roleOf(), clsChanged = JSON.stringify(row.classes || []) !== JSON.stringify(auth.profile.classes || []); auth.profile = { ...auth.profile, ...row };
+        if (clsChanged && roleOf() === "enseignant") { Promise.all([cloudResync("membres"), cloudResync("emprunts"), loadClassData()]).then(() => { toast("Vos classes ont été mises à jour par l'administrateur"); onData(); }); }
         if (changed) { if (["en_attente", "desactive"].includes(row.role)) return showAuth("pending"); location.reload(); return; }
         buildAccountNav(); render();
       }
@@ -1592,7 +1677,7 @@ async function loadAccounts() {
   if (error) return;
   auth.accounts = data;
   PHOTOS.clear(); data.forEach(p => { if (p.membre_id && p.avatar) PHOTOS.set(p.membre_id, p.avatar); });
-  const n = data.filter(p => p.role === "en_attente" && canValidate(p)).length;
+  const n = data.filter(p => p.role === "en_attente" && canValidate(p)).length + (roleOf() === "admin" ? data.filter(p => p.role === "enseignant" && (p.classes_demande || []).length).length : 0);
   const b = $("#navPending"); if (b) { b.hidden = !n; b.textContent = n; }
   if (ui.view === "comptes") render(); else onData();
 }
@@ -1652,16 +1737,17 @@ function accountsView() {
         <button class="btn sm ghost danger-t" type="button" data-refuse="${p.id}">Refuser</button>`;
     }
     return `<div class="pend-row${mine ? "" : " muted"}">${personAvatar(p)}<div class="pend-who"><div class="t">${esc(p.nom || "")}</div><div class="s">${esc(p.email)} · ${since(p.created_at)}</div>
-      <div class="pend-tags">${pill(PROFILS[p.profil] || "Profil non précisé", p.profil === "personnel" ? "warn" : "info")}${p.classe ? pill(p.classe, "ok") : ""}</div></div><div class="pend-act">${act}</div></div>`;
+      <div class="pend-tags">${pill(PROFILS[p.profil] || "Profil non précisé", p.profil === "personnel" ? "warn" : "info")}${p.classe ? pill(p.classe, "ok") : ""}${(p.classes_demande || []).map(c => pill(c, "ok")).join("")}</div>
+      ${p.profil === "enseignant" && (p.classes_demande || []).length ? `<div class="s" style="margin-top:6px">${admin ? "Ses classes seront validées en même temps." : "Ses classes seront validées par l'administrateur."}</div>` : ""}</div><div class="pend-act">${act}</div></div>`;
   };
-  return `${pend.length ? `<div class="card" style="border-color:var(--warn)"><div class="card-h"><h3>Demandes en attente</h3><span class="sub">${pend.length} demande${pend.length > 1 ? "s" : ""} · reliez chaque élève à sa fiche de membre</span></div>
+  return `${classRequestsCard()}${pend.length ? `<div class="card" style="border-color:var(--warn)"><div class="card-h"><h3>Demandes en attente</h3><span class="sub">${pend.length} demande${pend.length > 1 ? "s" : ""} · reliez chaque élève à sa fiche de membre</span></div>
       <div class="pend-list">${pend.map(pendRow).join("")}</div></div>`
     : `<div class="card empty" style="padding:22px">${ic("check")} Aucune demande en attente. Les nouvelles inscriptions apparaîtront ici.</div>`}
     <div class="card"><div class="card-h"><h3>Tous les comptes</h3><span class="sub">${rest.length} personne${rest.length > 1 ? "s" : ""}</span></div>
       <div class="table-wrap"><table><thead><tr><th>Personne</th><th>Carte</th><th>Rôle</th><th></th></tr></thead><tbody>
       ${rest.map(p => `<tr><td><div style="display:flex;gap:12px;align-items:center">${personAvatar(p)}<div><div class="t">${esc(p.nom || "")}${p.id === auth.user.id ? ' <span class="pill info">vous</span>' : ""}</div><div class="s">${esc(p.email)}</div></div></div></td>
         <td>${p.membre_id ? `<span class="code">${esc(p.membre_id)}</span>` : '<span class="s">—</span>'}</td>
-        <td>${canValidate(p) && p.id !== auth.user.id ? `<select class="flat" data-role-of="${p.id}" aria-label="Rôle de ${esc(p.nom || p.email)}">${roleOpts(p)}</select>` : `<b>${esc(ROLES[p.role][0])}</b>`}<div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div></td>
+        <td>${canValidate(p) && p.id !== auth.user.id ? `<select class="flat" data-role-of="${p.id}" aria-label="Rôle de ${esc(p.nom || p.email)}">${roleOpts(p)}</select>` : `<b>${esc(ROLES[p.role][0])}</b>`}<div class="s" style="margin-top:4px">${esc(ROLES[p.role][1])}</div>${p.role === "enseignant" ? `<div class="s" style="margin-top:4px;white-space:normal">Classes : <b>${(p.classes || []).map(esc).join(", ") || "aucune"}</b>${(p.classes_demande || []).length ? " · demande en attente" : ""}${admin ? ` <button class="link" type="button" data-tclasses="${p.id}" style="margin:0">Modifier</button>` : ""}</div>` : ""}</td>
         <td style="text-align:right">${p.avatar && p.id !== auth.user.id ? `<button class="btn sm ghost" type="button" data-unphoto="${p.id}" title="Retirer une photo inappropriée">Retirer la photo</button>` : ""}</td></tr>`).join("")}
       </tbody></table></div></div>
     <div class="card"><div class="card-h"><h3>Rôles</h3></div><div class="rows">${["admin", "bibliothecaire", "fournitures", "direction", "enseignant", "eleve"].map(r => `<div class="row" style="grid-template-columns:200px minmax(0,1fr)"><b>${ROLES[r][0]}</b><span class="s" style="white-space:normal">${ROLES[r][1]}</span></div>`).join("")}</div>
@@ -1681,6 +1767,8 @@ async function acceptAccount(id, role) {
   }
   const { error } = await auth.sb.rpc("kiv_valider", { target: id, new_role: role, membre });
   if (error) return toast(cloudError(error), true);
+  if (role === "enseignant" && roleOf() === "admin" && (p.classes_demande || []).length) {
+    const r = await auth.sb.rpc("kiv_classes_valider", { target: id, classes: p.classes_demande }); if (r.error) toast(cloudError(r.error), true); }
   if (membre) { const m = S.membres.find(x => x.id === membre); if (m && !m.email) put("membres", { ...m, email: p.email }); else cloudResync("membres"); }
   toast(`${p.nom} : ${ROLES[role][0]}${membre ? " · carte " + membre : ""}`);
   loadAccounts();
@@ -1793,14 +1881,14 @@ function espaceView() {
   const maListe = (P.a_lire || []).slice().reverse().map(id => D.livres.get(id)).filter(Boolean);
   const due = e => { const d = diffDays(e.prevu, D.T); return d < 0 ? `<span class="nf-b bad">En retard de ${-d} j</span>` : d === 0 ? `<span class="nf-b warn">À rendre aujourd'hui</span>` : `<span class="nf-b ${d <= 2 ? "warn" : "ok"}">Encore ${d} jour${d > 1 ? "s" : ""}</span>`; };
   const resBadge = b => { const r = mesRes.find(x => x.livre === b.id); return !r ? "" : r.statut === "prete" ? `<span class="nf-b ok">T'attend · ${fmtD(r.expire_le)}</span>` : r.statut === "expiree" ? `<span class="nf-b bad">Expirée</span>` : `<span class="nf-b">${ordinal(r.rang || 1)} dans la file</span>`; };
-  return `${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
+  return `${consigneAlerts()}${pretes.map(r => { const b = D.livres.get(r.livre); return `<div class="nf-alert ok" data-book="${esc(b.id)}" role="button" tabindex="0">${ic("spark")}<div><b>« ${esc(b.titre)} » t'attend à la bibliothèque !</b><span>Il est mis de côté pour toi jusqu'au ${esc(fmtDay(r.expire_le))}. Passe le chercher avec ta carte ${esc(m.id)}.</span></div></div>`; }).join("")}
     ${retard.length ? `<div class="nf-alert bad">${ic("clock")}<div><b>${retard.length > 1 ? retard.length + " livres sont" : "Un livre est"} en retard</b><span>${retard.map(e => "« " + esc(e.b ? e.b.titre : e.livre) + " »").join(", ")} : rapporte${retard.length > 1 ? "-les" : "-le"} vite à la bibliothèque.</span></div></div>` : ""}
     <div class="espace-top">
       ${heroes.length ? heroCarousel(heroes)
       : `<div class="card hello spot"><h2>${prenom}, bienvenue dans ta bibliothèque</h2><p>${cours.length ? `Tu as <b>${cours.length} livre${cours.length > 1 ? "s" : ""}</b> en cours de lecture.` : "Aucun livre en cours : trouve ta prochaine lecture ci-dessous."}</p>
         <button class="btn primary" type="button" data-go="livres" style="align-self:flex-start">${ic("book")}Explorer le catalogue</button></div>`}
       <div class="espace-side">${memberCard(m)}
-        ${(() => { const t = trimCourant(), g = objectif(), n = lus.filter(e => e.retour >= t.debut && e.retour <= t.fin).length; return `<button class="card defi-mini" type="button" data-go="defis"><span class="badge-ic">${ic("trophy")}</span><div style="min-width:0;flex:1"><b>Défi du ${esc(t.nom)} : ${Math.min(n, g)} / ${g}</b><div class="meter"><b style="width:${Math.round(Math.min(1, n / g) * 100)}%"></b></div><small>${n >= g ? "Réussi ! Ton diplôme t'attend." : `Encore ${g - n} livre${g - n > 1 ? "s" : ""} à lire`}</small></div>${ic("arrow")}</button>`; })()}
+        ${(() => { const t = trimCourant(), g = objectif(m.classe), n = lus.filter(e => e.retour >= t.debut && e.retour <= t.fin).length; return `<button class="card defi-mini" type="button" data-go="defis"><span class="badge-ic">${ic("trophy")}</span><div style="min-width:0;flex:1"><b>Défi du ${esc(t.nom)} : ${Math.min(n, g)} / ${g}</b><div class="meter"><b style="width:${Math.round(Math.min(1, n / g) * 100)}%"></b></div><small>${n >= g ? "Réussi ! Ton diplôme t'attend." : `Encore ${g - n} livre${g - n > 1 ? "s" : ""} à lire`}</small></div>${ic("arrow")}</button>`; })()}
         ${personalCard(lus)}</div>
     </div>
     ${shelfRow("rowCours", "Mes livres en cours", cours.map(e => e.b).filter(Boolean), { badge: b => due(cours.find(e => e.livre === b.id)) })}
@@ -1816,6 +1904,7 @@ function espaceView() {
 }
 function bindEspace(v) {
   const g = $("#editGenres", v); if (g) g.onclick = () => genresSheet();
+  markConsignesSeen(mesConsignes());
   bindHero(v);
   const mg = $("#myGoal", v); if (mg) mg.onclick = objectifSheet;
   const my = $("#myYear", v); if (my) my.onclick = () => wrapped();
@@ -1846,7 +1935,8 @@ function readerBookDetail(id) {
     : b.dispo > 0 ? `<div class="nf-status ok">${ic("check")}<span>Disponible · ${b.dispo} exemplaire${b.dispo > 1 ? "s" : ""} · <b>${esc(b.rayon || "à la bibliothèque")}</b></span></div>`
     : `<div class="nf-status bad">${ic("clock")}<span>Tous les exemplaires sont empruntés${b.attente ? ` · ${b.attente} personne${b.attente > 1 ? "s attendent" : " attend"}` : ""}</span></div>`;
   const acts = `<button class="btn ghost" type="button" id="rdList">${ic(inList ? "check" : "plus")}${inList ? "Dans ma liste" : "Ma liste"}</button>
-     ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}`;
+     ${r ? `<button class="btn ghost" type="button" id="rdCancel">Annuler ma réservation</button>` : !cur && b.dispo <= 0 ? `<button class="btn primary" type="button" id="rdRes">${ic("clock")}Réserver</button>` : ""}
+     ${isTeacher() && (P.classes || []).length ? `<button class="btn primary" type="button" id="rdGive">${ic("users")}Donner à une classe</button>` : ""}`;
   openSheet(b.titre, `<div class="bd-hero" style="${coverVars(b)}">${b.cover ? `<img class="bd-bg" src="${esc(b.cover)}" alt="">` : ""}
       <div class="bd-in"><div class="cover bd-cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie)}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur)}</div></div></div>
         <div class="bd-txt"><span class="nf-kicker">${esc(b.categorie)}${b.vedette ? " · ★ Livre du mois" : ""}</span><h2>${esc(b.titre)}</h2>
@@ -1857,6 +1947,7 @@ function readerBookDetail(id) {
     ${mine.length ? `<div class="rd-rate"><span class="s">Qu'en as-tu pensé ?</span><div class="my-rate">${[1, 2, 3, 4, 5].map(i => `<button type="button" class="star-btn${(store.mesNotes && store.mesNotes.get(id) || 0) >= i ? " on" : ""}" data-rate="${i}" aria-label="${i} étoile${i > 1 ? "s" : ""}">★</button>`).join("")}</div></div>` : ""}
     <div id="aussiLu"></div>`, null, el => {
       fillAussiLu(el, id);
+      const gv = $("#rdGive", el); if (gv) gv.onclick = () => { closeSheet(true); consigneSheet({ livre: id }); };
       $$("[data-rate]", el).forEach(x => x.onclick = async () => { const n = +x.dataset.rate, cur = store.mesNotes && store.mesNotes.get(id), note = cur === n ? 0 : n;
         const { error } = await auth.sb.rpc("kiv_noter", { livre: id, note }); if (error) return toast(cloudError(error), true);
         await loadReaderExtras(); toast(note ? `Merci ! Tu as donné ${note} étoile${note > 1 ? "s" : ""}.` : "Note retirée"); render(); readerBookDetail(id); });
@@ -1881,7 +1972,7 @@ function trimestres() {
   return [{ n: 1, nom: "1er trimestre", debut: `${y}-09-01`, fin: `${y}-12-31` }, { n: 2, nom: "2e trimestre", debut: `${y + 1}-01-01`, fin: `${y + 1}-03-31` }, { n: 3, nom: "3e trimestre", debut: `${y + 1}-04-01`, fin: `${y + 1}-07-31` }];
 }
 function trimCourant() { const T = todayISO(), ts = trimestres(); return ts.find(t => T >= t.debut && T <= t.fin) || (T < ts[0].debut ? ts[0] : ts[2]); }
-const objectif = () => Math.max(1, +(params().objectif ?? 3));
+const objectif = classe => (classe && store.objClasses && store.objClasses.get(classe)) || Math.max(1, +(params().objectif ?? 3));
 const shortName = n => { const w = String(n || "").replace(/^(M\.|Mme)\s+/, "").trim().split(/\s+/); return w.length > 1 ? `${w[0]} ${w[w.length - 1][0]}.` : w[0] || ""; };
 
 /* badges gagnés par un lecteur, à partir de ses emprunts */
@@ -1945,17 +2036,17 @@ function defisView() {
   const ts = trimestres(); ui.trim = ui.trim || trimCourant().n; const t = ts.find(x => x.n === ui.trim) || ts[0];
   if (!store.classement || store.classement.t !== t.n || !isReader()) { if (isReader()) { loadClassement(t).then(() => { if (ui.view === "defis") render(); }); } else store.classement = { t: t.n, rows: classementLocal(t) }; }
   const rows = (store.classement && store.classement.t === t.n && store.classement.rows) || [];
-  const goal = objectif(), sel = `<div class="seg" role="group" aria-label="Trimestre">${ts.map(x => `<button type="button" data-trim="${x.n}" aria-pressed="${x.n === t.n}">${x.nom}</button>`).join("")}</div>`;
-  const classes = {}; rows.forEach(r => { const c = classes[r.classe] = classes[r.classe] || { classe: r.classe, eleves: 0, lus: 0, ok: 0 }; c.eleves++; c.lus += r.lus; if (r.lus >= goal) c.ok++; });
+  const sel = `<div class="seg" role="group" aria-label="Trimestre">${ts.map(x => `<button type="button" data-trim="${x.n}" aria-pressed="${x.n === t.n}">${x.nom}</button>`).join("")}</div>`;
+  const classes = {}; rows.forEach(r => { const c = classes[r.classe] = classes[r.classe] || { classe: r.classe, eleves: 0, lus: 0, ok: 0 }; c.eleves++; c.lus += r.lus; if (r.lus >= objectif(r.classe)) c.ok++; });
   const cls = Object.values(classes).filter(c => c.classe && c.classe !== "Personnel").map(c => ({ ...c, moy: c.lus / Math.max(1, c.eleves) })).sort((a, b) => b.moy - a.moy || b.lus - a.lus);
   const maxMoy = Math.max(1, ...cls.map(c => c.moy));
   const podium = rows.filter(r => r.lus > 0).sort((a, b) => a.rang_ecole - b.rang_ecole).slice(0, 10);
   const person = r => `${personAvatar({ id: r.membre, nom: r.nom, avatar: r.avatar || PHOTOS.get(r.membre) })}<div style="min-width:0"><div class="t">${esc(isReader() ? r.nom : r.nom)}${r.moi ? ' <span class="pill info">toi</span>' : ""}</div><div class="s">${esc(r.classe)}</div></div>`;
   const rankRow = (r, k) => `<div class="row rk${r.moi ? " me" : ""}"><span class="rk-n${k <= 3 ? " p" + k : ""}">${k}</span>${person(r)}<b class="num">${r.lus}<span class="s"> livre${r.lus > 1 ? "s" : ""}</span></b></div>`;
   const classTable = `<div class="card"><div class="card-h"><h3>Classement des classes</h3><span class="sub">moyenne de livres lus par élève</span></div>
-    <div class="rows">${cls.map((c, i) => `<div class="row cls-row"><span class="rk-n${i < 3 ? " p" + (i + 1) : ""}">${i + 1}</span><div style="min-width:0"><div class="t">${esc(c.classe)}</div><div class="meter"><b data-w="${Math.round(c.moy / maxMoy * 100)}%" style="width:0"></b></div></div><div class="num">${c.moy.toFixed(1).replace(".", ",")}<div class="s">${c.ok} élève${c.ok > 1 ? "s" : ""} ≥ ${goal}</div></div></div>`).join("") || '<div class="empty">Aucune lecture ce trimestre pour l\'instant.</div>'}</div></div>`;
+    <div class="rows">${cls.map((c, i) => `<div class="row cls-row"><span class="rk-n${i < 3 ? " p" + (i + 1) : ""}">${i + 1}</span><div style="min-width:0"><div class="t">${esc(c.classe)}</div><div class="meter"><b data-w="${Math.round(c.moy / maxMoy * 100)}%" style="width:0"></b></div></div><div class="num">${c.moy.toFixed(1).replace(".", ",")}<div class="s">${c.ok} élève${c.ok > 1 ? "s" : ""} ≥ ${objectif(c.classe)}</div></div></div>`).join("") || '<div class="empty">Aucune lecture ce trimestre pour l\'instant.</div>'}</div></div>`;
   if (isReader()) {
-    const me = rows.find(r => r.moi), m = D.membres.get(auth.profile.membre_id), mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id);
+    const me = rows.find(r => r.moi), m = D.membres.get(auth.profile.membre_id), mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id), goal = objectif(m && m.classe);
     const lusT = mine.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length, pct = Math.min(1, lusT / goal);
     const myClass = rows.filter(r => r.classe === (m && m.classe)).sort((a, b) => a.rang_classe - b.rang_classe);
     const badges = badgesFor(mine, store.mesNotes ? store.mesNotes.size : 0), got = badges.filter(b => b.got).length;
@@ -1976,22 +2067,23 @@ function defisView() {
   }
   /* personnel : vue d'ensemble, classement d'une classe, diplômes */
   ui.defiClasse = ui.defiClasse && classes[ui.defiClasse] ? ui.defiClasse : (cls[0] && cls[0].classe) || "";
-  const cr = rows.filter(r => r.classe === ui.defiClasse).sort((a, b) => b.lus - a.lus || a.nom.localeCompare(b.nom, "fr")), okN = cr.filter(r => r.lus >= goal).length;
-  return `<div class="toolbar">${sel}<span class="s" style="margin-left:auto;color:var(--ink-3)">Objectif : <b>${goal} livre${goal > 1 ? "s" : ""}</b> rendus par trimestre${can("admin") ? " · modifiable dans Réglages" : ""}</span></div>
+  const goalS = objectif(ui.defiClasse);
+  const cr = rows.filter(r => r.classe === ui.defiClasse).sort((a, b) => b.lus - a.lus || a.nom.localeCompare(b.nom, "fr")), okN = cr.filter(r => r.lus >= goalS).length;
+  return `<div class="toolbar">${sel}<span class="s" style="margin-left:auto;color:var(--ink-3)">Objectif de ${esc(ui.defiClasse)} : <b>${goalS} livre${goalS > 1 ? "s" : ""}</b> rendus par trimestre${can("admin") ? " · modifiable dans Réglages ou par l'enseignant" : ""}</span></div>
     <div class="grid cols-2">${classTable}<div class="card"><div class="card-h"><h3>Top 10 de l'école</h3><span class="sub">${esc(t.nom)}</span></div><div class="rows">${podium.map(r => rankRow(r, r.rang_ecole)).join("") || '<div class="empty">Aucun livre rendu ce trimestre pour l\'instant.</div>'}</div></div></div>
     <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Classe</h3><select class="flat" id="defiClasse" aria-label="Classe">${cls.map(c => `<option ${c.classe === ui.defiClasse ? "selected" : ""}>${esc(c.classe)}</option>`).join("")}</select>
         <span class="sub">${okN} élève${okN > 1 ? "s ont" : " a"} atteint l'objectif</span><button class="btn sm primary" type="button" id="classDiplomas" style="margin-left:auto" ${okN ? "" : "disabled"}>${ic("down")}Diplômes de la classe (PDF)</button></div>
       <div class="table-wrap"><table><thead><tr><th class="c">Rang</th><th>Élève</th><th class="c">Livres lus</th><th>Objectif</th><th></th></tr></thead><tbody>
       ${cr.map(r => `<tr><td class="c"><span class="rk-n${r.rang_classe <= 3 && r.lus ? " p" + r.rang_classe : ""}">${r.lus ? r.rang_classe : "—"}</span></td><td><div style="display:flex;gap:12px;align-items:center">${personAvatar({ id: r.membre, nom: r.nom, avatar: PHOTOS.get(r.membre) })}<div><div class="t">${esc(r.nom)}</div><div class="s"><span class="code">${esc(r.membre)}</span></div></div></div></td>
-        <td class="c"><b>${r.lus}</b></td><td>${r.lus >= goal ? pill("Atteint", "ok") : `<div class="meter" style="max-width:140px"><b data-w="${Math.round(r.lus / goal * 100)}%" style="width:0"></b></div>`}</td>
-        <td style="text-align:right">${r.lus >= goal ? `<button class="btn sm ghost" type="button" data-diploma="${esc(r.membre)}">${ic("down")}Diplôme</button>` : ""}</td></tr>`).join("") || '<tr><td colspan="5" class="empty">Aucun élève dans cette classe.</td></tr>'}
+        <td class="c"><b>${r.lus}</b></td><td>${r.lus >= goalS ? pill("Atteint", "ok") : `<div class="meter" style="max-width:140px"><b data-w="${Math.round(r.lus / goalS * 100)}%" style="width:0"></b></div>`}</td>
+        <td style="text-align:right">${r.lus >= goalS ? `<button class="btn sm ghost" type="button" data-diploma="${esc(r.membre)}">${ic("down")}Diplôme</button>` : ""}</td></tr>`).join("") || '<tr><td colspan="5" class="empty">Aucun élève dans cette classe.</td></tr>'}
       </tbody></table></div></div>`;
 }
 function bindDefis(v) {
   $$("[data-trim]", v).forEach(b => b.onclick = () => { ui.trim = +b.dataset.trim; store.classement = null; render(); });
   const dy = $("#defYear", v); if (dy) dy.onclick = () => wrapped();
   const dc = $("#defiClasse", v); if (dc) dc.onchange = () => { ui.defiClasse = dc.value; render(); };
-  const t = trimestres().find(x => x.n === ui.trim) || trimCourant(), goal = objectif();
+  const t = trimestres().find(x => x.n === ui.trim) || trimCourant(), goal = objectif(ui.defiClasse);
   const md = $("#myDiploma", v); if (md) md.onclick = () => { const m = D.membres.get(auth.profile.membre_id); const lus = D.emprunts.filter(e => e.membre === m.id && e.retour && e.retour >= t.debut && e.retour <= t.fin).length; diplomasPDF([{ nom: m.nom, classe: m.classe, lus }], t); };
   const cd = $("#classDiplomas", v); if (cd) cd.onclick = () => diplomasPDF(store.classement.rows.filter(r => r.classe === ui.defiClasse && r.lus >= goal).sort((a, b) => a.nom.localeCompare(b.nom, "fr")), t);
   $$("[data-diploma]", v).forEach(b => b.onclick = () => diplomasPDF(store.classement.rows.filter(r => r.membre === b.dataset.diploma), t));
@@ -2017,7 +2109,7 @@ function diplomasPDF(list, t) {
     doc.setDrawColor(...GOLD); doc.setLineWidth(.4); doc.line(W / 2 - 70, 110, W / 2 + 70, 110);
     doc.setFont("helvetica", "normal"); doc.setFontSize(13.5); doc.setTextColor(...NAVY);
     doc.text(pdfSafe(`${r.classe && r.classe !== "Personnel" ? "élève de " + r.classe + ", " : ""}pour avoir lu ${r.lus} livre${r.lus > 1 ? "s" : ""} au ${t.nom} de l'année ${p.annee}`), W / 2, 124, { align: "center" });
-    doc.setFontSize(11.5); doc.setTextColor(...MUTED); doc.text(pdfSafe(`et relevé le défi de lecture de la bibliothèque (${objectif()} livre${objectif() > 1 ? "s" : ""}). Félicitations !`), W / 2, 132, { align: "center" });
+    doc.setFontSize(11.5); doc.setTextColor(...MUTED); doc.text(pdfSafe(`et relevé le défi de lecture de la bibliothèque (${objectif(r.classe)} livre${objectif(r.classe) > 1 ? "s" : ""}). Félicitations !`), W / 2, 132, { align: "center" });
     // médaille
     doc.setFillColor(...GOLD); doc.circle(W / 2, 156, 11, "F"); doc.setFillColor(255, 214, 92); doc.circle(W / 2, 156, 8, "F");
     doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(...NAVY); doc.text(String(r.lus), W / 2, 158.5, { align: "center" });
@@ -2236,6 +2328,359 @@ async function wrappedImage(d) {
   box(960, String(d.lus), d.lus > 1 ? "livres lus" : "livre lu"); box(1180, d.genre, "mon genre préféré"); box(1400, `${d.serie} sem.`, "ma plus longue série de lecture"); box(1620, d.rang, "dans ma classe");
   x.font = "500 28px system-ui, sans-serif"; x.globalAlpha = .6; x.fillText("Kivuthèque · Kivu International School", 540, 1870);
   c.toBlob(b => saveFile(`Mon-annee-de-lecture-${d.annee}.png`, b, "image/png"), "image/png");
+}
+
+/* ============================================================ espace enseignant : « Mes classes » */
+const isTeacher = () => isReader() && roleOf() === "enseignant";
+const byNom = (a, b) => String(a.nom).localeCompare(String(b.nom), "fr");
+/* choix de classes (inscription, demande de l'enseignant, validation par l'administrateur) */
+function classPickHTML(sel, id = "clsPick") {
+  const base = (S.params && S.params.classes) || CLASSES;
+  const list = [...new Set([...base, ...sel])].filter(c => c && c !== "Personnel");
+  return `<div class="genre-grid cls-grid" id="${id}">${list.map(c => `<button type="button" class="genre sm" data-cls="${esc(c)}" aria-pressed="${sel.includes(c)}" style="--g:var(--accent)">${esc(c)}</button>`).join("")}</div>
+    <div class="cls-add"><input id="${id}-new" placeholder="Autre classe (ex. : 6ème Humanités B)" maxlength="60" aria-label="Autre classe"><button type="button" class="btn sm ghost" id="${id}-add">${ic("plus")}Ajouter</button></div>`;
+}
+function wireClassPick(el, id = "clsPick") {
+  const box = $("#" + id, el); if (!box) return;
+  const bind = b => b.onclick = () => b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true");
+  $$("[data-cls]", box).forEach(bind);
+  const inp = $(`#${id}-new`, el);
+  const add = () => { const v = inp.value.trim().slice(0, 60); if (!v) return;
+    let b = $$("[data-cls]", box).find(x => norm(x.dataset.cls) === norm(v));
+    if (!b) { box.insertAdjacentHTML("beforeend", `<button type="button" class="genre sm" data-cls="${esc(v)}" aria-pressed="true" style="--g:var(--accent)">${esc(v)}</button>`); b = box.lastElementChild; bind(b); }
+    else b.setAttribute("aria-pressed", "true");
+    inp.value = ""; inp.focus(); };
+  $(`#${id}-add`, el).onclick = add;
+  inp.onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); add(); } };
+}
+const pickedClasses = (el, id = "clsPick") => $$(`#${id} [data-cls][aria-pressed=true]`, el).map(b => b.dataset.cls);
+
+/* données de classe : lectures données, qui les a vues, objectifs par classe */
+async function loadClassData() {
+  if (store.mode !== "cloud" || !auth.sb) return;
+  const r = roleOf(), withCons = ["enseignant", "eleve", "admin", "bibliothecaire", "direction"].includes(r);
+  const [o, c, v] = await Promise.all([auth.sb.from("objectifs_classe").select("*"),
+    withCons ? auth.sb.from("consignes").select("*").order("created_at") : null, withCons ? auth.sb.from("consigne_vues").select("*") : null]);
+  store.objClasses = new Map(((o && o.data) || []).map(x => [x.classe, x.objectif]));
+  store.consignes = (c && c.data) || [];
+  store.vues = (v && v.data) || [];
+}
+/* lectures données à l'élève connecté : celles de sa classe, pas encore passées */
+function mesConsignes() {
+  const m = D && D.membres.get(auth.profile && auth.profile.membre_id); if (!m) return [];
+  const T = todayISO();
+  return (store.consignes || []).filter(c => c.classe === m.classe && D.livres.get(c.livre) && (!c.echeance ? String(c.created_at).slice(0, 10) >= addDays(T, -45) : c.echeance >= T))
+    .sort((a, b) => (a.echeance || "9999") < (b.echeance || "9999") ? -1 : 1);
+}
+const consigneVue = c => (store.vues || []).some(v => v.consigne === c.id && v.membre === auth.profile.membre_id);
+const seenAsked = new Set();   // vues pendant cette visite : elles gardent l'étiquette « Nouveau » jusqu'à la prochaine visite
+function markConsignesSeen(list) {
+  list.filter(c => !consigneVue(c) && !seenAsked.has(c.id)).forEach(c => { seenAsked.add(c.id);
+    auth.sb.rpc("kiv_consigne_vue", { cid: c.id }).then(({ error }) => { if (!error) { store.vues = [...(store.vues || []), { consigne: c.id, membre: auth.profile.membre_id }]; sideSummary(); } }); });
+}
+const dueText = iso => { if (!iso) return ""; const d = diffDays(iso, todayISO()); return d === 0 ? "aujourd'hui" : d === 1 ? "demain" : d > 0 ? `dans ${d} jours` : `il y a ${-d} jour${-d > 1 ? "s" : ""}`; };
+/* bandeau « lecture donnée par ton enseignant » dans l'espace de l'élève */
+function consigneAlerts() {
+  const list = mesConsignes(); if (!list.length) return "";
+  const mine = D.emprunts.filter(e => e.membre === auth.profile.membre_id);
+  return list.map(c => { const b = D.livres.get(c.livre), has = mine.some(e => e.livre === b.id), soon = c.echeance && diffDays(c.echeance, todayISO()) <= 3;
+    const etat = has ? `<span class="nf-b ok">${ic("check")} Tu as ce livre</span>` : b.dispo > 0 ? `<span class="nf-b ok">Disponible · ${esc(b.rayon || "à la bibliothèque")}</span>` : `<span class="nf-b">Tous empruntés : réserve-le</span>`;
+    return `<div class="task-alert${soon && !has ? " soon" : ""}" data-book="${esc(b.id)}" role="button" tabindex="0">
+      <span class="ta-cover">${miniCover(b)}</span>
+      <div class="ta-txt"><span class="ta-kick">${ic("users")}Lecture donnée par ${esc(c.auteur_nom || "ton enseignant")}${consigneVue(c) && !seenAsked.has(c.id) ? "" : ' <span class="ta-new">Nouveau</span>'}</span>
+        <b>« ${esc(b.titre)} »</b>${c.message ? `<p>${esc(c.message)}</p>` : ""}
+        <div class="ta-meta">${c.echeance ? `<span class="nf-b ${soon ? "warn" : ""}">${ic("clock")} Pour le ${esc(fmtDay(c.echeance))} · ${dueText(c.echeance)}</span>` : ""}${etat}</div></div>${ic("arrow")}</div>`; }).join("");
+}
+
+/* ---------- la page « Mes classes » ---------- */
+function classesView() {
+  const P = auth.profile, mine = (P.classes || []).slice().sort((a, b) => a.localeCompare(b, "fr")), dem = P.classes_demande || [];
+  const pending = dem.length ? `<div class="nf-alert">${ic("clock")}<div><b>Demande envoyée à l'administrateur</b><span>Classes demandées : ${dem.map(esc).join(", ")}. Elles apparaîtront ici dès qu'elles seront validées.</span></div></div>` : "";
+  if (!mine.length) return `${pending}<div class="card cls-empty"><span class="badge-ic">${ic("users")}</span><h2>Tu n'as pas encore de classe</h2>
+    <p>Choisis les classes où tu enseignes. L'administrateur valide ta demande, puis tu verras ici tes élèves, leurs lectures et leurs retards.</p>
+    <button class="btn primary" type="button" id="askCls">${ic("plus")}${dem.length ? "Modifier ma demande" : "Choisir mes classes"}</button></div>`;
+  ui.classe = mine.includes(ui.classe) ? ui.classe : mine[0];
+  const c = ui.classe, t = trimCourant(), goal = objectif(c), T = todayISO();
+  const eleves = [...D.membres.values()].filter(m => m.classe === c && (m.type || "Élève") === "Élève").sort(byNom);
+  const ids = new Set(eleves.map(m => m.id)), loans = D.emprunts.filter(e => ids.has(e.membre));
+  const st = eleves.map(m => { const l = loans.filter(e => e.membre === m.id), lusT = l.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length;
+    return { m, lusT, lus: l.filter(e => e.retour).length, cours: l.filter(e => !e.retour), retard: l.filter(e => e.statut === "retard") }; });
+  const lusTot = st.reduce((a, x) => a + x.lusT, 0), okN = st.filter(x => x.lusT >= goal).length, lateN = st.filter(x => x.retard.length).length, coursN = st.filter(x => x.cours.length).length;
+  const kpi = (lab, icon, tone, val, sub) => `<div class="card kpi" style="--tone:var(--${tone});--tone-soft:var(--${tone}-soft);cursor:default"><div class="k-top"><span class="k-ic">${ic(icon)}</span>${lab}</div><div class="k-val" data-count="${val}">0</div><div class="k-sub">${sub}</div></div>`;
+  const cons = (store.consignes || []).filter(x => x.classe === c).sort((a, b) => a.created_at < b.created_at ? 1 : -1);
+  const actives = cons.filter(x => !x.echeance || x.echeance >= T), finies = cons.filter(x => x.echeance && x.echeance < T);
+  const consRow = x => { const b = D.livres.get(x.livre) || { id: x.livre, titre: x.livre, categorie: "" };
+    const vus = (store.vues || []).filter(v => v.consigne === x.id && ids.has(v.membre)).length, ont = new Set(loans.filter(e => e.livre === x.livre).map(e => e.membre)).size;
+    return `<div class="cons-row${x.echeance && x.echeance < T ? " done" : ""}">${miniCover(b)}<div class="cons-main"><div class="t">« ${esc(b.titre)} »</div>${x.message ? `<div class="cons-msg">${esc(x.message)}</div>` : ""}
+        <div class="cons-meta">${x.echeance ? `<span class="nf-b ${x.echeance < T ? "" : diffDays(x.echeance, T) <= 3 ? "warn" : "ok"}">${ic("clock")} ${x.echeance < T ? "Terminée le " + esc(fmtD(x.echeance)) : "Pour le " + esc(fmtDay(x.echeance)) + " · " + dueText(x.echeance)}</span>` : ""}
+          <span class="nf-b">${b.dispo > 0 ? `${b.dispo} exemplaire${b.dispo > 1 ? "s" : ""} disponible${b.dispo > 1 ? "s" : ""}` : "Aucun exemplaire disponible"}</span></div></div>
+      <div class="cons-stats"><div><b>${vus}</b><span>/ ${eleves.length} l'ont vue</span></div><div><b>${ont}</b><span>/ ${eleves.length} ont le livre</span></div></div>
+      <div class="cons-act"><button class="btn sm ghost" type="button" data-cons-who="${esc(x.id)}">Détail</button><button class="icon-btn sm" type="button" data-cons-rm="${esc(x.id)}" title="Retirer cette lecture" aria-label="Retirer cette lecture">${ic("trash")}</button></div></div>`; };
+  const stRow = x => { const cur = x.cours[0]; return `<tr data-eleve="${esc(x.m.id)}" tabindex="0" role="button">
+      <td><div style="display:flex;gap:12px;align-items:center">${personAvatar({ id: x.m.id, nom: x.m.nom, avatar: PHOTOS.get(x.m.id) })}<div style="min-width:0"><div class="t">${esc(x.m.nom)}</div><div class="s"><span class="code">${esc(x.m.id)}</span></div></div></div></td>
+      <td class="c"><b>${x.lusT}</b><span class="s"> / ${goal}</span></td>
+      <td>${x.lusT >= goal ? pill("Atteint", "ok") : `<div class="meter" style="max-width:120px"><b data-w="${Math.round(x.lusT / goal * 100)}%" style="width:0"></b></div>`}</td>
+      <td class="hide-sm">${cur ? `<div class="t" style="max-width:220px">${esc(cur.b ? cur.b.titre : cur.livre)}</div><div class="s">à rendre le ${esc(fmtD(cur.prevu))}</div>` : '<span class="s">—</span>'}</td>
+      <td>${x.retard.length ? pill(`En retard${x.retard.length > 1 ? " (" + x.retard.length + ")" : ""}`, "bad") : x.cours.length ? pill("Lit en ce moment", "info") : pill("Aucun livre", "mute")}</td></tr>`; };
+  return `${pending}
+    <div class="toolbar">${mine.length > 1 ? `<div class="seg" role="group" aria-label="Classe">${mine.map(x => `<button type="button" data-classe="${esc(x)}" aria-pressed="${x === c}">${esc(x)}</button>`).join("")}</div>` : `<h2 class="cls-title">${esc(c)}</h2>`}
+      <button class="btn sm ghost" type="button" id="askCls" style="margin-left:auto">${ic("edit")}Mes classes</button>
+      <button class="btn sm primary" type="button" id="giveBook">${ic("book")}Donner un livre à la classe</button></div>
+    <div class="grid kpis">
+      ${kpi("Élèves", "users", "accent", eleves.length, `${coursN} lisent en ce moment`)}
+      ${kpi("Livres lus", "book", "green", lusTot, `ce ${esc(t.nom)}`)}
+      ${kpi("Objectif atteint", "trophy", "warn", okN, `élève${okN > 1 ? "s" : ""} sur ${eleves.length} · objectif ${goal} livre${goal > 1 ? "s" : ""}`)}
+      ${kpi("En retard", "clock", "danger", lateN, lateN ? "élève" + (lateN > 1 ? "s" : "") + " à relancer" : "aucun retard, bravo")}
+    </div>
+    <div class="card"><div class="card-h"><h3>Lectures données à la classe</h3><span class="sub">les élèves les voient en haut de leur espace</span></div>
+      ${actives.length ? `<div class="cons-list">${actives.map(consRow).join("")}</div>` : `<div class="empty">Aucune lecture en cours. Cliquez sur « Donner un livre à la classe » : chaque élève reçoit la consigne dans son espace.</div>`}
+      ${finies.length ? `<details class="cons-old"><summary>Lectures terminées (${finies.length})</summary><div class="cons-list">${finies.map(consRow).join("")}</div></details>` : ""}</div>
+    <div class="card"><div class="card-h" style="flex-wrap:wrap"><h3>Élèves</h3><span class="sub">${eleves.length} élève${eleves.length > 1 ? "s" : ""} · ${esc(t.nom)}</span>
+        <span style="margin-left:auto"></span><button class="btn sm ghost" type="button" id="clsGoal">${ic("trophy")}Objectif : ${goal} livre${goal > 1 ? "s" : ""}</button>
+        <button class="btn sm ghost" type="button" id="clsReport">${ic("down")}Bilan (PDF)</button>
+        <button class="btn sm primary" type="button" id="clsDipl" ${okN ? "" : "disabled"}>${ic("down")}Diplômes (${okN})</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Élève</th><th class="c">Lus ce trimestre</th><th>Objectif</th><th class="hide-sm">En ce moment</th><th>État</th></tr></thead><tbody>
+        ${st.map(stRow).join("") || `<tr><td colspan="5" class="empty">Aucun élève inscrit dans cette classe pour l'instant.</td></tr>`}</tbody></table></div></div>
+    ${lateN ? `<div class="card" style="border-color:var(--danger)"><div class="card-h"><h3>Retards</h3><span class="sub">à rappeler en classe</span></div><div class="rows">
+      ${st.filter(x => x.retard.length).flatMap(x => x.retard.map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${personAvatar({ id: x.m.id, nom: x.m.nom, avatar: PHOTOS.get(x.m.id) })}<div style="min-width:0"><div class="t">${esc(x.m.nom)}</div><div class="s">« ${esc(e.b ? e.b.titre : e.livre)} » · à rendre le ${esc(fmtD(e.prevu))}</div></div>${pill(-diffDays(e.prevu, T) + " j de retard", "bad")}</div>`)).join("")}</div></div>` : ""}`;
+}
+function bindClasses(v) {
+  $$("[data-classe]", v).forEach(b => b.onclick = () => { ui.classe = b.dataset.classe; ui.animate = true; render(); });
+  const a = $("#askCls", v); if (a) a.onclick = askClassesSheet;
+  const g = $("#giveBook", v); if (g) g.onclick = () => consigneSheet();
+  const go = $("#clsGoal", v); if (go) go.onclick = () => classGoalSheet(ui.classe);
+  const c = ui.classe, t = trimCourant(), goal = objectif(c);
+  const rows = () => [...D.membres.values()].filter(m => m.classe === c && (m.type || "Élève") === "Élève").sort(byNom)
+    .map(m => ({ membre: m.id, nom: m.nom, classe: m.classe, lus: D.emprunts.filter(e => e.membre === m.id && e.retour && e.retour >= t.debut && e.retour <= t.fin).length }));
+  const d = $("#clsDipl", v); if (d) d.onclick = () => diplomasPDF(rows().filter(r => r.lus >= goal), t);
+  const r = $("#clsReport", v); if (r) r.onclick = () => classReportPDF(c);
+  $$("[data-eleve]", v).forEach(x => { x.onclick = () => studentSheet(x.dataset.eleve); x.onkeydown = e => { if (e.key === "Enter") studentSheet(x.dataset.eleve); }; });
+  $$("[data-cons-who]", v).forEach(x => x.onclick = () => consigneDetail(x.dataset.consWho));
+  $$("[data-cons-rm]", v).forEach(x => x.onclick = () => { const k = (store.consignes || []).find(y => y.id === x.dataset.consRm), b = k && D.livres.get(k.livre);
+    confirmSheet("Retirer cette lecture ?", `« ${b ? b.titre : ""} » disparaîtra de l'espace des élèves de ${k.classe}.`, "Retirer", async () => {
+      const { error } = await auth.sb.rpc("kiv_consigne_retirer", { cid: k.id }); if (error) return toast(cloudError(error), true);
+      await loadClassData(); toast("Lecture retirée"); render(); }); });
+}
+/* l'enseignant choisit ses classes ; l'administrateur valide */
+function askClassesSheet() {
+  const P = auth.profile, sel = (P.classes_demande && P.classes_demande.length ? P.classes_demande : P.classes) || [];
+  openSheet("Mes classes", `<p class="form-note block" style="margin:0">Touche les classes où tu enseignes. Ta demande part chez l'administrateur ; en attendant, tes classes actuelles restent affichées.</p>${classPickHTML(sel)}`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="clsSend">${ic("check")}Envoyer la demande</button>`, el => {
+      wireClassPick(el); $("[data-close2]", el).onclick = () => closeSheet();
+      $("#clsSend", el).onclick = async () => { const classes = pickedClasses(el); if (!classes.length) return toast("Choisis au moins une classe.", true);
+        const { error } = await auth.sb.rpc("kiv_mes_classes", { classes }); if (error) return toast(cloudError(error), true);
+        auth.profile.classes_demande = classes; closeSheet(); toast("Demande envoyée à l'administrateur"); render(); };
+    });
+}
+/* donner un livre à toute la classe, avec une consigne et une date */
+function consigneSheet(pre = {}) {
+  const mine = auth.profile.classes || []; if (!mine.length) return toast("Tes classes doivent d'abord être validées par l'administrateur.", true);
+  let livre = pre.livre || "", jours = 14, edited = false;
+  const sel = new Set([pre.classe || ui.classe || mine[0]].filter(x => mine.includes(x)));
+  const tpl = () => { const d = $("#csDate", sheetEl).value; return `Voici le livre que vous devez lire. Vous le présenterez en classe ${d ? "le " + fmtDay(d) : "bientôt"}.`; };
+  const nbEleves = () => [...D.membres.values()].filter(m => sel.has(m.classe) && (m.type || "Élève") === "Élève").length;
+  openSheet("Donner un livre à la classe", `
+    <div class="f"><label for="csQ">Livre</label><div id="csBook"></div><input id="csQ" placeholder="Chercher un titre ou un auteur…" autocomplete="off"><div class="cs-res" id="csRes"></div></div>
+    <div class="f"><label>Pour</label><div class="genre-grid">${mine.map(x => `<button type="button" class="genre sm" data-cs-cls="${esc(x)}" aria-pressed="${sel.has(x)}" style="--g:var(--accent)">${esc(x)}</button>`).join("")}</div></div>
+    <div class="f"><label for="csDate">À présenter le</label><div class="toolbar">${[[7, "1 semaine"], [14, "2 semaines"], [21, "3 semaines"], [30, "1 mois"]].map(([n, l]) => `<button type="button" class="btn sm ${n === jours ? "primary" : "ghost"}" data-cs-j="${n}">${l}</button>`).join("")}
+      <input type="date" id="csDate" value="${addDays(todayISO(), jours)}" min="${todayISO()}" style="max-width:170px"></div></div>
+    <div class="f"><label for="csMsg">Consigne pour les élèves</label><textarea id="csMsg" rows="3" maxlength="600"></textarea></div>
+    <div id="csInfo"></div>
+    <div class="cs-prev"><span class="s">Ce que verront les élèves</span><div id="csPrev"></div></div>`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="csOk">${ic("check")}Envoyer aux élèves</button>`, el => {
+      const msg = $("#csMsg", el); msg.value = tpl(); msg.oninput = () => { edited = true; update(); };
+      const showRes = () => { const q = norm($("#csQ", el).value.trim());
+        const list = [...D.livres.values()].filter(b => !q || norm(b.titre + " " + b.auteur).includes(q)).sort((a, b) => a.titre.localeCompare(b.titre, "fr")).slice(0, q ? 8 : 6);
+        $("#csRes", el).innerHTML = list.map(b => `<button type="button" class="cs-item" data-cs-book="${esc(b.id)}">${miniCover(b)}<span><b>${esc(b.titre)}</b><small>${esc(b.auteur || "")} · ${b.dispo > 0 ? b.dispo + " disponible" + (b.dispo > 1 ? "s" : "") : "tous empruntés"} sur ${+b.ex || 0}</small></span></button>`).join("") || '<div class="s" style="padding:8px">Aucun livre trouvé.</div>';
+        $$("[data-cs-book]", el).forEach(x => x.onclick = () => { livre = x.dataset.csBook; update(); }); };
+      const update = () => {
+        const b = D.livres.get(livre), n = nbEleves();
+        $("#csBook", el).innerHTML = b ? `<div class="cs-item on">${miniCover(b)}<span><b>${esc(b.titre)}</b><small>${esc(b.auteur || "")}</small></span><button type="button" class="link" id="csChange">Changer</button></div>` : "";
+        $("#csQ", el).hidden = !!b; $("#csRes", el).hidden = !!b; const ch = $("#csChange", el); if (ch) ch.onclick = () => { livre = ""; update(); $("#csQ", el).focus(); };
+        if (!edited) msg.value = tpl();
+        $("#csInfo", el).innerHTML = b && n ? (+b.ex || 0) >= n ? `<div class="nf-status ok">${ic("check")}<span>La bibliothèque a ${+b.ex || 0} exemplaires pour ${n} élève${n > 1 ? "s" : ""}.</span></div>`
+          : `<div class="nf-status warn">${ic("alert")}<span>La bibliothèque n'a que <b>${+b.ex || 0} exemplaire${(+b.ex || 0) > 1 ? "s" : ""}</b> pour ${n} élèves : ils devront se le passer ou le réserver. Prévenez la bibliothécaire si vous voulez qu'elle en commande.</span></div>` : "";
+        const d = $("#csDate", el).value;
+        $("#csPrev", el).innerHTML = b ? `<div class="task-alert" style="pointer-events:none"><span class="ta-cover">${miniCover(b)}</span><div class="ta-txt"><span class="ta-kick">${ic("users")}Lecture donnée par ${esc(auth.profile.nom)} <span class="ta-new">Nouveau</span></span><b>« ${esc(b.titre)} »</b>${msg.value.trim() ? `<p>${esc(msg.value.trim())}</p>` : ""}<div class="ta-meta">${d ? `<span class="nf-b">${ic("clock")} Pour le ${esc(fmtDay(d))} · ${dueText(d)}</span>` : ""}</div></div></div>` : `<div class="s" style="padding:10px 0">Choisissez d'abord un livre.</div>`;
+        $$("[data-cs-j]", el).forEach(x => x.className = `btn sm ${addDays(todayISO(), +x.dataset.csJ) === d ? "primary" : "ghost"}`);
+      };
+      $("#csQ", el).oninput = showRes; showRes();
+      $$("[data-cs-cls]", el).forEach(x => x.onclick = () => { const k = x.dataset.csCls; sel.has(k) ? sel.delete(k) : sel.add(k); x.setAttribute("aria-pressed", sel.has(k)); update(); });
+      $$("[data-cs-j]", el).forEach(x => x.onclick = () => { $("#csDate", el).value = addDays(todayISO(), +x.dataset.csJ); update(); });
+      $("#csDate", el).onchange = update;
+      $("[data-close2]", el).onclick = () => closeSheet();
+      $("#csOk", el).onclick = async () => {
+        if (!livre) return toast("Choisissez un livre.", true);
+        if (!sel.size) return toast("Choisissez au moins une classe.", true);
+        const echeance = $("#csDate", el).value || null; if (echeance && echeance < todayISO()) return toast("La date est déjà passée.", true);
+        $("#csOk", el).disabled = true;
+        const n = nbEleves(), { error } = await auth.sb.rpc("kiv_consigne", { classes: [...sel], livre, message: msg.value.trim(), echeance });
+        $("#csOk", el).disabled = false; if (error) return toast(cloudError(error), true);
+        await loadClassData(); closeSheet(); toast(`Envoyé ! ${n} élève${n > 1 ? "s" : ""} le verr${n > 1 ? "ont" : "a"} dans leur espace.`); render();
+      };
+      update();
+    });
+}
+/* qui a vu la consigne, qui a le livre */
+function consigneDetail(id) {
+  const x = (store.consignes || []).find(k => k.id === id); if (!x) return;
+  const b = D.livres.get(x.livre), eleves = [...D.membres.values()].filter(m => m.classe === x.classe && (m.type || "Élève") === "Élève").sort(byNom);
+  const vu = new Map((store.vues || []).filter(v => v.consigne === id).map(v => [v.membre, v.vu_le]));
+  const etat = m => { const l = D.emprunts.filter(e => e.membre === m.id && e.livre === x.livre); return l.some(e => e.retour) ? pill("Lu et rendu", "ok") : l.length ? pill("A le livre", "info") : pill("Pas encore emprunté", "mute"); };
+  openSheet(`« ${b ? b.titre : x.livre} » · ${x.classe}`, `<div class="recap" style="border-style:solid">${x.message ? `<div>${esc(x.message)}</div>` : ""}<div>${x.echeance ? `À présenter le <b>${esc(fmtDay(x.echeance))}</b> · ` : ""}donnée le ${esc(fmtD(String(x.created_at).slice(0, 10)))}</div></div>
+    <div class="rows">${eleves.map(m => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto auto">${personAvatar({ id: m.id, nom: m.nom, avatar: PHOTOS.get(m.id) })}<div style="min-width:0"><div class="t">${esc(m.nom)}</div><div class="s">${vu.has(m.id) ? "Vue le " + esc(fmtD(String(vu.get(m.id) || todayISO()).slice(0, 10))) : "Pas encore vue"}</div></div>${vu.has(m.id) ? `<span class="pill ok">Vue</span>` : `<span class="pill mute">Non vue</span>`}${etat(m)}</div>`).join("") || '<div class="empty">Aucun élève dans cette classe.</div>'}</div>`, null);
+}
+/* fiche d'un élève vue par son enseignant */
+function studentSheet(id) {
+  const m = D.membres.get(id); if (!m) return;
+  const l = D.emprunts.filter(e => e.membre === id), t = trimCourant(), lusT = l.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length;
+  const badges = badgesFor(l), got = badges.filter(b => b.got).length;
+  openSheet(m.nom, `<div class="stu-head">${personAvatar({ id: m.id, nom: m.nom, avatar: PHOTOS.get(m.id) }, "avatar xl")}<div><h2>${esc(m.nom)}</h2><div class="s"><span class="code">${esc(m.id)}</span> · ${esc(m.classe)}</div></div></div>
+    <div class="stu-stats"><div><b>${lusT} <small>/ ${objectif(m.classe)}</small></b><span>lus ce trimestre</span></div><div><b>${l.filter(e => e.retour).length}</b><span>lus depuis le début</span></div><div><b>${got} <small>/ ${badges.length}</small></b><span>badges gagnés</span></div></div>
+    <h3 class="stu-h">En ce moment</h3><div class="rows">${l.filter(e => !e.retour).map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s">emprunté le ${esc(fmtD(e.date))} · à rendre le ${esc(fmtD(e.prevu))}</div></div>${pill(STAT[e.statut][0], STAT[e.statut][1])}</div>`).join("") || '<div class="empty" style="padding:12px">Aucun livre en ce moment.</div>'}</div>
+    <h3 class="stu-h">Déjà lus</h3><div class="rows">${l.filter(e => e.retour).slice(0, 30).map(e => `<div class="row" style="grid-template-columns:auto minmax(0,1fr) auto">${miniCover(e.b)}<div style="min-width:0"><div class="t">${esc(e.b ? e.b.titre : e.livre)}</div><div class="s">${esc(e.b ? e.b.auteur || "" : "")}</div></div><span class="s">rendu le ${esc(fmtD(e.retour))}</span></div>`).join("") || '<div class="empty" style="padding:12px">Pas encore de livre rendu.</div>'}</div>
+    <h3 class="stu-h">Badges</h3><div class="badges">${badges.map(badgeHTML).join("")}</div>`, null);
+}
+/* objectif de lecture de la classe */
+function classGoalSheet(c) {
+  const cur = store.objClasses && store.objClasses.get(c), def = Math.max(1, +(params().objectif ?? 3));
+  let n = cur || def;
+  openSheet(`Objectif de ${c}`, `<p class="form-note block" style="margin:0">Nombre de livres que chaque élève doit lire et rendre par trimestre. Il s'affiche dans l'espace des élèves et compte pour les diplômes.</p>
+    <div class="goal-pick">${[1, 2, 3, 4, 5, 6, 8, 10, 12].map(k => `<button type="button" class="genre" data-gl="${k}" aria-pressed="${k === n}" style="--g:var(--accent)">${k} livre${k > 1 ? "s" : ""}</button>`).join("")}</div>
+    <p class="s" style="margin:0">Objectif de l'école : ${def} livre${def > 1 ? "s" : ""}.</p>`,
+    `${cur ? `<button class="btn ghost" type="button" id="glReset">Revenir à celui de l'école</button>` : ""}<button class="btn primary" type="button" id="glOk">${ic("check")}Enregistrer</button>`, el => {
+      $$("[data-gl]", el).forEach(b => b.onclick = () => { n = +b.dataset.gl; $$("[data-gl]", el).forEach(x => x.setAttribute("aria-pressed", x === b)); });
+      const save = async k => { const { error } = await auth.sb.rpc("kiv_objectif_classe", { classe: c, n: k }); if (error) return toast(cloudError(error), true);
+        await loadClassData(); closeSheet(); toast(k ? `Objectif de ${c} : ${k} livre${k > 1 ? "s" : ""}` : "Objectif de l'école rétabli"); render(); };
+      $("#glOk", el).onclick = () => save(n); const r = $("#glReset", el); if (r) r.onclick = () => save(0);
+    });
+}
+/* bilan de lecture d'une classe (PDF A4) */
+function classReportPDF(c) {
+  if (!window.jspdf || !window.jspdf.jsPDF) return toast("Le module PDF n'a pas pu être chargé.", true);
+  const { jsPDF } = window.jspdf, doc = new jsPDF({ unit: "mm", format: "a4" }), t = trimCourant(), goal = objectif(c), p = params();
+  const NAVY = [11, 60, 93], BLUE = [0, 150, 214], MUTED = [110, 128, 145], RED = [200, 50, 50], GREEN = [46, 158, 69];
+  const eleves = [...D.membres.values()].filter(m => m.classe === c && (m.type || "Élève") === "Élève").sort(byNom);
+  const rows = eleves.map(m => { const l = D.emprunts.filter(e => e.membre === m.id); return { m, lusT: l.filter(e => e.retour && e.retour >= t.debut && e.retour <= t.fin).length, lus: l.filter(e => e.retour).length, cours: l.filter(e => !e.retour), retard: l.filter(e => e.statut === "retard").length }; });
+  try { doc.addImage(LOGO, "PNG", 16, 12, 14, 14 * 213 / 180); } catch {}
+  doc.setFont("helvetica", "bold"); doc.setFontSize(18); doc.setTextColor(...NAVY); doc.text(pdfSafe(`Bilan de lecture · ${c}`), 34, 20);
+  doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(...MUTED); doc.text(pdfSafe(`${p.ecole} · ${t.nom} ${p.annee} · enseignant : ${auth.profile.nom} · ${fmtLong(todayISO())}`), 34, 26);
+  const ok = rows.filter(r => r.lusT >= goal).length, tot = rows.reduce((a, r) => a + r.lusT, 0);
+  doc.setFontSize(11); doc.setTextColor(...NAVY);
+  doc.text(pdfSafe(`${rows.length} élèves · ${tot} livres lus ce trimestre · objectif (${goal} livres) atteint par ${ok} élève${ok > 1 ? "s" : ""} · ${rows.filter(r => r.retard).length} en retard`), 16, 40);
+  let y = 50; const head = () => { doc.setFillColor(...BLUE); doc.rect(16, y - 5, 178, 8, "F"); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(9.5);
+    doc.text("Élève", 18, y); doc.text("N°", 92, y); doc.text("Ce trimestre", 108, y); doc.text("Total", 136, y); doc.text("En ce moment", 152, y); y += 8; doc.setFont("helvetica", "normal"); };
+  head();
+  rows.forEach((r, i) => { if (y > 280) { doc.addPage(); y = 20; head(); }
+    if (i % 2) { doc.setFillColor(242, 247, 251); doc.rect(16, y - 5, 178, 7.5, "F"); }
+    doc.setTextColor(...NAVY); doc.text(pdfSafe(r.m.nom).slice(0, 42), 18, y); doc.text(r.m.id, 92, y);
+    doc.setTextColor(...(r.lusT >= goal ? GREEN : NAVY)); doc.text(`${r.lusT} / ${goal}`, 108, y); doc.setTextColor(...NAVY); doc.text(String(r.lus), 136, y);
+    doc.setTextColor(...(r.retard ? RED : MUTED)); doc.text(pdfSafe(r.retard ? "En retard" : r.cours.length ? (r.cours[0].b ? r.cours[0].b.titre : "1 livre") : "—").slice(0, 26), 152, y); y += 7.5; });
+  const cons = (store.consignes || []).filter(x => x.classe === c);
+  if (cons.length) { y += 6; if (y > 260) { doc.addPage(); y = 20; } doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(...NAVY); doc.text("Lectures données à la classe", 16, y); y += 7; doc.setFont("helvetica", "normal"); doc.setFontSize(10);
+    cons.forEach(x => { if (y > 280) { doc.addPage(); y = 20; } const b = D.livres.get(x.livre), n = new Set(D.emprunts.filter(e => e.livre === x.livre && eleves.some(m => m.id === e.membre)).map(e => e.membre)).size;
+      doc.text(pdfSafe(`• ${b ? b.titre : x.livre}${x.echeance ? " · pour le " + fmtD(x.echeance) : ""} · ${n}/${eleves.length} élèves ont emprunté le livre`), 18, y); y += 6.5; }); }
+  doc.setFontSize(7); doc.setTextColor(...MUTED); doc.text("Kivuthèque", 105, 290, { align: "center" });
+  const name = `Bilan-lecture-${String(c).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "-")}-T${t.n}.pdf`;
+  doc.save(name); toast("Bilan enregistré : " + name);
+}
+
+/* ---------- validation des classes par l'administrateur (page Comptes) ---------- */
+function classRequestsCard() {
+  if (roleOf() !== "admin") return "";
+  const list = auth.accounts.filter(p => p.role === "enseignant" && (p.classes_demande || []).length);
+  if (!list.length) return "";
+  return `<div class="card" style="border-color:var(--accent)"><div class="card-h"><h3>Classes à valider</h3><span class="sub">${list.length} enseignant${list.length > 1 ? "s" : ""} · touchez une classe pour l'enlever</span></div><div class="pend-list">
+    ${list.map(p => `<div class="pend-row" data-clsreq="${p.id}">${personAvatar(p)}<div class="pend-who"><div class="t">${esc(p.nom || "")}</div><div class="s">${(p.classes || []).length ? "Actuellement : " + p.classes.map(esc).join(", ") : "Aucune classe pour l'instant"}</div>
+      <div class="genre-grid" style="margin-top:8px">${p.classes_demande.map(c => `<button type="button" class="genre sm" data-rq="${esc(c)}" aria-pressed="true" style="--g:var(--accent)">${esc(c)}</button>`).join("")}</div></div>
+      <div class="pend-act"><button class="btn sm primary" type="button" data-cls-ok="${p.id}">${ic("check")}Valider</button><button class="btn sm ghost danger-t" type="button" data-cls-no="${p.id}">Refuser</button></div></div>`).join("")}</div></div>`;
+}
+function teacherClassesSheet(id) {
+  const p = auth.accounts.find(x => x.id === id); if (!p) return;
+  openSheet(`Classes de ${p.nom || p.email}`, `<p class="form-note block" style="margin:0">L'enseignant verra les élèves de ces classes, leurs lectures et leurs retards, et pourra leur donner des livres à lire.</p>${classPickHTML(p.classes || [])}`,
+    `<button class="btn ghost" type="button" data-close2>Annuler</button><button class="btn primary" type="button" id="tcOk">${ic("check")}Enregistrer</button>`, el => {
+      wireClassPick(el); $("[data-close2]", el).onclick = () => closeSheet();
+      $("#tcOk", el).onclick = async () => { const classes = pickedClasses(el); const { error } = await auth.sb.rpc("kiv_classes_valider", { target: id, classes });
+        if (error) return toast(cloudError(error), true); closeSheet(); toast(`${p.nom} : ${classes.length ? classes.join(", ") : "aucune classe"}`); loadAccounts(); };
+    });
+}
+document.addEventListener("click", async e => {
+  const rq = e.target.closest("[data-rq]"); if (rq) { rq.setAttribute("aria-pressed", rq.getAttribute("aria-pressed") !== "true"); return; }
+  const tc = e.target.closest("[data-tclasses]"); if (tc) return teacherClassesSheet(tc.dataset.tclasses);
+  const b = e.target.closest("[data-cls-ok],[data-cls-no]"); if (!b) return;
+  const id = b.dataset.clsOk || b.dataset.clsNo, p = auth.accounts.find(x => x.id === id); if (!p) return;
+  const classes = b.dataset.clsOk ? $$(`[data-clsreq="${id}"] [data-rq][aria-pressed=true]`).map(x => x.dataset.rq) : (p.classes || []);
+  b.disabled = true; const { error } = await auth.sb.rpc("kiv_classes_valider", { target: id, classes }); b.disabled = false;
+  if (error) return toast(cloudError(error), true);
+  toast(b.dataset.clsOk ? `${p.nom} : ${classes.join(", ") || "aucune classe"}` : "Demande de classes refusée"); loadAccounts();
+});
+
+/* ============================================================ borne publique (sans compte) */
+/* adresse du site suivie de « ?borne » : catalogue en plein écran, disponibilité et rayon, rien d'autre */
+const KIOSK = CLOUD && /(^|[?&])borne\b/.test(location.search.slice(1));
+const K = { books: [], q: "", cat: "", dispo: true, timer: null, idle: null, sb: null, err: false };
+async function kioskBoot() {
+  document.body.classList.add("kiosk-on");
+  const el = document.createElement("div"); el.id = "kiosk"; el.className = "kiosk"; document.body.appendChild(el);
+  el.innerHTML = `<header class="k-head"><img src="${LOGO_HD}" alt="Logo Kivu International School"><div><h1>Kivuthèque</h1><p>Quels livres sont disponibles aujourd'hui ?</p></div>
+      <div class="k-clock" id="kClock"></div><button class="k-full" type="button" id="kFull" aria-label="Plein écran" title="Plein écran">${ic("grid")}</button></header>
+    <div class="k-search">${ic("search")}<input id="kQ" type="search" placeholder="Cherche un titre ou un auteur…" autocomplete="off" aria-label="Chercher un livre"><button type="button" id="kClear" aria-label="Effacer" hidden>${ic("x")}</button></div>
+    <div class="k-bar"><div class="k-cats" id="kCats"></div><button type="button" class="k-toggle" id="kDispo" aria-pressed="true">${ic("check")}Seulement les disponibles</button></div>
+    <div class="k-count" id="kCount"></div><div class="k-grid" id="kGrid"></div>
+    <footer class="k-foot">Pour emprunter un livre, montre ta carte de membre à la bibliothécaire · Made by Alexandre et Declaire</footer>`;
+  if (!window.supabase || !CLOUD_CFG.supabaseUrl || !CLOUD_CFG.supabaseKey) { $("#kGrid").innerHTML = `<div class="k-empty">La borne n'est pas encore configurée.</div>`; return; }
+  K.sb = window.supabase.createClient(CLOUD_CFG.supabaseUrl, CLOUD_CFG.supabaseKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+  const clock = () => { const d = new Date(); $("#kClock").innerHTML = `<b>${pad(d.getHours())}:${pad(d.getMinutes())}</b><span>${esc(fmtDay(todayISO()))}</span>`; };
+  clock(); setInterval(clock, 15000);
+  $("#kQ").oninput = () => { K.q = $("#kQ").value; $("#kClear").hidden = !K.q; kioskRender(); };
+  $("#kClear").onclick = () => { $("#kQ").value = K.q = ""; $("#kClear").hidden = true; kioskRender(); $("#kQ").focus(); };
+  $("#kDispo").onclick = () => { K.dispo = !K.dispo; $("#kDispo").setAttribute("aria-pressed", K.dispo); kioskRender(); };
+  $("#kFull").onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); };
+  el.addEventListener("click", e => { const c = e.target.closest("[data-kcat]"); if (c) { K.cat = c.dataset.kcat; kioskRender(); return; }
+    const b = e.target.closest("[data-kbook]"); if (b) kioskDetail(b.dataset.kbook); });
+  /* retour à l'accueil après 90 secondes sans toucher l'écran */
+  const wake = () => { clearTimeout(K.idle); K.idle = setTimeout(kioskReset, 90000); };
+  ["pointerdown", "keydown", "wheel", "touchstart"].forEach(t => addEventListener(t, wake, { passive: true })); wake();
+  await kioskLoad(); setInterval(kioskLoad, 120000);
+}
+async function kioskLoad() {
+  const { data, error } = await K.sb.rpc("kiv_catalogue_public");
+  K.err = !!error; if (!error) K.books = (data || []).map(b => ({ ...b, ex: +b.ex || 0, dispo: +b.dispo || 0 }));
+  kioskRender();
+}
+function kioskReset() {
+  const d = $(".k-detail"); if (d) d.remove();
+  K.q = ""; K.cat = ""; K.dispo = true; const q = $("#kQ"); if (q) { q.value = ""; q.blur(); }
+  const c = $("#kClear"); if (c) c.hidden = true; const t = $("#kDispo"); if (t) t.setAttribute("aria-pressed", "true");
+  kioskRender(); window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function kioskRender() {
+  const grid = $("#kGrid"); if (!grid) return;
+  if (K.err && !K.books.length) { grid.innerHTML = `<div class="k-empty">Pas de connexion pour l'instant. La borne réessaie toute seule.</div>`; $("#kCount").textContent = ""; return; }
+  const cats = [...new Set(K.books.map(b => b.categorie).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
+  $("#kCats").innerHTML = ["", ...cats].map(c => `<button type="button" data-kcat="${esc(c)}" aria-pressed="${K.cat === c}">${esc(c || "Tous les livres")}</button>`).join("");
+  const q = norm(K.q.trim());
+  const list = K.books.filter(b => (!K.cat || b.categorie === K.cat) && (!K.dispo || b.dispo > 0) && (!q || norm(`${b.titre} ${b.auteur}`).includes(q)));
+  const nDispo = list.filter(b => b.dispo > 0).length;
+  $("#kCount").innerHTML = K.books.length ? `<b>${nf(list.length)}</b> livre${list.length > 1 ? "s" : ""}${K.dispo ? ` disponible${list.length > 1 ? "s" : ""}` : ` · ${nf(nDispo)} disponible${nDispo > 1 ? "s" : ""}`}${K.cat ? " en " + esc(K.cat) : ""}${q ? ` pour « ${esc(K.q.trim())} »` : ""}` : "";
+  grid.innerHTML = list.map(b => `<button type="button" class="k-card" data-kbook="${esc(b.id)}"><div class="cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie || "")}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur || "")}</div></div></div>
+      <b class="k-t">${esc(b.titre)}</b><span class="k-a">${esc(b.auteur || "")}</span>${b.dispo > 0 ? `<span class="k-ok">Disponible${b.rayon ? " · " + esc(b.rayon) : ""}</span>` : `<span class="k-no">Déjà emprunté</span>`}</button>`).join("")
+    || `<div class="k-empty">${K.books.length ? "Aucun livre ne correspond. Essaie un autre mot ou touche « Tous les livres »." : "Chargement du catalogue…"}</div>`;
+}
+function kioskDetail(id) {
+  const b = K.books.find(x => x.id === id); if (!b) return;
+  const d = document.createElement("div"); d.className = "k-detail"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", b.titre);
+  d.innerHTML = `<div class="k-d-in"><button type="button" class="k-close" aria-label="Fermer">${ic("x")}</button>
+    <div class="cover k-d-cover" style="${coverVars(b)}">${cvImg(b)}<span class="cv-deco"></span><span class="cv-cat">${esc(b.categorie || "")}</span><div><div class="cv-title">${esc(b.titre)}</div><div class="cv-author">${esc(b.auteur || "")}</div></div></div>
+    <div class="k-d-txt"><span class="nf-kicker">${esc(b.categorie || "Livre")}</span><h2>${esc(b.titre)}</h2><p class="k-d-by">${esc([b.auteur, b.annee].filter(Boolean).join(" · "))}</p>
+      ${b.dispo > 0 ? `<div class="k-d-st ok">${ic("check")}<div><b>Disponible : ${b.dispo} exemplaire${b.dispo > 1 ? "s" : ""} sur ${b.ex}</b><span>${b.rayon ? `Où le trouver : <b>${esc(b.rayon)}</b>` : "Demande-le à la bibliothécaire"}</span></div></div>`
+        : `<div class="k-d-st no">${ic("clock")}<div><b>Tous les exemplaires sont empruntés</b><span>Connecte-toi à ton espace pour le réserver, ou demande à la bibliothécaire.</span></div></div>`}
+      ${b.resume ? `<p class="k-d-res">${esc(b.resume)}</p>` : ""}
+      <p class="k-d-help">Pour l'emprunter, montre ta carte de membre à la bibliothécaire.</p></div></div>`;
+  const close = () => { d.remove(); removeEventListener("keydown", esc_); }, esc_ = e => { if (e.key === "Escape") close(); };
+  addEventListener("keydown", esc_);
+  d.addEventListener("click", e => { if (e.target === d || e.target.closest(".k-close")) close(); });
+  $("#kiosk").appendChild(d);
 }
 
 /* ---------- réservations côté bibliothèque ---------- */
@@ -2545,15 +2990,17 @@ const VIEWS = [
   { id: "reglages", label: "Réglages", icon: "gear" },
 ];
 const READER_VIEWS = [{ id: "espace", label: "Mon espace", icon: "home" }, { id: "livres", label: "Catalogue", icon: "book" }, { id: "defis", label: "Défis", icon: "trophy" }];
-const READER_IDS = READER_VIEWS.map(v => v.id);
-const navViews = () => isReader() ? READER_VIEWS : VIEWS;
+const TEACHER_VIEWS = [{ id: "classes", label: "Mes classes", icon: "users" }, ...READER_VIEWS];
+const READER_IDS = TEACHER_VIEWS.map(v => v.id);
+const navViews = () => isTeacher() ? TEACHER_VIEWS : isReader() ? READER_VIEWS : VIEWS;
+const readerHome = () => isTeacher() ? "classes" : "espace";
 const ui = { report: "biblio", flash: null, returning: false, lastClass: null, view: "accueil", animate: true, q: {}, filter: { emprunts: "actifs", livres: "tous" }, layout: "covers", month: null };
-try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || h === "comptes" || h === "espace" || h === "defis") ui.view = h; } catch {}
+try { const h = location.hash.slice(1); if (VIEWS.some(v => v.id === h) || ["comptes", "espace", "defis", "classes"].includes(h)) ui.view = h; } catch {}
 
 function buildNav() {
   $$("#nav [data-go]").forEach(b => b.remove());
-  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : ""}</button>`).join(""));
-  const tabs = isReader() ? ["espace", "livres", "defis"] : ["accueil", "livres", "emprunts", "membres"];
+  $("#nav").insertAdjacentHTML("beforeend", navViews().map(v => `<button type="button" data-go="${v.id}"${v.id === "reglages" ? ' data-perm="admin"' : ""}>${ic(v.icon)}<span>${v.label}</span>${v.id === "emprunts" ? '<span class="count" id="navLate" hidden></span>' : v.id === "espace" ? '<span class="count" id="navRes" hidden></span>' : v.id === "classes" ? '<span class="count" id="navCls" hidden></span>' : ""}</button>`).join(""));
+  const tabs = isTeacher() ? ["classes", "espace", "livres"] : isReader() ? ["espace", "livres", "defis"] : ["accueil", "livres", "emprunts", "membres"];
   $("#tabbar").innerHTML = tabs.map(id => { const v = navViews().find(x => x.id === id); return `<button type="button" data-go="${id}">${ic(v.icon)}<span>${v.label}</span></button>`; }).join("") +
     `<button type="button" id="tabMore">${ic("more")}<span>Plus</span></button>`;
   $("#searchIc").innerHTML = ic("search");
@@ -2589,6 +3036,7 @@ const HEAD = {
   reglages: () => ["École, règles de prêt et données", "Réglages", null],
   comptes: () => ["Demandes d'accès, rôles et photos", "Comptes", null],
   espace: () => [greet(), "Mon espace", null],
+  classes: () => [greet(), "Mes classes", null],
   defis: () => [isReader() ? "Lis, gagne des badges et grimpe dans le classement" : "Classements, objectifs et diplômes de lecture", "Défis de lecture", null],
 };
 function greet() { const h = new Date().getHours(); return (h < 12 ? "Bonjour" : h < 18 ? "Bon après-midi" : "Bonsoir") + " · " + fmtLong(todayISO()); }
@@ -2600,15 +3048,15 @@ function render() {
   const empty = !S.params && COLS.every(c => !S[c].length);
   if (empty && (store.mode === "cloud" || store.localAuth) && !can("admin")) { view.className = "enter"; view.innerHTML = `<div class="welcome"><div class="card"><h2>Kivuthèque est presque prête</h2><p>Un administrateur doit encore initialiser la bibliothèque. Revenez un peu plus tard.</p></div></div>`; return; }
   if (empty) { view.className = "enter"; view.innerHTML = welcomeView(); bindWelcome(); return; }
-  if (isReader() && !READER_IDS.includes(ui.view)) ui.view = "espace";
-  if (!isReader() && ui.view === "espace") ui.view = "accueil";
+  if (isReader() && !navViews().some(v => v.id === ui.view)) ui.view = readerHome();
+  if (!isReader() && (ui.view === "espace" || ui.view === "classes")) ui.view = "accueil";
   derive();
   const [eyebrow, title, action] = HEAD[ui.view]();
   $("#eyebrow").textContent = eyebrow; $("#viewTitle").textContent = title;
   const pb = $("#primaryBtn");
   if (action && (!action[3] || can(action[3]))) { pb.hidden = false; pb.innerHTML = ic(action[1]) + "<span>" + action[0] + "</span>"; pb.onclick = action[2]; } else pb.hidden = true;
   if ((ui.view === "comptes" && !((store.mode === "cloud" || store.localAuth) && can("comptes"))) || (ui.view === "reglages" && !can("admin"))) ui.view = "accueil";
-  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView, defis: defisView }[ui.view]();
+  const html = { accueil: dashView, livres: booksView, emprunts: loansView, membres: membersView, fournitures: suppliesView, rapport: reportView, reglages: settingsView, comptes: store.localAuth ? localAccountsView : accountsView, espace: espaceView, defis: defisView, classes: classesView }[ui.view]();
   const y = window.scrollY;
   view.className = ui.animate ? "enter" : "still";
   view.innerHTML = html;
@@ -2630,7 +3078,9 @@ function syncChrome() {
 function sideSummary() {
   if (!D) return; const T = D.T;
   $("#todayCard").hidden = isReader();
-  if (isReader()) { const n = (store.mesRes || []).filter(r => r.statut === "prete").length, b = $("#navRes"); if (b) { b.hidden = !n; b.textContent = n; } return; }
+  if (isReader()) { const n = (store.mesRes || []).filter(r => r.statut === "prete").length + mesConsignes().filter(c => !consigneVue(c)).length, b = $("#navRes"); if (b) { b.hidden = !n; b.textContent = n; }
+    const nc = $("#navCls"); if (nc) { const ids = new Set([...D.membres.values()].filter(m => (auth.profile.classes || []).includes(m.classe)).map(m => m.id)), k = D.emprunts.filter(e => e.statut === "retard" && ids.has(e.membre)).length; nc.hidden = !k; nc.textContent = k; nc.title = k + " retard" + (k > 1 ? "s" : "") + " dans mes classes"; }
+    return; }
   const late = D.emprunts.filter(e => e.statut === "retard").length;
   const nl = $("#navLate"); if (nl) { nl.hidden = !late; nl.textContent = late; }
   $("#todayCard").innerHTML = `<h4>Aujourd'hui</h4>
@@ -3088,6 +3538,9 @@ function settingsView() {
         <button class="btn sm ghost" type="button" id="loadSample">${ic("spark")}Recharger les exemples</button>
         <button class="btn sm danger" type="button" id="wipeAll">${ic("trash")}Tout effacer</button>
       </div></div>
+    ${store.mode === "cloud" ? `<div class="card"><div class="card-h"><h3>Borne publique</h3></div>
+      <p style="margin:0 0 14px;color:var(--ink-2);font-size:14px">Sur l'ordinateur de la bibliothèque, ouvrez cette adresse en plein écran : les élèves voient les livres disponibles et leur rayon, sans compte et sans aucun nom.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="code" style="font-size:13px">${esc(location.origin + location.pathname)}?borne</span><a class="btn sm primary" href="?borne" target="_blank" rel="noopener">${ic("arrow")}Ouvrir la borne</a></div></div>` : ""}
     ${chips("categories", "Catégories de livres")}${chips("classes", "Classes")}${chips("unites", "Unités de fournitures")}
   </div>`;
 }
@@ -3107,6 +3560,7 @@ function bindView() {
   $$("[data-role-of]", v).forEach(sel => sel.addEventListener("change", () => setRole(sel.dataset.roleOf, sel.value)));
   if (store.localAuth && ui.view === "comptes") bindLocalAccounts(v);
   if (ui.view === "espace") bindEspace(v);
+  if (ui.view === "classes") bindClasses(v);
   if (ui.view === "defis") bindDefis(v);
   const pf = $("#paramsForm", v); if (pf) pf.addEventListener("submit", e => { e.preventDefault(); const p = params();
     saveParams({ ...p, ecole: $("#p-ecole").value.trim() || p.ecole, annee: $("#p-annee").value.trim() || p.annee, duree: Math.max(1, +$("#p-duree").value || 14), amende: Math.max(0, +$("#p-amende").value || 0), max: Math.max(1, +$("#p-max").value || 3), objectif: Math.max(1, +$("#p-objectif").value || 3), ...($("#p-verrou") ? { verrou: +$("#p-verrou").value } : {}) });

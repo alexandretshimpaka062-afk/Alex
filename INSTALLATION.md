@@ -103,6 +103,11 @@ Cette étape permet aux élèves d'entrer avec leur compte Gmail, sans mot de pa
    Le code secret Google se colle **uniquement dans Supabase** : ne l'envoyez à personne et ne le mettez dans aucun fichier.
 5. Testez : ouvrez le site, cliquez sur **Continuer avec Google**, puis complétez la demande (profil et classe).
 
+## 7. Enseignants et borne publique
+
+- **Classes des enseignants** : à l'inscription, l'enseignant choisit ses classes. Quand l'administrateur accepte son compte, ces classes sont validées en même temps. Si c'est la bibliothécaire qui accepte, les classes attendent l'administrateur dans **Comptes › Classes à valider**. Le lien **Modifier** dans « Tous les comptes » change les classes d'un enseignant à tout moment.
+- **Borne publique** : sur l'ordinateur de la bibliothèque, ouvrez `https://kivutheque.netlify.app/?borne`, puis passez en plein écran (bouton en haut à droite, ou touche F11). Elle montre seulement le catalogue, les livres disponibles et leur rayon : aucun nom, aucune connexion. Le lien se trouve aussi dans **Réglages › Borne publique**.
+
 ## Rapports PDF
 
 Le menu **Rapports** propose quatre rapports, chacun téléchargeable en PDF (format A4) :

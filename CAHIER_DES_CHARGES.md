@@ -84,7 +84,7 @@ La règle « la bibliothécaire n'attribue que les rôles élève et enseignant 
 
 ## Ajouts après l'étape 5
 
-- **Assistant bibliothécaire IA** (API Claude, programme dans Supabase) : l'élève pose une question, l'assistant propose 1 à 4 livres du catalogue uniquement, avec disponibilité et rayon. Limite de questions par jour.
+- **Assistant bibliothécaire IA** (API ChatGPT d'OpenAI, programme dans Supabase) : l'élève pose une question, l'assistant propose 1 à 4 livres du catalogue uniquement, avec disponibilité et rayon. Limite de questions par jour.
 - **Import des élèves depuis Excel ou CSV** : création et mise à jour des fiches ; acceptation automatique des élèves de la liste (même adresse e-mail).
 - **Tableau de bord de la direction** : élèves lecteurs, livres lus, lecture par classe et par mois, achats conseillés, livres jamais empruntés, export Excel.
 - **Avis écrits** : après avoir rendu un livre, l'élève écrit son avis ; la bibliothèque le valide (et peut corriger une faute) ; il apparaît sur la fiche du livre et dans « Les élèves en parlent ».

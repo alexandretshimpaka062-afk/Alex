@@ -1,10 +1,9 @@
 // Kivuthèque — assistant bibliothécaire IA (Supabase Edge Function)
-// L'élève pose une question ; Claude répond avec des livres du catalogue de l'école uniquement.
+// L'élève pose une question ; ChatGPT (API OpenAI) répond avec des livres du catalogue de l'école uniquement.
 // Secrets à créer dans Supabase › Edge Functions › Secrets :
-//   ANTHROPIC_API_KEY  (obligatoire) : la clé API Claude
-//   CLAUDE_MODEL       (facultatif)  : le modèle, claude-opus-5-5 par défaut
+//   OPENAI_API_KEY  (obligatoire) : la clé API OpenAI (sk-…)
+//   OPENAI_MODEL    (facultatif)  : le modèle, gpt-5-mini par défaut
 // SUPABASE_URL et SUPABASE_ANON_KEY sont fournis automatiquement par Supabase.
-import Anthropic from "npm:@anthropic-ai/sdk";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const CORS = {
@@ -15,10 +14,9 @@ const CORS = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
 
-const MODEL = Deno.env.get("CLAUDE_MODEL") || "claude-opus-5-5";
-// repli automatique si le modèle refuse une demande (modèles qui l'acceptent)
-const WITH_FALLBACK = /^claude-(opus-5|fable-5|sonnet-5-5)/.test(MODEL);
-const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
+const KEY = Deno.env.get("OPENAI_API_KEY") || "";
+// modèle choisi, puis modèles de secours si celui-ci n'existe pas (ou plus) sur le compte
+const MODELS = [...new Set([Deno.env.get("OPENAI_MODEL") || "gpt-5-mini", "gpt-5-mini", "gpt-4o-mini"])];
 
 const SCHEMA = {
   type: "object",
@@ -60,7 +58,7 @@ const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCa
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ erreur: "Méthode non prise en charge." }, 405);
-  if (!Deno.env.get("ANTHROPIC_API_KEY")) return json({ erreur: "L'assistant n'est pas encore configuré : la clé API Claude manque (INSTALLATION.md, étape 8)." }, 503);
+  if (!KEY) return json({ erreur: "L'assistant n'est pas encore configuré : la clé API OpenAI manque (INSTALLATION.md, étape 8)." }, 503);
 
   const auth = req.headers.get("Authorization") || "";
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: auth } } });
@@ -107,19 +105,30 @@ Question : ${question}`;
     .map((m) => ({ role: m.role as "user" | "assistant", content: short(m.texte, 800) }));
   while (historique.length && historique[0].role !== "user") historique.shift();
 
-  try {
-    const params = {
-      model: MODEL,
-      max_tokens: 4000,
-      system: [{ type: "text" as const, text: `${SYSTEM_INTRO}\n\nCatalogue (code | titre | auteur | genre | année | résumé) :\n${catalogue}`, cache_control: { type: "ephemeral" as const } }],
-      messages: [...historique, { role: "user" as const, content: contexte }],
-      output_config: { effort: "low" as const, format: { type: "json_schema" as const, schema: SCHEMA } },
-      ...(WITH_FALLBACK ? { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" } : {}),
-    };
-    // deno-lint-ignore no-explicit-any
-    const msg: any = await anthropic.beta.messages.create(params as any);
-    if (msg.stop_reason === "refusal") return json({ reponse: "Je ne peux pas t'aider pour cette question. Demande à la bibliothécaire !", livres: [], restant: quota.data });
-    const text = (msg.content || []).filter((b: { type: string }) => b.type === "text").map((b: { text: string }) => b.text).join("");
+  const system = `${SYSTEM_INTRO}\n\nCatalogue (code | titre | auteur | genre | année | résumé) :\n${catalogue}`;
+  let lastStatus = 0, lastMsg = "";
+  for (const model of MODELS) {
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        messages: [{ role: "system", content: system }, ...historique, { role: "user", content: contexte }],
+        response_format: { type: "json_schema", json_schema: { name: "conseils_lecture", strict: true, schema: SCHEMA } },
+        max_completion_tokens: 4000,
+        ...(/^(gpt-5|o\d)/.test(model) ? { reasoning_effort: "low" } : {}),
+      }),
+    }).catch(() => null);
+    if (!res) { lastStatus = 0; continue; }
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      lastStatus = res.status; lastMsg = (j.error && j.error.message) || "";
+      // modèle inconnu ou paramètre refusé par ce modèle : on essaie le suivant
+      if ((res.status === 404 || res.status === 400) && /model|reasoning_effort|max_completion_tokens|response_format/i.test(lastMsg)) continue;
+      break;
+    }
+    const choice = (j.choices || [])[0] || {}, text = (choice.message && choice.message.content) || "";
+    if (choice.message && choice.message.refusal) return json({ reponse: "Je ne peux pas t'aider pour cette question. Demande à la bibliothécaire !", livres: [], restant: quota.data });
     let out: { reponse: string; livres: { id: string; pourquoi: string }[] };
     try { out = JSON.parse(text); } catch { return json({ erreur: "L'assistant n'a pas su répondre. Réessaie avec une autre question." }, 502); }
     return json({
@@ -127,10 +136,9 @@ Question : ${question}`;
       livres: (out.livres || []).filter((l) => ids.has(l.id)).slice(0, 4).map((l) => ({ id: l.id, pourquoi: short(l.pourquoi, 240) })),
       restant: quota.data,
     });
-  } catch (e) {
-    if (e instanceof Anthropic.AuthenticationError) return json({ erreur: "La clé API Claude n'est pas valide (Supabase › Edge Functions › Secrets)." }, 503);
-    if (e instanceof Anthropic.RateLimitError) return json({ erreur: "L'assistant est très demandé. Réessaie dans une minute." }, 503);
-    if (e instanceof Anthropic.APIError) return json({ erreur: `L'assistant est indisponible (${e.status}). Réessaie plus tard.` }, 502);
-    return json({ erreur: "L'assistant est indisponible pour l'instant." }, 502);
   }
+  console.error("OpenAI", lastStatus, lastMsg);
+  if (lastStatus === 401) return json({ erreur: "La clé API OpenAI n'est pas valide (Supabase › Edge Functions › Secrets)." }, 503);
+  if (lastStatus === 429) return json({ erreur: /quota|billing|credit/i.test(lastMsg) ? "Le compte OpenAI n'a plus de crédit : l'administrateur doit en ajouter sur platform.openai.com." : "L'assistant est très demandé. Réessaie dans une minute." }, 503);
+  return json({ erreur: `L'assistant est indisponible${lastStatus ? " (" + lastStatus + ")" : ""}. Réessaie plus tard.` }, 502);
 });

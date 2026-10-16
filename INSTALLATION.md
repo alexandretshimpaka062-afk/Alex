@@ -112,22 +112,22 @@ Cette étape permet aux élèves d'entrer avec leur compte Gmail, sans mot de pa
 
 ## 8. Activer l'assistant bibliothécaire IA (facultatif, environ 10 minutes)
 
-L'assistant répond aux élèves avec des livres du catalogue. Il utilise l'API Claude (Anthropic), payée à l'usage.
+L'assistant répond aux élèves avec des livres du catalogue. Il utilise l'API de ChatGPT (OpenAI), payée à l'usage. L'abonnement ChatGPT Plus ne suffit pas : l'API se paie à part.
 
-1. **Créer la clé Claude** : ouvrez <https://console.anthropic.com>, créez un compte, puis :
-   - **Billing** : ajoutez un petit crédit (par exemple 5 $) ;
-   - **Limits** : fixez une limite de dépense mensuelle, pour ne jamais être surpris ;
-   - **API Keys › Create Key** : copiez la clé (elle commence par `sk-ant-`). Ne l'envoyez à personne et ne la mettez dans aucun fichier.
+1. **Créer la clé OpenAI** : ouvrez <https://platform.openai.com>, connectez-vous, puis :
+   - **Settings › Billing** : ajoutez un petit crédit (par exemple 5 $). Sans crédit, l'API refuse de répondre ;
+   - **Settings › Limits** : fixez une limite de dépense mensuelle ;
+   - **API keys › Create new secret key** : copiez la clé (elle commence par `sk-`). Ne l'envoyez à personne et ne la mettez dans aucun fichier.
 2. **Installer le programme de l'assistant** : dans Supabase, ouvrez **Edge Functions**, puis **Deploy a new function › Via Editor** :
    - nom de la fonction : `assistant` (exactement) ;
    - remplacez le code par tout le contenu du fichier [`supabase/functions/assistant/index.ts`](supabase/functions/assistant/index.ts) ;
-   - cliquez sur **Deploy**.
+   - cliquez sur **Deploy**. Si une ancienne version existe déjà, ouvrez-la, collez le nouveau code et redéployez.
 3. **Donner la clé au programme** : toujours dans **Edge Functions**, ouvrez **Secrets**, puis ajoutez :
-   - nom `ANTHROPIC_API_KEY`, valeur : votre clé `sk-ant-…` ;
-   - facultatif : nom `CLAUDE_MODEL`, valeur `claude-haiku-5-5` pour un assistant beaucoup moins cher (voir ci-dessous).
+   - nom `OPENAI_API_KEY`, valeur : votre clé `sk-…` ;
+   - facultatif : nom `OPENAI_MODEL` pour choisir un autre modèle (par défaut `gpt-5-mini` ; si votre compte n'y a pas accès, l'assistant passe tout seul à `gpt-4o-mini`).
 4. Testez : connectez-vous avec un compte élève et cliquez sur **« Tu ne sais pas quoi lire ? »**.
 
-**Coût.** Par défaut l'assistant utilise Claude Opus 5.5, le modèle le plus capable : compter environ 2 à 3 centimes de dollar par question avec un petit catalogue (quelques centaines de livres), davantage avec un très grand. Avec `CLAUDE_MODEL` = `claude-haiku-5-5`, le coût est environ 40 fois plus faible, pour des conseils un peu moins fins. Dans **Réglages**, l'administrateur fixe le nombre de questions par personne et par jour (10 par défaut).
+**Coût.** Avec un petit modèle « mini », une question coûte une fraction de centime. Dans **Réglages**, l'administrateur fixe le nombre de questions par personne et par jour (10 par défaut).
 
 ## Rapports PDF
 

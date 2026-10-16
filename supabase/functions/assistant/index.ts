@@ -3,7 +3,7 @@
 // Secrets à créer dans Supabase › Edge Functions › Secrets :
 //   OPENAI_API_KEY  (obligatoire) : la clé API OpenAI (sk-…)
 //   OPENAI_MODEL    (facultatif)  : le modèle, gpt-5-mini par défaut
-// SUPABASE_URL et SUPABASE_ANON_KEY sont fournis automatiquement par Supabase.
+// SUPABASE_URL et la clé publique du projet sont fournis automatiquement par Supabase.
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const CORS = {
@@ -61,7 +61,11 @@ Deno.serve(async (req) => {
   if (!KEY) return json({ erreur: "L'assistant n'est pas encore configuré : la clé API OpenAI manque (INSTALLATION.md, étape 8)." }, 503);
 
   const auth = req.headers.get("Authorization") || "";
-  const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: auth } } });
+  // clé publique du projet : ancienne clé « anon », nouvelle clé « publishable », ou celle envoyée par l'application
+  let pub = Deno.env.get("SUPABASE_ANON_KEY") || "";
+  if (!pub) { try { const k = JSON.parse(Deno.env.get("SUPABASE_PUBLISHABLE_KEYS") || "{}"); pub = k.default || Object.values(k)[0] as string || ""; } catch { /* rien */ } }
+  pub = pub || req.headers.get("apikey") || "";
+  const sb = createClient(Deno.env.get("SUPABASE_URL")!, pub, { global: { headers: { Authorization: auth } } });
 
   let body: { question?: string; historique?: { role: string; texte: string }[] };
   try { body = await req.json(); } catch { return json({ erreur: "Demande illisible." }, 400); }
